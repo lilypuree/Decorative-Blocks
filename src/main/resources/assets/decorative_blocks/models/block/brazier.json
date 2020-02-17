@@ -1,0 +1,10 @@
+{
+  "parent": "decorative_blocks:custom/brazier",
+  "textures": {
+    "all": "decorative_blocks:block/brazier_base",
+    "particle": "decorative_blocks:block/brazier_base",
+    "side": "decorative_blocks:block/brazier",
+    "fire": "decorative_blocks:block/fire",
+    "base": "decorative_blocks:block/brazier_base"
+  }
+}

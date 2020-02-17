@@ -1,0 +1,20 @@
+{
+  "group": "decorative_blocks",
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "010",
+    " 0 "
+  ],
+  "key": {
+    "0": {
+      "item": "minecraft:iron_bars"
+    },
+    "1": {
+      "tag": "minecraft:coals"
+    }
+  },
+  "result": {
+    "item": "decorative_blocks:brazier",
+    "count": 1
+  }
+}

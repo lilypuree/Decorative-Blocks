@@ -1,0 +1,16 @@
+{
+	"group": "decorative_blocks",
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "##"
+    ],
+    "key": {
+        "#": {
+            "item": "minecraft:iron_bars"
+        }
+    },
+    "result": {
+        "item": "decorative_blocks:bar_panel",
+        "count": 2
+    }
+}

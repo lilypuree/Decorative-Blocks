@@ -1,0 +1,8 @@
+{
+  "type": "corail_woodcutter:woodcutting",
+  "ingredient": {
+    "tag": "minecraft:spruce_logs"
+  },
+  "result": "decorative_blocks:spruce_palisade",
+  "count": 4
+}

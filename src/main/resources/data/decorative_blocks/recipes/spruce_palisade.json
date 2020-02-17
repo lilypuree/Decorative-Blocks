@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "xx "
+  ],
+  "key": {
+    "x": {
+      "item": "minecraft:spruce_log"
+    }
+  },
+  "result": {
+    "item": "decorative_blocks:spruce_palisade",
+    "count": 6
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "type": "corail_woodcutter:woodcutting",
+  "ingredient": {
+    "item": "minecraft:oak_planks"
+  },
+  "result": "decorative_blocks:oak_support",
+  "count": 1
+}

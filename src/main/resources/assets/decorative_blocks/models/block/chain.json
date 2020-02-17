@@ -1,0 +1,7 @@
+{
+  "parent": "decorative_blocks:custom/chain",
+  "textures": {
+    "particle": "decorative_blocks:block/chain",
+    "texture": "decorative_blocks:block/chain"
+  }
+}
