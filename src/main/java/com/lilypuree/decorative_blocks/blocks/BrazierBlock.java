@@ -6,10 +6,8 @@ import net.minecraft.block.IWaterLoggable;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.AbstractArrowEntity;
-import net.minecraft.entity.projectile.PotionEntity;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.fluid.IFluidState;
 import net.minecraft.item.BlockItemUseContext;
@@ -17,21 +15,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.pathfinding.PathType;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionUtils;
-import net.minecraft.potion.Potions;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.tileentity.CampfireTileEntity;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IEnviromentBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -78,7 +70,7 @@ public class BrazierBlock extends Block implements IWaterLoggable {
     }
 
     @Override
-    public boolean onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
+    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
         ItemStack heldItem = player.getHeldItem(handIn);
         if (state.get(LIT)) {
             if (heldItem.getToolTypes().contains(ToolType.SHOVEL)) {
@@ -86,7 +78,7 @@ public class BrazierBlock extends Block implements IWaterLoggable {
                 worldIn.playSound((PlayerEntity) null, pos, SoundEvents.ENTITY_GENERIC_EXTINGUISH_FIRE, SoundCategory.BLOCKS, 0.8F, 1.0F);
 
                 worldIn.setBlockState(pos, state.with(LIT, Boolean.FALSE));
-
+                return ActionResultType.SUCCESS;
             }
         } else if(!state.get(WATERLOGGED)){
             if (hit.getFace() == Direction.UP && heldItem.getItem() == Items.FLINT_AND_STEEL || heldItem.getItem() == Items.FIRE_CHARGE) {
@@ -95,16 +87,16 @@ public class BrazierBlock extends Block implements IWaterLoggable {
                 worldIn.playSound((PlayerEntity) null, pos, sound, SoundCategory.BLOCKS, 1.0F, worldIn.rand.nextFloat() * 0.4F + 0.8F);
 
                 worldIn.setBlockState(pos, state.with(LIT, Boolean.TRUE));
-                if (player != null) {
-                    heldItem.damageItem(1, player, (p_219998_1_) -> {
-                        p_219998_1_.sendBreakAnimation(handIn);
-                    });
-                }
-
+//                if (player != null) {
+//                    heldItem.damageItem(1, player, (p_219998_1_) -> {
+//                        p_219998_1_.sendBreakAnimation(handIn);
+//                    });
+//                }
+                return ActionResultType.CONSUME;
 
             }
         }
-        return false;
+        return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
     }
 
     @Override
@@ -168,10 +160,6 @@ public class BrazierBlock extends Block implements IWaterLoggable {
         builder.add(LIT, WATERLOGGED);
     }
 
-    @Override
-    public BlockRenderLayer getRenderLayer() {
-        return BlockRenderLayer.CUTOUT;
-    }
 
     public boolean allowsMovement(BlockState state, IBlockReader worldIn, BlockPos pos, PathType type) {
         return false;

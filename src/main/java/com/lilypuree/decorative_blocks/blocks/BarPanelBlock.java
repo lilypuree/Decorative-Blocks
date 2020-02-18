@@ -1,13 +1,12 @@
 package com.lilypuree.decorative_blocks.blocks;
 
-import com.google.common.collect.ImmutableMap;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.TrapDoorBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.state.properties.Half;
-import net.minecraft.util.BlockRenderLayer;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
@@ -37,7 +36,7 @@ public class BarPanelBlock extends TrapDoorBlock {
         if (!state.get(OPEN)) {
             return state.get(HALF) == Half.TOP ? TOP_AABB : BOTTOM_AABB;
         } else {
-            switch((Direction)state.get(HORIZONTAL_FACING)) {
+            switch ((Direction) state.get(HORIZONTAL_FACING)) {
                 case NORTH:
                 default:
                     return NORTH_OPEN_AABB;
@@ -48,22 +47,18 @@ public class BarPanelBlock extends TrapDoorBlock {
                 case EAST:
                     return EAST_OPEN_AABB;
             }
-        }    }
+        }
+    }
 
     @Override
-    public boolean onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
+    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
         state = state.cycle(OPEN);
         worldIn.setBlockState(pos, state, 2);
         if (state.get(WATERLOGGED)) {
             worldIn.getPendingFluidTicks().scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(worldIn));
         }
-
         this.playSound(player, worldIn, pos, state.get(OPEN));
-        return true;
+        return ActionResultType.SUCCESS;
     }
 
-    @Override
-    public BlockRenderLayer getRenderLayer() {
-        return BlockRenderLayer.CUTOUT;
-    }
 }

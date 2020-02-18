@@ -16,6 +16,7 @@ import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -72,7 +73,7 @@ public class SeatBlock extends HorizontalBlock implements IWaterLoggable{
     }
 
     @Override
-    public boolean onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
+    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
         ItemStack heldItem = player.getHeldItem(handIn);
         BlockState upperBlock = worldIn.getBlockState(pos.up());
         boolean canSit = hit.getFace() == Direction.UP && !state.get(OCCUPIED) && heldItem.isEmpty() && upperBlock.isAir(worldIn,pos.up()) && isPlayerInRange(player, pos);
@@ -80,6 +81,7 @@ public class SeatBlock extends HorizontalBlock implements IWaterLoggable{
             DummyEntityForSitting seat = new DummyEntityForSitting(worldIn, pos);
             worldIn.addEntity(seat);
             player.startRiding(seat);
+            return ActionResultType.SUCCESS;
         }
         return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
     }

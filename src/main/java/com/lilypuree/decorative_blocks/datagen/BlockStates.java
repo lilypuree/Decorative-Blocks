@@ -49,34 +49,34 @@ public class BlockStates extends BlockStateProvider {
     }
 
     public ModelFile beamModel(WoodTypes wood, Direction.Axis axis){
-        ModelBuilder<?> builder = getBuilder(wood+"_beam_"+axis).parent(new ModelFile.UncheckedModelFile(modLoc("custom/beam_"+axis)));
+        ModelBuilder<?> builder = models().getBuilder(wood+"_beam_"+axis).parent(new ModelFile.UncheckedModelFile(modLoc("custom/beam_"+axis)));
         return withSideEndTextures(builder, wood+"_beam");
     }
 
     public ModelFile palisadePostPart(WoodTypes wood) {
-        ModelBuilder<?> builder = getBuilder(wood + "_palisade_post").parent(new ModelFile.UncheckedModelFile(modLoc("custom/palisade_post")));
+        ModelBuilder<?> builder = models().getBuilder(wood + "_palisade_post").parent(new ModelFile.UncheckedModelFile(modLoc("custom/palisade_post")));
         return withSideEndTextures(builder, wood + "_palisade");
     }
 
     public ModelFile palisadeSidePart(WoodTypes wood) {
-        ModelBuilder<?> builder = getBuilder(wood + "_palisade_side").parent(new ModelFile.UncheckedModelFile(modLoc("custom/palisade_side")));
+        ModelBuilder<?> builder = models().getBuilder(wood + "_palisade_side").parent(new ModelFile.UncheckedModelFile(modLoc("custom/palisade_side")));
         return withSideEndTextures(builder, wood + "_palisade");
     }
 
     public ModelFile palisadeInventory(WoodTypes wood){
-        ModelBuilder<?> builder = getBuilder(wood + "_palisade_inventory").parent(new ModelFile.UncheckedModelFile(modLoc("custom/palisade_inventory")));
+        ModelBuilder<?> builder = models().getBuilder(wood + "_palisade_inventory").parent(new ModelFile.UncheckedModelFile(modLoc("custom/palisade_inventory")));
         return withSideEndTextures(builder, wood + "_palisade");
     }
 
     public ModelFile seatBlockModel(WoodTypes wood) {
-        return getBuilder(wood + "_seat").parent(new ModelFile.UncheckedModelFile(modLoc("custom/seat")))
+        return models().getBuilder(wood + "_seat").parent(new ModelFile.UncheckedModelFile(modLoc("custom/seat")))
                 .texture("particle", modLoc("block/" + wood+"_seat"))
 
                 .texture("texture",  modLoc("block/" +wood + "_seat"));
     }
 
     public ModelFile supportBlockModel(WoodTypes wood){
-        return getBuilder(wood+"_support").parent(new ModelFile.UncheckedModelFile(modLoc("custom/support")))
+        return models().getBuilder(wood+"_support").parent(new ModelFile.UncheckedModelFile(modLoc("custom/support")))
                 .texture("particle", modLoc("block/" + wood+"_support"))
 
                 .texture("texture", modLoc("block/" + wood+"_support"));
@@ -99,18 +99,18 @@ public class BlockStates extends BlockStateProvider {
         }
 
 
-        ModelBuilder<?> builder = getBuilder("bar_panel_bottom").parent( new ModelFile.UncheckedModelFile(modLoc("custom/bar_panel_bottom")));
+        ModelBuilder<?> builder = models().getBuilder("bar_panel_bottom").parent( new ModelFile.UncheckedModelFile(modLoc("custom/bar_panel_bottom")));
         ModelFile barPanelBottomModel = withSideEndTextures(builder, "bar_panel");
 
-        builder = getBuilder("bar_panel_top").parent( new ModelFile.UncheckedModelFile(modLoc("custom/bar_panel_top")));
+        builder = models().getBuilder("bar_panel_top").parent( new ModelFile.UncheckedModelFile(modLoc("custom/bar_panel_top")));
         ModelFile barPanelTopModel = withSideEndTextures(builder, "bar_panel");
 
-        builder = getBuilder("bar_panel_open").parent( new ModelFile.UncheckedModelFile(modLoc("custom/bar_panel_open")));
+        builder = models().getBuilder("bar_panel_open").parent( new ModelFile.UncheckedModelFile(modLoc("custom/bar_panel_open")));
         ModelFile barPanelOpenModel = withSideEndTextures(builder, "bar_panel");
 
         trapdoorBlock(Registration.BAR_PANEL.get(),barPanelBottomModel, barPanelTopModel, barPanelOpenModel, true);
 
-        ModelFile chainModel = getBuilder("chain").parent(new ModelFile.UncheckedModelFile(modLoc("custom/chain")))
+        ModelFile chainModel = models().getBuilder("chain").parent(new ModelFile.UncheckedModelFile(modLoc("custom/chain")))
                 .texture("particle", modLoc("block/chain"))
                 .texture("texture", modLoc("block/chain"));
         axisBlock(Registration.CHAIN.get(), chainModel);
