@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "x  ",
+    "y  "
+  ],
+  "key": {
+    "x": {
+      "item": "biomesoplenty:ethereal_slab"
+    },
+    "y": {
+      "item": "biomesoplenty:ethereal_fence"
+    }
+  },
+  "result": {
+    "item": "decorative_blocks:ethereal_seat",
+    "count": 2
+  }
+}

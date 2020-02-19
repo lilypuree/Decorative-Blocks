@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "xx ",
+    "x  "
+  ],
+  "key": {
+    "x": {
+      "item": "biomesoplenty:mahogany_planks"
+    }
+  },
+  "result": {
+    "item": "decorative_blocks:mahogany_support",
+    "count": 3
+  }
+}

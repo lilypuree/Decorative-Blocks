@@ -10,6 +10,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PotionEntity;
 import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.potion.PotionUtils;
@@ -32,11 +33,15 @@ import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 
 @Mod.EventBusSubscriber(modid = DecorativeBlocks.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ModSetup {
-    public void init(FMLCommonSetupEvent e) {
-    }
 
-    @SubscribeEvent
-    public static void onServerSetUp(FMLServerStartingEvent event) {
+    public static final ItemGroup ITEM_GROUP = new ItemGroup("decorative_blocks") {
+        @Override
+        public ItemStack createIcon() {
+            return new ItemStack(Registration.BRAZIER.get());
+        }
+    };
+
+    public static void init(FMLCommonSetupEvent e) {
     }
 
     @SubscribeEvent

@@ -2,6 +2,9 @@ package com.lilypuree.decorative_blocks.datagen;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.lilypuree.decorative_blocks.datagen.types.BOPWoodTypes;
+import com.lilypuree.decorative_blocks.datagen.types.IWoodType;
+import com.lilypuree.decorative_blocks.datagen.types.WoodDecorativeBlockTypes;
 import com.lilypuree.decorative_blocks.datagen.types.WoodTypes;
 import com.lilypuree.decorative_blocks.setup.Registration;
 import net.minecraft.block.Block;
@@ -14,6 +17,8 @@ import net.minecraft.world.storage.loot.*;
 import net.minecraft.world.storage.loot.functions.CopyName;
 import net.minecraft.world.storage.loot.functions.CopyNbt;
 import net.minecraft.world.storage.loot.functions.SetContents;
+import net.minecraftforge.client.model.generators.ModelFile;
+import net.minecraftforge.fml.ModList;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -40,11 +45,10 @@ public class LootTables extends LootTableProvider {
         lootTables.put(Registration.STONE_PILLAR.get(), createSimpleTable("stone_pillar", Registration.STONE_PILLAR.get()));
         lootTables.put(Registration.ROCKY_DIRT.get(), createSimpleTable("rocky_dirt", Registration.ROCKY_DIRT.get()));
 
-        for (WoodTypes wood : WoodTypes.values()){
-            lootTables.put(Registration.getBeamBlock(wood), createSimpleTable(wood+"_beam", Registration.getBeamBlock(wood)));
-            lootTables.put(Registration.getPalisadeBlock(wood), createSimpleTable(wood+"_palisade", Registration.getPalisadeBlock(wood)));
-            lootTables.put(Registration.getSeatBlock(wood), createSimpleTable(wood+"_seat", Registration.getSeatBlock(wood)));
-            lootTables.put(Registration.getSupportBlock(wood), createSimpleTable(wood+"_support", Registration.getSupportBlock(wood)));
+        for (IWoodType wood : Registration.modWoodTypes){
+            for (WoodDecorativeBlockTypes type : WoodDecorativeBlockTypes.values()){
+                lootTables.put(Registration.getWoodDecorativeBlock(wood, type), createSimpleTable(wood+"_"+type, Registration.getWoodDecorativeBlock(wood,type)));
+            }
         }
 
         Map<ResourceLocation, LootTable> tables = new HashMap<>();

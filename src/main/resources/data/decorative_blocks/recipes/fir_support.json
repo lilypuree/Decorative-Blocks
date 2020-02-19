@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "xx ",
+    "x  "
+  ],
+  "key": {
+    "x": {
+      "item": "biomesoplenty:fir_planks"
+    }
+  },
+  "result": {
+    "item": "decorative_blocks:fir_support",
+    "count": 3
+  }
+}

@@ -20,7 +20,7 @@ public class DataGenerators {
 
             generator.addProvider(new BlockStates(generator, event.getExistingFileHelper()));
             generator.addProvider(new Items(generator, DecorativeBlocks.MODID, event.getExistingFileHelper()));
-//            generator.addProvider(new Languages(generator, "en_us"));
+            generator.addProvider(new Languages(generator, "en_us"));
         }
     }
 

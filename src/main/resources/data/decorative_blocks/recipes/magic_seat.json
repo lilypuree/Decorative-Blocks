@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "x  ",
+    "y  "
+  ],
+  "key": {
+    "x": {
+      "item": "biomesoplenty:magic_slab"
+    },
+    "y": {
+      "item": "biomesoplenty:magic_fence"
+    }
+  },
+  "result": {
+    "item": "decorative_blocks:magic_seat",
+    "count": 2
+  }
+}

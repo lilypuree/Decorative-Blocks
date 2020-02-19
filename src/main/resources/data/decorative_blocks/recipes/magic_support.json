@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "xx ",
+    "x  "
+  ],
+  "key": {
+    "x": {
+      "item": "biomesoplenty:magic_planks"
+    }
+  },
+  "result": {
+    "item": "decorative_blocks:magic_support",
+    "count": 3
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "name": "ethereal_seat",
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "decorative_blocks:ethereal_seat"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "x  ",
+    "y  "
+  ],
+  "key": {
+    "x": {
+      "item": "biomesoplenty:dead_slab"
+    },
+    "y": {
+      "item": "biomesoplenty:dead_fence"
+    }
+  },
+  "result": {
+    "item": "decorative_blocks:dead_seat",
+    "count": 2
+  }
+}

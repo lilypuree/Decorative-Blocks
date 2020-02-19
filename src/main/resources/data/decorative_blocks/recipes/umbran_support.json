@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "xx ",
+    "x  "
+  ],
+  "key": {
+    "x": {
+      "item": "biomesoplenty:umbran_planks"
+    }
+  },
+  "result": {
+    "item": "decorative_blocks:umbran_support",
+    "count": 3
+  }
+}

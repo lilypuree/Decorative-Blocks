@@ -1,32 +1,62 @@
 {
   "variants": {
-    "facing=north,waterlogged=false": {
+    "facing=north,occupied=false,waterlogged=false": {
       "model": "decorative_blocks:block/spruce_seat"
     },
-    "facing=south,waterlogged=false": {
+    "facing=south,occupied=false,waterlogged=false": {
       "model": "decorative_blocks:block/spruce_seat",
       "y": 180
     },
-    "facing=west,waterlogged=false": {
+    "facing=west,occupied=false,waterlogged=false": {
       "model": "decorative_blocks:block/spruce_seat",
       "y": 270
     },
-    "facing=east,waterlogged=false": {
+    "facing=east,occupied=false,waterlogged=false": {
       "model": "decorative_blocks:block/spruce_seat",
       "y": 90
     },
-    "facing=north,waterlogged=true": {
+    "facing=north,occupied=true,waterlogged=false": {
       "model": "decorative_blocks:block/spruce_seat"
     },
-    "facing=south,waterlogged=true": {
+    "facing=south,occupied=true,waterlogged=false": {
       "model": "decorative_blocks:block/spruce_seat",
       "y": 180
     },
-    "facing=west,waterlogged=true": {
+    "facing=west,occupied=true,waterlogged=false": {
       "model": "decorative_blocks:block/spruce_seat",
       "y": 270
     },
-    "facing=east,waterlogged=true": {
+    "facing=east,occupied=true,waterlogged=false": {
+      "model": "decorative_blocks:block/spruce_seat",
+      "y": 90
+    },
+    "facing=north,occupied=false,waterlogged=true": {
+      "model": "decorative_blocks:block/spruce_seat"
+    },
+    "facing=south,occupied=false,waterlogged=true": {
+      "model": "decorative_blocks:block/spruce_seat",
+      "y": 180
+    },
+    "facing=west,occupied=false,waterlogged=true": {
+      "model": "decorative_blocks:block/spruce_seat",
+      "y": 270
+    },
+    "facing=east,occupied=false,waterlogged=true": {
+      "model": "decorative_blocks:block/spruce_seat",
+      "y": 90
+    },
+    "facing=north,occupied=true,waterlogged=true": {
+      "model": "decorative_blocks:block/spruce_seat"
+    },
+    "facing=south,occupied=true,waterlogged=true": {
+      "model": "decorative_blocks:block/spruce_seat",
+      "y": 180
+    },
+    "facing=west,occupied=true,waterlogged=true": {
+      "model": "decorative_blocks:block/spruce_seat",
+      "y": 270
+    },
+    "facing=east,occupied=true,waterlogged=true": {
       "model": "decorative_blocks:block/spruce_seat",
       "y": 90
     }

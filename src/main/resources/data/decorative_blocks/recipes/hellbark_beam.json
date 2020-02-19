@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " x ",
+    " x "
+  ],
+  "key": {
+    "x": {
+      "item": "biomesoplenty:stripped_hellbark_log"
+    }
+  },
+  "result": {
+    "item": "decorative_blocks:hellbark_beam",
+    "count": 2
+  }
+}

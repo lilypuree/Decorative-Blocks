@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " x ",
+    " x "
+  ],
+  "key": {
+    "x": {
+      "item": "biomesoplenty:stripped_cherry_log"
+    }
+  },
+  "result": {
+    "item": "decorative_blocks:cherry_beam",
+    "count": 2
+  }
+}

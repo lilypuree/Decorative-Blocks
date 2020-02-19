@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " x ",
+    " x "
+  ],
+  "key": {
+    "x": {
+      "item": "biomesoplenty:stripped_magic_log"
+    }
+  },
+  "result": {
+    "item": "decorative_blocks:magic_beam",
+    "count": 2
+  }
+}

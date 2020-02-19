@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "x  ",
+    "y  "
+  ],
+  "key": {
+    "x": {
+      "item": "biomesoplenty:redwood_slab"
+    },
+    "y": {
+      "item": "biomesoplenty:redwood_fence"
+    }
+  },
+  "result": {
+    "item": "decorative_blocks:redwood_seat",
+    "count": 2
+  }
+}

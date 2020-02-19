@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "name": "umbran_palisade",
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "decorative_blocks:umbran_palisade"
+        }
+      ]
+    }
+  ]
+}

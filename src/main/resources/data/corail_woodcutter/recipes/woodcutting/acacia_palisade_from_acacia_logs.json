@@ -4,5 +4,11 @@
     "tag": "minecraft:acacia_logs"
   },
   "result": "decorative_blocks:acacia_palisade",
-  "count": 4
+  "count": 4,
+  "conditions" : [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "corail_woodcutter"
+    }
+  ]
 }

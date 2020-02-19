@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "x  ",
+    "y  "
+  ],
+  "key": {
+    "x": {
+      "item": "biomesoplenty:mahogany_slab"
+    },
+    "y": {
+      "item": "biomesoplenty:mahogany_fence"
+    }
+  },
+  "result": {
+    "item": "decorative_blocks:mahogany_seat",
+    "count": 2
+  }
+}

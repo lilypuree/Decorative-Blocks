@@ -1,6 +1,9 @@
 package com.lilypuree.decorative_blocks.datagen;
 
+import biomesoplenty.core.BiomesOPlenty;
 import com.lilypuree.decorative_blocks.DecorativeBlocks;
+import com.lilypuree.decorative_blocks.datagen.types.BOPWoodTypes;
+import com.lilypuree.decorative_blocks.datagen.types.IWoodType;
 import com.lilypuree.decorative_blocks.datagen.types.WoodTypes;
 import com.lilypuree.decorative_blocks.setup.Registration;
 import net.minecraft.block.Block;
@@ -9,6 +12,13 @@ import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.generators.*;
+import net.minecraftforge.common.ForgeMod;
+import net.minecraftforge.common.crafting.conditions.ModLoadedCondition;
+import net.minecraftforge.fml.ModList;
+import net.minecraftforge.fml.ModLoader;
+import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.ForgeRegistry;
 
 public class BlockStates extends BlockStateProvider {
 
@@ -21,7 +31,7 @@ public class BlockStates extends BlockStateProvider {
         return block.getRegistryName().getPath();
     }
 
-    public void palisadeBlock(WoodTypes wood) {
+    public void palisadeBlock(IWoodType wood) {
         palisadeInventory(wood);
         MultiPartBlockStateBuilder builder = getMultipartBuilder(Registration.getPalisadeBlock(wood));
         ModelFile postModel = palisadePostPart(wood);
@@ -34,7 +44,7 @@ public class BlockStates extends BlockStateProvider {
                 .part().modelFile(sideModel).uvLock(true).rotationY(270).addModel().condition(BlockStateProperties.WEST, Boolean.TRUE).end();
     }
 
-    public void beamBlock(WoodTypes wood){
+    public void beamBlock(IWoodType wood){
         VariantBlockStateBuilder builder = getVariantBuilder(Registration.getBeamBlock(wood));
         ModelFile beamXModel = beamModel(wood, Direction.Axis.X);
         ModelFile beamYModel = beamModel(wood, Direction.Axis.Y);
@@ -48,34 +58,34 @@ public class BlockStates extends BlockStateProvider {
                 .modelForState().modelFile(beamZModel).addModel();
     }
 
-    public ModelFile beamModel(WoodTypes wood, Direction.Axis axis){
+    public ModelFile beamModel(IWoodType wood, Direction.Axis axis){
         ModelBuilder<?> builder = getBuilder(wood+"_beam_"+axis).parent(new ModelFile.UncheckedModelFile(modLoc("custom/beam_"+axis)));
         return withSideEndTextures(builder, wood+"_beam");
     }
 
-    public ModelFile palisadePostPart(WoodTypes wood) {
+    public ModelFile palisadePostPart(IWoodType wood) {
         ModelBuilder<?> builder = getBuilder(wood + "_palisade_post").parent(new ModelFile.UncheckedModelFile(modLoc("custom/palisade_post")));
         return withSideEndTextures(builder, wood + "_palisade");
     }
 
-    public ModelFile palisadeSidePart(WoodTypes wood) {
+    public ModelFile palisadeSidePart(IWoodType wood) {
         ModelBuilder<?> builder = getBuilder(wood + "_palisade_side").parent(new ModelFile.UncheckedModelFile(modLoc("custom/palisade_side")));
         return withSideEndTextures(builder, wood + "_palisade");
     }
 
-    public ModelFile palisadeInventory(WoodTypes wood){
+    public ModelFile palisadeInventory(IWoodType wood){
         ModelBuilder<?> builder = getBuilder(wood + "_palisade_inventory").parent(new ModelFile.UncheckedModelFile(modLoc("custom/palisade_inventory")));
         return withSideEndTextures(builder, wood + "_palisade");
     }
 
-    public ModelFile seatBlockModel(WoodTypes wood) {
+    public ModelFile seatBlockModel(IWoodType wood) {
         return getBuilder(wood + "_seat").parent(new ModelFile.UncheckedModelFile(modLoc("custom/seat")))
                 .texture("particle", modLoc("block/" + wood+"_seat"))
 
                 .texture("texture",  modLoc("block/" +wood + "_seat"));
     }
 
-    public ModelFile supportBlockModel(WoodTypes wood){
+    public ModelFile supportBlockModel(IWoodType wood){
         return getBuilder(wood+"_support").parent(new ModelFile.UncheckedModelFile(modLoc("custom/support")))
                 .texture("particle", modLoc("block/" + wood+"_support"))
 
@@ -91,7 +101,7 @@ public class BlockStates extends BlockStateProvider {
 
     @Override
     protected void registerStatesAndModels() {
-        for (WoodTypes wood : WoodTypes.values()) {
+        for (IWoodType wood : Registration.modWoodTypes){
             beamBlock(wood);
             palisadeBlock(wood);
             horizontalBlock(Registration.getSeatBlock(wood), seatBlockModel(wood));

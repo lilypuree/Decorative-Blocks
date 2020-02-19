@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "xx "
+  ],
+  "key": {
+    "x": {
+      "item": "biomesoplenty:umbran_log"
+    }
+  },
+  "result": {
+    "item": "decorative_blocks:umbran_palisade",
+    "count": 6
+  }
+}

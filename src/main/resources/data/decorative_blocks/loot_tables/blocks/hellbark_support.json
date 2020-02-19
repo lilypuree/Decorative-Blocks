@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "name": "hellbark_support",
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "decorative_blocks:hellbark_support"
+        }
+      ]
+    }
+  ]
+}

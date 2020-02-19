@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "xx "
+  ],
+  "key": {
+    "x": {
+      "item": "biomesoplenty:palm_log"
+    }
+  },
+  "result": {
+    "item": "decorative_blocks:palm_palisade",
+    "count": 6
+  }
+}

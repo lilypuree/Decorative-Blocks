@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " x ",
+    " x "
+  ],
+  "key": {
+    "x": {
+      "item": "biomesoplenty:stripped_palm_log"
+    }
+  },
+  "result": {
+    "item": "decorative_blocks:palm_beam",
+    "count": 2
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "decorative_blocks:block/fir_beam_x"
+    },
+    "axis=y": {
+      "model": "decorative_blocks:block/fir_beam_y"
+    },
+    "axis=z": {
+      "model": "decorative_blocks:block/fir_beam_z"
+    }
+  }
+}

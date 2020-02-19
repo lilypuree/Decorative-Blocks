@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "xx ",
+    "x  "
+  ],
+  "key": {
+    "x": {
+      "item": "biomesoplenty:palm_planks"
+    }
+  },
+  "result": {
+    "item": "decorative_blocks:palm_support",
+    "count": 3
+  }
+}
