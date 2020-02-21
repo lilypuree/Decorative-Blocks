@@ -1,15 +1,10 @@
 package com.lilypuree.decorative_blocks.datagen;
 
-import com.lilypuree.decorative_blocks.datagen.types.BOPWoodTypes;
 import com.lilypuree.decorative_blocks.datagen.types.IWoodType;
-import com.lilypuree.decorative_blocks.datagen.types.WoodTypes;
+import com.lilypuree.decorative_blocks.datagen.types.ModWoodTypes;
 import com.lilypuree.decorative_blocks.setup.Registration;
 import net.minecraft.advancements.criterion.InventoryChangeTrigger;
 import net.minecraft.data.*;
-import net.minecraft.item.crafting.SingleItemRecipe;
-import net.minecraft.item.crafting.SpecialRecipeSerializer;
-import net.minecraftforge.fml.ModList;
-import ovh.corail.woodcutter.compatibility.CustomRecipeCategory;
 
 import java.util.function.Consumer;
 
@@ -24,7 +19,7 @@ public class Recipes extends RecipeProvider {
     protected void registerRecipes(Consumer<IFinishedRecipe> consumerIn) {
         consumer = consumerIn;
 
-        for(IWoodType wood : Registration.modWoodTypes){
+        for(IWoodType wood : ModWoodTypes.allWoodTypes()){
             makeWoodenBlockRecipes(wood);
         }
         super.registerRecipes(consumerIn);

@@ -12,5 +12,11 @@
   "result": {
     "item": "decorative_blocks:fir_support",
     "count": 3
-  }
+  },
+  "conditions" : [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "biomesoplenty"
+    }
+  ]
 }

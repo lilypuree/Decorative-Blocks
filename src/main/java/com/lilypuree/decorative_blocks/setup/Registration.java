@@ -2,10 +2,7 @@ package com.lilypuree.decorative_blocks.setup;
 
 import com.google.common.collect.ImmutableMap;
 import com.lilypuree.decorative_blocks.blocks.*;
-import com.lilypuree.decorative_blocks.datagen.types.BOPWoodTypes;
-import com.lilypuree.decorative_blocks.datagen.types.IWoodType;
-import com.lilypuree.decorative_blocks.datagen.types.WoodDecorativeBlockTypes;
-import com.lilypuree.decorative_blocks.datagen.types.WoodTypes;
+import com.lilypuree.decorative_blocks.datagen.types.*;
 import com.lilypuree.decorative_blocks.entity.DummyEntityForSitting;
 import com.lilypuree.decorative_blocks.items.BurnableBlockItem;
 import net.minecraft.block.Block;
@@ -64,7 +61,7 @@ public class Registration {
     .size(0.0001F, 0.0001F)
     .build(MODID + ":dummy"));
 
-    public static Set<IWoodType> modWoodTypes = findWoodTypes();
+
 
     public static final ImmutableMap<String, RegistryObject<Block>> DECORATIVE_BLOCKS;
     public static final ImmutableMap<String, RegistryObject<Item>> DECORATIVE_ITEMBLOCKS;
@@ -75,7 +72,7 @@ public class Registration {
 
 
         for (WoodDecorativeBlockTypes type : WoodDecorativeBlockTypes.values()){
-            for (IWoodType wood : modWoodTypes){
+            for (IWoodType wood : ModWoodTypes.allWoodTypes()){
                 String name = wood + "_" + type;
                 Block decorativeBlock = createDecorativeBlock(wood, type);
                 decorativeBlockBuilder.put(name, BLOCKS.register(name, ()->decorativeBlock));
@@ -108,13 +105,6 @@ public class Registration {
        return (SupportBlock)getWoodDecorativeBlock(wood,WoodDecorativeBlockTypes.SUPPORT);
     }
 
-    private static Set<IWoodType> findWoodTypes(){
-        Set<IWoodType> woodTypes = Arrays.stream(WoodTypes.values()).collect(Collectors.toSet());
-        if(ModList.get().isLoaded("biomesoplenty")){
-            woodTypes.addAll(Arrays.stream(BOPWoodTypes.values()).collect(Collectors.toSet()));
-        }
-        return woodTypes;
-    }
 
     private static Block createDecorativeBlock(IWoodType wood, WoodDecorativeBlockTypes woodDecorativeBlockType){
         Block.Properties woodProperty = Block.Properties.create(Material.WOOD, MaterialColor.WOOD).hardnessAndResistance(1.2F).sound(SoundType.WOOD);

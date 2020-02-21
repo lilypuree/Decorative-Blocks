@@ -11,5 +11,11 @@
   "result": {
     "item": "decorative_blocks:dead_palisade",
     "count": 6
-  }
+  },
+  "conditions" : [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "biomesoplenty"
+    }
+  ]
 }

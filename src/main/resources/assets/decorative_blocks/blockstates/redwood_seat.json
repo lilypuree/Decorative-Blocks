@@ -1,64 +1,47 @@
 {
-  "variants": {
-    "facing=north,occupied=false,waterlogged=false": {
-      "model": "decorative_blocks:block/redwood_seat"
+  "multipart": [
+    {
+      "when": {
+        "attached": "true"
+      },
+      "apply": {
+        "model": "decorative_blocks:block/redwood_seat_post"
+      }
     },
-    "facing=south,occupied=false,waterlogged=false": {
-      "model": "decorative_blocks:block/redwood_seat",
-      "y": 180
+    {
+      "when": {
+        "facing": "north"
+      },
+      "apply": {
+        "model": "decorative_blocks:block/redwood_seat_top"
+      }
     },
-    "facing=west,occupied=false,waterlogged=false": {
-      "model": "decorative_blocks:block/redwood_seat",
-      "y": 270
+    {
+      "when": {
+        "facing": "south"
+      },
+      "apply": {
+        "model": "decorative_blocks:block/redwood_seat_top",
+        "y": 180
+      }
     },
-    "facing=east,occupied=false,waterlogged=false": {
-      "model": "decorative_blocks:block/redwood_seat",
-      "y": 90
+    {
+      "when": {
+        "facing": "east"
+      },
+      "apply": {
+        "model": "decorative_blocks:block/redwood_seat_top",
+        "y": 90
+      }
     },
-    "facing=north,occupied=true,waterlogged=false": {
-      "model": "decorative_blocks:block/redwood_seat"
-    },
-    "facing=south,occupied=true,waterlogged=false": {
-      "model": "decorative_blocks:block/redwood_seat",
-      "y": 180
-    },
-    "facing=west,occupied=true,waterlogged=false": {
-      "model": "decorative_blocks:block/redwood_seat",
-      "y": 270
-    },
-    "facing=east,occupied=true,waterlogged=false": {
-      "model": "decorative_blocks:block/redwood_seat",
-      "y": 90
-    },
-    "facing=north,occupied=false,waterlogged=true": {
-      "model": "decorative_blocks:block/redwood_seat"
-    },
-    "facing=south,occupied=false,waterlogged=true": {
-      "model": "decorative_blocks:block/redwood_seat",
-      "y": 180
-    },
-    "facing=west,occupied=false,waterlogged=true": {
-      "model": "decorative_blocks:block/redwood_seat",
-      "y": 270
-    },
-    "facing=east,occupied=false,waterlogged=true": {
-      "model": "decorative_blocks:block/redwood_seat",
-      "y": 90
-    },
-    "facing=north,occupied=true,waterlogged=true": {
-      "model": "decorative_blocks:block/redwood_seat"
-    },
-    "facing=south,occupied=true,waterlogged=true": {
-      "model": "decorative_blocks:block/redwood_seat",
-      "y": 180
-    },
-    "facing=west,occupied=true,waterlogged=true": {
-      "model": "decorative_blocks:block/redwood_seat",
-      "y": 270
-    },
-    "facing=east,occupied=true,waterlogged=true": {
-      "model": "decorative_blocks:block/redwood_seat",
-      "y": 90
+    {
+      "when": {
+        "facing": "west"
+      },
+      "apply": {
+        "model": "decorative_blocks:block/redwood_seat_top",
+        "y": 270
+      }
     }
-  }
+  ]
 }

@@ -12,5 +12,11 @@
   "result": {
     "item": "decorative_blocks:redwood_beam",
     "count": 2
-  }
+  },
+  "conditions" : [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "biomesoplenty"
+    }
+  ]
 }

@@ -2,10 +2,9 @@ package com.lilypuree.decorative_blocks.datagen;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.lilypuree.decorative_blocks.datagen.types.BOPWoodTypes;
 import com.lilypuree.decorative_blocks.datagen.types.IWoodType;
+import com.lilypuree.decorative_blocks.datagen.types.ModWoodTypes;
 import com.lilypuree.decorative_blocks.datagen.types.WoodDecorativeBlockTypes;
-import com.lilypuree.decorative_blocks.datagen.types.WoodTypes;
 import com.lilypuree.decorative_blocks.setup.Registration;
 import net.minecraft.block.Block;
 import net.minecraft.data.DataGenerator;
@@ -14,11 +13,6 @@ import net.minecraft.data.IDataProvider;
 import net.minecraft.data.LootTableProvider;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.*;
-import net.minecraft.world.storage.loot.functions.CopyName;
-import net.minecraft.world.storage.loot.functions.CopyNbt;
-import net.minecraft.world.storage.loot.functions.SetContents;
-import net.minecraftforge.client.model.generators.ModelFile;
-import net.minecraftforge.fml.ModList;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -45,7 +39,7 @@ public class LootTables extends LootTableProvider {
         lootTables.put(Registration.STONE_PILLAR.get(), createSimpleTable("stone_pillar", Registration.STONE_PILLAR.get()));
         lootTables.put(Registration.ROCKY_DIRT.get(), createSimpleTable("rocky_dirt", Registration.ROCKY_DIRT.get()));
 
-        for (IWoodType wood : Registration.modWoodTypes){
+        for (IWoodType wood : ModWoodTypes.allWoodTypes()){
             for (WoodDecorativeBlockTypes type : WoodDecorativeBlockTypes.values()){
                 lootTables.put(Registration.getWoodDecorativeBlock(wood, type), createSimpleTable(wood+"_"+type, Registration.getWoodDecorativeBlock(wood,type)));
             }

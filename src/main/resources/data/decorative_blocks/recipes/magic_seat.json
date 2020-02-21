@@ -15,5 +15,11 @@
   "result": {
     "item": "decorative_blocks:magic_seat",
     "count": 2
-  }
+  },
+  "conditions" : [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "biomesoplenty"
+    }
+  ]
 }

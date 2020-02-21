@@ -1,7 +1,0 @@
-{
-  "parent": "decorative_blocks:custom/seat",
-  "textures": {
-    "particle": "decorative_blocks:block/umbran_seat",
-    "texture": "decorative_blocks:block/umbran_seat"
-  }
-}
