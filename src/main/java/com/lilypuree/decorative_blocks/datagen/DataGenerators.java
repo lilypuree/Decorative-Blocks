@@ -17,10 +17,10 @@ public class DataGenerators {
 
         }
         if (event.includeClient()) {
-
-            generator.addProvider(new BlockStates(generator, event.getExistingFileHelper()));
-            generator.addProvider(new Items(generator, DecorativeBlocks.MODID, event.getExistingFileHelper()));
-            generator.addProvider(new Languages(generator, "en_us"));
+            String modid = DecorativeBlocks.MODID;
+            generator.addProvider(new BlockStates(generator, modid, event.getExistingFileHelper()));
+            generator.addProvider(new Items(generator, modid, event.getExistingFileHelper()));
+            generator.addProvider(new Languages(generator, modid,"en_us"));
         }
     }
 

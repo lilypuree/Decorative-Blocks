@@ -33,6 +33,7 @@ public class LootTables extends LootTableProvider {
     public void act(DirectoryCache cache) {
 
         lootTables.put(Registration.BAR_PANEL.get(), createSimpleTable("bar_panel", Registration.BAR_PANEL.get()));
+        lootTables.put(Registration.LATTICE.get(), createSimpleTable("lattice", Registration.LATTICE.get()));
         lootTables.put(Registration.CHANDELIER.get(), createSimpleTable("chandelier", Registration.CHANDELIER.get()));
         lootTables.put(Registration.CHAIN.get(), createSimpleTable("chain", Registration.CHAIN.get()));
         lootTables.put(Registration.BRAZIER.get(), createSimpleTable("brazier", Registration.BRAZIER.get()));

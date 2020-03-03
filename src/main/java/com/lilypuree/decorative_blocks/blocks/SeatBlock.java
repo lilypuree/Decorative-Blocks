@@ -14,6 +14,8 @@ import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
@@ -121,7 +123,12 @@ public class SeatBlock extends HorizontalBlock implements IWaterLoggable{
                 worldIn.setBlockState(pos, state.with(ATTACHED, Boolean.TRUE));
                 worldIn.notifyNeighbors(pos, this);
                 worldIn.setBlockState(pos.down(), Blocks.LANTERN.getDefaultState().with(BlockStateProperties.HANGING, Boolean.TRUE));
+                if(!player.isCreative()){
+                    heldItem.shrink(1);
+                }
             }
+        }else if(canAttachLantern){
+            worldIn.playSound(player, pos, SoundEvents.BLOCK_LANTERN_PLACE, SoundCategory.BLOCKS, 1.0f, 1.0f);
         }
 
         return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);

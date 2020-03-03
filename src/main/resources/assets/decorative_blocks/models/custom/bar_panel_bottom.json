@@ -1,6 +1,11 @@
 {
 	"__comment": "Designed by Stohun with Cubik Studio - https://cubik.studio",
 	"parent": "block/block",
+	"textures": {
+		"particle": "decorative_blocks:block/bar_panel_side",
+		"side": "decorative_blocks:block/bar_panel_side",
+		"end": "decorative_blocks:block/bar_panel_end"
+	},
 	"elements": [ 	 
 		{
 			"from": [ 7, 1,  0 ],

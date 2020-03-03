@@ -11,8 +11,8 @@ import org.apache.commons.lang3.StringUtils;
 
 public class Languages extends LanguageProvider {
 
-    public Languages(DataGenerator gen, String locale) {
-        super(gen, DecorativeBlocks.MODID, locale);
+    public Languages(DataGenerator gen,String modid, String locale) {
+        super(gen, modid, locale);
     }
 
     @Override
