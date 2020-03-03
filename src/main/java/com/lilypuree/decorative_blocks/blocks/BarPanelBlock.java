@@ -61,4 +61,5 @@ public class BarPanelBlock extends TrapDoorBlock {
         return ActionResultType.SUCCESS;
     }
 
+
 }

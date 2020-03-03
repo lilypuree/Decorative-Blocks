@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "xx "
+  ],
+  "key": {
+    "x": {
+      "item": "biomesoplenty:magic_log"
+    }
+  },
+  "result": {
+    "item": "decorative_blocks:magic_palisade",
+    "count": 6
+  },
+  "conditions" : [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "biomesoplenty"
+    }
+  ]
+}

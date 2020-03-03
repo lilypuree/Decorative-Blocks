@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " x ",
+    " x "
+  ],
+  "key": {
+    "x": {
+      "item": "biomesoplenty:stripped_redwood_log"
+    }
+  },
+  "result": {
+    "item": "decorative_blocks:redwood_beam",
+    "count": 2
+  },
+  "conditions" : [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "biomesoplenty"
+    }
+  ]
+}

@@ -4,5 +4,11 @@
     "item": "minecraft:jungle_planks"
   },
   "result": "decorative_blocks:jungle_seat",
-  "count": 1
+  "count": 1,
+  "conditions" : [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "corail_woodcutter"
+    }
+  ]
 }

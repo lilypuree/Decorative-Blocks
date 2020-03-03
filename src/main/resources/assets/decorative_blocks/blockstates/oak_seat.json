@@ -1,34 +1,47 @@
 {
-  "variants": {
-    "facing=north,waterlogged=false": {
-      "model": "decorative_blocks:block/oak_seat"
+  "multipart": [
+    {
+      "when": {
+        "attached": "true"
+      },
+      "apply": {
+        "model": "decorative_blocks:block/oak_seat_post"
+      }
     },
-    "facing=south,waterlogged=false": {
-      "model": "decorative_blocks:block/oak_seat",
-      "y": 180
+    {
+      "when": {
+        "facing": "north"
+      },
+      "apply": {
+        "model": "decorative_blocks:block/oak_seat_top"
+      }
     },
-    "facing=west,waterlogged=false": {
-      "model": "decorative_blocks:block/oak_seat",
-      "y": 270
+    {
+      "when": {
+        "facing": "south"
+      },
+      "apply": {
+        "model": "decorative_blocks:block/oak_seat_top",
+        "y": 180
+      }
     },
-    "facing=east,waterlogged=false": {
-      "model": "decorative_blocks:block/oak_seat",
-      "y": 90
+    {
+      "when": {
+        "facing": "east"
+      },
+      "apply": {
+        "model": "decorative_blocks:block/oak_seat_top",
+        "y": 90
+      }
     },
-    "facing=north,waterlogged=true": {
-      "model": "decorative_blocks:block/oak_seat"
-    },
-    "facing=south,waterlogged=true": {
-      "model": "decorative_blocks:block/oak_seat",
-      "y": 180
-    },
-    "facing=west,waterlogged=true": {
-      "model": "decorative_blocks:block/oak_seat",
-      "y": 270
-    },
-    "facing=east,waterlogged=true": {
-      "model": "decorative_blocks:block/oak_seat",
-      "y": 90
+    {
+      "when": {
+        "facing": "west"
+      },
+      "apply": {
+        "model": "decorative_blocks:block/oak_seat_top",
+        "y": 270
+      }
     }
-  }
+  ]
 }

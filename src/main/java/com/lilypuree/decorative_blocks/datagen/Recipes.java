@@ -1,12 +1,10 @@
 package com.lilypuree.decorative_blocks.datagen;
 
-import com.lilypuree.decorative_blocks.datagen.types.WoodTypes;
+import com.lilypuree.decorative_blocks.datagen.types.IWoodType;
+import com.lilypuree.decorative_blocks.datagen.types.ModWoodTypes;
 import com.lilypuree.decorative_blocks.setup.Registration;
 import net.minecraft.advancements.criterion.InventoryChangeTrigger;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.data.RecipeProvider;
-import net.minecraft.data.ShapedRecipeBuilder;
+import net.minecraft.data.*;
 
 import java.util.function.Consumer;
 
@@ -20,16 +18,21 @@ public class Recipes extends RecipeProvider {
     @Override
     protected void registerRecipes(Consumer<IFinishedRecipe> consumerIn) {
         consumer = consumerIn;
-        for (WoodTypes wood : WoodTypes.values()){
-            makeBeamRecipeOf(wood);
-            makePalisadeRecipeOf(wood);
-            makeSeatRecipeOf(wood);
-            makeSupportRecipeOf(wood);
+
+        for(IWoodType wood : ModWoodTypes.allWoodTypes()){
+            makeWoodenBlockRecipes(wood);
         }
         super.registerRecipes(consumerIn);
     }
 
-    private void makeBeamRecipeOf(WoodTypes wood) {
+    private void makeWoodenBlockRecipes(IWoodType wood){
+        makeBeamRecipeOf(wood);
+        makePalisadeRecipeOf(wood);
+        makeSeatRecipeOf(wood);
+        makeSupportRecipeOf(wood);
+    }
+
+    private void makeBeamRecipeOf(IWoodType wood) {
         ShapedRecipeBuilder.shapedRecipe(Registration.getBeamBlock(wood), 2)
                 .patternLine(" x ")
                 .patternLine(" x ")
@@ -38,7 +41,7 @@ public class Recipes extends RecipeProvider {
                 .build(consumer);
     }
 
-    private void makePalisadeRecipeOf(WoodTypes wood) {
+    private void makePalisadeRecipeOf(IWoodType wood) {
         ShapedRecipeBuilder.shapedRecipe(Registration.getPalisadeBlock(wood), 6)
                 .patternLine("xx ")
                 .key('x', wood.getLog())
@@ -46,7 +49,7 @@ public class Recipes extends RecipeProvider {
                 .build(consumer);
     }
 
-    private void makeSeatRecipeOf(WoodTypes wood) {
+    private void makeSeatRecipeOf(IWoodType wood) {
         ShapedRecipeBuilder.shapedRecipe(Registration.getSeatBlock(wood), 2)
                 .patternLine("x  ")
                 .patternLine("y  ")
@@ -55,7 +58,7 @@ public class Recipes extends RecipeProvider {
                 .addCriterion("has_plank", InventoryChangeTrigger.Instance.forItems(wood.getPlanks()))
                 .build(consumer);
     }
-    private void makeSupportRecipeOf(WoodTypes wood) {
+    private void makeSupportRecipeOf(IWoodType wood) {
         ShapedRecipeBuilder.shapedRecipe(Registration.getSupportBlock(wood), 3)
                 .patternLine("xx ")
                 .patternLine("x  ")

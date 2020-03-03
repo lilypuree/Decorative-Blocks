@@ -1,7 +1,9 @@
 package com.lilypuree.decorative_blocks.datagen;
 
 import com.lilypuree.decorative_blocks.DecorativeBlocks;
-import com.lilypuree.decorative_blocks.datagen.types.WoodTypes;
+import com.lilypuree.decorative_blocks.datagen.types.IWoodType;
+import com.lilypuree.decorative_blocks.datagen.types.ModWoodTypes;
+import com.lilypuree.decorative_blocks.datagen.types.WoodDecorativeBlockTypes;
 import com.lilypuree.decorative_blocks.setup.Registration;
 import net.minecraft.block.Block;
 import net.minecraft.data.DataGenerator;
@@ -9,6 +11,8 @@ import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.generators.*;
+
+import javax.annotation.Nullable;
 
 public class BlockStates extends BlockStateProvider {
 
@@ -21,7 +25,7 @@ public class BlockStates extends BlockStateProvider {
         return block.getRegistryName().getPath();
     }
 
-    public void palisadeBlock(WoodTypes wood) {
+    public void palisadeBlock(IWoodType wood) {
         palisadeInventory(wood);
         MultiPartBlockStateBuilder builder = getMultipartBuilder(Registration.getPalisadeBlock(wood));
         ModelFile postModel = palisadePostPart(wood);
@@ -34,7 +38,23 @@ public class BlockStates extends BlockStateProvider {
                 .part().modelFile(sideModel).uvLock(true).rotationY(270).addModel().condition(BlockStateProperties.WEST, Boolean.TRUE).end();
     }
 
-    public void beamBlock(WoodTypes wood){
+    public ModelFile palisadePostPart(IWoodType wood) {
+        ModelBuilder<?> builder = createModel(wood, WoodDecorativeBlockTypes.PALISADE, "post");
+        return withSideEndTextures(builder, wood + "_palisade");
+    }
+
+    public ModelFile palisadeSidePart(IWoodType wood) {
+        ModelBuilder<?> builder = createModel(wood, WoodDecorativeBlockTypes.PALISADE, "side");
+        return withSideEndTextures(builder, wood + "_palisade");
+    }
+
+    public ModelFile palisadeInventory(IWoodType wood){
+        ModelBuilder<?> builder = createModel(wood, WoodDecorativeBlockTypes.PALISADE, "inventory");
+        return withSideEndTextures(builder, wood + "_palisade");
+    }
+
+
+    public void beamBlock(IWoodType wood){
         VariantBlockStateBuilder builder = getVariantBuilder(Registration.getBeamBlock(wood));
         ModelFile beamXModel = beamModel(wood, Direction.Axis.X);
         ModelFile beamYModel = beamModel(wood, Direction.Axis.Y);
@@ -48,38 +68,56 @@ public class BlockStates extends BlockStateProvider {
                 .modelForState().modelFile(beamZModel).addModel();
     }
 
-    public ModelFile beamModel(WoodTypes wood, Direction.Axis axis){
-        ModelBuilder<?> builder = models().getBuilder(wood+"_beam_"+axis).parent(new ModelFile.UncheckedModelFile(modLoc("custom/beam_"+axis)));
+    public ModelFile beamModel(IWoodType wood, Direction.Axis axis){
+        ModelBuilder<?> builder = createModel(wood, WoodDecorativeBlockTypes.BEAM, axis.getName());
         return withSideEndTextures(builder, wood+"_beam");
     }
 
-    public ModelFile palisadePostPart(WoodTypes wood) {
-        ModelBuilder<?> builder = models().getBuilder(wood + "_palisade_post").parent(new ModelFile.UncheckedModelFile(modLoc("custom/palisade_post")));
-        return withSideEndTextures(builder, wood + "_palisade");
+    public void seatBlock(IWoodType wood){
+        seatInventory(wood);
+        MultiPartBlockStateBuilder builder = getMultipartBuilder(Registration.getSeatBlock(wood));
+        ModelFile seatTopModel = seatTopModel(wood);
+        ModelFile seatPostModel = seatPostModel(wood);
+
+        builder.part().modelFile(seatPostModel).addModel().condition(BlockStateProperties.ATTACHED, Boolean.TRUE).end()
+                .part().modelFile(seatTopModel).addModel().condition(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH).end()
+                .part().modelFile(seatTopModel).rotationY(180).addModel().condition(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH).end()
+                .part().modelFile(seatTopModel).rotationY(90).addModel().condition(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST).end()
+                .part().modelFile(seatTopModel).rotationY(270).addModel().condition(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST).end();
     }
 
-    public ModelFile palisadeSidePart(WoodTypes wood) {
-        ModelBuilder<?> builder = models().getBuilder(wood + "_palisade_side").parent(new ModelFile.UncheckedModelFile(modLoc("custom/palisade_side")));
-        return withSideEndTextures(builder, wood + "_palisade");
+    public ModelFile seatTopModel(IWoodType wood) {
+        ModelBuilder<?> builder = createModel(wood, WoodDecorativeBlockTypes.SEAT, "top");
+        return  withParticleTexture(builder, wood+"_seat");
     }
 
-    public ModelFile palisadeInventory(WoodTypes wood){
-        ModelBuilder<?> builder = models().getBuilder(wood + "_palisade_inventory").parent(new ModelFile.UncheckedModelFile(modLoc("custom/palisade_inventory")));
-        return withSideEndTextures(builder, wood + "_palisade");
+    public ModelFile seatPostModel(IWoodType wood){
+        ModelBuilder<?> builder = createModel(wood, WoodDecorativeBlockTypes.SEAT, "post");
+        return  withParticleTexture(builder, wood+"_seat");
     }
 
-    public ModelFile seatBlockModel(WoodTypes wood) {
-        return models().getBuilder(wood + "_seat").parent(new ModelFile.UncheckedModelFile(modLoc("custom/seat")))
-                .texture("particle", modLoc("block/" + wood+"_seat"))
-
-                .texture("texture",  modLoc("block/" +wood + "_seat"));
+    public ModelFile seatInventory(IWoodType wood){
+        ModelBuilder<?> builder = createModel(wood, WoodDecorativeBlockTypes.SEAT, "inventory");
+        return  withParticleTexture(builder, wood+"_seat");
     }
 
-    public ModelFile supportBlockModel(WoodTypes wood){
-        return models().getBuilder(wood+"_support").parent(new ModelFile.UncheckedModelFile(modLoc("custom/support")))
-                .texture("particle", modLoc("block/" + wood+"_support"))
+    public ModelFile supportBlockModel(IWoodType wood){
+        ModelBuilder<?> builder = createModel(wood, WoodDecorativeBlockTypes.SUPPORT);
+        return  withParticleTexture(builder, wood+"_support");
+    }
 
-                .texture("texture", modLoc("block/" + wood+"_support"));
+    private ModelBuilder<?> createModel(IWoodType wood, WoodDecorativeBlockTypes type){
+        return createModel(wood, type, null);
+    }
+
+    private ModelBuilder<?> createModel(IWoodType wood, WoodDecorativeBlockTypes type, String suffix){
+        String name = type + ((suffix == null) ? "" : "_"+suffix);
+        return models().getBuilder(wood+"_"+name).parent(new ModelFile.UncheckedModelFile(modLoc("custom/"+name)));
+    }
+
+    private ModelBuilder<?> withParticleTexture(ModelBuilder<?> model, String name){
+        ResourceLocation texture = modLoc( "block/" + name);
+        return model.texture("particle", texture).texture("texture", texture);
     }
 
     private ModelBuilder<?> withSideEndTextures(ModelBuilder<?> model, String name){
@@ -91,10 +129,10 @@ public class BlockStates extends BlockStateProvider {
 
     @Override
     protected void registerStatesAndModels() {
-        for (WoodTypes wood : WoodTypes.values()) {
+        for (IWoodType wood : ModWoodTypes.allWoodTypes()){
             beamBlock(wood);
             palisadeBlock(wood);
-            horizontalBlock(Registration.getSeatBlock(wood), seatBlockModel(wood));
+            seatBlock(wood);
             horizontalBlock(Registration.getSupportBlock(wood), supportBlockModel(wood));
         }
 
@@ -102,7 +140,7 @@ public class BlockStates extends BlockStateProvider {
         ModelBuilder<?> builder = models().getBuilder("bar_panel_bottom").parent( new ModelFile.UncheckedModelFile(modLoc("custom/bar_panel_bottom")));
         ModelFile barPanelBottomModel = withSideEndTextures(builder, "bar_panel");
 
-        builder = models().getBuilder("bar_panel_top").parent( new ModelFile.UncheckedModelFile(modLoc("custom/bar_panel_top")));
+        builder =  models().getBuilder("bar_panel_top").parent( new ModelFile.UncheckedModelFile(modLoc("custom/bar_panel_top")));
         ModelFile barPanelTopModel = withSideEndTextures(builder, "bar_panel");
 
         builder = models().getBuilder("bar_panel_open").parent( new ModelFile.UncheckedModelFile(modLoc("custom/bar_panel_open")));
