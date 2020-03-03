@@ -124,6 +124,9 @@ public class SeatBlock extends HorizontalBlock implements IWaterLoggable{
                 worldIn.setBlockState(pos, state.with(ATTACHED, Boolean.TRUE));
                 worldIn.notifyNeighbors(pos, this);
                 worldIn.setBlockState(pos.down(), Blocks.LANTERN.getDefaultState().with(BlockStateProperties.HANGING, Boolean.TRUE));
+                if(!player.isCreative()){
+                    heldItem.shrink(1);
+                }
                 return ActionResultType.SUCCESS;
             }
         }

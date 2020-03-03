@@ -20,9 +20,13 @@ public class ClientSetup {
         RenderingRegistry.registerEntityRenderingHandler(Registration.DUMMY_ENTITY_TYPE.get(), EmptyRenderer::new);
 
         RenderTypeLookup.setRenderLayer(Registration.BAR_PANEL.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(Registration.BONFIRE.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(Registration.LATTICE.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(Registration.BRAZIER.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(Registration.CHAIN.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(Registration.CHANDELIER.get(), RenderType.getCutoutMipped());
+        RenderTypeLookup.setRenderLayer(Registration.THATCH.get(), RenderType.getSolid());
+
     }
 
     private static class EmptyRenderer extends EntityRenderer<DummyEntityForSitting>

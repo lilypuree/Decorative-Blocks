@@ -7,6 +7,7 @@
   "block.decorative_blocks.chain": "큰 사슬",
   "block.decorative_blocks.dark_oak_support": "짙은 참나무 지지대",
   "block.decorative_blocks.brazier": "화로",
+  "block.decorative_blocks.bonfire": "캠프파이어",
   "block.decorative_blocks.oak_palisade": "참나무 말뚝",
   "block.decorative_blocks.spruce_palisade": "가문비나무 말뚝",
   "block.decorative_blocks.dark_oak_seat": "짙은 참나무 의자",
@@ -28,5 +29,12 @@
   "block.decorative_blocks.stone_pillar": "돌 기둥",
   "block.decorative_blocks.spruce_seat": "가문비나무 의자",
   "block.decorative_blocks.rocky_dirt": "돌밭",
-  "block.decorative_blocks.spruce_support": "가문비나무 지지대"
+  "block.decorative_blocks.spruce_support": "가문비나무 지지대",
+
+  "block.decorative_blocks.lattice": "목재 격자",
+  "fluid.decorative_blocks.thatch": "초가지붕",
+
+  "wiki.decorative_blocks.thatch" : "건초 더미를 묶는 끈을 가위로 자르세요. 순식간에 초가지붕을 만들어내는 초가지붕 유체가 흘러내립니다.",
+
+  "message.decorative_blocks.invalid_bonfire_activator_config" : "캠프파이어 활성 아이템 설정이 잘못되었습니다!"
 }

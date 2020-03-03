@@ -4,6 +4,8 @@ import com.google.common.collect.ImmutableMap;
 import com.lilypuree.decorative_blocks.blocks.*;
 import com.lilypuree.decorative_blocks.datagen.types.*;
 import com.lilypuree.decorative_blocks.entity.DummyEntityForSitting;
+import com.lilypuree.decorative_blocks.fluid.ThatchFluid;
+import com.lilypuree.decorative_blocks.fluid.ThatchFluidBlock;
 import com.lilypuree.decorative_blocks.items.BurnableBlockItem;
 import net.minecraft.block.Block;
 import net.minecraft.block.RotatedPillarBlock;
@@ -12,6 +14,8 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
+import net.minecraft.fluid.FlowingFluid;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -31,6 +35,7 @@ public class Registration {
     public static final DeferredRegister<Item> ITEMS = new DeferredRegister<>(ForgeRegistries.ITEMS, MODID);
     public static final DeferredRegister<Block> BLOCKS = new DeferredRegister<>(ForgeRegistries.BLOCKS, MODID);
     public static final DeferredRegister<EntityType<?>> ENTITIES = new DeferredRegister<>(ForgeRegistries.ENTITIES, MODID);
+    public static final DeferredRegister<Fluid> FLUIDS = new DeferredRegister<>(ForgeRegistries.FLUIDS, MODID);
 
 
     public static void register() {
@@ -38,22 +43,32 @@ public class Registration {
         ITEMS.register(modEventBus);
         BLOCKS.register(modEventBus);
         ENTITIES.register(modEventBus);
+        FLUIDS.register(modEventBus);
     }
 
     public static final RegistryObject<BarPanelBlock> BAR_PANEL = BLOCKS.register("bar_panel", ()-> new BarPanelBlock(Block.Properties.create(Material.IRON, MaterialColor.BLACK).hardnessAndResistance(5.0F).sound(SoundType.METAL).notSolid()));
+    public static final RegistryObject<LatticeBlock> LATTICE = BLOCKS.register("lattice", ()-> new LatticeBlock(Block.Properties.create(Material.WOOD, MaterialColor.WOOD).hardnessAndResistance(1.2F).sound(SoundType.WOOD).notSolid()));
     public static final RegistryObject<ChainBlock> CHAIN = BLOCKS.register("chain", ()-> new ChainBlock(Block.Properties.create(Material.IRON, MaterialColor.BLACK).hardnessAndResistance(4.3F).sound(SoundType.METAL).notSolid()));
     public static final RegistryObject<ChandelierBlock> CHANDELIER = BLOCKS.register("chandelier", ()->new ChandelierBlock(Block.Properties.create(Material.MISCELLANEOUS).hardnessAndResistance(0.3F).sound(SoundType.WOOD).notSolid()));
     public static final RegistryObject<BrazierBlock> BRAZIER = BLOCKS.register("brazier", ()->new BrazierBlock(Block.Properties.create(Material.IRON).hardnessAndResistance(3.0F).sound(SoundType.METAL).notSolid()));
     public static final RegistryObject<PillarBlock> STONE_PILLAR = BLOCKS.register("stone_pillar", ()->new PillarBlock(Block.Properties.create(Material.ROCK).hardnessAndResistance(1.5F, 6.5F)));
     public static final RegistryObject<Block> ROCKY_DIRT = BLOCKS.register("rocky_dirt", ()->new RockyDirtBlock());
+    public static final RegistryObject<BonfireBlock> BONFIRE = BLOCKS.register("bonfire", ()->new BonfireBlock(Block.Properties.create(Material.FIRE, MaterialColor.TNT).doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.CLOTH).lightValue(15).noDrops()));
+
 
     public static final Item.Properties modItemProperties =  new Item.Properties().group(ModSetup.ITEM_GROUP);
     public static final RegistryObject<Item> BAR_PANEL_ITEM = ITEMS.register("bar_panel", () -> new BlockItem(BAR_PANEL.get(),modItemProperties));
+    public static final RegistryObject<Item> LATTICE_ITEM = ITEMS.register("lattice", () -> new BlockItem(LATTICE.get(),modItemProperties));
     public static final RegistryObject<Item> CHAIN_ITEM = ITEMS.register("chain", () -> new BlockItem(CHAIN.get(), modItemProperties));
     public static final RegistryObject<Item> CHANDELIER_ITEM = ITEMS.register("chandelier", () -> new BurnableBlockItem(CHANDELIER.get(), modItemProperties, 1600));
     public static final RegistryObject<Item> BRAZIER_ITEM = ITEMS.register("brazier", () -> new BlockItem(BRAZIER.get(), modItemProperties));
     public static final RegistryObject<Item> STONE_PILLAR_ITEM = ITEMS.register("stone_pillar", () -> new BlockItem(STONE_PILLAR.get(), modItemProperties));
     public static final RegistryObject<Item> ROCKY_DIRT_ITEM = ITEMS.register("rocky_dirt", () -> new BlockItem(ROCKY_DIRT.get(), modItemProperties));
+
+    public static final Material THTACH_MATERIAL = (new Material.Builder(MaterialColor.YELLOW)).doesNotBlockMovement().notSolid().replaceable().liquid().build();
+    public static final RegistryObject<FlowingFluid> FLOWING_THATCH = FLUIDS.register("flowing_thatch", ThatchFluid.Flowing::new);
+    public static final RegistryObject<FlowingFluid> STILL_THATCH = FLUIDS.register("thatch", ThatchFluid.Source::new);
+    public static final RegistryObject<Block> THATCH = BLOCKS.register("thatch", ()-> new ThatchFluidBlock(STILL_THATCH, Block.Properties.create(THTACH_MATERIAL).doesNotBlockMovement().tickRandomly().hardnessAndResistance(100.0F).noDrops()));
 
     public static final RegistryObject<EntityType<DummyEntityForSitting>> DUMMY_ENTITY_TYPE = ENTITIES.register("dummy", ()->EntityType.Builder.<DummyEntityForSitting>create(DummyEntityForSitting::new, EntityClassification.MISC)
             .setTrackingRange(256)
