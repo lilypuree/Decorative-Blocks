@@ -1,14 +1,11 @@
 package com.lilypuree.decorative_blocks.datagen;
 
-import com.lilypuree.decorative_blocks.datagen.types.BOPWoodTypes;
 import com.lilypuree.decorative_blocks.datagen.types.IWoodType;
 import com.lilypuree.decorative_blocks.datagen.types.ModWoodTypes;
-import com.lilypuree.decorative_blocks.datagen.types.VanillaWoodTypes;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.client.model.generators.ExistingFileHelper;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.client.model.generators.ModelFile;
-import net.minecraftforge.fml.ModList;
 
 public class Items extends ItemModelProvider {
 

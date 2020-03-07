@@ -1,9 +1,7 @@
 package com.lilypuree.decorative_blocks;
 
 import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
 
 @Mod.EventBusSubscriber
 public class Config {
@@ -24,14 +22,8 @@ public class Config {
 
 
     private static void setUpBonfireActivatorConfig(ForgeConfigSpec.Builder COMMON_BUILDER) {
-
         BONFIRE_ACTIVATOR = COMMON_BUILDER.comment("Bonfire Activator (define a resource location")
                 .define("bonfire activator", "minecraft:blaze_powder");
-
-    }
-
-    @SubscribeEvent
-    public static void onLoad(final ModConfig.Loading configEvent) {
 
     }
 

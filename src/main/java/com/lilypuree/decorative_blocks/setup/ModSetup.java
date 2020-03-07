@@ -26,17 +26,13 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.EntityMountEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
-import net.minecraftforge.event.entity.living.PotionEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.eventbus.api.Event;
-import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -157,8 +153,8 @@ public class ModSetup {
 
     public static boolean isBonfireActivatorConfigValueValid() {
         String bonfireActivator = Config.BONFIRE_ACTIVATOR.get();
-        if (ResourceLocation.isResouceNameValid(bonfireActivator)) {
-            ResourceLocation bonfireActivatorResourceLocation = new ResourceLocation(bonfireActivator);
+        ResourceLocation bonfireActivatorResourceLocation = ResourceLocation.tryCreate(bonfireActivator);
+        if (bonfireActivatorResourceLocation != null) {
             if (ForgeRegistries.ITEMS.containsKey(bonfireActivatorResourceLocation)) {
                 bonfireActivatorItem = ForgeRegistries.ITEMS.getValue(bonfireActivatorResourceLocation);
                 return true;

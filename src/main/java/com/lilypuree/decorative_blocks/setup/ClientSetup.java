@@ -19,6 +19,7 @@ public class ClientSetup {
     public static void init(final FMLClientSetupEvent event) {
         RenderingRegistry.registerEntityRenderingHandler(Registration.DUMMY_ENTITY_TYPE.get(), EmptyRenderer::new);
 
+
         RenderTypeLookup.setRenderLayer(Registration.BAR_PANEL.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(Registration.BONFIRE.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(Registration.LATTICE.get(), RenderType.getCutout());

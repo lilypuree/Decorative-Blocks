@@ -15,6 +15,8 @@ public class ItemEntityBonfireActivator extends ItemEntity {
         this.setThrowerId(parent.getThrowerId());
     }
 
+
+
     @Override
     protected void dealFireDamage(int amount) {
 

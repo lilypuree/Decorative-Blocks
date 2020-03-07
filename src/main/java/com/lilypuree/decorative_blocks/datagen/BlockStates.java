@@ -12,8 +12,6 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.generators.*;
 
-import javax.annotation.Nullable;
-
 public class BlockStates extends BlockStateProvider {
 
     public BlockStates(DataGenerator gen, ExistingFileHelper exFileHelper) {

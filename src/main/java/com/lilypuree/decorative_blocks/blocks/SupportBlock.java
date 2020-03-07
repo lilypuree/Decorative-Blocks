@@ -18,8 +18,6 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 
-import javax.annotation.Nullable;
-
 public class SupportBlock extends HorizontalBlock implements IWaterLoggable {
     private static final double d0 = 3D;
     private static final double d1 = 13D;
