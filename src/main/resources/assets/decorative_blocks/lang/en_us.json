@@ -9,6 +9,7 @@
   "block.decorative_blocks.chain": "Big Chain",
   "block.decorative_blocks.dark_oak_support": "Dark Oak Support",
   "block.decorative_blocks.brazier": "Brazier",
+  "block.decorative_blocks.bonfire": "Bonfire",
   "block.decorative_blocks.oak_palisade": "Oak Palisade",
   "block.decorative_blocks.spruce_palisade": "Spruce Palisade",
   "block.decorative_blocks.dark_oak_seat": "Dark Oak Seat",
@@ -34,7 +35,7 @@
   "block.decorative_blocks.lattice": "Lattice",
   "fluid.decorative_blocks.thatch": "Thatch",
 
-  "wiki.decorative_blocks.thatch" : "Use a shear on a hay bale.",
+  "wiki.decorative_blocks.thatch" : "Cut open a hay bale with shears.",
 
   "message.decorative_blocks.invalid_bonfire_activator_config" : "Bonfire activator config wrong!",
 

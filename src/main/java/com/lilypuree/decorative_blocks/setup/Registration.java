@@ -47,11 +47,11 @@ public class Registration {
     public static final RegistryObject<BrazierBlock> BRAZIER = BLOCKS.register("brazier", ()->new BrazierBlock(Block.Properties.create(Material.IRON).hardnessAndResistance(3.0F).sound(SoundType.METAL)));
     public static final RegistryObject<PillarBlock> STONE_PILLAR = BLOCKS.register("stone_pillar", ()->new PillarBlock(Block.Properties.create(Material.ROCK).hardnessAndResistance(1.5F, 6.5F)));
     public static final RegistryObject<Block> ROCKY_DIRT = BLOCKS.register("rocky_dirt", ()->new RockyDirtBlock());
-    public static final RegistryObject<BonfireBlock> BONFIRE = BLOCKS.register("bonfire", ()->new BonfireBlock(Block.Properties.create(Material.FIRE, MaterialColor.TNT).doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.CLOTH).lightValue(15).noDrops()));
+    public static final RegistryObject<BonfireBlock> BONFIRE = BLOCKS.register("bonfire", ()->new BonfireBlock(Block.Properties.create(Material.FIRE, MaterialColor.TNT).doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.CLOTH).noDrops()));
 
     public static final Item.Properties modItemProperties =  new Item.Properties().group(ModSetup.ITEM_GROUP);
     public static final RegistryObject<Item> BAR_PANEL_ITEM = ITEMS.register("bar_panel", () -> new BlockItem(BAR_PANEL.get(),modItemProperties));
-    public static final RegistryObject<Item> LATTICE_ITEM = ITEMS.register("lattice", () -> new BlockItem(LATTICE.get(),modItemProperties));
+        public static final RegistryObject<Item> LATTICE_ITEM = ITEMS.register("lattice", () -> new BlockItem(LATTICE.get(),modItemProperties));
     public static final RegistryObject<Item> CHAIN_ITEM = ITEMS.register("chain", () -> new BlockItem(CHAIN.get(), modItemProperties));
     public static final RegistryObject<Item> CHANDELIER_ITEM = ITEMS.register("chandelier", () -> new BurnableBlockItem(CHANDELIER.get(), modItemProperties, 1600));
     public static final RegistryObject<Item> BRAZIER_ITEM = ITEMS.register("brazier", () -> new BlockItem(BRAZIER.get(), modItemProperties));

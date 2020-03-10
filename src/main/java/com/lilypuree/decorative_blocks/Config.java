@@ -29,14 +29,4 @@ public class Config {
                 .define("bonfire activator", "minecraft:blaze_powder");
 
     }
-
-    @SubscribeEvent
-    public static void onLoad(final ModConfig.Loading configEvent) {
-
-    }
-
-    @SubscribeEvent
-    public static void onReload(final ModConfig.ConfigReloading configEvent) {
-    }
-
 }

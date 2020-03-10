@@ -90,7 +90,6 @@ public class ModSetup {
 
             world.playEvent(null, 1009, pos, 0);
             world.removeBlock(pos, false);
-
         }
     }
 
@@ -131,23 +130,30 @@ public class ModSetup {
     public static void onPlayerToss(ItemTossEvent event) {
         PlayerEntity player = event.getPlayer();
         ItemEntity thrownItemEntity = event.getEntityItem();
-        if (isBonfireActivatorConfigValueValid()) {
-            if (thrownItemEntity.getItem().getItem() == bonfireActivatorItem) {
-                event.setCanceled(true);
-                ItemEntity bonfireActivator = new ItemEntityBonfireActivator(thrownItemEntity);
-                player.getEntityWorld().addEntity(bonfireActivator);
+        if (bonfireActivatorItem == null) {
+            if (!isBonfireActivatorConfigValueValid()) {
+                if(!didSendMessage){
+                    player.sendMessage(new TranslationTextComponent("message.decorative_blocks.invalid_bonfire_activator_config"));
+                    didSendMessage = true;
+                }
+                return;
             }
-        } else {
-            player.sendMessage(new TranslationTextComponent("message.decorative_blocks.invalid_bonfire_activator_config"));
+        }
+
+        if (thrownItemEntity.getItem().getItem() == bonfireActivatorItem) {
+            event.setCanceled(true);
+            ItemEntity bonfireActivator = new ItemEntityBonfireActivator(thrownItemEntity);
+            player.getEntityWorld().addEntity(bonfireActivator);
         }
     }
 
-    private static Item bonfireActivatorItem = Items.AIR;
+    private static boolean didSendMessage = false;
+    private static Item bonfireActivatorItem = null;
 
     public static boolean isBonfireActivatorConfigValueValid() {
         String bonfireActivator = Config.BONFIRE_ACTIVATOR.get();
-        if (ResourceLocation.isResouceNameValid(bonfireActivator)) {
-            ResourceLocation bonfireActivatorResourceLocation = new ResourceLocation(bonfireActivator);
+        ResourceLocation bonfireActivatorResourceLocation = ResourceLocation.tryCreate(bonfireActivator);
+        if (bonfireActivatorResourceLocation != null) {
             if (ForgeRegistries.ITEMS.containsKey(bonfireActivatorResourceLocation)) {
                 bonfireActivatorItem = ForgeRegistries.ITEMS.getValue(bonfireActivatorResourceLocation);
                 return true;
@@ -155,6 +161,7 @@ public class ModSetup {
         }
         return false;
     }
+
 
 
 }

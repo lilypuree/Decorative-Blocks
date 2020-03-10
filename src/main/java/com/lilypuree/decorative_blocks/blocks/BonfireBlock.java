@@ -35,6 +35,7 @@ public class BonfireBlock extends Block implements IWaterLoggable {
         super(properties);
     }
 
+    private static Random random = new Random();
     private static final VoxelShape BONFIRE_SHAPE = Block.makeCuboidShape(0.0, 0.0, 0.0, 16D, 2D, 16D);
 
     public BlockRenderLayer getRenderLayer() {
@@ -70,7 +71,7 @@ public class BonfireBlock extends Block implements IWaterLoggable {
 
     @Override
     public int getLightValue(BlockState state) {
-        return 15;
+return 15;
     }
 
     @Override

@@ -59,10 +59,7 @@ public class FogHandler {
 
     private static boolean isEntityInHay(IFluidState fluidState){
         Tag<Fluid> fluidTag = FluidTags.getCollection().get(new ResourceLocation(DecorativeBlocks.MODID, "thatch"));
-        if(fluidTag == null){
-            System.out.println("wrong");
-        }
-        else if(fluidState.isTagged(fluidTag)){
+        if(fluidTag != null && fluidState.isTagged(fluidTag)){
             return true;
         }
         return false;
