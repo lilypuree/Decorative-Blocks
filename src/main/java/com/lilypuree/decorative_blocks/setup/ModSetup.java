@@ -100,6 +100,9 @@ public class ModSetup {
         World world = event.getWorld();
         Item item = event.getItemStack().getItem();
         BlockPos pos = event.getPos();
+        if(!world.isBlockLoaded(pos)){
+            return;
+        }
         Block block = world.getBlockState(pos).getBlock();
         PlayerEntity player = event.getPlayer();
         if (item == Items.SHEARS && block == Blocks.HAY_BLOCK) {
