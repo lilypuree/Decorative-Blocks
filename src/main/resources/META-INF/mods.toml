@@ -18,9 +18,9 @@ version="${file.jarVersion}" #mandatory
  # A display name for the mod
 displayName="Decorative Blocks" #mandatory
 # A URL to query for updates for this mod. See the JSON update specification <here>
-#updateJSONURL="http://myurl.me/" #optional
+#updateJSONURL="https://www.curseforge.com/minecraft/mc-mods/decorative-blocks #optional
 # A URL for the "homepage" for this mod, displayed in the mod UI
-#displayURL="http://example.com/" #optional
+#displayURL="https://www.curseforge.com/minecraft/mc-mods/decorative-blocks"
 # A file name (in the root of the mod JAR) containing a logo for display
 #logoFile="examplemod.png" #optional
 # A text field displayed in the mod UI

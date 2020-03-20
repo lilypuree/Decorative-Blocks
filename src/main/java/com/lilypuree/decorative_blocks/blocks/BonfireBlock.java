@@ -66,6 +66,7 @@ public class BonfireBlock extends Block implements IWaterLoggable {
 
     @Override
     public boolean isBurning(BlockState state, IBlockReader world, BlockPos pos) {
+
         return true;
     }
 

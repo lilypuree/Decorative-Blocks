@@ -3,6 +3,7 @@ package com.lilypuree.decorative_blocks;
 import com.lilypuree.decorative_blocks.setup.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;

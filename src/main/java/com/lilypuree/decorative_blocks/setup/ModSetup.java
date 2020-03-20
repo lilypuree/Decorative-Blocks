@@ -3,6 +3,10 @@ package com.lilypuree.decorative_blocks.setup;
 import com.lilypuree.decorative_blocks.Config;
 import com.lilypuree.decorative_blocks.DecorativeBlocks;
 import com.lilypuree.decorative_blocks.blocks.BrazierBlock;
+import com.lilypuree.decorative_blocks.capability.ChunkSavedBlockPos;
+import com.lilypuree.decorative_blocks.capability.ChunkSavedBlockPosImpl;
+import com.lilypuree.decorative_blocks.capability.ChunkSavedBlockPosProvider;
+import com.lilypuree.decorative_blocks.capability.ChunkSavedBlockPosStorage;
 import com.lilypuree.decorative_blocks.entity.DummyEntityForSitting;
 import com.lilypuree.decorative_blocks.entity.ItemEntityBonfireActivator;
 import net.minecraft.block.Block;
@@ -10,6 +14,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -28,18 +33,29 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+import net.minecraft.world.chunk.Chunk;
+import net.minecraft.world.chunk.ChunkStatus;
+import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.common.capabilities.CapabilityManager;
+import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.EntityMountEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
+import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.registries.ForgeRegistries;
+
+import java.util.Set;
 
 @Mod.EventBusSubscriber(modid = DecorativeBlocks.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ModSetup {
@@ -52,6 +68,41 @@ public class ModSetup {
     };
 
     public static void init(FMLCommonSetupEvent e) {
+        CapabilityManager.INSTANCE.register(ChunkSavedBlockPos.class, new ChunkSavedBlockPosStorage(), ChunkSavedBlockPosImpl::new);
+    }
+
+    @SubscribeEvent
+    public static void onCapabilityAttach(AttachCapabilitiesEvent<Chunk> event) {
+        event.addCapability(new ResourceLocation(DecorativeBlocks.MODID, "chunk_saved_block_pos"), new ChunkSavedBlockPosProvider());
+    }
+
+    @SubscribeEvent
+    public static void onEntitySpawn(LivingSpawnEvent event) {
+        if (!event.getWorld().isRemote() && event.getEntity() instanceof MobEntity) {
+            if(event.getWorld() instanceof ServerWorld){
+                ServerWorld world = (ServerWorld) event.getWorld();
+                double x =  event.getX();
+                double y =  event.getY();
+                double z =  event.getZ();
+                int r = Config.GOLD_SPAWN_BLOCK_RADIUS.get();
+                int chunkx1 = ((int)x - r) >> 4;
+                int chunkx2 = ((int)x + r) >> 4;
+                int chunkz1 = ((int)z - r) >> 4;
+                int chunkz2 = ((int)z + r) >> 4;
+                for(int chunkx = chunkx1; chunkx <= chunkx2; chunkx ++){
+                    for (int chunkz = chunkz1; chunkz <= chunkz2; chunkz ++){
+                        world.getChunk(chunkx, chunkz).getCapability(ChunkSavedBlockPosProvider.CHUNK_SAVED_BLOCK_POS_CAPABILITY).ifPresent(poses->{
+                            for(BlockPos pos : poses.getSavedBlockPoses()){
+                                if(pos.distanceSq(x,y,z,false) < r * r){
+                                    event.setCanceled(true);
+                                    return;
+                                }
+                            }
+                        });
+                    }
+                }
+            }
+        }
     }
 
     @SubscribeEvent
@@ -98,6 +149,9 @@ public class ModSetup {
         World world = event.getWorld();
         Item item = event.getItemStack().getItem();
         BlockPos pos = event.getPos();
+        if(!world.isBlockLoaded(pos)){
+            return;
+        }
         Block block = world.getBlockState(pos).getBlock();
         PlayerEntity player = event.getPlayer();
         if (item == Items.SHEARS && block == Blocks.HAY_BLOCK) {
@@ -132,7 +186,7 @@ public class ModSetup {
         ItemEntity thrownItemEntity = event.getEntityItem();
         if (bonfireActivatorItem == null) {
             if (!isBonfireActivatorConfigValueValid()) {
-                if(!didSendMessage){
+                if (!didSendMessage) {
                     player.sendMessage(new TranslationTextComponent("message.decorative_blocks.invalid_bonfire_activator_config"));
                     didSendMessage = true;
                 }
@@ -161,7 +215,6 @@ public class ModSetup {
         }
         return false;
     }
-
 
 
 }
