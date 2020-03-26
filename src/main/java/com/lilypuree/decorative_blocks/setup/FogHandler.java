@@ -18,8 +18,7 @@ import net.minecraftforge.fml.common.Mod;
 @Mod.EventBusSubscriber(modid = DecorativeBlocks.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class FogHandler {
 
-    private static Tag<Fluid> fluidTag = null;
-    private static boolean fluidTagChecked = false;
+    private static Tag<Fluid> fluidTag = new FluidTags.Wrapper(new ResourceLocation(DecorativeBlocks.MODID, "thatch"));
 
     @SubscribeEvent(priority =  EventPriority.NORMAL)
     public static void onFogDensity(EntityViewRenderEvent.FogDensity event)
@@ -58,13 +57,7 @@ public class FogHandler {
     }
 
     private static boolean isEntityInHay(IFluidState fluidState){
-        if(fluidTag == null){
-            fluidTag =  FluidTags.getCollection().get(new ResourceLocation(DecorativeBlocks.MODID, "thatch"));
-            fluidTagChecked = true;
-        }else if(fluidState.isTagged(fluidTag)) {
-            return true;
-        }
-        return false;
+        return fluidTag.contains(fluidState.getFluid());
     }
 
 
