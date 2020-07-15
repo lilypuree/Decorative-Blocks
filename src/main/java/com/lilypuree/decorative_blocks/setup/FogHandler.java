@@ -4,9 +4,9 @@ import com.lilypuree.decorative_blocks.DecorativeBlocks;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.IFluidState;
+import net.minecraft.fluid.FluidState;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.ITag;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -18,18 +18,15 @@ import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = DecorativeBlocks.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class FogHandler {
-
-    private static Tag<Fluid> fluidTag = null;
-    private static boolean fluidTagChecked = false;
-
+    private static ITag.INamedTag<Fluid> fluidTag = FluidTags.makeWrapperTag(new ResourceLocation(DecorativeBlocks.MODID, "thatch").toString());
     @SubscribeEvent(priority =  EventPriority.NORMAL)
     public static void onFogDensity(EntityViewRenderEvent.FogDensity event)
     {
         World world =  event.getInfo().getRenderViewEntity().getEntityWorld();
         BlockPos pos = event.getInfo().getBlockPos();
-        IFluidState state = world.getFluidState(pos);
+        FluidState state = world.getFluidState(pos);
 
-        IFluidState actualState = event.getInfo().getFluidState();
+        FluidState actualState = event.getInfo().getFluidState();
 
         if(isEntityInHay(state)){
             RenderSystem.fogMode(GlStateManager.FogMode.EXP2);
@@ -49,9 +46,9 @@ public class FogHandler {
 
         World world =  event.getInfo().getRenderViewEntity().getEntityWorld();
         BlockPos pos = event.getInfo().getBlockPos();
-        IFluidState state = world.getFluidState(pos);
+        FluidState state = world.getFluidState(pos);
 
-        IFluidState actualState = event.getInfo().getFluidState();
+        FluidState actualState = event.getInfo().getFluidState();
 
         if(isEntityInHay(state)){
 
@@ -61,14 +58,8 @@ public class FogHandler {
         }
     }
 
-    private static boolean isEntityInHay(IFluidState fluidState){
-        if(fluidTag == null){
-            fluidTag =  FluidTags.getCollection().get(new ResourceLocation(DecorativeBlocks.MODID, "thatch"));
-            fluidTagChecked = true;
-        }else if(fluidState.isTagged(fluidTag)) {
-            return true;
-        }
-        return false;
+    private static boolean isEntityInHay(FluidState fluidState){
+        return fluidTag.contains(fluidState.getFluid());
     }
 
 

@@ -11,6 +11,10 @@ import net.minecraftforge.fml.network.NetworkHooks;
 
 public class DummyEntityForSitting extends Entity {
 
+    public DummyEntityForSitting(World world){
+        super(Registration.DUMMY_ENTITY_TYPE.get(), world);
+    }
+
     public DummyEntityForSitting(EntityType<? extends DummyEntityForSitting> type, World world)
     {
         super(type, world);

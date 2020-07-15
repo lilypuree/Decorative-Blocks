@@ -70,7 +70,7 @@ public class ModSetup {
     public static void onProjectileCollisionEvent(ProjectileImpactEvent.Throwable event) {
         ThrowableEntity potion = event.getThrowable();
         World world = potion.getEntityWorld();
-        BlockPos pos = potion.getPosition();
+        BlockPos pos = potion.func_233580_cy_();
         BlockState state = world.getBlockState(pos);
         if (world.isRemote) return;
         if (potion instanceof PotionEntity && PotionUtils.getPotionFromItem(((PotionEntity) potion).getItem()) == Potions.WATER) {
@@ -122,7 +122,7 @@ public class ModSetup {
     public static void onEntityDamage(LivingDamageEvent event) {
         if (event.getSource() == DamageSource.FALL) {
             LivingEntity entity = event.getEntityLiving();
-            BlockPos pos = entity.getPosition();
+            BlockPos pos = entity.func_233580_cy_();
             World world = entity.getEntityWorld();
             if (world.getFluidState(pos).getFluid() == Registration.STILL_THATCH.get().getFluid()) {
                 event.setAmount(event.getAmount() * 0.2f);
@@ -137,7 +137,7 @@ public class ModSetup {
         if (bonfireActivatorItem == null) {
             if (!isBonfireActivatorConfigValueValid()) {
                 if(!didSendMessage){
-                    player.sendMessage(new TranslationTextComponent("message.decorative_blocks.invalid_bonfire_activator_config"));
+                    player.sendMessage(new TranslationTextComponent("message.decorative_blocks.invalid_bonfire_activator_config"), player.getUniqueID());
                     didSendMessage = true;
                 }
                 return;

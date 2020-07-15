@@ -4,8 +4,10 @@ import com.lilypuree.decorative_blocks.setup.Registration;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
+import net.minecraft.world.World;
 
 public class ItemEntityBonfireActivator extends ItemEntity {
     public ItemEntityBonfireActivator(ItemEntity parent) {
@@ -16,19 +18,20 @@ public class ItemEntityBonfireActivator extends ItemEntity {
     }
 
 
-
     @Override
-    protected void dealFireDamage(int amount) {
-
-        Block block = world.getBlockState(this.getPosition()).getBlock();
-        if (block == Blocks.FIRE) {
-            if (!world.isRemote()) {
-                world.setBlockState(this.getPosition(), Registration.BONFIRE.get().getDefaultState());
-                world.playSound(null, this.getPosX(), this.getPosY(), this.getPosZ(), SoundEvents.ITEM_FIRECHARGE_USE, SoundCategory.BLOCKS, 1.0f, 0.7f);
+    public boolean attackEntityFrom(DamageSource source, float amount) {
+        if(source == DamageSource.ON_FIRE){
+            Block block = world.getBlockState(this.func_233580_cy_()).getBlock();
+            if (block == Blocks.FIRE) {
+                if (!world.isRemote()) {
+                    world.setBlockState(this.func_233580_cy_(), Registration.BONFIRE.get().getDefaultState());
+                    world.playSound(null, this.getPosX(), this.getPosY(), this.getPosZ(), SoundEvents.ITEM_FIRECHARGE_USE, SoundCategory.BLOCKS, 1.0f, 0.7f);
+                }
+                this.remove();
             }
-            this.remove();
         }
-
-        super.dealFireDamage(amount);
+        return super.attackEntityFrom(source, amount);
     }
+
+
 }

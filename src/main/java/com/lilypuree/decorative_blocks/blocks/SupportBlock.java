@@ -4,8 +4,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.HorizontalBlock;
 import net.minecraft.block.IWaterLoggable;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.fluid.IFluidState;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
@@ -24,6 +25,7 @@ public class SupportBlock extends HorizontalBlock implements IWaterLoggable {
     private static final double d2 = 4D;
     private static final double d3 = 12D;
     public static final VoxelShape TOP = Block.makeCuboidShape(0, d1, 0, 16D, 16D, 16D);
+    public static final VoxelShape BOTTOM = Block.makeCuboidShape(0, 0, 0, 16D, 16D - d1, 16D);
     public static final VoxelShape NORTH_PART = Block.makeCuboidShape(d2, 0, d1, d3, d1, 16D);
     public static final VoxelShape SOUTH_PART = Block.makeCuboidShape(d2, 0, 0, d3, d1, d0);
     public static final VoxelShape EAST_PART = Block.makeCuboidShape(0, 0, d2, d0, d1, d3);
@@ -32,46 +34,67 @@ public class SupportBlock extends HorizontalBlock implements IWaterLoggable {
     public static final VoxelShape SOUTH_SHAPE = VoxelShapes.or(TOP, SOUTH_PART);
     public static final VoxelShape EAST_SHAPE = VoxelShapes.or(TOP, EAST_PART);
     public static final VoxelShape WEST_SHAPE = VoxelShapes.or(TOP, WEST_PART);
+    public static final VoxelShape NORTH_DOWN_SHAPE = VoxelShapes.or(BOTTOM, NORTH_PART);
+    public static final VoxelShape SOUTH_DOWN_SHAPE = VoxelShapes.or(BOTTOM, SOUTH_PART);
+    public static final VoxelShape EAST_DOWN_SHAPE = VoxelShapes.or(BOTTOM, EAST_PART);
+    public static final VoxelShape WEST_DOWN_SHAPE = VoxelShapes.or(BOTTOM, WEST_PART);
+
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+    public static final BooleanProperty UP = BlockStateProperties.UP;
 
     public SupportBlock(Block.Properties properties) {
         super(properties);
-        this.setDefaultState(this.stateContainer.getBaseState().with(WATERLOGGED, Boolean.valueOf(false)));
+        this.setDefaultState(this.stateContainer.getBaseState().with(WATERLOGGED, Boolean.FALSE).with(UP, Boolean.TRUE));
     }
 
     @Override
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
         Direction facing = state.get(HORIZONTAL_FACING);
-        switch (facing) {
-            case NORTH:
-                return NORTH_SHAPE;
-            case SOUTH:
-                return SOUTH_SHAPE;
-            case EAST:
-                return EAST_SHAPE;
-            case WEST:
-                return WEST_SHAPE;
+        if (state.get(UP)) {
+            switch (facing) {
+                case NORTH:
+                    return NORTH_SHAPE;
+                case SOUTH:
+                    return SOUTH_SHAPE;
+                case EAST:
+                    return EAST_SHAPE;
+                case WEST:
+                    return WEST_SHAPE;
+            }
+        } else {
+            switch (facing) {
+                case NORTH:
+                    return NORTH_SHAPE;
+                case SOUTH:
+                    return SOUTH_SHAPE;
+                case EAST:
+                    return EAST_SHAPE;
+                case WEST:
+                    return WEST_SHAPE;
+            }
         }
         return NORTH_SHAPE;
     }
 
     public BlockState getStateForPlacement(BlockItemUseContext context) {
         BlockState blockstate = context.getWorld().getBlockState(context.getPos());
-        IFluidState ifluidstate = context.getWorld().getFluidState(context.getPos());
+        FluidState ifluidstate = context.getWorld().getFluidState(context.getPos());
         boolean flag = ifluidstate.isTagged(FluidTags.WATER) && ifluidstate.getLevel() == 8;
 
-        return this.getDefaultState().with(HORIZONTAL_FACING, context.getPlacementHorizontalFacing().getOpposite()).with(WATERLOGGED, Boolean.valueOf(flag));
+        PlayerEntity player = context.getPlayer();
+//        boolean crouch = player != null && player.isCrouching();
+        return this.getDefaultState().with(HORIZONTAL_FACING, context.getPlacementHorizontalFacing().getOpposite()).with(WATERLOGGED, flag);
     }
 
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-        builder.add(HORIZONTAL_FACING, WATERLOGGED);
+        builder.add(HORIZONTAL_FACING, WATERLOGGED, UP);
     }
 
     public boolean propagatesSkylightDown(BlockState state, IBlockReader reader, BlockPos pos) {
         return !state.get(WATERLOGGED);
     }
 
-    public IFluidState getFluidState(BlockState state) {
+    public FluidState getFluidState(BlockState state) {
         return state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : super.getFluidState(state);
     }
 

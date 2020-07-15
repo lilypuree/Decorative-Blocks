@@ -7,11 +7,12 @@ import net.minecraft.block.IWaterLoggable;
 import net.minecraft.client.particle.ParticleManager;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.fluid.Fluid;
+import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.fluid.IFluidState;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Direction;
@@ -28,6 +29,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import javax.annotation.Nullable;
 import java.util.Random;
 
 public class BonfireBlock extends Block implements IWaterLoggable {
@@ -54,7 +56,7 @@ public class BonfireBlock extends Block implements IWaterLoggable {
     }
 
     public void onEntityCollision(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
-        if (!entityIn.isImmuneToFire() && entityIn instanceof LivingEntity && !EnchantmentHelper.hasFrostWalker((LivingEntity) entityIn)) {
+        if (!entityIn.func_230279_az_() && entityIn instanceof LivingEntity && !EnchantmentHelper.hasFrostWalker((LivingEntity) entityIn)) {
             entityIn.attackEntityFrom(DamageSource.IN_FIRE, 1.0F);
         }
         super.onEntityCollision(state, worldIn, pos, entityIn);
@@ -66,12 +68,12 @@ public class BonfireBlock extends Block implements IWaterLoggable {
     }
 
     @Override
-    public int getLightValue(BlockState state) {
+    public int getLightValue(BlockState state, IBlockReader world, BlockPos pos) {
         return 15;
     }
 
     @Override
-    public boolean canEntitySpawn(BlockState state, IBlockReader worldIn, BlockPos pos, EntityType<?> type) {
+    public boolean canCreatureSpawn(BlockState state, IBlockReader world, BlockPos pos, EntitySpawnPlacementRegistry.PlacementType type, @Nullable EntityType<?> entityType) {
         return false;
     }
 
@@ -102,18 +104,20 @@ public class BonfireBlock extends Block implements IWaterLoggable {
     }
 
     @Override
-    public boolean receiveFluid(IWorld world, BlockPos pos, BlockState state, IFluidState fluidStateIn) {
+    public boolean receiveFluid(IWorld worldIn, BlockPos pos, BlockState state, FluidState fluidStateIn) {
         if(fluidStateIn.getFluid() == Fluids.WATER){
-            if (!world.isRemote()) {
-                world.setBlockState(pos, Blocks.AIR.getDefaultState(), 3);
-                world.playSound(null, pos, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 1.2f, 0.6f);
+            if (!worldIn.isRemote()) {
+                worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 3);
+                worldIn.playSound(null, pos, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 1.2f, 0.6f);
             } else {
-                spawnExtinguishSmoke(world.getWorld(), pos);
+                spawnExtinguishSmoke(worldIn.getWorld(), pos);
             }
             return true;
         }else
             return false;
     }
+
+
 
     public static void spawnExtinguishSmoke(World world, BlockPos pos){
         Random rand = world.getRandom();

@@ -52,13 +52,13 @@ public class BarPanelBlock extends TrapDoorBlock {
 
     @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
-        state = state.cycle(OPEN);
+        state = state.func_235896_a_(OPEN);
         worldIn.setBlockState(pos, state, 2);
         if (state.get(WATERLOGGED)) {
             worldIn.getPendingFluidTicks().scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(worldIn));
         }
         this.playSound(player, worldIn, pos, state.get(OPEN));
-        return ActionResultType.SUCCESS;
+        return ActionResultType.func_233537_a_(worldIn.isRemote);
     }
 
 

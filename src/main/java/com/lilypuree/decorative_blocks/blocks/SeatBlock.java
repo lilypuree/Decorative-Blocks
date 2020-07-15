@@ -3,8 +3,8 @@ package com.lilypuree.decorative_blocks.blocks;
 import com.lilypuree.decorative_blocks.entity.DummyEntityForSitting;
 import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.fluid.IFluidState;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -28,7 +28,7 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-public class SeatBlock extends HorizontalBlock implements IWaterLoggable{
+public class SeatBlock extends HorizontalBlock implements IWaterLoggable {
     private static final VoxelShape POST_SHAPE = Block.makeCuboidShape(6.0D, 0.0D, 6.0D, 10.0D, 4.0D, 10.0D);
     private static final VoxelShape JOIST_SHAPE_NS = Block.makeCuboidShape(0, 4.0D, 4D, 16D, 7D, 12D);
     private static final VoxelShape JOIST_SHAPE_EW = Block.makeCuboidShape(4.0D, 4.0D, 0D, 12D, 7D, 16D);
@@ -39,7 +39,7 @@ public class SeatBlock extends HorizontalBlock implements IWaterLoggable{
     public static final BooleanProperty OCCUPIED = BlockStateProperties.OCCUPIED;
     public static final BooleanProperty ATTACHED = BlockStateProperties.ATTACHED;
 
-    public SeatBlock(Block.Properties properties){
+    public SeatBlock(Block.Properties properties) {
         super(properties);
     }
 
@@ -47,11 +47,13 @@ public class SeatBlock extends HorizontalBlock implements IWaterLoggable{
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
         Direction facing = state.get(HORIZONTAL_FACING);
         boolean attached = state.get(ATTACHED);
-        switch (facing){
-            case NORTH:case SOUTH:
-                return  (attached) ? SEAT_SHAPE_NS : JOIST_SHAPE_NS;
-            case EAST:case WEST:
-                return  (attached) ? SEAT_SHAPE_EW : JOIST_SHAPE_EW;
+        switch (facing) {
+            case NORTH:
+            case SOUTH:
+                return (attached) ? SEAT_SHAPE_NS : JOIST_SHAPE_NS;
+            case EAST:
+            case WEST:
+                return (attached) ? SEAT_SHAPE_EW : JOIST_SHAPE_EW;
         }
         return SEAT_SHAPE_NS;
     }
@@ -61,15 +63,15 @@ public class SeatBlock extends HorizontalBlock implements IWaterLoggable{
         World world = context.getWorld();
         BlockPos pos = context.getPos();
         BlockState blockstate = world.getBlockState(pos);
-        IFluidState ifluidstate = world.getFluidState(pos);
+        FluidState ifluidstate = world.getFluidState(pos);
         boolean waterloggedFlag = ifluidstate.isTagged(FluidTags.WATER) && ifluidstate.getLevel() == 8;
         boolean attachedFlag = isInAttachablePos(world, pos);
 
         Direction facingDir = context.getFace();
         Direction placementDir;
-        if(facingDir == Direction.DOWN || facingDir == Direction.UP){
+        if (facingDir == Direction.DOWN || facingDir == Direction.UP) {
             placementDir = context.getPlacementHorizontalFacing().getOpposite();
-        }else {
+        } else {
             placementDir = facingDir.rotateY();
         }
 
@@ -82,15 +84,15 @@ public class SeatBlock extends HorizontalBlock implements IWaterLoggable{
             worldIn.getPendingFluidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickRate(worldIn));
         }
 
-        if(facing == Direction.DOWN){
+        if (facing == Direction.DOWN) {
             return stateIn.with(ATTACHED, isInAttachablePos(worldIn, currentPos));
-        }else {
+        } else {
             return stateIn;
         }
     }
 
-    private boolean isInAttachablePos(IWorldReader worldIn, BlockPos pos){
-        if(worldIn.getBlockState(pos.down()).getBlock() == Blocks.LANTERN){
+    private boolean isInAttachablePos(IWorldReader worldIn, BlockPos pos) {
+        if (worldIn.getBlockState(pos.down()).getBlock() == Blocks.LANTERN) {
             return true;
         }
         return Block.hasEnoughSolidSide(worldIn, pos.down(), Direction.UP);
@@ -100,11 +102,13 @@ public class SeatBlock extends HorizontalBlock implements IWaterLoggable{
         builder.add(HORIZONTAL_FACING, WATERLOGGED, OCCUPIED, ATTACHED);
     }
 
+    @Override
     public boolean propagatesSkylightDown(BlockState state, IBlockReader reader, BlockPos pos) {
         return !state.get(WATERLOGGED);
     }
 
-    public IFluidState getFluidState(BlockState state) {
+    @Override
+    public FluidState getFluidState(BlockState state) {
         return state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : super.getFluidState(state);
     }
 
@@ -112,19 +116,20 @@ public class SeatBlock extends HorizontalBlock implements IWaterLoggable{
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
         ItemStack heldItem = player.getHeldItem(handIn);
         BlockState upperBlock = worldIn.getBlockState(pos.up());
-        boolean canSit = hit.getFace() == Direction.UP && !state.get(OCCUPIED) && heldItem.isEmpty() && upperBlock.isAir(worldIn,pos.up()) && isPlayerInRange(player, pos);
+        boolean canSit = hit.getFace() == Direction.UP && !state.get(OCCUPIED) && heldItem.isEmpty() && upperBlock.isAir(worldIn, pos.up()) && isPlayerInRange(player, pos);
         boolean canAttachLantern = hit.getFace() == Direction.DOWN && heldItem.getItem() == Items.LANTERN && worldIn.getBlockState(pos.down()).isAir(worldIn, pos.down());
-        if(!worldIn.isRemote()){
-            if(canSit) {
+        if (!worldIn.isRemote()) {
+            if (canSit) {
                 DummyEntityForSitting seat = new DummyEntityForSitting(worldIn, pos);
                 worldIn.addEntity(seat);
                 player.startRiding(seat);
                 return ActionResultType.SUCCESS;
-            }else if(canAttachLantern){
-                worldIn.setBlockState(pos, state.with(ATTACHED, Boolean.TRUE));
-                worldIn.notifyNeighbors(pos, this);
+            } else if (canAttachLantern) {
+                BlockState newState = state.with(ATTACHED, Boolean.TRUE);
+                worldIn.setBlockState(pos, newState);
+                worldIn.notifyBlockUpdate(pos, state, newState, 3);
                 worldIn.setBlockState(pos.down(), Blocks.LANTERN.getDefaultState().with(BlockStateProperties.HANGING, Boolean.TRUE));
-                if(!player.isCreative()){
+                if (!player.isCreative()) {
                     heldItem.shrink(1);
                 }
                 return ActionResultType.SUCCESS;
@@ -135,13 +140,11 @@ public class SeatBlock extends HorizontalBlock implements IWaterLoggable{
     }
 
 
-
-    private static boolean isPlayerInRange(PlayerEntity player, BlockPos pos)
-    {
-        BlockPos playerPos = player.getPosition();
+    private static boolean isPlayerInRange(PlayerEntity player, BlockPos pos) {
+        BlockPos playerPos = player.func_233580_cy_();
         int blockReachDistance = 2;
 
-        if(blockReachDistance == 0) //player has to stand on top of the block
+        if (blockReachDistance == 0) //player has to stand on top of the block
             return playerPos.getY() - pos.getY() <= 1 && playerPos.getX() - pos.getX() == 0 && playerPos.getZ() - pos.getZ() == 0;
 
         pos = pos.add(0.5D, 0.5D, 0.5D);
@@ -157,8 +160,8 @@ public class SeatBlock extends HorizontalBlock implements IWaterLoggable{
         double x = pos.getX();
         double y = pos.getY();
         double z = pos.getZ();
-        List<DummyEntityForSitting> entities = worldIn.getEntitiesWithinAABB(DummyEntityForSitting.class, new AxisAlignedBB(x, y, z, x,y,z));
-        for(DummyEntityForSitting entity : entities){
+        List<DummyEntityForSitting> entities = worldIn.getEntitiesWithinAABB(DummyEntityForSitting.class, new AxisAlignedBB(x, y, z, x, y, z));
+        for (DummyEntityForSitting entity : entities) {
             entity.remove();
         }
         super.onReplaced(state, worldIn, pos, newState, isMoving);

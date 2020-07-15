@@ -45,8 +45,7 @@ public class ChandelierBlock extends Block {
       }
 
     @Override
-    public int getLightValue(BlockState state) {
+    public int getLightValue(BlockState state, IBlockReader world, BlockPos pos) {
         return 15;
     }
-
 }

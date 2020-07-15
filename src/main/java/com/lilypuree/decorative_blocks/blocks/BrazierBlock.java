@@ -7,9 +7,9 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.AbstractArrowEntity;
+import net.minecraft.entity.projectile.ProjectileEntity;
+import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.fluid.IFluidState;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -42,12 +42,12 @@ public class BrazierBlock extends Block implements IWaterLoggable {
 
     public BrazierBlock(Block.Properties properties) {
         super(properties);
-        this.setDefaultState(this.stateContainer.getBaseState().with(LIT, Boolean.valueOf(true)).with(WATERLOGGED, Boolean.valueOf(false)));
+        this.setDefaultState(this.stateContainer.getBaseState().with(LIT, Boolean.TRUE).with(WATERLOGGED, Boolean.FALSE));
     }
 
 
     public void onEntityCollision(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
-        if (!entityIn.isImmuneToFire() && state.get(LIT) && entityIn instanceof LivingEntity && !EnchantmentHelper.hasFrostWalker((LivingEntity) entityIn)) {
+        if (!entityIn.func_230279_az_() && state.get(LIT) && entityIn instanceof LivingEntity && !EnchantmentHelper.hasFrostWalker((LivingEntity) entityIn)) {
             entityIn.attackEntityFrom(DamageSource.IN_FIRE, 1.0F);
         }
         super.onEntityCollision(state, worldIn, pos, entityIn);
@@ -111,8 +111,8 @@ public class BrazierBlock extends Block implements IWaterLoggable {
     }
 
     @Override
-    public int getLightValue(BlockState state) {
-        return state.get(LIT) ? 15 : 0;
+    public int getLightValue(BlockState state, IBlockReader world, BlockPos pos) {
+        return 15;
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -131,26 +131,26 @@ public class BrazierBlock extends Block implements IWaterLoggable {
         }
     }
 
-    public void onProjectileCollision(World worldIn, BlockState state, BlockRayTraceResult hit, Entity projectile) {
-        if (worldIn.isRemote()) {
-            return;
-        }
-        BlockPos blockpos = hit.getPos();
-        if (projectile instanceof AbstractArrowEntity) {
-            AbstractArrowEntity abstractarrowentity = (AbstractArrowEntity) projectile;
-            if (abstractarrowentity.isBurning() && !state.get(LIT) && !state.get(WATERLOGGED)) {
-                worldIn.setBlockState(blockpos, state.with(BlockStateProperties.LIT, Boolean.valueOf(true)), 11);
+    @Override
+    public void onProjectileCollision(World worldIn, BlockState state, BlockRayTraceResult hit, ProjectileEntity projectile) {
+        if (!worldIn.isRemote && projectile.isBurning()) {
+            Entity entity = projectile.func_234616_v_();
+            boolean flag = entity == null || entity instanceof PlayerEntity || net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(worldIn, entity);
+            if (flag && !state.get(LIT) && !state.get(WATERLOGGED)) {
+                BlockPos blockpos = hit.getPos();
+                worldIn.setBlockState(blockpos, state.with(BlockStateProperties.LIT, Boolean.TRUE), 11);
             }
         }
     }
 
-    public boolean receiveFluid(IWorld worldIn, BlockPos pos, BlockState state, IFluidState fluidStateIn) {
+    @Override
+    public boolean receiveFluid(IWorld worldIn, BlockPos pos, BlockState state, FluidState fluidStateIn) {
         if (!state.get(BlockStateProperties.WATERLOGGED) && fluidStateIn.getFluid() == Fluids.WATER) {
             boolean flag = state.get(LIT);
             if (flag) {
                 worldIn.playSound((PlayerEntity) null, pos, SoundEvents.ENTITY_GENERIC_EXTINGUISH_FIRE, SoundCategory.BLOCKS, 1.0F, 1.0F);
             }
-            worldIn.setBlockState(pos, state.with(WATERLOGGED, Boolean.valueOf(true)).with(LIT, Boolean.valueOf(false)), 3);
+            worldIn.setBlockState(pos, state.with(WATERLOGGED, Boolean.TRUE).with(LIT, Boolean.valueOf(false)), 3);
             worldIn.getPendingFluidTicks().scheduleTick(pos, fluidStateIn.getFluid(), fluidStateIn.getFluid().getTickRate(worldIn));
             return true;
         } else {
@@ -158,7 +158,8 @@ public class BrazierBlock extends Block implements IWaterLoggable {
         }
     }
 
-    public IFluidState getFluidState(BlockState state) {
+    @Override
+    public FluidState getFluidState(BlockState state) {
         return state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : super.getFluidState(state);
     }
 

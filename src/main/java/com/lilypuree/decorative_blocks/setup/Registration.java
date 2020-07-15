@@ -2,7 +2,9 @@ package com.lilypuree.decorative_blocks.setup;
 
 import com.google.common.collect.ImmutableMap;
 import com.lilypuree.decorative_blocks.blocks.*;
-import com.lilypuree.decorative_blocks.datagen.types.*;
+import com.lilypuree.decorative_blocks.datagen.types.IWoodType;
+import com.lilypuree.decorative_blocks.datagen.types.ModWoodTypes;
+import com.lilypuree.decorative_blocks.datagen.types.WoodDecorativeBlockTypes;
 import com.lilypuree.decorative_blocks.entity.DummyEntityForSitting;
 import com.lilypuree.decorative_blocks.fluid.ThatchFluid;
 import com.lilypuree.decorative_blocks.fluid.ThatchFluidBlock;
@@ -18,24 +20,20 @@ import net.minecraft.fluid.FlowingFluid;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
-import java.util.Arrays;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import static com.lilypuree.decorative_blocks.DecorativeBlocks.MODID;
 
 public class Registration {
-    public static final DeferredRegister<Item> ITEMS = new DeferredRegister<>(ForgeRegistries.ITEMS, MODID);
-    public static final DeferredRegister<Block> BLOCKS = new DeferredRegister<>(ForgeRegistries.BLOCKS, MODID);
-    public static final DeferredRegister<EntityType<?>> ENTITIES = new DeferredRegister<>(ForgeRegistries.ENTITIES, MODID);
-    public static final DeferredRegister<Fluid> FLUIDS = new DeferredRegister<>(ForgeRegistries.FLUIDS, MODID);
+    public static final DeferredRegister<Item> ITEMS =DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
+    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
+    public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITIES, MODID);
+    public static final DeferredRegister<Fluid> FLUIDS = DeferredRegister.create(ForgeRegistries.FLUIDS, MODID);
 
 
     public static void register() {
@@ -50,10 +48,10 @@ public class Registration {
     public static final RegistryObject<LatticeBlock> LATTICE = BLOCKS.register("lattice", ()-> new LatticeBlock(Block.Properties.create(Material.WOOD, MaterialColor.WOOD).hardnessAndResistance(1.2F).sound(SoundType.WOOD).notSolid()));
     public static final RegistryObject<ChainBlock> CHAIN = BLOCKS.register("chain", ()-> new ChainBlock(Block.Properties.create(Material.IRON, MaterialColor.BLACK).hardnessAndResistance(4.3F).sound(SoundType.METAL).notSolid()));
     public static final RegistryObject<ChandelierBlock> CHANDELIER = BLOCKS.register("chandelier", ()->new ChandelierBlock(Block.Properties.create(Material.MISCELLANEOUS).hardnessAndResistance(0.3F).sound(SoundType.WOOD).notSolid()));
-    public static final RegistryObject<BrazierBlock> BRAZIER = BLOCKS.register("brazier", ()->new BrazierBlock(Block.Properties.create(Material.IRON).hardnessAndResistance(3.0F).sound(SoundType.METAL).notSolid()));
+    public static final RegistryObject<BrazierBlock> BRAZIER = BLOCKS.register("brazier", ()->new BrazierBlock(Block.Properties.create(Material.IRON).hardnessAndResistance(3.0F).sound(SoundType.METAL).setLightLevel(state -> state.get(BlockStateProperties.LIT) ? 15 :0).notSolid()));
     public static final RegistryObject<PillarBlock> STONE_PILLAR = BLOCKS.register("stone_pillar", ()->new PillarBlock(Block.Properties.create(Material.ROCK).hardnessAndResistance(1.5F, 6.5F)));
     public static final RegistryObject<Block> ROCKY_DIRT = BLOCKS.register("rocky_dirt", ()->new RockyDirtBlock());
-    public static final RegistryObject<BonfireBlock> BONFIRE = BLOCKS.register("bonfire", ()->new BonfireBlock(Block.Properties.create(Material.FIRE, MaterialColor.TNT).doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.CLOTH).lightValue(15).noDrops()));
+    public static final RegistryObject<BonfireBlock> BONFIRE = BLOCKS.register("bonfire", ()->new BonfireBlock(Block.Properties.create(Material.FIRE, MaterialColor.TNT).doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.CLOTH).setLightLevel(state -> 15).noDrops()));
 
 
     public static final Item.Properties modItemProperties =  new Item.Properties().group(ModSetup.ITEM_GROUP);

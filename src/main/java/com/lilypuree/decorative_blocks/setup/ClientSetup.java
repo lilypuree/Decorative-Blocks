@@ -4,7 +4,7 @@ import com.lilypuree.decorative_blocks.DecorativeBlocks;
 import com.lilypuree.decorative_blocks.entity.DummyEntityForSitting;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
-import net.minecraft.client.renderer.culling.ClippingHelperImpl;
+import net.minecraft.client.renderer.culling.ClippingHelper;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.util.ResourceLocation;
@@ -30,6 +30,8 @@ public class ClientSetup {
 
     }
 
+
+
     private static class EmptyRenderer extends EntityRenderer<DummyEntityForSitting>
     {
         protected EmptyRenderer(EntityRendererManager renderManager)
@@ -38,8 +40,7 @@ public class ClientSetup {
         }
 
         @Override
-        public boolean shouldRender(DummyEntityForSitting p_225626_1_, ClippingHelperImpl p_225626_2_, double p_225626_3_, double p_225626_5_, double p_225626_7_) //shouldRender
-        {
+        public boolean shouldRender(DummyEntityForSitting livingEntityIn, ClippingHelper camera, double camX, double camY, double camZ) {
             return false;
         }
 
