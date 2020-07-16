@@ -2,9 +2,9 @@
 	"group": "decorative_blocks",
     "type": "minecraft:crafting_shaped",
     "pattern": [
-        "#",
-        "i",
-        "#"
+        "##",
+        "ii",
+        "##"
     ],
     "key": {
         "#": {
