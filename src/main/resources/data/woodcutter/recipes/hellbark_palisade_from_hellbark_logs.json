@@ -1,0 +1,18 @@
+{
+  "type": "woodcutter:woodcutter",
+  "ingredient": {
+    "tag": "biomesoplenty:hellbark_logs"
+  },
+  "result": "decorative_blocks:hellbark_palisade",
+  "count": 4,
+  "conditions" : [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "woodcutter"
+    },
+    {
+      "type": "forge:mod_loaded",
+      "modid": "biomesoplenty"
+    }
+  ]
+}

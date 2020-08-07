@@ -1,0 +1,18 @@
+{
+  "type": "woodcutter:woodcutter",
+  "ingredient": {
+    "item": "biomesoplenty:mahogany_planks"
+  },
+  "result": "decorative_blocks:mahogany_support",
+  "count": 1,
+  "conditions" : [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "woodcutter"
+    },
+    {
+      "type": "forge:mod_loaded",
+      "modid": "biomesoplenty"
+    }
+  ]
+}

@@ -30,11 +30,11 @@ public class ChainBlock extends RotatedPillarBlock implements IWaterLoggable {
 
     private static final VoxelShape CHAIN_COLLISION_SHAPE = Block.makeCuboidShape(6D, 0D, 6D, 10D, 16, 10D);
 
-    public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+        public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
     public ChainBlock(Block.Properties properties) {
         super(properties);
-        this.setDefaultState(this.stateContainer.getBaseState().with(WATERLOGGED, Boolean.valueOf(false)));
+        this.setDefaultState(this.stateContainer.getBaseState().with(WATERLOGGED, Boolean.FALSE));
     }
 
     @Override

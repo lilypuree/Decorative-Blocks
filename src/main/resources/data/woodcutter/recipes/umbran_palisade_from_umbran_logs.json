@@ -1,0 +1,18 @@
+{
+  "type": "woodcutter:woodcutter",
+  "ingredient": {
+    "tag": "biomesoplenty:umbran_logs"
+  },
+  "result": "decorative_blocks:umbran_palisade",
+  "count": 4,
+  "conditions" : [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "woodcutter"
+    },
+    {
+      "type": "forge:mod_loaded",
+      "modid": "biomesoplenty"
+    }
+  ]
+}

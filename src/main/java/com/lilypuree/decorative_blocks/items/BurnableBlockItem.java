@@ -11,6 +11,8 @@ public class BurnableBlockItem extends BlockItem {
         this.burnTime = burnTime;
     }
 
+
+
     @Override
     public int getBurnTime(ItemStack itemStack) {
         return burnTime;

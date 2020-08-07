@@ -36,7 +36,7 @@ public class LatticeBlock extends TrapDoorBlock {
         if (!state.get(OPEN)) {
             return state.get(HALF) == Half.TOP ? TOP_AABB : BOTTOM_AABB;
         } else {
-            switch((Direction)state.get(HORIZONTAL_FACING)) {
+            switch ((Direction) state.get(HORIZONTAL_FACING)) {
                 case NORTH:
                 default:
                     return NORTH_OPEN_AABB;
@@ -47,7 +47,8 @@ public class LatticeBlock extends TrapDoorBlock {
                 case EAST:
                     return EAST_OPEN_AABB;
             }
-        }    }
+        }
+    }
 
     @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {

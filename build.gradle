@@ -103,7 +103,8 @@ dependencies {
     // compile "some.group:artifact:version"
 
 //    compile fg.deobf("com.github.glitchfiend.biomesoplenty:BiomesOPlenty:1.16.1-11.0.0.379: deobf")
-    compile fg.deobf("curse.maven:BiomesOPlenty:3004535")
+    compile fg.deobf("curse.maven:BiomesOPlenty:3012271")
+    compile fg.deobf("curse.maven:WoodCutter:3012589")
 
 //    compile fg.deobf("Corail_31:corail_woodcutter-1.1.1:1.15.2")
 

@@ -28,6 +28,7 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.entity.EntityMountEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
@@ -65,6 +66,8 @@ public class ModSetup {
             }
         }
     }
+
+
 
     @SubscribeEvent
     public static void onProjectileCollisionEvent(ProjectileImpactEvent.Throwable event) {

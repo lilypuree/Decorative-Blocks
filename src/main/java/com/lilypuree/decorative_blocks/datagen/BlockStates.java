@@ -163,6 +163,6 @@ public class BlockStates extends BlockStateProvider {
         ModelFile chainModel = models().getBuilder("chain").parent(new ModelFile.UncheckedModelFile(modLoc("custom/chain")))
                 .texture("particle", modLoc("block/chain"))
                 .texture("texture", modLoc("block/chain"));
-        axisBlock(Registration.CHAIN.get(), chainModel);
+//        axisBlock(Registration.CHAIN.get(), chainModel);
     }
 }

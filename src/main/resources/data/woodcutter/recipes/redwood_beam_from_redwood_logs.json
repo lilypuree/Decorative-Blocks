@@ -1,0 +1,18 @@
+{
+  "type": "woodcutter:woodcutter",
+  "ingredient": {
+    "tag": "biomesoplenty:redwood_logs"
+  },
+  "result": "decorative_blocks:redwood_beam",
+  "count": 1,
+  "conditions" : [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "woodcutter"
+    },
+    {
+      "type": "forge:mod_loaded",
+      "modid": "biomesoplenty"
+    }
+  ]
+}
