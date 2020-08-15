@@ -10,4 +10,6 @@ public interface IWoodType {
     Block getSlab();
     Block getFence();
     Block getPlanks();
+
+    boolean isAvailable();
 }

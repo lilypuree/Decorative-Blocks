@@ -86,9 +86,10 @@ public abstract class ThatchFluid extends FlowingFluid {
 
 
             for (Direction dir : Direction.Plane.HORIZONTAL){
-                BlockState supportBlock = worldIn.getBlockState(pos.offset(dir));
+                BlockPos supportPos = pos.offset(dir);
+                BlockState supportBlock = worldIn.getBlockState(supportPos);
                 IFluidState sourceFluid = worldIn.getFluidState(pos.offset(dir).up());
-                if(supportBlock.isSolid() && !sourceFluid.isEmpty()){
+                if(supportBlock.isSolidSide(worldIn, supportPos, dir.getOpposite()) && !sourceFluid.isEmpty()){
                     shouldFlowInto = true;
                 }
             }

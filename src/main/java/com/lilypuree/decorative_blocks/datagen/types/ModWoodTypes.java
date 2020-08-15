@@ -11,9 +11,9 @@ public class ModWoodTypes {
 
     private static Set<IWoodType> findWoodTypes(){
         Set<IWoodType> woodTypes = Arrays.stream(VanillaWoodTypes.values()).collect(Collectors.toSet());
-        if(ModList.get().isLoaded("biomesoplenty")){
+//        if(ModList.get().isLoaded("biomesoplenty")){
             woodTypes.addAll(Arrays.stream(BOPWoodTypes.values()).collect(Collectors.toSet()));
-        }
+//        }
         return woodTypes;
     }
 

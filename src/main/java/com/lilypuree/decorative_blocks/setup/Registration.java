@@ -27,6 +27,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.Arrays;
 import java.util.Set;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 import static com.lilypuree.decorative_blocks.DecorativeBlocks.MODID;
@@ -46,19 +47,20 @@ public class Registration {
         FLUIDS.register(modEventBus);
     }
 
-    public static final RegistryObject<BarPanelBlock> BAR_PANEL = BLOCKS.register("bar_panel", ()-> new BarPanelBlock(Block.Properties.create(Material.IRON, MaterialColor.BLACK).hardnessAndResistance(5.0F).sound(SoundType.METAL).notSolid()));
-    public static final RegistryObject<LatticeBlock> LATTICE = BLOCKS.register("lattice", ()-> new LatticeBlock(Block.Properties.create(Material.WOOD, MaterialColor.WOOD).hardnessAndResistance(1.2F).sound(SoundType.WOOD).notSolid()));
-    public static final RegistryObject<ChainBlock> CHAIN = BLOCKS.register("chain", ()-> new ChainBlock(Block.Properties.create(Material.IRON, MaterialColor.BLACK).hardnessAndResistance(4.3F).sound(SoundType.METAL).notSolid()));
-    public static final RegistryObject<ChandelierBlock> CHANDELIER = BLOCKS.register("chandelier", ()->new ChandelierBlock(Block.Properties.create(Material.MISCELLANEOUS).hardnessAndResistance(0.3F).sound(SoundType.WOOD).notSolid()));
-    public static final RegistryObject<BrazierBlock> BRAZIER = BLOCKS.register("brazier", ()->new BrazierBlock(Block.Properties.create(Material.IRON).hardnessAndResistance(3.0F).sound(SoundType.METAL).notSolid()));
-    public static final RegistryObject<PillarBlock> STONE_PILLAR = BLOCKS.register("stone_pillar", ()->new PillarBlock(Block.Properties.create(Material.ROCK).hardnessAndResistance(1.5F, 6.5F)));
-    public static final RegistryObject<Block> ROCKY_DIRT = BLOCKS.register("rocky_dirt", ()->new RockyDirtBlock());
-    public static final RegistryObject<BonfireBlock> BONFIRE = BLOCKS.register("bonfire", ()->new BonfireBlock(Block.Properties.create(Material.FIRE, MaterialColor.TNT).doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.CLOTH).lightValue(15).noDrops()));
+    public static final RegistryObject<BarPanelBlock> BAR_PANEL = BLOCKS.register("bar_panel", () -> new BarPanelBlock(Block.Properties.create(Material.IRON, MaterialColor.BLACK).hardnessAndResistance(5.0F).sound(SoundType.METAL).notSolid()));
+    public static final RegistryObject<LatticeBlock> LATTICE = BLOCKS.register("lattice", () -> new LatticeBlock(Block.Properties.create(Material.WOOD, MaterialColor.WOOD).hardnessAndResistance(1.2F).sound(SoundType.WOOD).notSolid()));
+    public static final RegistryObject<ChainBlock> CHAIN = BLOCKS.register("chain", () -> new ChainBlock(Block.Properties.create(Material.IRON, MaterialColor.BLACK).hardnessAndResistance(4.3F).sound(SoundType.METAL).notSolid()));
+    public static final RegistryObject<ChandelierBlock> CHANDELIER = BLOCKS.register("chandelier", () -> new ChandelierBlock(Block.Properties.create(Material.MISCELLANEOUS).hardnessAndResistance(0.3F).sound(SoundType.WOOD).notSolid()));
+    public static final RegistryObject<BrazierBlock> BRAZIER = BLOCKS.register("brazier", () -> new BrazierBlock(Block.Properties.create(Material.IRON).hardnessAndResistance(3.0F).sound(SoundType.METAL).notSolid()));
+    public static final RegistryObject<PillarBlock> STONE_PILLAR = BLOCKS.register("stone_pillar", () -> new PillarBlock(Block.Properties.create(Material.ROCK).hardnessAndResistance(1.5F, 6.5F)));
+    public static final RegistryObject<Block> ROCKY_DIRT = BLOCKS.register("rocky_dirt", () -> new RockyDirtBlock());
+    public static final RegistryObject<BonfireBlock> BONFIRE = BLOCKS.register("bonfire", () -> new BonfireBlock(Block.Properties.create(Material.FIRE, MaterialColor.TNT).doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.CLOTH).lightValue(15).noDrops()));
 
 
-    public static final Item.Properties modItemProperties =  new Item.Properties().group(ModSetup.ITEM_GROUP);
-    public static final RegistryObject<Item> BAR_PANEL_ITEM = ITEMS.register("bar_panel", () -> new BlockItem(BAR_PANEL.get(),modItemProperties));
-    public static final RegistryObject<Item> LATTICE_ITEM = ITEMS.register("lattice", () -> new BlockItem(LATTICE.get(),modItemProperties));
+    public static final Item.Properties modItemProperties = new Item.Properties().group(ModSetup.ITEM_GROUP);
+    public static final Item.Properties dummyProperty = new Item.Properties();
+    public static final RegistryObject<Item> BAR_PANEL_ITEM = ITEMS.register("bar_panel", () -> new BlockItem(BAR_PANEL.get(), modItemProperties));
+    public static final RegistryObject<Item> LATTICE_ITEM = ITEMS.register("lattice", () -> new BlockItem(LATTICE.get(), modItemProperties));
     public static final RegistryObject<Item> CHAIN_ITEM = ITEMS.register("chain", () -> new BlockItem(CHAIN.get(), modItemProperties));
     public static final RegistryObject<Item> CHANDELIER_ITEM = ITEMS.register("chandelier", () -> new BurnableBlockItem(CHANDELIER.get(), modItemProperties, 1600));
     public static final RegistryObject<Item> BRAZIER_ITEM = ITEMS.register("brazier", () -> new BlockItem(BRAZIER.get(), modItemProperties));
@@ -68,14 +70,13 @@ public class Registration {
     public static final Material THTACH_MATERIAL = (new Material.Builder(MaterialColor.YELLOW)).doesNotBlockMovement().notSolid().replaceable().liquid().build();
     public static final RegistryObject<FlowingFluid> FLOWING_THATCH = FLUIDS.register("flowing_thatch", ThatchFluid.Flowing::new);
     public static final RegistryObject<FlowingFluid> STILL_THATCH = FLUIDS.register("thatch", ThatchFluid.Source::new);
-    public static final RegistryObject<Block> THATCH = BLOCKS.register("thatch", ()-> new ThatchFluidBlock(STILL_THATCH, Block.Properties.create(THTACH_MATERIAL).doesNotBlockMovement().tickRandomly().hardnessAndResistance(100.0F).noDrops()));
+    public static final RegistryObject<Block> THATCH = BLOCKS.register("thatch", () -> new ThatchFluidBlock(STILL_THATCH, Block.Properties.create(THTACH_MATERIAL).doesNotBlockMovement().tickRandomly().hardnessAndResistance(100.0F).noDrops()));
 
-    public static final RegistryObject<EntityType<DummyEntityForSitting>> DUMMY_ENTITY_TYPE = ENTITIES.register("dummy", ()->EntityType.Builder.<DummyEntityForSitting>create(DummyEntityForSitting::new, EntityClassification.MISC)
+    public static final RegistryObject<EntityType<DummyEntityForSitting>> DUMMY_ENTITY_TYPE = ENTITIES.register("dummy", () -> EntityType.Builder.<DummyEntityForSitting>create(DummyEntityForSitting::new, EntityClassification.MISC)
             .setTrackingRange(256)
             .setUpdateInterval(20)
             .size(0.0001F, 0.0001F)
             .build(MODID + ":dummy"));
-
 
 
     public static final ImmutableMap<String, RegistryObject<Block>> DECORATIVE_BLOCKS;
@@ -86,46 +87,54 @@ public class Registration {
         ImmutableMap.Builder<String, RegistryObject<Item>> itemBuilder = ImmutableMap.builder();
 
 
-        for (WoodDecorativeBlockTypes type : WoodDecorativeBlockTypes.values()){
-            for (IWoodType wood : ModWoodTypes.allWoodTypes()){
+        for (WoodDecorativeBlockTypes type : WoodDecorativeBlockTypes.values()) {
+            for (IWoodType wood : ModWoodTypes.allWoodTypes()) {
                 String name = wood + "_" + type;
-                Block decorativeBlock = createDecorativeBlock(wood, type);
-                decorativeBlockBuilder.put(name, BLOCKS.register(name, ()->decorativeBlock));
-                itemBuilder.put(name, ITEMS.register(name, ()->new BurnableBlockItem(decorativeBlock, modItemProperties, 300)));
+                decorativeBlockBuilder.put(name, BLOCKS.register(name, () -> createDecorativeBlock(wood, type)));
             }
         }
 
         DECORATIVE_BLOCKS = decorativeBlockBuilder.build();
+
+        for (WoodDecorativeBlockTypes type : WoodDecorativeBlockTypes.values()) {
+            for (IWoodType wood : ModWoodTypes.allWoodTypes()) {
+                String name = wood + "_" + type;
+
+                itemBuilder.put(name, ITEMS.register(name, () ->
+                        new BurnableBlockItem(DECORATIVE_BLOCKS.get(name).get(), wood.isAvailable() ? modItemProperties : dummyProperty, 300)));
+            }
+        }
+
         DECORATIVE_ITEMBLOCKS = itemBuilder.build();
     }
 
-    public static Block getWoodDecorativeBlock(IWoodType wood, WoodDecorativeBlockTypes decorativeBlockType){
+    public static Block getWoodDecorativeBlock(IWoodType wood, WoodDecorativeBlockTypes decorativeBlockType) {
         String name = wood + "_" + decorativeBlockType;
         return DECORATIVE_BLOCKS.get(name).get();
     }
 
-    public static RotatedPillarBlock getBeamBlock(IWoodType wood){
-        return (RotatedPillarBlock)getWoodDecorativeBlock(wood, WoodDecorativeBlockTypes.BEAM);
+    public static RotatedPillarBlock getBeamBlock(IWoodType wood) {
+        return (RotatedPillarBlock) getWoodDecorativeBlock(wood, WoodDecorativeBlockTypes.BEAM);
     }
 
-    public static PalisadeBlock getPalisadeBlock(IWoodType wood){
-        return (PalisadeBlock)getWoodDecorativeBlock(wood, WoodDecorativeBlockTypes.PALISADE);
+    public static PalisadeBlock getPalisadeBlock(IWoodType wood) {
+        return (PalisadeBlock) getWoodDecorativeBlock(wood, WoodDecorativeBlockTypes.PALISADE);
     }
 
-    public static SeatBlock getSeatBlock(IWoodType wood){
-        return (SeatBlock)getWoodDecorativeBlock(wood,WoodDecorativeBlockTypes.SEAT);
+    public static SeatBlock getSeatBlock(IWoodType wood) {
+        return (SeatBlock) getWoodDecorativeBlock(wood, WoodDecorativeBlockTypes.SEAT);
     }
 
-    public static SupportBlock getSupportBlock(IWoodType wood){
-        return (SupportBlock)getWoodDecorativeBlock(wood,WoodDecorativeBlockTypes.SUPPORT);
+    public static SupportBlock getSupportBlock(IWoodType wood) {
+        return (SupportBlock) getWoodDecorativeBlock(wood, WoodDecorativeBlockTypes.SUPPORT);
     }
 
 
-    private static Block createDecorativeBlock(IWoodType wood, WoodDecorativeBlockTypes woodDecorativeBlockType){
+    private static Block createDecorativeBlock(IWoodType wood, WoodDecorativeBlockTypes woodDecorativeBlockType) {
         Block.Properties woodProperty = Block.Properties.create(Material.WOOD, MaterialColor.WOOD).hardnessAndResistance(1.2F).sound(SoundType.WOOD);
         Block.Properties palisadeProperty = Block.Properties.create(Material.WOOD, MaterialColor.WOOD).hardnessAndResistance(2.0F, 4.0F).sound(SoundType.WOOD);
 
-        switch (woodDecorativeBlockType){
+        switch (woodDecorativeBlockType) {
             default:
             case BEAM:
                 return new BeamBlock(woodProperty);

@@ -5,9 +5,8 @@ import com.lilypuree.decorative_blocks.DecorativeBlocks;
 import com.lilypuree.decorative_blocks.blocks.BrazierBlock;
 import com.lilypuree.decorative_blocks.entity.DummyEntityForSitting;
 import com.lilypuree.decorative_blocks.entity.ItemEntityBonfireActivator;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
+import com.lilypuree.decorative_blocks.fluid.ThatchFluidBlock;
+import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
@@ -15,19 +14,18 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PotionEntity;
 import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.item.*;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.potion.Potions;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.state.properties.BlockStateProperties;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.RayTraceContext;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.event.entity.EntityMountEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
@@ -100,7 +98,7 @@ public class ModSetup {
         World world = event.getWorld();
         Item item = event.getItemStack().getItem();
         BlockPos pos = event.getPos();
-        if(!world.isBlockLoaded(pos)){
+        if (!world.isBlockLoaded(pos)) {
             return;
         }
         Block block = world.getBlockState(pos).getBlock();
@@ -108,7 +106,7 @@ public class ModSetup {
         if (item == Items.SHEARS && block == Blocks.HAY_BLOCK) {
             if (world.isRemote) {
                 player.swingArm(event.getHand());
-            } else {
+            } else if (Config.THATCH_ENABLED.get()) {
                 world.setBlockState(pos, Registration.THATCH.get().getDefaultState());
                 world.playSound(null, pos, SoundEvents.BLOCK_CROP_BREAK, SoundCategory.BLOCKS, 0.8f, 1.0f);
                 event.getItemStack().damageItem(1, event.getEntityLiving(), (p_220036_0_) -> {
@@ -116,7 +114,36 @@ public class ModSetup {
                 });
             }
         }
+
+        if (item instanceof HoeItem) {
+            RayTraceResult rayTraceResult = Item.rayTrace(world, player, RayTraceContext.FluidMode.SOURCE_ONLY);
+            if (rayTraceResult.getType() != RayTraceResult.Type.BLOCK) {
+                return;
+            }
+
+            BlockRayTraceResult blockraytraceresult = (BlockRayTraceResult) rayTraceResult;
+            BlockPos blockpos = blockraytraceresult.getPos();
+            Direction direction = blockraytraceresult.getFace();
+            BlockPos blockpos1 = blockpos.offset(direction);
+
+            if (world.isBlockModifiable(player, blockpos) && player.canPlayerEdit(blockpos1, direction, event.getItemStack())) {
+                BlockState blockstate1 = world.getBlockState(blockpos);
+                if (blockstate1.getBlock() instanceof ThatchFluidBlock) {
+                    event.setCanceled(true);
+                    if (blockstate1.get(FlowingFluidBlock.LEVEL) == 0) {
+                        if (world.isRemote()) {
+                            player.swingArm(event.getHand());
+                        } else {
+                            world.playSound(null, blockpos, SoundEvents.BLOCK_CROP_BREAK, SoundCategory.BLOCKS, 0.8f, 1.0f);
+                            world.setBlockState(blockpos, Blocks.AIR.getDefaultState(), 11);
+                        }
+                    }
+                }
+            }
+
+        }
     }
+
 
     @SubscribeEvent
     public static void onEntityDamage(LivingDamageEvent event) {
@@ -136,7 +163,7 @@ public class ModSetup {
         ItemEntity thrownItemEntity = event.getEntityItem();
         if (bonfireActivatorItem == null) {
             if (!isBonfireActivatorConfigValueValid()) {
-                if(!didSendMessage){
+                if (!didSendMessage) {
                     player.sendMessage(new TranslationTextComponent("message.decorative_blocks.invalid_bonfire_activator_config"));
                     didSendMessage = true;
                 }
