@@ -122,4 +122,10 @@ public enum VanillaWoodTypes implements IWoodType{
         }
         return Blocks.OAK_PLANKS;
     }
+
+    @Override
+    public boolean isAvailable() {
+        return true;
+    }
+
 }

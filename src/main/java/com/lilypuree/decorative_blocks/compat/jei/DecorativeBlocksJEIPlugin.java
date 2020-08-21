@@ -1,5 +1,6 @@
 package com.lilypuree.decorative_blocks.compat.jei;
 
+import com.lilypuree.decorative_blocks.Config;
 import com.lilypuree.decorative_blocks.DecorativeBlocks;
 import com.lilypuree.decorative_blocks.setup.Registration;
 import mezz.jei.api.IModPlugin;
@@ -20,7 +21,9 @@ public class DecorativeBlocksJEIPlugin implements IModPlugin {
 
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
-        registration.addIngredientInfo(new FluidStack(Registration.STILL_THATCH.get(), 1000), VanillaTypes.FLUID, I18n.format("wiki.decorative_blocks.thatch"));
+        if(Config.THATCH_ENABLED.get()){
+            registration.addIngredientInfo(new FluidStack(Registration.STILL_THATCH.get(), 1000), VanillaTypes.FLUID, I18n.format("wiki.decorative_blocks.thatch"));
+        }
     }
 
 

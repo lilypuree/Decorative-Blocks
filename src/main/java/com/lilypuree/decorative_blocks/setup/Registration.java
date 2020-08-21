@@ -56,6 +56,8 @@ public class Registration {
 
 
     public static final Item.Properties modItemProperties =  new Item.Properties().group(ModSetup.ITEM_GROUP);
+    public static final Item.Properties dummyProperty = new Item.Properties();
+
     public static final RegistryObject<Item> BAR_PANEL_ITEM = ITEMS.register("bar_panel", () -> new BlockItem(BAR_PANEL.get(),modItemProperties));
     public static final RegistryObject<Item> LATTICE_ITEM = ITEMS.register("lattice", () -> new BlockItem(LATTICE.get(),modItemProperties));
     public static final RegistryObject<Item> CHAIN_ITEM = ITEMS.register("chain", () -> new BlockItem(CHAIN.get(), modItemProperties));
@@ -85,16 +87,24 @@ public class Registration {
         ImmutableMap.Builder<String, RegistryObject<Item>> itemBuilder = ImmutableMap.builder();
 
 
-        for (WoodDecorativeBlockTypes type : WoodDecorativeBlockTypes.values()){
-            for (IWoodType wood : ModWoodTypes.allWoodTypes()){
+        for (WoodDecorativeBlockTypes type : WoodDecorativeBlockTypes.values()) {
+            for (IWoodType wood : ModWoodTypes.allWoodTypes()) {
                 String name = wood + "_" + type;
-                Block decorativeBlock = createDecorativeBlock(wood, type);
-                decorativeBlockBuilder.put(name, BLOCKS.register(name, ()->decorativeBlock));
-                itemBuilder.put(name, ITEMS.register(name, ()->new BurnableBlockItem(decorativeBlock, modItemProperties, 300)));
+                decorativeBlockBuilder.put(name, BLOCKS.register(name, () -> createDecorativeBlock(wood, type)));
             }
         }
 
         DECORATIVE_BLOCKS = decorativeBlockBuilder.build();
+
+        for (WoodDecorativeBlockTypes type : WoodDecorativeBlockTypes.values()) {
+            for (IWoodType wood : ModWoodTypes.allWoodTypes()) {
+                String name = wood + "_" + type;
+
+                itemBuilder.put(name, ITEMS.register(name, () ->
+                        new BurnableBlockItem(DECORATIVE_BLOCKS.get(name).get(), wood.isAvailable() ? modItemProperties : dummyProperty, 300)));
+            }
+        }
+
         DECORATIVE_ITEMBLOCKS = itemBuilder.build();
     }
 

@@ -11,11 +11,17 @@ public class Config {
     public static ForgeConfigSpec CLIENT_CONFIG;
 
     public static ForgeConfigSpec.ConfigValue<String> BONFIRE_ACTIVATOR;
+    public static ForgeConfigSpec.ConfigValue<Boolean> THATCH_ENABLED;
+
 
     static {
         ForgeConfigSpec.Builder COMMON_BUILDER = new ForgeConfigSpec.Builder();
         COMMON_BUILDER.comment("Decorative Blocks Configs").push(CATEGORY_GENERAL);
         setUpBonfireActivatorConfig(COMMON_BUILDER);
+
+        THATCH_ENABLED = COMMON_BUILDER.comment("Disable thatch creation on shearing hay bale")
+                .define("thatch enabled", true);
+
         COMMON_BUILDER.pop();
         COMMON_CONFIG = COMMON_BUILDER.build();
     }

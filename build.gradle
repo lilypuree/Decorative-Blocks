@@ -23,7 +23,7 @@ minecraft {
     mappings channel: 'snapshot', version: "${mapping}-1.16.1"
     // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
 
-    // accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
     // Default run configurations.
     // These can be tweaked, removed, or duplicated as needed.
@@ -103,10 +103,9 @@ dependencies {
     // compile "some.group:artifact:version"
 
 //    compile fg.deobf("com.github.glitchfiend.biomesoplenty:BiomesOPlenty:1.16.1-11.0.0.379: deobf")
-    compile fg.deobf("curse.maven:BiomesOPlenty:3012271")
+    compile fg.deobf("curse.maven:BiomesOPlenty:3037340")
     compile fg.deobf("curse.maven:WoodCutter:3012589")
 
-//    compile fg.deobf("Corail_31:corail_woodcutter-1.1.1:1.15.2")
 
     // compile against the JEI API but do not include it at runtime
     compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api")
