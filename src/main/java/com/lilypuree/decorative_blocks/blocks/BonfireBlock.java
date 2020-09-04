@@ -110,7 +110,7 @@ public class BonfireBlock extends Block implements IWaterLoggable {
                 worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 3);
                 worldIn.playSound(null, pos, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 1.2f, 0.6f);
             } else {
-                spawnExtinguishSmoke(worldIn.getWorld(), pos);
+                spawnExtinguishSmoke(worldIn, pos);
             }
             return true;
         }else
@@ -119,13 +119,13 @@ public class BonfireBlock extends Block implements IWaterLoggable {
 
 
 
-    public static void spawnExtinguishSmoke(World world, BlockPos pos){
+    public static void spawnExtinguishSmoke(IWorld world, BlockPos pos){
         Random rand = world.getRandom();
         for (int i = 0; i < 5; ++i) {
             double d0 = world.getRandom().nextGaussian() * 0.02D;
             double d1 = world.getRandom().nextGaussian() * 0.02D;
             double d2 = world.getRandom().nextGaussian() * 0.02D;
-            world.addParticle(ParticleTypes.CLOUD, pos.getX() + (double) (world.rand.nextFloat()), pos.getY() + 0.4D + (double) (world.rand.nextFloat()), pos.getZ() + (double) (world.rand.nextFloat()), d0, d1, d2);
+            world.addParticle(ParticleTypes.CLOUD, pos.getX() + (double) (rand.nextFloat()), pos.getY() + 0.4D + (double) (rand.nextFloat()), pos.getZ() + (double) (rand.nextFloat()), d0, d1, d2);
         }
         world.addParticle(ParticleTypes.SMOKE, (double)pos.getX() + 0.25D + rand.nextDouble() / 2.0D * (double)(rand.nextBoolean() ? 1 : -1), (double)pos.getY() + 0.4D, (double)pos.getZ() + 0.25D + rand.nextDouble() / 2.0D * (double)(rand.nextBoolean() ? 1 : -1), 0.0D, 0.005D, 0.0D);
     }

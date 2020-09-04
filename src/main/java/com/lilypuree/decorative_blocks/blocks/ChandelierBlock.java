@@ -15,9 +15,11 @@ import java.util.Random;
 
 public class ChandelierBlock extends Block {
     private final VoxelShape CHANDELIER_SHAPE = Block.makeCuboidShape(2D, 0.0D, 2D, 14D, 12D, 14D);
+    private final boolean isSoul;
 
-    public ChandelierBlock(Block.Properties properties){
+    public ChandelierBlock(Block.Properties properties, boolean isSoul){
         super(properties);
+        this.isSoul = isSoul;
     }
 
     @Override
@@ -38,10 +40,18 @@ public class ChandelierBlock extends Block {
         worldIn.addParticle(ParticleTypes.SMOKE, d0-off2-off3, d1, d2+off1-off3, 0.0D, 0.0D, 0.0D);
         worldIn.addParticle(ParticleTypes.SMOKE, d0+off1-off3, d1, d2+off2+off3, 0.0D, 0.0D, 0.0D);
         worldIn.addParticle(ParticleTypes.SMOKE, d0+off2, d1, d2-off1, 0.0D, 0.0D, 0.0D);
-        worldIn.addParticle(ParticleTypes.FLAME, d0-off1, d1, d2-off2, 0.0D, 0.0D, 0.0D);
-        worldIn.addParticle(ParticleTypes.FLAME, d0-off2-off3, d1, d2+off1-off3, 0.0D, 0.0D, 0.0D);
-        worldIn.addParticle(ParticleTypes.FLAME, d0+off1-off3, d1, d2+off2+off3, 0.0D, 0.0D, 0.0D);
-        worldIn.addParticle(ParticleTypes.FLAME, d0+off2, d1, d2-off1, 0.0D, 0.0D, 0.0D);
+        if(isSoul){
+            worldIn.addParticle(ParticleTypes.SOUL_FIRE_FLAME, d0-off1, d1, d2-off2, 0.0D, 0.0D, 0.0D);
+            worldIn.addParticle(ParticleTypes.SOUL_FIRE_FLAME, d0-off2-off3, d1, d2+off1-off3, 0.0D, 0.0D, 0.0D);
+            worldIn.addParticle(ParticleTypes.SOUL_FIRE_FLAME, d0+off1-off3, d1, d2+off2+off3, 0.0D, 0.0D, 0.0D);
+            worldIn.addParticle(ParticleTypes.SOUL_FIRE_FLAME, d0+off2, d1, d2-off1, 0.0D, 0.0D, 0.0D);
+        }else {
+            worldIn.addParticle(ParticleTypes.FLAME, d0-off1, d1, d2-off2, 0.0D, 0.0D, 0.0D);
+            worldIn.addParticle(ParticleTypes.FLAME, d0-off2-off3, d1, d2+off1-off3, 0.0D, 0.0D, 0.0D);
+            worldIn.addParticle(ParticleTypes.FLAME, d0+off1-off3, d1, d2+off2+off3, 0.0D, 0.0D, 0.0D);
+            worldIn.addParticle(ParticleTypes.FLAME, d0+off2, d1, d2-off1, 0.0D, 0.0D, 0.0D);
+        }
+
       }
 
     @Override

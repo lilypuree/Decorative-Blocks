@@ -38,11 +38,12 @@ public class BrazierBlock extends Block implements IWaterLoggable {
     private static final VoxelShape BRAZIER_COLLISION_SHAPE = Block.makeCuboidShape(3D, 0.0D, 3D, 15D, 14D, 15D);
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+    private final boolean isSoul;
 
-
-    public BrazierBlock(Block.Properties properties) {
+    public BrazierBlock(Block.Properties properties, boolean isSoul) {
         super(properties);
         this.setDefaultState(this.stateContainer.getBaseState().with(LIT, Boolean.TRUE).with(WATERLOGGED, Boolean.FALSE));
+        this.isSoul = isSoul;
     }
 
 
@@ -110,11 +111,6 @@ public class BrazierBlock extends Block implements IWaterLoggable {
         return BRAZIER_COLLISION_SHAPE;
     }
 
-    @Override
-    public int getLightValue(BlockState state, IBlockReader world, BlockPos pos) {
-        return 15;
-    }
-
     @OnlyIn(Dist.CLIENT)
     public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) {
         if (stateIn.get(LIT)) {
@@ -124,7 +120,11 @@ public class BrazierBlock extends Block implements IWaterLoggable {
 
             if (rand.nextInt(5) == 0) {
                 for (int i = 0; i < rand.nextInt(1) + 1; ++i) {
-                    worldIn.addParticle(ParticleTypes.LAVA, (double) ((float) pos.getX() + 0.5F), (double) ((float) pos.getY() + 0.8F), (double) ((float) pos.getZ() + 0.5F), (double) (rand.nextFloat() / 2.0F), 5.0E-5D, (double) (rand.nextFloat() / 2.0F));
+                    if(isSoul){
+                        worldIn.addParticle(ParticleTypes.SOUL, (double) ((float) pos.getX() + 0.5F), (double) ((float) pos.getY() + 0.8F), (double) ((float) pos.getZ() + 0.5F), (double) (rand.nextFloat() / 10.0F), 5.0E-5D, (double) (rand.nextFloat() / 10.0F));
+                    }else {
+                        worldIn.addParticle(ParticleTypes.LAVA, (double) ((float) pos.getX() + 0.5F), (double) ((float) pos.getY() + 0.8F), (double) ((float) pos.getZ() + 0.5F), (double) (rand.nextFloat() / 2.0F), 5.0E-5D, (double) (rand.nextFloat() / 2.0F));
+                    }
                 }
             }
 

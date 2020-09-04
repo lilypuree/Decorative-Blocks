@@ -14,8 +14,6 @@ public class DecorativeBlocks
 {
     public static final String MODID = "decorative_blocks";
 
-    public static IProxy proxy = DistExecutor.runForDist(() -> () -> new ClientProxy(), () -> () -> new ServerProxy());
-
     public static ModSetup setup = new ModSetup();
     public static DecorativeBlocks instance;
 
