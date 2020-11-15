@@ -18,8 +18,8 @@ import net.minecraft.world.World;
 import java.util.function.Supplier;
 
 public class ThatchFluidBlock extends FlowingFluidBlock {
-    public ThatchFluidBlock(Supplier<? extends FlowingFluid> supplier, Properties p_i48368_1_) {
-        super(supplier, p_i48368_1_);
+    public ThatchFluidBlock(Supplier<? extends FlowingFluid> supplier, Properties properties) {
+        super(supplier, properties);
     }
 
     @Override

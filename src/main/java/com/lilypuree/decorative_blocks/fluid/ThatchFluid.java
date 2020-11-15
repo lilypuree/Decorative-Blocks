@@ -1,6 +1,5 @@
 package com.lilypuree.decorative_blocks.fluid;
 
-import com.lilypuree.decorative_blocks.setup.Registration;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FlowingFluidBlock;
@@ -21,28 +20,39 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraftforge.fluids.FluidAttributes;
 
-public abstract class ThatchFluid extends FlowingFluid {
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Supplier;
 
-    ResourceLocation thatchStillTexture = new ResourceLocation("decorative_blocks", "block/thatch_still");
-    ResourceLocation thatchFlowingTexture = new ResourceLocation("decorative_blocks", "block/thatch_flowing");
+public abstract class ThatchFluid extends FlowingFluid {
+    public static Map<Block, FluidReferenceHolder> shearMap = new HashMap<>();
+    private FluidReferenceHolder referenceHolder;
+
+    public ThatchFluid(FluidReferenceHolder referenceHolder) {
+        this.referenceHolder = referenceHolder;
+    }
 
     @Override
     protected FluidAttributes createAttributes() {
-        return FluidAttributes.builder(thatchStillTexture, thatchFlowingTexture).overlay(thatchStillTexture).sound(SoundEvents.BLOCK_CROP_BREAK, SoundEvents.BLOCK_CROP_BREAK).density(200).viscosity(2000).build(this);
-    }
-
-
-
-    public Fluid getFlowingFluid() {
-        return Registration.FLOWING_THATCH.get();
-    }
-
-    public Fluid getStillFluid() {
-        return Registration.STILL_THATCH.get();
+        return FluidAttributes.builder(referenceHolder.thatchStillTexture, referenceHolder.thatchFlowingTexture).overlay(referenceHolder.thatchStillTexture).sound(SoundEvents.BLOCK_CROP_BREAK, SoundEvents.BLOCK_CROP_BREAK).density(200).viscosity(2000).build(this);
     }
 
     public Item getFilledBucket() {
         return Items.BUCKET;
+    }
+
+    public FluidReferenceHolder getReferenceHolder() {
+        return referenceHolder;
+    }
+
+    @Override
+    public Fluid getFlowingFluid() {
+        return referenceHolder.getFlowingFluid();
+    }
+
+    @Override
+    public Fluid getStillFluid() {
+        return referenceHolder.getStillFluid();
     }
 
     public int getSlopeFindDistance(IWorldReader worldIn) {
@@ -50,20 +60,22 @@ public abstract class ThatchFluid extends FlowingFluid {
     }
 
     public BlockState getBlockState(FluidState state) {
-        return Registration.THATCH.get().getDefaultState().with(FlowingFluidBlock.LEVEL, Integer.valueOf(getLevelFromState(state)));
+        return referenceHolder.getFluidBlock().getDefaultState().with(FlowingFluidBlock.LEVEL, Integer.valueOf(getLevelFromState(state)));
     }
 
     public boolean isEquivalentTo(Fluid fluidIn) {
-        return fluidIn == Registration.STILL_THATCH.get() || fluidIn == Registration.FLOWING_THATCH.get();
+        return fluidIn == referenceHolder.getFlowingFluid() || fluidIn == referenceHolder.getStillFluid();
     }
 
     public int getLevelDecreasePerBlock(IWorldReader worldIn) {
         return 4;
     }
 
+
+    @Override
     protected void beforeReplacingBlock(IWorld worldIn, BlockPos pos, BlockState state) {
         TileEntity tileentity = state.getBlock().hasTileEntity(state) ? worldIn.getTileEntity(pos) : null;
-        Block.spawnDrops(state, worldIn, pos, tileentity);
+        Block.spawnDrops(state, worldIn.getWorld(), pos, tileentity);
     }
 
     public boolean canDisplace(FluidState p_215665_1_, IBlockReader p_215665_2_, BlockPos p_215665_3_, Fluid p_215665_4_, Direction p_215665_5_) {
@@ -85,11 +97,11 @@ public abstract class ThatchFluid extends FlowingFluid {
             boolean shouldFlowInto = false;
 
 
-            for (Direction dir : Direction.Plane.HORIZONTAL){
+            for (Direction dir : Direction.Plane.HORIZONTAL) {
                 BlockPos supportPos = pos.offset(dir);
                 BlockState supportBlock = worldIn.getBlockState(supportPos);
                 FluidState sourceFluid = worldIn.getFluidState(supportPos.up());
-                if(supportBlock.isSolidSide(worldIn, supportPos, dir.getOpposite()) && !sourceFluid.isEmpty()){
+                if (supportBlock.isSolidSide(worldIn, supportPos, dir.getOpposite()) && !sourceFluid.isEmpty()) {
                     shouldFlowInto = true;
                 }
             }
@@ -97,7 +109,7 @@ public abstract class ThatchFluid extends FlowingFluid {
 //            if (fluidState.get(FALLING)) {
 //                return;
 //            }
-            if(!shouldFlowInto){
+            if (!shouldFlowInto) {
                 return;
             }
         }
@@ -122,6 +134,10 @@ public abstract class ThatchFluid extends FlowingFluid {
     }
 
     public static class Flowing extends ThatchFluid {
+        public Flowing(FluidReferenceHolder referenceHolder) {
+            super(referenceHolder);
+        }
+
         protected void fillStateContainer(StateContainer.Builder<Fluid, FluidState> builder) {
             super.fillStateContainer(builder);
             builder.add(LEVEL_1_8);
@@ -137,6 +153,10 @@ public abstract class ThatchFluid extends FlowingFluid {
     }
 
     public static class Source extends ThatchFluid {
+        public Source(FluidReferenceHolder referenceHolder) {
+            super(referenceHolder);
+        }
+
         @Override
         protected void fillStateContainer(StateContainer.Builder<Fluid, FluidState> builder) {
             super.fillStateContainer(builder);
@@ -149,5 +169,57 @@ public abstract class ThatchFluid extends FlowingFluid {
         public boolean isSource(FluidState state) {
             return true;
         }
+    }
+
+    public static class FluidReferenceHolder {
+
+        private Supplier<Block> sourceBlock;
+        private ResourceLocation thatchStillTexture;
+        private ResourceLocation thatchFlowingTexture;
+        private Supplier<Fluid> flowingFluid;
+        private Supplier<Fluid> stillFluid;
+        private Supplier<Block> fluidBlock;
+        private int color;
+
+        public FluidReferenceHolder(Supplier<Block> sourceBlock, ResourceLocation thatchStillTexture, ResourceLocation thatchFlowingTexture, int color) {
+            this.sourceBlock = sourceBlock;
+            this.thatchStillTexture = thatchStillTexture;
+            this.thatchFlowingTexture = thatchFlowingTexture;
+            this.color = color;
+        }
+
+        public void setFlowingFluid(Supplier<Fluid> flowingFluid) {
+            this.flowingFluid = flowingFluid;
+        }
+
+        public Fluid getFlowingFluid() {
+            return flowingFluid.get();
+        }
+
+        public void setStillFluid(Supplier<Fluid> stillFluid) {
+            this.stillFluid = stillFluid;
+        }
+
+        public Fluid getStillFluid() {
+            return stillFluid.get();
+        }
+
+
+        public void setFluidBlock(Supplier<Block> fluidBlock) {
+            this.fluidBlock = fluidBlock;
+        }
+
+        public Block getFluidBlock() {
+            return fluidBlock.get();
+        }
+
+        public Block getSourceBlock() {
+            return sourceBlock.get();
+        }
+
+        public int getColor() {
+            return color;
+        }
+
     }
 }

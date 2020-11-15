@@ -5,6 +5,7 @@ import com.lilypuree.decorative_blocks.DecorativeBlocks;
 import com.lilypuree.decorative_blocks.blocks.BrazierBlock;
 import com.lilypuree.decorative_blocks.entity.DummyEntityForSitting;
 import com.lilypuree.decorative_blocks.entity.ItemEntityBonfireActivator;
+import com.lilypuree.decorative_blocks.fluid.ThatchFluid;
 import com.lilypuree.decorative_blocks.fluid.ThatchFluidBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -49,6 +50,7 @@ public class ModSetup {
     };
 
     public void init(FMLCommonSetupEvent e) {
+        ThatchFluid.shearMap.put(Registration.referenceHolder.getSourceBlock(), Registration.referenceHolder);
     }
 
     @SubscribeEvent
@@ -74,7 +76,7 @@ public class ModSetup {
         BlockState state = world.getBlockState(pos);
         if (world.isRemote) return;
         if (potion instanceof PotionEntity && PotionUtils.getPotionFromItem(((PotionEntity) potion).getItem()) == Potions.WATER) {
-            if (state.getBlock() == Registration.BRAZIER.get() && state.get(BrazierBlock.LIT)) {
+            if ((state.getBlock() instanceof BrazierBlock) && state.get(BrazierBlock.LIT)) {
                 world.setBlockState(pos, state.with(BrazierBlock.LIT, Boolean.FALSE));
                 world.playSound((PlayerEntity) null, pos, SoundEvents.ENTITY_GENERIC_EXTINGUISH_FIRE, SoundCategory.BLOCKS, 0.8F, 1.0F);
             }
@@ -105,11 +107,11 @@ public class ModSetup {
         }
         Block block = world.getBlockState(pos).getBlock();
         PlayerEntity player = event.getPlayer();
-        if (item == Items.SHEARS && block == Blocks.HAY_BLOCK) {
+        if (item == Items.SHEARS && ThatchFluid.shearMap.containsKey(block)) {
             if (world.isRemote) {
                 player.swingArm(event.getHand());
-            } else if(Config.THATCH_ENABLED.get()){
-                world.setBlockState(pos, Registration.THATCH.get().getDefaultState());
+            } else if (Config.THATCH_ENABLED.get()) {
+                world.setBlockState(pos, ThatchFluid.shearMap.get(block).getFluidBlock().getDefaultState());
                 world.playSound(null, pos, SoundEvents.BLOCK_CROP_BREAK, SoundCategory.BLOCKS, 0.8f, 1.0f);
                 event.getItemStack().damageItem(1, event.getEntityLiving(), (p_220036_0_) -> {
                     p_220036_0_.sendBreakAnimation(EquipmentSlotType.MAINHAND);

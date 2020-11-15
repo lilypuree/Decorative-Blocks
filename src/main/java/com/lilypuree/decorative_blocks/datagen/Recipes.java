@@ -22,20 +22,20 @@ public class Recipes extends RecipeProvider {
     protected void registerRecipes(Consumer<IFinishedRecipe> consumerIn) {
         consumer = consumerIn;
 
-        for(IWoodType wood : ModWoodTypes.allWoodTypes()){
+        for (IWoodType wood : ModWoodTypes.allWoodTypes()) {
             makeWoodenBlockRecipes(wood);
         }
         super.registerRecipes(consumerIn);
     }
 
-    private void makeWoodenBlockRecipes(IWoodType wood){
-        makeBeamRecipeOf(wood);
-        makePalisadeRecipeOf(wood);
-        makeSeatRecipeOf(wood);
-        makeSupportRecipeOf(wood);
+    private void makeWoodenBlockRecipes(IWoodType wood) {
+        makeBeamRecipeOf(wood, consumer);
+        makePalisadeRecipeOf(wood, consumer);
+        makeSeatRecipeOf(wood, consumer);
+        makeSupportRecipeOf(wood, consumer);
     }
 
-    private void makeBeamRecipeOf(IWoodType wood) {
+    private static void makeBeamRecipeOf(IWoodType wood, Consumer<IFinishedRecipe> consumer) {
         ShapedRecipeBuilder.shapedRecipe(Registration.getBeamBlock(wood), 2)
                 .patternLine(" x ")
                 .patternLine(" x ")
@@ -44,7 +44,7 @@ public class Recipes extends RecipeProvider {
                 .build(consumer);
     }
 
-    private void makePalisadeRecipeOf(IWoodType wood) {
+    public static void makePalisadeRecipeOf(IWoodType wood, Consumer<IFinishedRecipe> consumer) {
         ShapedRecipeBuilder.shapedRecipe(Registration.getPalisadeBlock(wood), 6)
                 .patternLine("xx ")
                 .key('x', wood.getLog())
@@ -52,7 +52,7 @@ public class Recipes extends RecipeProvider {
                 .build(consumer);
     }
 
-    private void makeSeatRecipeOf(IWoodType wood) {
+    public static void makeSeatRecipeOf(IWoodType wood, Consumer<IFinishedRecipe> consumer) {
         ShapedRecipeBuilder.shapedRecipe(Registration.getSeatBlock(wood), 2)
                 .patternLine("x  ")
                 .patternLine("y  ")
@@ -61,7 +61,8 @@ public class Recipes extends RecipeProvider {
                 .addCriterion("has_plank", InventoryChangeTrigger.Instance.forItems(wood.getPlanks()))
                 .build(consumer);
     }
-    private void makeSupportRecipeOf(IWoodType wood) {
+
+    public static void makeSupportRecipeOf(IWoodType wood, Consumer<IFinishedRecipe> consumer) {
         ShapedRecipeBuilder.shapedRecipe(Registration.getSupportBlock(wood), 3)
                 .patternLine("xx ")
                 .patternLine("x  ")

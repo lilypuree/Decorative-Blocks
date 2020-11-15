@@ -12,4 +12,6 @@ public interface IWoodType {
     Block getPlanks();
 
     boolean isAvailable();
+
+    boolean isFlammable();
 }

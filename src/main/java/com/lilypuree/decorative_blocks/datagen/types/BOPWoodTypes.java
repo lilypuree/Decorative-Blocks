@@ -5,7 +5,12 @@ import net.minecraftforge.fml.ModList;
 
 
 public enum BOPWoodTypes implements IWoodType {
-    CHERRY("cherry"), DEAD("dead"), FIR("fir"), HELLBARK("hellbark"),
+    CHERRY("cherry"), DEAD("dead"), FIR("fir"), HELLBARK("hellbark"){
+        @Override
+        public boolean isFlammable() {
+            return false;
+        }
+    },
     JACARANDA("jacaranda"), MAGIC("magic"), MAHOGANY("mahogany"), PALM("palm"), REDWOOD("redwood"),
     UMBRAN("umbran"), WILLOW("willow");
 
@@ -119,6 +124,11 @@ public enum BOPWoodTypes implements IWoodType {
     @Override
     public boolean isAvailable() {
         return ModList.get().isLoaded("biomesoplenty");
+    }
+
+    @Override
+    public boolean isFlammable() {
+        return true;
     }
 
 

@@ -47,9 +47,12 @@ public class SupportBlock extends HorizontalBlock implements IWaterLoggable {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static final BooleanProperty UP = BlockStateProperties.UP;
 
-    public SupportBlock(Block.Properties properties) {
+    private boolean flammable;
+
+    public SupportBlock(Block.Properties properties, boolean flammable) {
         super(properties);
         this.setDefaultState(this.stateContainer.getBaseState().with(WATERLOGGED, Boolean.FALSE).with(UP, Boolean.TRUE));
+        this.flammable = flammable;
     }
 
     @Override
@@ -105,12 +108,17 @@ public class SupportBlock extends HorizontalBlock implements IWaterLoggable {
 
     @Override
     public boolean isFlammable(BlockState state, IBlockReader world, BlockPos pos, Direction face) {
-        return true;
+        return flammable;
     }
 
     @Override
     public int getFlammability(BlockState state, IBlockReader world, BlockPos pos, Direction face) {
         return 20;
+    }
+
+    @Override
+    public int getFireSpreadSpeed(BlockState state, IBlockReader world, BlockPos pos, Direction face) {
+        return 5;
     }
 
     @Override

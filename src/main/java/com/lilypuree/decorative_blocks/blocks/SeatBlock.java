@@ -39,8 +39,11 @@ public class SeatBlock extends HorizontalBlock implements IWaterLoggable {
     public static final BooleanProperty OCCUPIED = BlockStateProperties.OCCUPIED;
     public static final BooleanProperty ATTACHED = BlockStateProperties.ATTACHED;
 
-    public SeatBlock(Block.Properties properties) {
+    private boolean flammable;
+
+    public SeatBlock(Block.Properties properties, boolean flammable) {
         super(properties);
+        this.flammable = flammable;
     }
 
     @Override
@@ -170,11 +173,16 @@ public class SeatBlock extends HorizontalBlock implements IWaterLoggable {
 
     @Override
     public boolean isFlammable(BlockState state, IBlockReader world, BlockPos pos, Direction face) {
-        return true;
+        return flammable;
     }
 
     @Override
     public int getFlammability(BlockState state, IBlockReader world, BlockPos pos, Direction face) {
         return 20;
+    }
+
+    @Override
+    public int getFireSpreadSpeed(BlockState state, IBlockReader world, BlockPos pos, Direction face) {
+        return 5;
     }
 }

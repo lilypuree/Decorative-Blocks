@@ -55,7 +55,6 @@ public class BrazierBlock extends Block implements IWaterLoggable {
     }
 
 
-
     @Nullable
     public BlockState getStateForPlacement(BlockItemUseContext context) {
         IWorld iworld = context.getWorld();
@@ -82,7 +81,7 @@ public class BrazierBlock extends Block implements IWaterLoggable {
                 worldIn.setBlockState(pos, state.with(LIT, Boolean.FALSE));
                 return ActionResultType.SUCCESS;
             }
-        } else if(!state.get(WATERLOGGED)){
+        } else if (!state.get(WATERLOGGED)) {
             if (hit.getFace() == Direction.UP && heldItem.getItem() == Items.FLINT_AND_STEEL || heldItem.getItem() == Items.FIRE_CHARGE) {
 
                 SoundEvent sound = (heldItem.getItem() == Items.FIRE_CHARGE) ? SoundEvents.ITEM_FIRECHARGE_USE : SoundEvents.ITEM_FLINTANDSTEEL_USE;
@@ -120,10 +119,11 @@ public class BrazierBlock extends Block implements IWaterLoggable {
 
             if (rand.nextInt(5) == 0) {
                 for (int i = 0; i < rand.nextInt(1) + 1; ++i) {
-                    if(isSoul){
-                        worldIn.addParticle(ParticleTypes.SOUL, (double) ((float) pos.getX() + 0.5F), (double) ((float) pos.getY() + 0.8F), (double) ((float) pos.getZ() + 0.5F), (double) (rand.nextFloat() / 10.0F), 5.0E-5D, (double) (rand.nextFloat() / 10.0F));
-                    }else {
-                        worldIn.addParticle(ParticleTypes.LAVA, (double) ((float) pos.getX() + 0.5F), (double) ((float) pos.getY() + 0.8F), (double) ((float) pos.getZ() + 0.5F), (double) (rand.nextFloat() / 2.0F), 5.0E-5D, (double) (rand.nextFloat() / 2.0F));
+                    if (isSoul) {
+                        worldIn.addParticle(ParticleTypes.SOUL, pos.getX() + 0.5f, pos.getY() + 0.8f, pos.getZ() + 0.5f, ((rand.nextFloat() - 0.5f) / 10.0f), (rand.nextFloat()) / 5.0f, ((rand.nextFloat() - 0.5) / 10.0f));
+//                        worldIn.addParticle(ParticleTypes.SOUL, (double) ((float) pos.getX() + 0.5F), (double) ((float) pos.getY() + 0.8F), (double) ((float) pos.getZ() + 0.5F), (double) (rand.nextFloat() / 10.0F), 5.0E-5D, (double) (rand.nextFloat() / 10.0F));
+                    } else {
+                        worldIn.addParticle(ParticleTypes.LAVA, pos.getX() + 0.5F, pos.getY() + 0.8F, pos.getZ() + 0.5F, (rand.nextFloat() / 2.0F), 5.0E-5D, rand.nextFloat() / 2.0F);
                     }
                 }
             }

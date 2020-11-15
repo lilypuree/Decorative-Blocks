@@ -128,4 +128,10 @@ public enum VanillaWoodTypes implements IWoodType{
         return true;
     }
 
+    @Override
+    public boolean isFlammable() {
+        return true;
+    }
+
+
 }

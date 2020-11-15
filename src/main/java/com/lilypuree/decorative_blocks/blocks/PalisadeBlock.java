@@ -15,10 +15,11 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 
 public class PalisadeBlock extends FourWayBlock{
-
-    public PalisadeBlock(Block.Properties properties){
+    private boolean flammable;
+    public PalisadeBlock(Block.Properties properties, boolean flammable){
         super(3.0F, 3.0F, 16.0F, 16.0F, 24.0F, properties);
         this.setDefaultState(this.stateContainer.getBaseState().with(NORTH, Boolean.FALSE).with(EAST, Boolean.FALSE).with(SOUTH, Boolean.FALSE).with(WEST, Boolean.FALSE).with(WATERLOGGED, Boolean.FALSE));
+        this.flammable = flammable;
     }
 
     public boolean allowsMovement(BlockState state, IBlockReader worldIn, BlockPos pos, PathType type) {
@@ -62,11 +63,16 @@ public class PalisadeBlock extends FourWayBlock{
 
     @Override
     public boolean isFlammable(BlockState state, IBlockReader world, BlockPos pos, Direction face) {
-        return true;
+        return flammable;
     }
 
     @Override
     public int getFlammability(BlockState state, IBlockReader world, BlockPos pos, Direction face) {
         return 20;
+    }
+
+    @Override
+    public int getFireSpreadSpeed(BlockState state, IBlockReader world, BlockPos pos, Direction face) {
+        return 5;
     }
 }
