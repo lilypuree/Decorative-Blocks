@@ -1,0 +1,64 @@
+{
+  "variants": {
+    "facing=north,up=false,waterlogged=false": {
+      "model": "decorative_blocks:block/warped_support_down"
+    },
+    "facing=south,up=false,waterlogged=false": {
+      "model": "decorative_blocks:block/warped_support_down",
+      "y": 180
+    },
+    "facing=west,up=false,waterlogged=false": {
+      "model": "decorative_blocks:block/warped_support_down",
+      "y": 270
+    },
+    "facing=east,up=false,waterlogged=false": {
+      "model": "decorative_blocks:block/warped_support_down",
+      "y": 90
+    },
+    "facing=north,up=true,waterlogged=false": {
+      "model": "decorative_blocks:block/warped_support"
+    },
+    "facing=south,up=true,waterlogged=false": {
+      "model": "decorative_blocks:block/warped_support",
+      "y": 180
+    },
+    "facing=west,up=true,waterlogged=false": {
+      "model": "decorative_blocks:block/warped_support",
+      "y": 270
+    },
+    "facing=east,up=true,waterlogged=false": {
+      "model": "decorative_blocks:block/warped_support",
+      "y": 90
+    },
+    "facing=north,up=false,waterlogged=true": {
+      "model": "decorative_blocks:block/warped_support_down"
+    },
+    "facing=south,up=false,waterlogged=true": {
+      "model": "decorative_blocks:block/warped_support_down",
+      "y": 180
+    },
+    "facing=west,up=false,waterlogged=true": {
+      "model": "decorative_blocks:block/warped_support_down",
+      "y": 270
+    },
+    "facing=east,up=false,waterlogged=true": {
+      "model": "decorative_blocks:block/warped_support_down",
+      "y": 90
+    },
+    "facing=north,up=true,waterlogged=true": {
+      "model": "decorative_blocks:block/warped_support"
+    },
+    "facing=south,up=true,waterlogged=true": {
+      "model": "decorative_blocks:block/warped_support",
+      "y": 180
+    },
+    "facing=west,up=true,waterlogged=true": {
+      "model": "decorative_blocks:block/warped_support",
+      "y": 270
+    },
+    "facing=east,up=true,waterlogged=true": {
+      "model": "decorative_blocks:block/warped_support",
+      "y": 90
+    }
+  }
+}

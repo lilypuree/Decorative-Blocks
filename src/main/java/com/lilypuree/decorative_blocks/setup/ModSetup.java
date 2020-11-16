@@ -2,6 +2,7 @@ package com.lilypuree.decorative_blocks.setup;
 
 import com.lilypuree.decorative_blocks.Config;
 import com.lilypuree.decorative_blocks.DecorativeBlocks;
+import com.lilypuree.decorative_blocks.blocks.BonfireBlock;
 import com.lilypuree.decorative_blocks.blocks.BrazierBlock;
 import com.lilypuree.decorative_blocks.entity.DummyEntityForSitting;
 import com.lilypuree.decorative_blocks.entity.ItemEntityBonfireActivator;
@@ -89,7 +90,7 @@ public class ModSetup {
         BlockPos pos = event.getPos();
         Block block = world.getBlockState(pos).getBlock();
 
-        if (block == Registration.BONFIRE.get()) {
+        if (block instanceof BonfireBlock) {
             event.setCanceled(true);
 
             world.playEvent(null, 1009, pos, 0);

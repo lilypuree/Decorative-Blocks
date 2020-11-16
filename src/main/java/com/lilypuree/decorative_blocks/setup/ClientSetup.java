@@ -22,6 +22,7 @@ public class ClientSetup {
 
         RenderTypeLookup.setRenderLayer(Registration.BAR_PANEL.get(), RenderType.getCutoutMipped());
         RenderTypeLookup.setRenderLayer(Registration.BONFIRE.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(Registration.SOUL_BONFIRE.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(Registration.LATTICE.get(), RenderType.getCutoutMipped());
         RenderTypeLookup.setRenderLayer(Registration.BRAZIER.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(Registration.SOUL_BRAZIER.get(), RenderType.getCutout());

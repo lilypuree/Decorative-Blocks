@@ -14,8 +14,8 @@ import net.minecraftforge.client.model.generators.*;
 
 public class BlockStates extends BlockStateProvider {
 
-    public BlockStates(DataGenerator gen, ExistingFileHelper exFileHelper) {
-        super(gen, DecorativeBlocks.MODID, exFileHelper);
+    public BlockStates(DataGenerator gen, String modid, ExistingFileHelper exFileHelper) {
+        super(gen, modid, exFileHelper);
     }
 
 

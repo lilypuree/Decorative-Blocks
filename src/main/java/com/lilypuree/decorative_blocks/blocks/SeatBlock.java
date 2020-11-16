@@ -1,20 +1,23 @@
 package com.lilypuree.decorative_blocks.blocks;
 
+import com.lilypuree.decorative_blocks.DecorativeBlocks;
 import com.lilypuree.decorative_blocks.entity.DummyEntityForSitting;
 import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.item.*;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.tags.ITag;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
@@ -120,7 +123,9 @@ public class SeatBlock extends HorizontalBlock implements IWaterLoggable {
         ItemStack heldItem = player.getHeldItem(handIn);
         BlockState upperBlock = worldIn.getBlockState(pos.up());
         boolean canSit = hit.getFace() == Direction.UP && !state.get(OCCUPIED) && heldItem.isEmpty() && upperBlock.isAir(worldIn, pos.up()) && isPlayerInRange(player, pos);
-        boolean canAttachLantern = hit.getFace() == Direction.DOWN && heldItem.getItem() == Items.LANTERN && worldIn.getBlockState(pos.down()).isAir(worldIn, pos.down());
+        Item item = heldItem.getItem();
+        boolean isSeatAttachableItem = item instanceof BlockItem && ((BlockItem) item).getBlock() instanceof LanternBlock;
+        boolean canAttachLantern = hit.getFace() == Direction.DOWN && isSeatAttachableItem && worldIn.getBlockState(pos.down()).isAir(worldIn, pos.down());
         if (!worldIn.isRemote()) {
             if (canSit) {
                 DummyEntityForSitting seat = new DummyEntityForSitting(worldIn, pos);
@@ -131,7 +136,7 @@ public class SeatBlock extends HorizontalBlock implements IWaterLoggable {
                 BlockState newState = state.with(ATTACHED, Boolean.TRUE);
                 worldIn.setBlockState(pos, newState);
                 worldIn.notifyBlockUpdate(pos, state, newState, 3);
-                worldIn.setBlockState(pos.down(), Blocks.LANTERN.getDefaultState().with(BlockStateProperties.HANGING, Boolean.TRUE));
+                worldIn.setBlockState(pos.down(), (((BlockItem) item).getBlock()).getDefaultState().with(BlockStateProperties.HANGING, Boolean.TRUE), 16);
                 if (!player.isCreative()) {
                     heldItem.shrink(1);
                 }
@@ -178,11 +183,17 @@ public class SeatBlock extends HorizontalBlock implements IWaterLoggable {
 
     @Override
     public int getFlammability(BlockState state, IBlockReader world, BlockPos pos, Direction face) {
-        return 20;
+        if (flammable){
+            return 20;
+        }
+        else return super.getFlammability(state,world,pos,face);
     }
 
     @Override
     public int getFireSpreadSpeed(BlockState state, IBlockReader world, BlockPos pos, Direction face) {
-        return 5;
+        if (flammable){
+            return 5;
+        }
+        else return super.getFireSpreadSpeed(state,world,pos,face);
     }
 }

@@ -54,6 +54,7 @@ public class Registration {
     public static final RegistryObject<PillarBlock> STONE_PILLAR = BLOCKS.register("stone_pillar", () -> new PillarBlock(Block.Properties.create(Material.ROCK).hardnessAndResistance(1.5F, 6.5F)));
     public static final RegistryObject<Block> ROCKY_DIRT = BLOCKS.register("rocky_dirt", () -> new RockyDirtBlock());
     public static final RegistryObject<BonfireBlock> BONFIRE = BLOCKS.register("bonfire", () -> new BonfireBlock(Block.Properties.create(Material.FIRE, MaterialColor.TNT).doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.CLOTH).setLightLevel(state -> 15).noDrops()));
+    public static final RegistryObject<BonfireBlock> SOUL_BONFIRE = BLOCKS.register("soul_bonfire", () -> new BonfireBlock(Block.Properties.create(Material.FIRE, MaterialColor.CYAN).doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.CLOTH).setLightLevel(state -> 14).noDrops()));
 
 
     public static final Item.Properties modItemProperties = new Item.Properties().group(ModSetup.ITEM_GROUP);
@@ -69,13 +70,13 @@ public class Registration {
     public static final RegistryObject<Item> STONE_PILLAR_ITEM = ITEMS.register("stone_pillar", () -> new BlockItem(STONE_PILLAR.get(), modItemProperties));
     public static final RegistryObject<Item> ROCKY_DIRT_ITEM = ITEMS.register("rocky_dirt", () -> new BlockItem(ROCKY_DIRT.get(), modItemProperties));
 
-    public static final Material THTACH_MATERIAL = (new Material.Builder(MaterialColor.YELLOW)).doesNotBlockMovement().notSolid().replaceable().liquid().build();
+    public static final Material THATCH_MATERIAL = (new Material.Builder(MaterialColor.YELLOW)).doesNotBlockMovement().notSolid().replaceable().liquid().build();
     private static final ResourceLocation thatchStillTexture = new ResourceLocation("decorative_blocks", "block/thatch_still");
     private static final ResourceLocation thatchFlowingTexture = new ResourceLocation("decorative_blocks", "block/thatch_flowing");
     public static final ThatchFluid.FluidReferenceHolder referenceHolder = new ThatchFluid.FluidReferenceHolder(() -> Blocks.HAY_BLOCK, thatchStillTexture, thatchFlowingTexture, 0xAC8D08);
     public static final RegistryObject<FlowingFluid> FLOWING_THATCH = FLUIDS.register("flowing_thatch", () -> new ThatchFluid.Flowing(referenceHolder));
     public static final RegistryObject<FlowingFluid> STILL_THATCH = FLUIDS.register("thatch", () -> new ThatchFluid.Source(referenceHolder));
-    public static final RegistryObject<Block> THATCH = BLOCKS.register("thatch", () -> new ThatchFluidBlock(STILL_THATCH, Block.Properties.create(THTACH_MATERIAL).doesNotBlockMovement().tickRandomly().hardnessAndResistance(100.0F).noDrops()));
+    public static final RegistryObject<Block> THATCH = BLOCKS.register("thatch", () -> new ThatchFluidBlock(STILL_THATCH, Block.Properties.create(THATCH_MATERIAL).doesNotBlockMovement().tickRandomly().hardnessAndResistance(100.0F).noDrops()));
 
     public static final RegistryObject<EntityType<DummyEntityForSitting>> DUMMY_ENTITY_TYPE = ENTITIES.register("dummy", () -> EntityType.Builder.<DummyEntityForSitting>create(DummyEntityForSitting::new, EntityClassification.MISC)
             .setTrackingRange(256)
@@ -106,7 +107,13 @@ public class Registration {
                 String name = wood + "_" + type;
 
                 itemBuilder.put(name, ITEMS.register(name, () ->
-                        new BurnableBlockItem(DECORATIVE_BLOCKS.get(name).get(), wood.isAvailable() ? modItemProperties : dummyProperty, 300)));
+                {
+                    if (wood.isFlammable()) {
+                        return new BurnableBlockItem(DECORATIVE_BLOCKS.get(name).get(), wood.isAvailable() ? modItemProperties : dummyProperty, 300);
+                    } else {
+                        return new BlockItem(DECORATIVE_BLOCKS.get(name).get(), wood.isAvailable() ? modItemProperties : dummyProperty);
+                    }
+                }));
             }
         }
 
@@ -140,8 +147,8 @@ public class Registration {
 
 
     private static Block createDecorativeBlock(IWoodType wood, WoodDecorativeBlockTypes woodDecorativeBlockType, boolean flammable) {
-        Block.Properties woodProperty = AbstractBlock.Properties.create(Material.WOOD, MaterialColor.WOOD).hardnessAndResistance(1.2F).sound(SoundType.WOOD);
-        Block.Properties palisadeProperty = AbstractBlock.Properties.create(Material.WOOD, MaterialColor.WOOD).hardnessAndResistance(2.0F, 4.0F).sound(SoundType.WOOD);
+        Block.Properties woodProperty = AbstractBlock.Properties.create(wood.getMaterial(), wood.getMaterialColor()).hardnessAndResistance(1.2F).sound(wood.getSoundType());
+        Block.Properties palisadeProperty = AbstractBlock.Properties.create(wood.getMaterial(), wood.getMaterialColor()).hardnessAndResistance(2.0F, 4.0F).sound(wood.getSoundType());
 
         switch (woodDecorativeBlockType) {
             default:

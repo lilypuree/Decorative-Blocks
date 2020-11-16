@@ -113,12 +113,18 @@ public class SupportBlock extends HorizontalBlock implements IWaterLoggable {
 
     @Override
     public int getFlammability(BlockState state, IBlockReader world, BlockPos pos, Direction face) {
-        return 20;
+        if (flammable){
+            return 20;
+        }
+        else return super.getFlammability(state,world,pos,face);
     }
 
     @Override
     public int getFireSpreadSpeed(BlockState state, IBlockReader world, BlockPos pos, Direction face) {
-        return 5;
+        if (flammable){
+            return 5;
+        }
+        else return super.getFireSpreadSpeed(state,world,pos,face);
     }
 
     @Override

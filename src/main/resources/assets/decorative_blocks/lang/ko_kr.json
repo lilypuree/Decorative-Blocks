@@ -1,4 +1,12 @@
 {
+  "block.decorative_blocks.crimson_beam": "진홍빛 들보",
+  "block.decorative_blocks.crimson_palisade": "진홍빛 말뚝",
+  "block.decorative_blocks.crimson_seat": "진홍빛 의자",
+  "block.decorative_blocks.crimson_support": "진홍빛 지지대",
+  "block.decorative_blocks.warped_beam": "뒤틀린 들보",
+  "block.decorative_blocks.warped_palisade": "뒤틀린 말뚝",
+  "block.decorative_blocks.warped_seat": "뒤틀린 의자",
+  "block.decorative_blocks.warped_support": "뒤틀린 지지대",
   "block.decorative_blocks.acacia_seat": "아카시아나무 의자",
   "block.decorative_blocks.oak_support": "참나무 지지대",
   "block.decorative_blocks.jungle_support": "정글 나무 지지대",

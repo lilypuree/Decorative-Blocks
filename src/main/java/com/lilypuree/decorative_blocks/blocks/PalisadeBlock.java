@@ -14,9 +14,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 
-public class PalisadeBlock extends FourWayBlock{
+public class PalisadeBlock extends FourWayBlock {
     private boolean flammable;
-    public PalisadeBlock(Block.Properties properties, boolean flammable){
+
+    public PalisadeBlock(Block.Properties properties, boolean flammable) {
         super(3.0F, 3.0F, 16.0F, 16.0F, 24.0F, properties);
         this.setDefaultState(this.stateContainer.getBaseState().with(NORTH, Boolean.FALSE).with(EAST, Boolean.FALSE).with(SOUTH, Boolean.FALSE).with(WEST, Boolean.FALSE).with(WATERLOGGED, Boolean.FALSE));
         this.flammable = flammable;
@@ -29,7 +30,7 @@ public class PalisadeBlock extends FourWayBlock{
     public boolean canConnect(BlockState state, boolean flag0, Direction direction) {
         Block block = state.getBlock();
 //        boolean flag = block.isIn(BlockTags.FENCES) && p_220111_1_.getMaterial() == this.material;
-        boolean flag = block instanceof PalisadeBlock || block instanceof FenceGateBlock  &&FenceGateBlock.isParallel(state, direction);
+        boolean flag = block instanceof PalisadeBlock || block instanceof FenceGateBlock && FenceGateBlock.isParallel(state, direction);
         return !cannotAttach(block) && flag0 || flag;
     }
 
@@ -68,11 +69,16 @@ public class PalisadeBlock extends FourWayBlock{
 
     @Override
     public int getFlammability(BlockState state, IBlockReader world, BlockPos pos, Direction face) {
-        return 20;
+        if (flammable) {
+            return 20;
+        } else return super.getFlammability(state, world, pos, face);
     }
 
     @Override
     public int getFireSpreadSpeed(BlockState state, IBlockReader world, BlockPos pos, Direction face) {
-        return 5;
+        if (flammable){
+            return 5;
+        }
+        else return super.getFireSpreadSpeed(state,world,pos,face);
     }
 }

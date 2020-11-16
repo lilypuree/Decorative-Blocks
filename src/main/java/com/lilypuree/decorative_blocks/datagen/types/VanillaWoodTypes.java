@@ -2,9 +2,69 @@ package com.lilypuree.decorative_blocks.datagen.types;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.material.MaterialColor;
 
-public enum VanillaWoodTypes implements IWoodType{
-    OAK("oak"), BIRCH("birch"), SPRUCE("spruce"), ACACIA("acacia"), JUNGLE("jungle"), DARK_OAK("dark_oak");
+public enum VanillaWoodTypes implements IWoodType {
+    OAK("oak"), BIRCH("birch") {
+        @Override
+        public MaterialColor getMaterialColor() {
+            return MaterialColor.SAND;
+        }
+    }, SPRUCE("spruce") {
+        @Override
+        public MaterialColor getMaterialColor() {
+            return MaterialColor.OBSIDIAN;
+        }
+    },
+    ACACIA("acacia") {
+        @Override
+        public MaterialColor getMaterialColor() {
+            return MaterialColor.ADOBE;
+        }
+    }, JUNGLE("jungle") {
+        @Override
+        public MaterialColor getMaterialColor() {
+            return MaterialColor.DIRT;
+        }
+    },
+    DARK_OAK("dark_oak") {
+        @Override
+        public MaterialColor getMaterialColor() {
+            return MaterialColor.BROWN;
+        }
+    },
+    CRIMSON("crimson") {
+        @Override
+        public boolean isFlammable() {
+            return false;
+        }
+
+        @Override
+        public Material getMaterial() {
+            return Material.field_237214_y_;
+        }
+
+        @Override
+        public MaterialColor getMaterialColor() {
+            return MaterialColor.NETHERRACK;
+        }
+    }, WARPED("warped") {
+        @Override
+        public boolean isFlammable() {
+            return false;
+        }
+
+        @Override
+        public Material getMaterial() {
+            return Material.field_237214_y_;
+        }
+
+        @Override
+        public MaterialColor getMaterialColor() {
+            return MaterialColor.CYAN;
+        }
+    };
 
     private final String name;
 
@@ -27,6 +87,8 @@ public enum VanillaWoodTypes implements IWoodType{
         else if (name.equalsIgnoreCase("acacia")) return ACACIA;
         else if (name.equalsIgnoreCase("jungle")) return JUNGLE;
         else if (name.equalsIgnoreCase("dark")) return DARK_OAK;
+        else if (name.equalsIgnoreCase("crimson")) return CRIMSON;
+        else if (name.equalsIgnoreCase("warped")) return WARPED;
         return OAK;
     }
 
@@ -49,6 +111,10 @@ public enum VanillaWoodTypes implements IWoodType{
                 return Blocks.DARK_OAK_LOG;
             case ACACIA:
                 return Blocks.ACACIA_LOG;
+            case CRIMSON:
+                return Blocks.CRIMSON_STEM;
+            case WARPED:
+                return Blocks.WARPED_STEM;
         }
         return Blocks.OAK_LOG;
     }
@@ -67,6 +133,10 @@ public enum VanillaWoodTypes implements IWoodType{
                 return Blocks.STRIPPED_DARK_OAK_LOG;
             case ACACIA:
                 return Blocks.STRIPPED_ACACIA_LOG;
+            case CRIMSON:
+                return Blocks.STRIPPED_CRIMSON_STEM;
+            case WARPED:
+                return Blocks.STRIPPED_WARPED_STEM;
         }
         return Blocks.STRIPPED_OAK_LOG;
     }
@@ -85,9 +155,14 @@ public enum VanillaWoodTypes implements IWoodType{
                 return Blocks.DARK_OAK_SLAB;
             case ACACIA:
                 return Blocks.ACACIA_SLAB;
+            case CRIMSON:
+                return Blocks.CRIMSON_SLAB;
+            case WARPED:
+                return Blocks.WARPED_SLAB;
         }
         return Blocks.OAK_SLAB;
     }
+
     public Block getFence() {
         switch (this) {
             case OAK:
@@ -102,9 +177,14 @@ public enum VanillaWoodTypes implements IWoodType{
                 return Blocks.DARK_OAK_FENCE;
             case ACACIA:
                 return Blocks.ACACIA_FENCE;
+            case CRIMSON:
+                return Blocks.CRIMSON_FENCE;
+            case WARPED:
+                return Blocks.WARPED_FENCE;
         }
         return Blocks.OAK_FENCE;
     }
+
     public Block getPlanks() {
         switch (this) {
             case OAK:
@@ -119,6 +199,10 @@ public enum VanillaWoodTypes implements IWoodType{
                 return Blocks.DARK_OAK_PLANKS;
             case ACACIA:
                 return Blocks.ACACIA_PLANKS;
+            case CRIMSON:
+                return Blocks.CRIMSON_PLANKS;
+            case WARPED:
+                return Blocks.WARPED_PLANKS;
         }
         return Blocks.OAK_PLANKS;
     }

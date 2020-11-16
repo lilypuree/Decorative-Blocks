@@ -123,7 +123,8 @@ public enum BOPWoodTypes implements IWoodType {
 
     @Override
     public boolean isAvailable() {
-        return ModList.get().isLoaded("biomesoplenty");
+//        return ModList.get().isLoaded("biomesoplenty");
+        return true;
     }
 
     @Override
