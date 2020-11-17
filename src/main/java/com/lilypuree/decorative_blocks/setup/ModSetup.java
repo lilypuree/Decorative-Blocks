@@ -73,7 +73,7 @@ public class ModSetup {
     public static void onProjectileCollisionEvent(ProjectileImpactEvent.Throwable event) {
         ThrowableEntity potion = event.getThrowable();
         World world = potion.getEntityWorld();
-        BlockPos pos = potion.func_233580_cy_();
+        BlockPos pos = potion.getPosition();
         BlockState state = world.getBlockState(pos);
         if (world.isRemote) return;
         if (potion instanceof PotionEntity && PotionUtils.getPotionFromItem(((PotionEntity) potion).getItem()) == Potions.WATER) {
@@ -153,7 +153,7 @@ public class ModSetup {
     public static void onEntityDamage(LivingDamageEvent event) {
         if (event.getSource() == DamageSource.FALL) {
             LivingEntity entity = event.getEntityLiving();
-            BlockPos pos = entity.func_233580_cy_();
+            BlockPos pos = entity.getPosition();
             World world = entity.getEntityWorld();
             if (world.getFluidState(pos).getFluid() == Registration.STILL_THATCH.get().getFluid()) {
                 event.setAmount(event.getAmount() * 0.2f);

@@ -32,10 +32,10 @@ public class ItemEntityBonfireActivator extends ItemEntity {
     @Override
     public boolean attackEntityFrom(DamageSource source, float amount) {
         if (source == DamageSource.ON_FIRE) {
-            Block block = world.getBlockState(this.func_233580_cy_()).getBlock();
+            Block block = world.getBlockState(this.getPosition()).getBlock();
             if (bonfireMap.containsKey(block)) {
                 if (!world.isRemote()) {
-                    world.setBlockState(this.func_233580_cy_(), bonfireMap.get(block).getDefaultState());
+                    world.setBlockState(this.getPosition(), bonfireMap.get(block).getDefaultState());
                     world.playSound(null, this.getPosX(), this.getPosY(), this.getPosZ(), SoundEvents.ITEM_FIRECHARGE_USE, SoundCategory.BLOCKS, 1.0f, 0.7f);
                 }
                 this.remove();

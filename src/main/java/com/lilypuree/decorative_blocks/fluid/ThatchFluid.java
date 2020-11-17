@@ -75,7 +75,7 @@ public abstract class ThatchFluid extends FlowingFluid {
     @Override
     protected void beforeReplacingBlock(IWorld worldIn, BlockPos pos, BlockState state) {
         TileEntity tileentity = state.getBlock().hasTileEntity(state) ? worldIn.getTileEntity(pos) : null;
-        Block.spawnDrops(state, worldIn.getWorld(), pos, tileentity);
+        Block.spawnDrops(state, worldIn, pos, tileentity);
     }
 
     public boolean canDisplace(FluidState p_215665_1_, IBlockReader p_215665_2_, BlockPos p_215665_3_, Fluid p_215665_4_, Direction p_215665_5_) {

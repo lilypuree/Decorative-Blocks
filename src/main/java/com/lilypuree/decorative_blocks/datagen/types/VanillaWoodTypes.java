@@ -42,7 +42,7 @@ public enum VanillaWoodTypes implements IWoodType {
 
         @Override
         public Material getMaterial() {
-            return Material.field_237214_y_;
+            return Material.NETHER_WOOD;
         }
 
         @Override
@@ -57,7 +57,7 @@ public enum VanillaWoodTypes implements IWoodType {
 
         @Override
         public Material getMaterial() {
-            return Material.field_237214_y_;
+            return Material.NETHER_WOOD;
         }
 
         @Override

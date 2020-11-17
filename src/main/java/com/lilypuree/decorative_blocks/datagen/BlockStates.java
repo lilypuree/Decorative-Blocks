@@ -1,6 +1,5 @@
 package com.lilypuree.decorative_blocks.datagen;
 
-import com.lilypuree.decorative_blocks.DecorativeBlocks;
 import com.lilypuree.decorative_blocks.datagen.types.IWoodType;
 import com.lilypuree.decorative_blocks.datagen.types.ModWoodTypes;
 import com.lilypuree.decorative_blocks.datagen.types.WoodDecorativeBlockTypes;
@@ -11,6 +10,7 @@ import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.generators.*;
+import net.minecraftforge.common.data.ExistingFileHelper;
 
 public class BlockStates extends BlockStateProvider {
 

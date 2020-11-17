@@ -56,7 +56,7 @@ public class BonfireBlock extends Block implements IWaterLoggable {
     }
 
     public void onEntityCollision(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
-        if (!entityIn.func_230279_az_() && entityIn instanceof LivingEntity && !EnchantmentHelper.hasFrostWalker((LivingEntity) entityIn)) {
+        if (!entityIn.isImmuneToFire() && entityIn instanceof LivingEntity && !EnchantmentHelper.hasFrostWalker((LivingEntity) entityIn)) {
             entityIn.attackEntityFrom(DamageSource.IN_FIRE, 1.0F);
         }
         super.onEntityCollision(state, worldIn, pos, entityIn);

@@ -149,7 +149,7 @@ public class SeatBlock extends HorizontalBlock implements IWaterLoggable {
 
 
     private static boolean isPlayerInRange(PlayerEntity player, BlockPos pos) {
-        BlockPos playerPos = player.func_233580_cy_();
+        BlockPos playerPos = player.getPosition();
         int blockReachDistance = 2;
 
         if (blockReachDistance == 0) //player has to stand on top of the block
