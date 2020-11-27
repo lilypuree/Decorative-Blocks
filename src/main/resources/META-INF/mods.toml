@@ -49,6 +49,6 @@ description='''
 [[dependencies.decorative_blocks]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.16.2,)"
+    versionRange="[1.16.1,)"
     ordering="NONE"
     side="BOTH"
