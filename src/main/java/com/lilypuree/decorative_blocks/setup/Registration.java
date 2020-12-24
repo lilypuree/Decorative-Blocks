@@ -56,7 +56,6 @@ public class Registration {
     public static final RegistryObject<BonfireBlock> BONFIRE = BLOCKS.register("bonfire", () -> new BonfireBlock(Block.Properties.create(Material.FIRE, MaterialColor.TNT).doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.CLOTH).setLightLevel(state -> 15).noDrops()));
     public static final RegistryObject<BonfireBlock> SOUL_BONFIRE = BLOCKS.register("soul_bonfire", () -> new BonfireBlock(Block.Properties.create(Material.FIRE, MaterialColor.CYAN).doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.CLOTH).setLightLevel(state -> 14).noDrops()));
 
-
     public static final Item.Properties modItemProperties = new Item.Properties().group(ModSetup.ITEM_GROUP);
     public static final Item.Properties dummyProperty = new Item.Properties();
 
@@ -96,7 +95,7 @@ public class Registration {
         for (WoodDecorativeBlockTypes type : WoodDecorativeBlockTypes.values()) {
             for (IWoodType wood : ModWoodTypes.allWoodTypes()) {
                 String name = wood + "_" + type;
-                decorativeBlockBuilder.put(name, BLOCKS.register(name, () -> createDecorativeBlock(wood, type, wood.isFlammable())));
+                decorativeBlockBuilder.put(name, BLOCKS.register(name, () -> createDecorativeBlock(wood, type)));
             }
         }
 
@@ -146,20 +145,20 @@ public class Registration {
     }
 
 
-    private static Block createDecorativeBlock(IWoodType wood, WoodDecorativeBlockTypes woodDecorativeBlockType, boolean flammable) {
+    private static Block createDecorativeBlock(IWoodType wood, WoodDecorativeBlockTypes woodDecorativeBlockType) {
         Block.Properties woodProperty = AbstractBlock.Properties.create(wood.getMaterial(), wood.getMaterialColor()).hardnessAndResistance(1.2F).sound(wood.getSoundType());
         Block.Properties palisadeProperty = AbstractBlock.Properties.create(wood.getMaterial(), wood.getMaterialColor()).hardnessAndResistance(2.0F, 4.0F).sound(wood.getSoundType());
 
         switch (woodDecorativeBlockType) {
             default:
             case BEAM:
-                return new BeamBlock(woodProperty, flammable);
+                return new BeamBlock(woodProperty, wood);
             case SEAT:
-                return new SeatBlock(woodProperty, flammable);
+                return new SeatBlock(woodProperty, wood);
             case SUPPORT:
-                return new SupportBlock(woodProperty, flammable);
+                return new SupportBlock(woodProperty, wood);
             case PALISADE:
-                return new PalisadeBlock(palisadeProperty, flammable);
+                return new PalisadeBlock(palisadeProperty, wood);
         }
     }
 }

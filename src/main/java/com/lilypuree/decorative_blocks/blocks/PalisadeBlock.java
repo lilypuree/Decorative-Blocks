@@ -1,5 +1,6 @@
 package com.lilypuree.decorative_blocks.blocks;
 
+import com.lilypuree.decorative_blocks.datagen.types.IWoodType;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FenceGateBlock;
@@ -15,12 +16,16 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 
 public class PalisadeBlock extends FourWayBlock {
-    private boolean flammable;
+    private IWoodType woodType;
 
-    public PalisadeBlock(Block.Properties properties, boolean flammable) {
+    public PalisadeBlock(Block.Properties properties, IWoodType woodType) {
         super(3.0F, 3.0F, 16.0F, 16.0F, 24.0F, properties);
         this.setDefaultState(this.stateContainer.getBaseState().with(NORTH, Boolean.FALSE).with(EAST, Boolean.FALSE).with(SOUTH, Boolean.FALSE).with(WEST, Boolean.FALSE).with(WATERLOGGED, Boolean.FALSE));
-        this.flammable = flammable;
+        this.woodType = woodType;
+    }
+
+    public IWoodType getWoodType() {
+        return woodType;
     }
 
     public boolean allowsMovement(BlockState state, IBlockReader worldIn, BlockPos pos, PathType type) {
@@ -64,21 +69,20 @@ public class PalisadeBlock extends FourWayBlock {
 
     @Override
     public boolean isFlammable(BlockState state, IBlockReader world, BlockPos pos, Direction face) {
-        return flammable;
+        return woodType.isFlammable();
     }
 
     @Override
     public int getFlammability(BlockState state, IBlockReader world, BlockPos pos, Direction face) {
-        if (flammable) {
+        if (woodType.isFlammable()) {
             return 20;
         } else return super.getFlammability(state, world, pos, face);
     }
 
     @Override
     public int getFireSpreadSpeed(BlockState state, IBlockReader world, BlockPos pos, Direction face) {
-        if (flammable){
+        if (woodType.isFlammable()) {
             return 5;
-        }
-        else return super.getFireSpreadSpeed(state,world,pos,face);
+        } else return super.getFireSpreadSpeed(state, world, pos, face);
     }
 }

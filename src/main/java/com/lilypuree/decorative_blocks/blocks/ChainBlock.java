@@ -24,9 +24,9 @@ import javax.annotation.Nullable;
 public class ChainBlock extends RotatedPillarBlock implements IWaterLoggable {
     private static final double d0 = 4D;
     private static final double d1 = 12D;
-    private static final VoxelShape CHAIN_SHAPE_X = Block.makeCuboidShape(0, d0, d0, 16, d1, d1);
-    private static final VoxelShape CHAIN_SHAPE_Y = Block.makeCuboidShape(d0, 0, d0, d1, 16, d1);
-    private static final VoxelShape CHAIN_SHAPE_Z = Block.makeCuboidShape(d0, d0, 0, d1, d1, 16);
+    protected static final VoxelShape CHAIN_SHAPE_X = Block.makeCuboidShape(0, d0, d0, 16, d1, d1);
+    protected static final VoxelShape CHAIN_SHAPE_Y = Block.makeCuboidShape(d0, 0, d0, d1, 16, d1);
+    protected static final VoxelShape CHAIN_SHAPE_Z = Block.makeCuboidShape(d0, d0, 0, d1, d1, 16);
 
     private static final VoxelShape CHAIN_COLLISION_SHAPE = Block.makeCuboidShape(6D, 0D, 6D, 10D, 16, 10D);
 

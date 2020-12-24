@@ -34,8 +34,8 @@ import javax.annotation.Nullable;
 import java.util.Random;
 
 public class BrazierBlock extends Block implements IWaterLoggable {
-    private static final VoxelShape BRAZIER_SHAPE = Block.makeCuboidShape(2D, 0.0D, 2D, 14D, 14D, 14D);
-    private static final VoxelShape BRAZIER_COLLISION_SHAPE = Block.makeCuboidShape(3D, 0.0D, 3D, 15D, 14D, 15D);
+    protected static final VoxelShape BRAZIER_SHAPE = Block.makeCuboidShape(2D, 0.0D, 2D, 14D, 14D, 14D);
+    protected static final VoxelShape BRAZIER_COLLISION_SHAPE = Block.makeCuboidShape(3D, 0.0D, 3D, 15D, 14D, 15D);
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     private final boolean isSoul;

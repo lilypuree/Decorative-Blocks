@@ -1,6 +1,7 @@
 package com.lilypuree.decorative_blocks.blocks;
 
 import com.lilypuree.decorative_blocks.DecorativeBlocks;
+import com.lilypuree.decorative_blocks.datagen.types.IWoodType;
 import com.lilypuree.decorative_blocks.entity.DummyEntityForSitting;
 import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;
@@ -32,21 +33,25 @@ import net.minecraft.world.World;
 import java.util.List;
 
 public class SeatBlock extends HorizontalBlock implements IWaterLoggable {
-    private static final VoxelShape POST_SHAPE = Block.makeCuboidShape(6.0D, 0.0D, 6.0D, 10.0D, 4.0D, 10.0D);
-    private static final VoxelShape JOIST_SHAPE_NS = Block.makeCuboidShape(0, 4.0D, 4D, 16D, 7D, 12D);
-    private static final VoxelShape JOIST_SHAPE_EW = Block.makeCuboidShape(4.0D, 4.0D, 0D, 12D, 7D, 16D);
-    private static final VoxelShape SEAT_SHAPE_NS = VoxelShapes.or(POST_SHAPE, JOIST_SHAPE_NS);
-    private static final VoxelShape SEAT_SHAPE_EW = VoxelShapes.or(POST_SHAPE, JOIST_SHAPE_EW);
+    protected static final VoxelShape POST_SHAPE = Block.makeCuboidShape(6.0D, 0.0D, 6.0D, 10.0D, 4.0D, 10.0D);
+    protected static final VoxelShape JOIST_SHAPE_NS = Block.makeCuboidShape(0, 4.0D, 4D, 16D, 7D, 12D);
+    protected static final VoxelShape JOIST_SHAPE_EW = Block.makeCuboidShape(4.0D, 4.0D, 0D, 12D, 7D, 16D);
+    protected static final VoxelShape SEAT_SHAPE_NS = VoxelShapes.or(POST_SHAPE, JOIST_SHAPE_NS);
+    protected static final VoxelShape SEAT_SHAPE_EW = VoxelShapes.or(POST_SHAPE, JOIST_SHAPE_EW);
 
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static final BooleanProperty OCCUPIED = BlockStateProperties.OCCUPIED;
     public static final BooleanProperty ATTACHED = BlockStateProperties.ATTACHED;
 
-    private boolean flammable;
+    private IWoodType woodType;
 
-    public SeatBlock(Block.Properties properties, boolean flammable) {
+    public SeatBlock(Block.Properties properties, IWoodType woodType) {
         super(properties);
-        this.flammable = flammable;
+        this.woodType = woodType;
+    }
+
+    public IWoodType getWoodType() {
+        return woodType;
     }
 
     @Override
@@ -178,22 +183,20 @@ public class SeatBlock extends HorizontalBlock implements IWaterLoggable {
 
     @Override
     public boolean isFlammable(BlockState state, IBlockReader world, BlockPos pos, Direction face) {
-        return flammable;
+        return woodType.isFlammable();
     }
 
     @Override
     public int getFlammability(BlockState state, IBlockReader world, BlockPos pos, Direction face) {
-        if (flammable){
+        if (woodType.isFlammable()) {
             return 20;
-        }
-        else return super.getFlammability(state,world,pos,face);
+        } else return super.getFlammability(state, world, pos, face);
     }
 
     @Override
     public int getFireSpreadSpeed(BlockState state, IBlockReader world, BlockPos pos, Direction face) {
-        if (flammable){
+        if (woodType.isFlammable()) {
             return 5;
-        }
-        else return super.getFireSpreadSpeed(state,world,pos,face);
+        } else return super.getFireSpreadSpeed(state, world, pos, face);
     }
 }

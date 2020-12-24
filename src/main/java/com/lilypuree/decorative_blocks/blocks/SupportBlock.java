@@ -1,5 +1,6 @@
 package com.lilypuree.decorative_blocks.blocks;
 
+import com.lilypuree.decorative_blocks.datagen.types.IWoodType;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.HorizontalBlock;
@@ -47,12 +48,16 @@ public class SupportBlock extends HorizontalBlock implements IWaterLoggable {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static final BooleanProperty UP = BlockStateProperties.UP;
 
-    private boolean flammable;
+    private IWoodType woodType;
 
-    public SupportBlock(Block.Properties properties, boolean flammable) {
+    public SupportBlock(Block.Properties properties, IWoodType woodType) {
         super(properties);
         this.setDefaultState(this.stateContainer.getBaseState().with(WATERLOGGED, Boolean.FALSE).with(UP, Boolean.TRUE));
-        this.flammable = flammable;
+        this.woodType = woodType;
+    }
+
+    public IWoodType getWoodType() {
+        return woodType;
     }
 
     @Override
@@ -108,25 +113,22 @@ public class SupportBlock extends HorizontalBlock implements IWaterLoggable {
 
     @Override
     public boolean isFlammable(BlockState state, IBlockReader world, BlockPos pos, Direction face) {
-        return flammable;
+        return woodType.isFlammable();
     }
 
     @Override
     public int getFlammability(BlockState state, IBlockReader world, BlockPos pos, Direction face) {
-        if (flammable){
+        if (woodType.isFlammable()) {
             return 20;
-        }
-        else return super.getFlammability(state,world,pos,face);
+        } else return super.getFlammability(state, world, pos, face);
     }
 
     @Override
     public int getFireSpreadSpeed(BlockState state, IBlockReader world, BlockPos pos, Direction face) {
-        if (flammable){
+        if (woodType.isFlammable()) {
             return 5;
-        }
-        else return super.getFireSpreadSpeed(state,world,pos,face);
+        } else return super.getFireSpreadSpeed(state, world, pos, face);
     }
-
     @Override
     public boolean allowsMovement(BlockState p_196266_1_, IBlockReader p_196266_2_, BlockPos p_196266_3_, PathType p_196266_4_) {
         return false;

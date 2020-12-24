@@ -17,7 +17,7 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 
 public class PillarBlock extends Block implements IWaterLoggable {
-    private final VoxelShape PILLAR_SHAPE = Block.makeCuboidShape(2D, 0.0D, 2D, 14D, 16.0D, 14D);
+    protected final VoxelShape PILLAR_SHAPE = Block.makeCuboidShape(2D, 0.0D, 2D, 14D, 16.0D, 14D);
 
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
