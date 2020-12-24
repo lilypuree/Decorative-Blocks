@@ -46,7 +46,8 @@ public class Registration {
 
     public static final RegistryObject<BarPanelBlock> BAR_PANEL = BLOCKS.register("bar_panel", () -> new BarPanelBlock(Block.Properties.create(Material.IRON, MaterialColor.BLACK).hardnessAndResistance(5.0F).sound(SoundType.METAL).notSolid()));
     public static final RegistryObject<LatticeBlock> LATTICE = BLOCKS.register("lattice", () -> new LatticeBlock(Block.Properties.create(Material.WOOD, MaterialColor.WOOD).hardnessAndResistance(1.2F).sound(SoundType.WOOD).notSolid()));
-    public static final RegistryObject<ChainBlock> CHAIN = BLOCKS.register("chain", () -> new ChainBlock(Block.Properties.create(Material.IRON, MaterialColor.BLACK).hardnessAndResistance(4.3F).sound(SoundType.METAL).notSolid()));
+    public static final AbstractBlock.Properties chainProperties = Block.Properties.create(Material.IRON, MaterialColor.BLACK).hardnessAndResistance(4.3F).sound(SoundType.METAL).notSolid();
+    public static final RegistryObject<ChainBlock> CHAIN = BLOCKS.register("chain", () -> new ChainBlock(chainProperties));
     public static final RegistryObject<ChandelierBlock> CHANDELIER = BLOCKS.register("chandelier", () -> new ChandelierBlock(Block.Properties.create(Material.MISCELLANEOUS).hardnessAndResistance(0.3F).sound(SoundType.WOOD).notSolid().setLightLevel(state -> 15), false));
     public static final RegistryObject<ChandelierBlock> SOUL_CHANDELIER = BLOCKS.register("soul_chandelier", () -> new ChandelierBlock(Block.Properties.create(Material.MISCELLANEOUS).hardnessAndResistance(0.3F).sound(SoundType.WOOD).notSolid().setLightLevel(state -> 11), true));
     public static final RegistryObject<BrazierBlock> BRAZIER = BLOCKS.register("brazier", () -> new BrazierBlock(Block.Properties.create(Material.IRON).hardnessAndResistance(3.0F).sound(SoundType.METAL).setLightLevel(state -> state.get(BlockStateProperties.LIT) ? 15 : 0).notSolid(), false));
