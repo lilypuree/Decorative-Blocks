@@ -5,6 +5,7 @@ import com.lilypuree.decorative_blocks.blocks.*;
 import com.lilypuree.decorative_blocks.blocks.ChainBlock;
 import com.lilypuree.decorative_blocks.datagen.types.IWoodType;
 import com.lilypuree.decorative_blocks.datagen.types.ModWoodTypes;
+import com.lilypuree.decorative_blocks.datagen.types.VanillaWoodTypes;
 import com.lilypuree.decorative_blocks.datagen.types.WoodDecorativeBlockTypes;
 import com.lilypuree.decorative_blocks.entity.DummyEntityForSitting;
 import com.lilypuree.decorative_blocks.fluid.ThatchFluid;
@@ -56,6 +57,7 @@ public class Registration {
     public static final RegistryObject<Block> ROCKY_DIRT = BLOCKS.register("rocky_dirt", () -> new RockyDirtBlock());
     public static final RegistryObject<BonfireBlock> BONFIRE = BLOCKS.register("bonfire", () -> new BonfireBlock(Block.Properties.create(Material.FIRE, MaterialColor.TNT).doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.CLOTH).setLightLevel(state -> 15).noDrops()));
     public static final RegistryObject<BonfireBlock> SOUL_BONFIRE = BLOCKS.register("soul_bonfire", () -> new BonfireBlock(Block.Properties.create(Material.FIRE, MaterialColor.CYAN).doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.CLOTH).setLightLevel(state -> 14).noDrops()));
+//    public static final RegistryObject<SeatPostBlock> OAK_SEAT_POST = BLOCKS.register("oak_seat_post", () -> new SeatPostBlock(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.2f).sound(SoundType.WOOD), VanillaWoodTypes.OAK));
 
     public static final Item.Properties modItemProperties = new Item.Properties().group(ModSetup.ITEM_GROUP);
     public static final Item.Properties dummyProperty = new Item.Properties();
@@ -69,6 +71,7 @@ public class Registration {
     public static final RegistryObject<Item> SOUL_BRAZIER_ITEM = ITEMS.register("soul_brazier", () -> new BlockItem(SOUL_BRAZIER.get(), modItemProperties));
     public static final RegistryObject<Item> STONE_PILLAR_ITEM = ITEMS.register("stone_pillar", () -> new BlockItem(STONE_PILLAR.get(), modItemProperties));
     public static final RegistryObject<Item> ROCKY_DIRT_ITEM = ITEMS.register("rocky_dirt", () -> new BlockItem(ROCKY_DIRT.get(), modItemProperties));
+//    public static final RegistryObject<Item> OAK_SEAT_POST_ITEM = ITEMS.register("oak_seat_post", () -> new BlockItem(OAK_SEAT_POST.get(), modItemProperties));
 
     public static final Material THATCH_MATERIAL = (new Material.Builder(MaterialColor.YELLOW)).doesNotBlockMovement().notSolid().replaceable().liquid().build();
     private static final ResourceLocation thatchStillTexture = new ResourceLocation("decorative_blocks", "block/thatch_still");

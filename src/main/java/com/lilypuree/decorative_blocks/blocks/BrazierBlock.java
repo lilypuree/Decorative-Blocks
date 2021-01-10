@@ -6,6 +6,7 @@ import net.minecraft.block.IWaterLoggable;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.fluid.FluidState;
@@ -14,6 +15,7 @@ import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.particles.ParticleTypes;
+import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.pathfinding.PathType;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
@@ -35,7 +37,7 @@ import java.util.Random;
 
 public class BrazierBlock extends Block implements IWaterLoggable {
     protected static final VoxelShape BRAZIER_SHAPE = Block.makeCuboidShape(2D, 0.0D, 2D, 14D, 14D, 14D);
-    protected static final VoxelShape BRAZIER_COLLISION_SHAPE = Block.makeCuboidShape(3D, 0.0D, 3D, 15D, 14D, 15D);
+    protected static final VoxelShape BRAZIER_COLLISION_SHAPE = Block.makeCuboidShape(1.5D, 0.0D, 1.5D, 14.5D, 13.5D, 14.5D);
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     private final boolean isSoul;
@@ -49,7 +51,9 @@ public class BrazierBlock extends Block implements IWaterLoggable {
 
     public void onEntityCollision(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
         if (!entityIn.isImmuneToFire() && state.get(LIT) && entityIn instanceof LivingEntity && !EnchantmentHelper.hasFrostWalker((LivingEntity) entityIn)) {
-            entityIn.attackEntityFrom(DamageSource.IN_FIRE, 1.0F);
+            if (entityIn.getPosY() >= state.getCollisionShape(worldIn, pos).max(Direction.Axis.Y, 0.5d, 0.5d) + pos.getY() - 0.1f) {
+                entityIn.attackEntityFrom(DamageSource.IN_FIRE, 1.0F);
+            }
         }
         super.onEntityCollision(state, worldIn, pos, entityIn);
     }
@@ -172,4 +176,9 @@ public class BrazierBlock extends Block implements IWaterLoggable {
         return false;
     }
 
+    @Nullable
+    @Override
+    public PathNodeType getAiPathNodeType(BlockState state, IBlockReader world, BlockPos pos, @Nullable MobEntity entity) {
+        return PathNodeType.DAMAGE_FIRE;
+    }
 }

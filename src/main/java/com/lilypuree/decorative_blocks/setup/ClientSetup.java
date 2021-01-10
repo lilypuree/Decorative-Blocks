@@ -2,6 +2,7 @@ package com.lilypuree.decorative_blocks.setup;
 
 import com.lilypuree.decorative_blocks.DecorativeBlocks;
 import com.lilypuree.decorative_blocks.entity.DummyEntityForSitting;
+import net.minecraft.block.Blocks;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.culling.ClippingHelper;
@@ -30,15 +31,11 @@ public class ClientSetup {
         RenderTypeLookup.setRenderLayer(Registration.CHANDELIER.get(), RenderType.getCutoutMipped());
         RenderTypeLookup.setRenderLayer(Registration.SOUL_CHANDELIER.get(), RenderType.getCutoutMipped());
         RenderTypeLookup.setRenderLayer(Registration.THATCH.get(), RenderType.getSolid());
-
     }
 
 
-
-    private static class EmptyRenderer extends EntityRenderer<DummyEntityForSitting>
-    {
-        protected EmptyRenderer(EntityRendererManager renderManager)
-        {
+    private static class EmptyRenderer extends EntityRenderer<DummyEntityForSitting> {
+        protected EmptyRenderer(EntityRendererManager renderManager) {
             super(renderManager);
         }
 
@@ -48,8 +45,7 @@ public class ClientSetup {
         }
 
         @Override
-        public ResourceLocation getEntityTexture(DummyEntityForSitting entity)
-        {
+        public ResourceLocation getEntityTexture(DummyEntityForSitting entity) {
             return null;
         }
     }

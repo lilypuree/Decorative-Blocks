@@ -25,7 +25,6 @@ public class Recipes extends RecipeProvider {
         for (IWoodType wood : ModWoodTypes.allWoodTypes()) {
             makeWoodenBlockRecipes(wood);
         }
-        super.registerRecipes(consumerIn);
     }
 
     private void makeWoodenBlockRecipes(IWoodType wood) {
