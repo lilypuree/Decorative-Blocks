@@ -51,7 +51,7 @@ public class BrazierBlock extends Block implements IWaterLoggable {
 
     public void onEntityCollision(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
         if (!entityIn.isImmuneToFire() && state.get(LIT) && entityIn instanceof LivingEntity && !EnchantmentHelper.hasFrostWalker((LivingEntity) entityIn)) {
-            if (entityIn.getPosY() >= state.getCollisionShape(worldIn, pos).max(Direction.Axis.Y, 0.5d, 0.5d) + pos.getY() - 0.1f) {
+            if (entityIn.getPosY() >= state.getCollisionShape(worldIn, pos).getEnd(Direction.Axis.Y) + pos.getY() - 0.1f) {
                 entityIn.attackEntityFrom(DamageSource.IN_FIRE, 1.0F);
             }
         }
