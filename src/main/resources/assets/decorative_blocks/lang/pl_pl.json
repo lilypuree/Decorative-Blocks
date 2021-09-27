@@ -1,5 +1,5 @@
 {
-	// miscellanous blocks
+    // miscellanous blocks
     "block.decorative_blocks.chain": "Duży łańcuch",
     "block.decorative_blocks.brazier": "Koksownik",
     "block.decorative_blocks.soul_brazier": "Eteryczny koksownik",
@@ -13,7 +13,7 @@
     "block.decorative_blocks.lattice": "Drewniana siatka",
     "fluid.decorative_blocks.thatch": "Strzecha",
 
-	// vanilla woods
+    // vanilla woods
     "block.decorative_blocks.oak_beam": "Dębowa belka",
     "block.decorative_blocks.oak_palisade": "Dębowa palisada",
     "block.decorative_blocks.oak_seat": "Dębowe siedzenie",
@@ -46,8 +46,12 @@
     "block.decorative_blocks.warped_palisade": "Spaczona palisada",
     "block.decorative_blocks.warped_seat": "Spaczone siedzenie",
     "block.decorative_blocks.warped_support": "Spaczony wspornik",
+
+    "wiki.decorative_blocks.thatch" :  "Rozetnij snop siana przy pomocy nożyczek.",
+
+    "message.decorative_blocks.invalid_bonfire_activator_config" : "Nieprawidłowa konfiguracja aktywowania dużego ogniska!",
     
-	// biomes o' plenty woods
+    // biomes o' plenty woods
     "block.decorative_blocks.cherry_beam": "Wiśniowa belka",
     "block.decorative_blocks.cherry_palisade": "Wiśniowa palisada",
     "block.decorative_blocks.cherry_seat": "Wiśniowe siedzenie",
