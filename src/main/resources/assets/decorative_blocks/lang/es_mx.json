@@ -33,7 +33,7 @@
   "block.decorative_blocks.acacia_palisade": "Empalizada de acacia",
   "block.decorative_blocks.birch_beam": "Viga de abedul",
   "block.decorative_blocks.oak_seat": "Asiento de roble",
-  "block.decorative_blocks.bar_panel": "Panel de barrotes",
+  "block.decorative_blocks.bar_panel": "Panel de barras",
   "block.decorative_blocks.acacia_beam": "Viga de acacia",
   "block.decorative_blocks.birch_palisade": "Empalizada de abedul",
   "block.decorative_blocks.stone_pillar": "Pilar de piedra",
@@ -45,7 +45,7 @@
   "block.decorative_blocks.lattice": "Enrejado",
   "fluid.decorative_blocks.thatch": "Paja",
 
-  "wiki.decorative_blocks.thatch" :  "Corta una bala de heno con unas tijeras.",
+  "wiki.decorative_blocks.thatch" :  "Corta una paca de heno con unas tijeras.",
 
   "message.decorative_blocks.invalid_bonfire_activator_config" : "¡La configuración del activador de hoguera es incorrecta!",
 
