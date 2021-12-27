@@ -2,7 +2,7 @@ package com.lilypuree.decorative_blocks.compat.jei;
 
 import com.lilypuree.decorative_blocks.Config;
 import com.lilypuree.decorative_blocks.DecorativeBlocks;
-import com.lilypuree.decorative_blocks.setup.Registration;
+import com.lilypuree.decorative_blocks.core.setup.Registration;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.VanillaTypes;

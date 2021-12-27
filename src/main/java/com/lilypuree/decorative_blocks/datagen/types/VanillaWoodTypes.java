@@ -76,9 +76,16 @@ public enum VanillaWoodTypes implements IWoodType {
         return this.getName();
     }
 
+    @Override
+    public String namespace() {
+        return "minecraft";
+    }
+
     public String getName() {
         return this.name;
     }
+
+
 
     public static VanillaWoodTypes withName(String name) {
         if (name.equalsIgnoreCase("oak")) return OAK;

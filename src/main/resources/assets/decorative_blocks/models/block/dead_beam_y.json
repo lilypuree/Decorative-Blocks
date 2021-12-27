@@ -1,8 +1,0 @@
-{
-  "parent": "decorative_blocks:custom/beam_y",
-  "textures": {
-    "particle": "decorative_blocks:block/dead_beam_side",
-    "side": "decorative_blocks:block/dead_beam_side",
-    "end": "decorative_blocks:block/dead_beam_end"
-  }
-}

@@ -7,7 +7,7 @@ import net.minecraft.block.material.MaterialColor;
 
 public interface IWoodType {
     String toString();
-
+    String namespace();
     Block getLog();
     Block getStrippedLog();
     Block getSlab();

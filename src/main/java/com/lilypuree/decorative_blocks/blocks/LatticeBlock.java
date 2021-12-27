@@ -36,7 +36,7 @@ public class LatticeBlock extends TrapDoorBlock {
         if (!state.get(OPEN)) {
             return state.get(HALF) == Half.TOP ? TOP_AABB : BOTTOM_AABB;
         } else {
-            switch ((Direction) state.get(HORIZONTAL_FACING)) {
+            switch (state.get(HORIZONTAL_FACING)) {
                 case NORTH:
                 default:
                     return NORTH_OPEN_AABB;
@@ -59,21 +59,5 @@ public class LatticeBlock extends TrapDoorBlock {
         }
         this.playSound(player, worldIn, pos, state.get(OPEN));
         return ActionResultType.SUCCESS;
-    }
-
-
-    @Override
-    public boolean isFlammable(BlockState state, IBlockReader world, BlockPos pos, Direction face) {
-        return true;
-    }
-
-    @Override
-    public int getFlammability(BlockState state, IBlockReader world, BlockPos pos, Direction face) {
-        return 20;
-    }
-
-    @Override
-    public int getFireSpreadSpeed(BlockState state, IBlockReader world, BlockPos pos, Direction face) {
-        return 5;
     }
 }

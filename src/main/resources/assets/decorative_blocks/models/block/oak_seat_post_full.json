@@ -1,8 +1,0 @@
-{
-  "parent": "decorative_blocks:custom/seat_post_full",
-  "textures": {
-    "particle": "decorative_blocks:block/oak_seat",
-    "end": "decorative_blocks:block/oak_seat",
-    "side" : "decorative_blocks:block/oak_palisade_side"
-  }
-}

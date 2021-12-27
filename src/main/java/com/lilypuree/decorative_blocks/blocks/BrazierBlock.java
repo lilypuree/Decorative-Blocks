@@ -64,7 +64,7 @@ public class BrazierBlock extends Block implements IWaterLoggable {
         IWorld iworld = context.getWorld();
         BlockPos blockpos = context.getPos();
         boolean flag = iworld.getFluidState(blockpos).getFluid() == Fluids.WATER;
-        return this.getDefaultState().with(WATERLOGGED, Boolean.valueOf(flag)).with(LIT, Boolean.valueOf(!flag));
+        return this.getDefaultState().with(WATERLOGGED, flag).with(LIT, !flag);
     }
 
     public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
@@ -79,8 +79,7 @@ public class BrazierBlock extends Block implements IWaterLoggable {
         ItemStack heldItem = player.getHeldItem(handIn);
         if (state.get(LIT)) {
             if (heldItem.getToolTypes().contains(ToolType.SHOVEL)) {
-
-                worldIn.playSound((PlayerEntity) null, pos, SoundEvents.ENTITY_GENERIC_EXTINGUISH_FIRE, SoundCategory.BLOCKS, 0.8F, 1.0F);
+                worldIn.playSound(null, pos, SoundEvents.ENTITY_GENERIC_EXTINGUISH_FIRE, SoundCategory.BLOCKS, 0.8F, 1.0F);
 
                 worldIn.setBlockState(pos, state.with(LIT, Boolean.FALSE));
                 return ActionResultType.SUCCESS;
@@ -89,14 +88,9 @@ public class BrazierBlock extends Block implements IWaterLoggable {
             if (hit.getFace() == Direction.UP && heldItem.getItem() == Items.FLINT_AND_STEEL || heldItem.getItem() == Items.FIRE_CHARGE) {
 
                 SoundEvent sound = (heldItem.getItem() == Items.FIRE_CHARGE) ? SoundEvents.ITEM_FIRECHARGE_USE : SoundEvents.ITEM_FLINTANDSTEEL_USE;
-                worldIn.playSound((PlayerEntity) null, pos, sound, SoundCategory.BLOCKS, 1.0F, worldIn.rand.nextFloat() * 0.4F + 0.8F);
+                worldIn.playSound(null, pos, sound, SoundCategory.BLOCKS, 1.0F, worldIn.rand.nextFloat() * 0.4F + 0.8F);
 
-                worldIn.setBlockState(pos, state.with(LIT, Boolean.TRUE));
-//                if (player != null) {
-//                    heldItem.damageItem(1, player, (p_219998_1_) -> {
-//                        p_219998_1_.sendBreakAnimation(handIn);
-//                    });
-//                }
+                worldIn.setBlockState(pos, state.with(LIT, true));
                 return ActionResultType.CONSUME;
 
             }
@@ -154,7 +148,7 @@ public class BrazierBlock extends Block implements IWaterLoggable {
             if (flag) {
                 worldIn.playSound((PlayerEntity) null, pos, SoundEvents.ENTITY_GENERIC_EXTINGUISH_FIRE, SoundCategory.BLOCKS, 1.0F, 1.0F);
             }
-            worldIn.setBlockState(pos, state.with(WATERLOGGED, Boolean.TRUE).with(LIT, Boolean.valueOf(false)), 3);
+            worldIn.setBlockState(pos, state.with(WATERLOGGED, Boolean.TRUE).with(LIT, false), 3);
             worldIn.getPendingFluidTicks().scheduleTick(pos, fluidStateIn.getFluid(), fluidStateIn.getFluid().getTickRate(worldIn));
             return true;
         } else {

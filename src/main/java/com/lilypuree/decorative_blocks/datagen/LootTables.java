@@ -5,7 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.lilypuree.decorative_blocks.datagen.types.IWoodType;
 import com.lilypuree.decorative_blocks.datagen.types.ModWoodTypes;
 import com.lilypuree.decorative_blocks.datagen.types.WoodDecorativeBlockTypes;
-import com.lilypuree.decorative_blocks.setup.Registration;
+import com.lilypuree.decorative_blocks.core.setup.Registration;
 import net.minecraft.block.Block;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DirectoryCache;
@@ -37,6 +37,7 @@ public class LootTables extends LootTableProvider {
         addBlockLoot(Registration.BAR_PANEL.get());
         addBlockLoot(Registration.CHANDELIER.get());
         addBlockLoot(Registration.CHAIN.get());
+        addBlockLoot(Registration.LATTICE.get());
         addBlockLoot(Registration.BRAZIER.get());
         addBlockLoot(Registration.STONE_PILLAR.get());
         addBlockLoot(Registration.ROCKY_DIRT.get());

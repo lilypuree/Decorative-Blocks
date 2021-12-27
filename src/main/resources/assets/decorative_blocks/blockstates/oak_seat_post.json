@@ -1,6 +1,9 @@
 {
   "multipart": [
     {
+      "when": {
+        "attached": true
+      },
       "apply": {
         "model": "decorative_blocks:block/oak_seat_post_full"
       }
@@ -10,7 +13,7 @@
         "facing": "north"
       },
       "apply": {
-        "model": "decorative_blocks:block/oak_seat_top"
+        "model": "decorative_blocks:block/oak_seat"
       }
     },
     {
@@ -18,7 +21,7 @@
         "facing": "south"
       },
       "apply": {
-        "model": "decorative_blocks:block/oak_seat_top",
+        "model": "decorative_blocks:block/oak_seat",
         "y": 180
       }
     },
@@ -27,7 +30,7 @@
         "facing": "east"
       },
       "apply": {
-        "model": "decorative_blocks:block/oak_seat_top",
+        "model": "decorative_blocks:block/oak_seat",
         "y": 90
       }
     },
@@ -36,7 +39,7 @@
         "facing": "west"
       },
       "apply": {
-        "model": "decorative_blocks:block/oak_seat_top",
+        "model": "decorative_blocks:block/oak_seat",
         "y": 270
       }
     }

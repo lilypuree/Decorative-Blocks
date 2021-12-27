@@ -1,6 +1,10 @@
 package com.lilypuree.decorative_blocks.datagen.types;
 
+import biomesoplenty.api.block.BOPBlocks;
+import biomesoplenty.core.BiomesOPlenty;
 import net.minecraft.block.Block;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.registry.Registry;
 import net.minecraftforge.fml.ModList;
 
 
@@ -24,11 +28,19 @@ public enum BOPWoodTypes implements IWoodType {
         return this.getName();
     }
 
+    @Override
+    public String namespace() {
+        return "biomesoplenty";
+    }
+
     public String getName() {
         return this.name;
     }
 
+
+
     public Block getLog() {
+        return Registry.BLOCK.getOrDefault(new ResourceLocation(BiomesOPlenty.MOD_ID, name + "_log"));
 //        switch (this) {
 //            case CHERRY:return BOPBlocks.cherry_log;
 //            case DEAD:return BOPBlocks.dead_log;
@@ -44,10 +56,11 @@ public enum BOPWoodTypes implements IWoodType {
 //            case WILLOW:return BOPBlocks.willow_log;
 //        }
 //        return BOPBlocks.willow_log;
-        return null;
     }
 
     public Block getStrippedLog() {
+        return Registry.BLOCK.getOrDefault(new ResourceLocation(BiomesOPlenty.MOD_ID, "stripped_"+name + "_log"));
+//
 //        switch (this) {
 //            case CHERRY:return BOPBlocks.stripped_cherry_log;
 //            case DEAD:return BOPBlocks.stripped_dead_log;
@@ -63,10 +76,10 @@ public enum BOPWoodTypes implements IWoodType {
 //            case WILLOW:return BOPBlocks.stripped_willow_log;
 //        }
 //        return BOPBlocks.stripped_cherry_log;
-        return null;
     }
 
     public Block getSlab() {
+        return Registry.BLOCK.getOrDefault(new ResourceLocation(BiomesOPlenty.MOD_ID, name + "_slab"));
 //        switch (this) {
 //            case CHERRY:return BOPBlocks.cherry_slab;
 //            case DEAD:return BOPBlocks.dead_slab;
@@ -82,9 +95,10 @@ public enum BOPWoodTypes implements IWoodType {
 //            case WILLOW:return BOPBlocks.willow_slab;
 //        }
 //        return BOPBlocks.willow_slab;
-        return null;
     }
     public Block getFence() {
+        return Registry.BLOCK.getOrDefault(new ResourceLocation(BiomesOPlenty.MOD_ID, name + "_fence"));
+//
 //        switch (this) {
 //            case CHERRY:return BOPBlocks.cherry_fence;
 //            case DEAD:return BOPBlocks.dead_fence;
@@ -100,9 +114,10 @@ public enum BOPWoodTypes implements IWoodType {
 //            case WILLOW:return BOPBlocks.willow_fence;
 //        }
 //        return BOPBlocks.willow_fence;
-        return null;
     }
     public Block getPlanks() {
+        return Registry.BLOCK.getOrDefault(new ResourceLocation(BiomesOPlenty.MOD_ID, name + "_planks"));
+//
 //        switch (this) {
 //            case CHERRY:return BOPBlocks.cherry_planks;
 //            case DEAD:return BOPBlocks.dead_planks;
@@ -118,7 +133,6 @@ public enum BOPWoodTypes implements IWoodType {
 //            case WILLOW:return BOPBlocks.willow_planks;
 //        }
 //        return BOPBlocks.willow_planks;
-        return null;
     }
 
     @Override

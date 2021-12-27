@@ -1,55 +1,68 @@
 package com.lilypuree.decorative_blocks.blocks;
 
-import com.lilypuree.decorative_blocks.DecorativeBlocks;
 import com.lilypuree.decorative_blocks.datagen.types.IWoodType;
 import com.lilypuree.decorative_blocks.entity.DummyEntityForSitting;
+import com.lilypuree.decorative_blocks.items.SwitchableBlockItem;
+import com.lilypuree.decorative_blocks.state.ModBlockProperties;
 import net.minecraft.block.*;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.item.*;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.pathfinding.PathType;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.tags.ITag;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
-public class SeatBlock extends HorizontalBlock implements IWaterLoggable {
+public class SeatBlock extends HorizontalBlock implements IWaterLoggable, IWoodenBlock {
     protected static final VoxelShape POST_SHAPE = Block.makeCuboidShape(6.0D, 0.0D, 6.0D, 10.0D, 4.0D, 10.0D);
-    protected static final VoxelShape JOIST_SHAPE_NS = Block.makeCuboidShape(0, 4.0D, 4D, 16D, 7D, 12D);
-    protected static final VoxelShape JOIST_SHAPE_EW = Block.makeCuboidShape(4.0D, 4.0D, 0D, 12D, 7D, 16D);
-    protected static final VoxelShape SEAT_SHAPE_NS = VoxelShapes.or(POST_SHAPE, JOIST_SHAPE_NS);
-    protected static final VoxelShape SEAT_SHAPE_EW = VoxelShapes.or(POST_SHAPE, JOIST_SHAPE_EW);
+    protected static final VoxelShape TOP_POST = Block.makeCuboidShape(6.0D, 7.0D, 6.0D, 10.0D, 16.0D, 10.0D);
+    protected static final VoxelShape JOIST_NS = Block.makeCuboidShape(0, 4.0D, 4D, 16D, 7D, 12D);
+    protected static final VoxelShape JOIST_EW = Block.makeCuboidShape(4.0D, 4.0D, 0D, 12D, 7D, 16D);
+    protected static final VoxelShape SEAT_NS = VoxelShapes.or(POST_SHAPE, JOIST_NS);
+    protected static final VoxelShape SEAT_EW = VoxelShapes.or(POST_SHAPE, JOIST_EW);
+    protected static final VoxelShape JOIST_POST_NS = VoxelShapes.or(TOP_POST, JOIST_NS);
+    protected static final VoxelShape JOIST_POST_EW = VoxelShapes.or(TOP_POST, JOIST_NS);
+    protected static final VoxelShape SEAT_POST_NS = VoxelShapes.or(SEAT_NS, TOP_POST);
+    protected static final VoxelShape SEAT_POST_EW = VoxelShapes.or(SEAT_EW, TOP_POST);
 
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static final BooleanProperty OCCUPIED = BlockStateProperties.OCCUPIED;
     public static final BooleanProperty ATTACHED = BlockStateProperties.ATTACHED;
+    public static final BooleanProperty POST = ModBlockProperties.POST;
 
     private IWoodType woodType;
 
     public SeatBlock(Block.Properties properties, IWoodType woodType) {
         super(properties);
         this.woodType = woodType;
+        this.setDefaultState(this.getStateContainer().getBaseState().with(WATERLOGGED, false).with(OCCUPIED, false).with(ATTACHED, false).with(POST, false));
     }
 
+    @Override
     public IWoodType getWoodType() {
         return woodType;
     }
@@ -58,23 +71,24 @@ public class SeatBlock extends HorizontalBlock implements IWaterLoggable {
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
         Direction facing = state.get(HORIZONTAL_FACING);
         boolean attached = state.get(ATTACHED);
+        boolean post = state.get(POST);
         switch (facing) {
             case NORTH:
             case SOUTH:
-                return (attached) ? SEAT_SHAPE_NS : JOIST_SHAPE_NS;
+                return (attached) ? (post ? SEAT_POST_NS : SEAT_NS) : (post ? JOIST_POST_NS : JOIST_NS);
             case EAST:
             case WEST:
-                return (attached) ? SEAT_SHAPE_EW : JOIST_SHAPE_EW;
+                return (attached) ? (post ? SEAT_POST_EW : SEAT_EW) : (post ? JOIST_POST_EW : JOIST_EW);
         }
-        return SEAT_SHAPE_NS;
+        return SEAT_NS;
     }
 
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext context) {
         World world = context.getWorld();
         BlockPos pos = context.getPos();
-        BlockState blockstate = world.getBlockState(pos);
         FluidState ifluidstate = world.getFluidState(pos);
+        ItemStack stack = context.getItem();
         boolean waterloggedFlag = ifluidstate.isTagged(FluidTags.WATER) && ifluidstate.getLevel() == 8;
         boolean attachedFlag = isInAttachablePos(world, pos);
 
@@ -86,7 +100,11 @@ public class SeatBlock extends HorizontalBlock implements IWaterLoggable {
             placementDir = facingDir.rotateY();
         }
 
-        return this.getDefaultState().with(HORIZONTAL_FACING, placementDir).with(WATERLOGGED, Boolean.valueOf(waterloggedFlag)).with(OCCUPIED, Boolean.FALSE).with(ATTACHED, attachedFlag);
+        BlockState blockstate = this.getDefaultState().with(HORIZONTAL_FACING, placementDir).with(WATERLOGGED, waterloggedFlag).with(OCCUPIED, false).with(ATTACHED, attachedFlag);
+        if (stack.getItem() instanceof SwitchableBlockItem) {
+            blockstate = ((SwitchableBlockItem<?, ?>) stack.getItem()).getSwitchedState(blockstate, stack);
+        }
+        return blockstate;
     }
 
     @Override
@@ -94,7 +112,6 @@ public class SeatBlock extends HorizontalBlock implements IWaterLoggable {
         if (stateIn.get(WATERLOGGED)) {
             worldIn.getPendingFluidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickRate(worldIn));
         }
-
         if (facing == Direction.DOWN) {
             return stateIn.with(ATTACHED, isInAttachablePos(worldIn, currentPos));
         } else {
@@ -110,7 +127,7 @@ public class SeatBlock extends HorizontalBlock implements IWaterLoggable {
     }
 
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-        builder.add(HORIZONTAL_FACING, WATERLOGGED, OCCUPIED, ATTACHED);
+        builder.add(HORIZONTAL_FACING, WATERLOGGED, OCCUPIED, ATTACHED, POST);
     }
 
     @Override
@@ -127,7 +144,7 @@ public class SeatBlock extends HorizontalBlock implements IWaterLoggable {
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
         ItemStack heldItem = player.getHeldItem(handIn);
         BlockState upperBlock = worldIn.getBlockState(pos.up());
-        boolean canSit = hit.getFace() == Direction.UP && !state.get(OCCUPIED) && heldItem.isEmpty() && upperBlock.isAir(worldIn, pos.up()) && isPlayerInRange(player, pos);
+        boolean canSit = hit.getFace() == Direction.UP && !state.get(OCCUPIED) && !state.get(POST) && heldItem.isEmpty() && upperBlock.isAir(worldIn, pos.up()) && isPlayerInRange(player, pos);
         Item item = heldItem.getItem();
         boolean isSeatAttachableItem = item instanceof BlockItem && ((BlockItem) item).getBlock() instanceof LanternBlock;
         boolean canAttachLantern = hit.getFace() == Direction.DOWN && isSeatAttachableItem && worldIn.getBlockState(pos.down()).isAir(worldIn, pos.down());
@@ -180,23 +197,8 @@ public class SeatBlock extends HorizontalBlock implements IWaterLoggable {
         super.onReplaced(state, worldIn, pos, newState, isMoving);
     }
 
-
     @Override
-    public boolean isFlammable(BlockState state, IBlockReader world, BlockPos pos, Direction face) {
-        return woodType.isFlammable();
-    }
-
-    @Override
-    public int getFlammability(BlockState state, IBlockReader world, BlockPos pos, Direction face) {
-        if (woodType.isFlammable()) {
-            return 20;
-        } else return super.getFlammability(state, world, pos, face);
-    }
-
-    @Override
-    public int getFireSpreadSpeed(BlockState state, IBlockReader world, BlockPos pos, Direction face) {
-        if (woodType.isFlammable()) {
-            return 5;
-        } else return super.getFireSpreadSpeed(state, world, pos, face);
+    public boolean allowsMovement(BlockState p_196266_1_, IBlockReader p_196266_2_, BlockPos p_196266_3_, PathType p_196266_4_) {
+        return false;
     }
 }

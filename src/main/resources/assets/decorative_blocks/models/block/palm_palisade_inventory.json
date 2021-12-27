@@ -1,8 +1,0 @@
-{
-  "parent": "decorative_blocks:custom/palisade_inventory",
-  "textures": {
-    "particle": "decorative_blocks:block/palm_palisade_side",
-    "side": "decorative_blocks:block/palm_palisade_side",
-    "end": "decorative_blocks:block/palm_palisade_end"
-  }
-}

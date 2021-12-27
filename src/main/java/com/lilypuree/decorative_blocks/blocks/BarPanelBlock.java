@@ -36,7 +36,7 @@ public class BarPanelBlock extends TrapDoorBlock {
         if (!state.get(OPEN)) {
             return state.get(HALF) == Half.TOP ? TOP_AABB : BOTTOM_AABB;
         } else {
-            switch ((Direction) state.get(HORIZONTAL_FACING)) {
+            switch (state.get(HORIZONTAL_FACING)) {
                 case NORTH:
                 default:
                     return NORTH_OPEN_AABB;

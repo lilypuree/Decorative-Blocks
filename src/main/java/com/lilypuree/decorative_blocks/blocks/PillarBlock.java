@@ -21,10 +21,9 @@ public class PillarBlock extends Block implements IWaterLoggable {
 
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
-
-    public PillarBlock(Block.Properties properties){
+    public PillarBlock(Block.Properties properties) {
         super(properties);
-        this.setDefaultState(this.stateContainer.getBaseState().with(WATERLOGGED, Boolean.valueOf(false)));
+        this.setDefaultState(this.stateContainer.getBaseState().with(WATERLOGGED, false));
     }
 
     @Override
@@ -34,11 +33,9 @@ public class PillarBlock extends Block implements IWaterLoggable {
 
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext context) {
-        BlockState blockstate = context.getWorld().getBlockState(context.getPos());
         FluidState ifluidstate = context.getWorld().getFluidState(context.getPos());
         boolean flag = ifluidstate.isTagged(FluidTags.WATER) && ifluidstate.getLevel() == 8;
-
-        return this.getDefaultState().with(WATERLOGGED, Boolean.valueOf(flag));
+        return this.getDefaultState().with(WATERLOGGED, flag);
     }
 
     @Override

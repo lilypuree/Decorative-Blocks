@@ -1,13 +1,12 @@
 package com.lilypuree.decorative_blocks.entity;
 
-import com.lilypuree.decorative_blocks.setup.Registration;
+import com.lilypuree.decorative_blocks.core.setup.Registration;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
-import net.minecraft.world.World;
 
 import java.util.HashMap;
 import java.util.Map;

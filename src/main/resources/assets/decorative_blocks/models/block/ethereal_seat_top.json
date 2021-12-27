@@ -1,7 +1,0 @@
-{
-  "parent": "decorative_blocks:custom/seat_top",
-  "textures": {
-    "particle": "decorative_blocks:block/ethereal_seat",
-    "texture": "decorative_blocks:block/ethereal_seat"
-  }
-}

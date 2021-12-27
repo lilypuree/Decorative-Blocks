@@ -30,7 +30,7 @@ public class ChainBlock extends RotatedPillarBlock implements IWaterLoggable {
 
     private static final VoxelShape CHAIN_COLLISION_SHAPE = Block.makeCuboidShape(6D, 0D, 6D, 10D, 16, 10D);
 
-        public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+    public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
     public ChainBlock(Block.Properties properties) {
         super(properties);
@@ -43,11 +43,9 @@ public class ChainBlock extends RotatedPillarBlock implements IWaterLoggable {
         switch (axis) {
             case X:
                 return CHAIN_SHAPE_X;
-            case Y:
-                return CHAIN_SHAPE_Y;
             case Z:
                 return CHAIN_SHAPE_Z;
-
+            case Y:
             default:
                 return CHAIN_SHAPE_Y;
         }
@@ -55,7 +53,7 @@ public class ChainBlock extends RotatedPillarBlock implements IWaterLoggable {
 
     @Override
     public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        if(state.get(AXIS) == Direction.Axis.Y){
+        if (state.get(AXIS) == Direction.Axis.Y) {
             return CHAIN_COLLISION_SHAPE;
         }
         return super.getCollisionShape(state, worldIn, pos, context);
@@ -63,15 +61,9 @@ public class ChainBlock extends RotatedPillarBlock implements IWaterLoggable {
 
     @Nullable
     public BlockState getStateForPlacement(BlockItemUseContext context) {
-        BlockState blockstate = context.getWorld().getBlockState(context.getPos());
         FluidState ifluidstate = context.getWorld().getFluidState(context.getPos());
         boolean flag = ifluidstate.isTagged(FluidTags.WATER) && ifluidstate.getLevel() == 8;
         return super.getStateForPlacement(context).with(WATERLOGGED, flag);
-    }
-
-    @Override
-    public boolean isLadder(BlockState state, IWorldReader world, BlockPos pos, LivingEntity entity) {
-        return state.get(AXIS) == Direction.Axis.Y;
     }
 
     public boolean propagatesSkylightDown(BlockState state, IBlockReader reader, BlockPos pos) {

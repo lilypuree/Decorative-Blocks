@@ -17,7 +17,7 @@ public class ChandelierBlock extends Block {
     protected final VoxelShape CHANDELIER_SHAPE = Block.makeCuboidShape(2D, 0.0D, 2D, 14D, 12D, 14D);
     private final boolean isSoul;
 
-    public ChandelierBlock(Block.Properties properties, boolean isSoul){
+    public ChandelierBlock(Block.Properties properties, boolean isSoul) {
         super(properties);
         this.isSoul = isSoul;
     }
@@ -29,33 +29,28 @@ public class ChandelierBlock extends Block {
 
     @OnlyIn(Dist.CLIENT)
     public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) {
-        double d0 = (double)pos.getX() + 0.5D;
-        double d1 = (double)pos.getY() + 0.7D;
-        double d2 = (double)pos.getZ() + 0.5D;
+        double d0 = (double) pos.getX() + 0.5D;
+        double d1 = (double) pos.getY() + 0.7D;
+        double d2 = (double) pos.getZ() + 0.5D;
 
         double off1 = 0.1875;
         double off2 = 0.3125;
         double off3 = 0.0625;
-        worldIn.addParticle(ParticleTypes.SMOKE, d0-off1, d1, d2-off2, 0.0D, 0.0D, 0.0D);
-        worldIn.addParticle(ParticleTypes.SMOKE, d0-off2-off3, d1, d2+off1-off3, 0.0D, 0.0D, 0.0D);
-        worldIn.addParticle(ParticleTypes.SMOKE, d0+off1-off3, d1, d2+off2+off3, 0.0D, 0.0D, 0.0D);
-        worldIn.addParticle(ParticleTypes.SMOKE, d0+off2, d1, d2-off1, 0.0D, 0.0D, 0.0D);
-        if(isSoul){
-            worldIn.addParticle(ParticleTypes.SOUL_FIRE_FLAME, d0-off1, d1, d2-off2, 0.0D, 0.0D, 0.0D);
-            worldIn.addParticle(ParticleTypes.SOUL_FIRE_FLAME, d0-off2-off3, d1, d2+off1-off3, 0.0D, 0.0D, 0.0D);
-            worldIn.addParticle(ParticleTypes.SOUL_FIRE_FLAME, d0+off1-off3, d1, d2+off2+off3, 0.0D, 0.0D, 0.0D);
-            worldIn.addParticle(ParticleTypes.SOUL_FIRE_FLAME, d0+off2, d1, d2-off1, 0.0D, 0.0D, 0.0D);
-        }else {
-            worldIn.addParticle(ParticleTypes.FLAME, d0-off1, d1, d2-off2, 0.0D, 0.0D, 0.0D);
-            worldIn.addParticle(ParticleTypes.FLAME, d0-off2-off3, d1, d2+off1-off3, 0.0D, 0.0D, 0.0D);
-            worldIn.addParticle(ParticleTypes.FLAME, d0+off1-off3, d1, d2+off2+off3, 0.0D, 0.0D, 0.0D);
-            worldIn.addParticle(ParticleTypes.FLAME, d0+off2, d1, d2-off1, 0.0D, 0.0D, 0.0D);
+        worldIn.addParticle(ParticleTypes.SMOKE, d0 - off1, d1, d2 - off2, 0.0D, 0.0D, 0.0D);
+        worldIn.addParticle(ParticleTypes.SMOKE, d0 - off2 - off3, d1, d2 + off1 - off3, 0.0D, 0.0D, 0.0D);
+        worldIn.addParticle(ParticleTypes.SMOKE, d0 + off1 - off3, d1, d2 + off2 + off3, 0.0D, 0.0D, 0.0D);
+        worldIn.addParticle(ParticleTypes.SMOKE, d0 + off2, d1, d2 - off1, 0.0D, 0.0D, 0.0D);
+        if (isSoul) {
+            worldIn.addParticle(ParticleTypes.SOUL_FIRE_FLAME, d0 - off1, d1, d2 - off2, 0.0D, 0.0D, 0.0D);
+            worldIn.addParticle(ParticleTypes.SOUL_FIRE_FLAME, d0 - off2 - off3, d1, d2 + off1 - off3, 0.0D, 0.0D, 0.0D);
+            worldIn.addParticle(ParticleTypes.SOUL_FIRE_FLAME, d0 + off1 - off3, d1, d2 + off2 + off3, 0.0D, 0.0D, 0.0D);
+            worldIn.addParticle(ParticleTypes.SOUL_FIRE_FLAME, d0 + off2, d1, d2 - off1, 0.0D, 0.0D, 0.0D);
+        } else {
+            worldIn.addParticle(ParticleTypes.FLAME, d0 - off1, d1, d2 - off2, 0.0D, 0.0D, 0.0D);
+            worldIn.addParticle(ParticleTypes.FLAME, d0 - off2 - off3, d1, d2 + off1 - off3, 0.0D, 0.0D, 0.0D);
+            worldIn.addParticle(ParticleTypes.FLAME, d0 + off1 - off3, d1, d2 + off2 + off3, 0.0D, 0.0D, 0.0D);
+            worldIn.addParticle(ParticleTypes.FLAME, d0 + off2, d1, d2 - off1, 0.0D, 0.0D, 0.0D);
         }
 
-      }
-
-    @Override
-    public int getLightValue(BlockState state, IBlockReader world, BlockPos pos) {
-        return 15;
     }
 }

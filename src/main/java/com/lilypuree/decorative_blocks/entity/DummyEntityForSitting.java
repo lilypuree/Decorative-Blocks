@@ -1,6 +1,6 @@
 package com.lilypuree.decorative_blocks.entity;
 
-import com.lilypuree.decorative_blocks.setup.Registration;
+import com.lilypuree.decorative_blocks.core.setup.Registration;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.nbt.CompoundNBT;

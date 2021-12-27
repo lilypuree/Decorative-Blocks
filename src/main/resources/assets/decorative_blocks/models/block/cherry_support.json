@@ -1,7 +1,0 @@
-{
-  "parent": "decorative_blocks:custom/support",
-  "textures": {
-    "particle": "decorative_blocks:block/cherry_support",
-    "texture": "decorative_blocks:block/cherry_support"
-  }
-}

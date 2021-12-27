@@ -33,20 +33,8 @@ public class ThatchFluidBlock extends FlowingFluidBlock {
         }
     }
 
-
-
     @Override
     public Fluid pickupFluid(IWorld worldIn, BlockPos pos, BlockState state) {
         return Fluids.EMPTY;
-    }
-
-    @Override
-    public boolean isFlammable(BlockState state, IBlockReader world, BlockPos pos, Direction face) {
-        return true;
-    }
-
-    @Override
-    public int getFlammability(BlockState state, IBlockReader world, BlockPos pos, Direction face) {
-        return 80;
     }
 }
