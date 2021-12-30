@@ -40,7 +40,7 @@ public enum BOPWoodTypes implements IWoodType {
 
 
     public Block getLog() {
-        return Registry.BLOCK.getOrDefault(new ResourceLocation(BiomesOPlenty.MOD_ID, name + "_log"));
+        return Registry.BLOCK.get(new ResourceLocation(BiomesOPlenty.MOD_ID, name + "_log"));
 //        switch (this) {
 //            case CHERRY:return BOPBlocks.cherry_log;
 //            case DEAD:return BOPBlocks.dead_log;
@@ -59,7 +59,7 @@ public enum BOPWoodTypes implements IWoodType {
     }
 
     public Block getStrippedLog() {
-        return Registry.BLOCK.getOrDefault(new ResourceLocation(BiomesOPlenty.MOD_ID, "stripped_"+name + "_log"));
+        return Registry.BLOCK.get(new ResourceLocation(BiomesOPlenty.MOD_ID, "stripped_"+name + "_log"));
 //
 //        switch (this) {
 //            case CHERRY:return BOPBlocks.stripped_cherry_log;
@@ -79,7 +79,7 @@ public enum BOPWoodTypes implements IWoodType {
     }
 
     public Block getSlab() {
-        return Registry.BLOCK.getOrDefault(new ResourceLocation(BiomesOPlenty.MOD_ID, name + "_slab"));
+        return Registry.BLOCK.get(new ResourceLocation(BiomesOPlenty.MOD_ID, name + "_slab"));
 //        switch (this) {
 //            case CHERRY:return BOPBlocks.cherry_slab;
 //            case DEAD:return BOPBlocks.dead_slab;
@@ -97,7 +97,7 @@ public enum BOPWoodTypes implements IWoodType {
 //        return BOPBlocks.willow_slab;
     }
     public Block getFence() {
-        return Registry.BLOCK.getOrDefault(new ResourceLocation(BiomesOPlenty.MOD_ID, name + "_fence"));
+        return Registry.BLOCK.get(new ResourceLocation(BiomesOPlenty.MOD_ID, name + "_fence"));
 //
 //        switch (this) {
 //            case CHERRY:return BOPBlocks.cherry_fence;
@@ -116,7 +116,7 @@ public enum BOPWoodTypes implements IWoodType {
 //        return BOPBlocks.willow_fence;
     }
     public Block getPlanks() {
-        return Registry.BLOCK.getOrDefault(new ResourceLocation(BiomesOPlenty.MOD_ID, name + "_planks"));
+        return Registry.BLOCK.get(new ResourceLocation(BiomesOPlenty.MOD_ID, name + "_planks"));
 //
 //        switch (this) {
 //            case CHERRY:return BOPBlocks.cherry_planks;

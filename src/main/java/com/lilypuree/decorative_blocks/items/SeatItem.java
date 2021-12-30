@@ -18,6 +18,8 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.List;
 
+import net.minecraft.item.Item.Properties;
+
 public class SeatItem extends SwitchableBlockItem<BooleanProperty, Boolean> {
     public static final ResourceLocation OVERRIDE_TAG = new ResourceLocation(DecorativeBlocks.MODID, "post");
 
@@ -26,10 +28,10 @@ public class SeatItem extends SwitchableBlockItem<BooleanProperty, Boolean> {
     }
 
     @Override
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+    public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         if (Screen.hasShiftDown()) {
             tooltip.add(new TranslationTextComponent("wiki.decorative_blocks.seat"));
         }
-        super.addInformation(stack, worldIn, tooltip, flagIn);
+        super.appendHoverText(stack, worldIn, tooltip, flagIn);
     }
 }

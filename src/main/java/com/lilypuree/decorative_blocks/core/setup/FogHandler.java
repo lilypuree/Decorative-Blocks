@@ -19,21 +19,21 @@ import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = DecorativeBlocks.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class FogHandler {
-    private static ITag.INamedTag<Fluid> fluidTag = FluidTags.makeWrapperTag(new ResourceLocation(DecorativeBlocks.MODID, "thatch").toString());
+    private static ITag.INamedTag<Fluid> fluidTag = FluidTags.bind(new ResourceLocation(DecorativeBlocks.MODID, "thatch").toString());
 
     @SubscribeEvent(priority = EventPriority.NORMAL)
     public static void onFogDensity(EntityViewRenderEvent.FogDensity event) {
-        World world = event.getInfo().getRenderViewEntity().getEntityWorld();
-        BlockPos pos = event.getInfo().getBlockPos();
+        World world = event.getInfo().getEntity().getCommandSenderWorld();
+        BlockPos pos = event.getInfo().getBlockPosition();
         FluidState state = world.getFluidState(pos);
 
-        FluidState actualState = event.getInfo().getFluidState();
+        FluidState actualState = event.getInfo().getFluidInCamera();
 
         if (isEntityInHay(state)) {
             RenderSystem.fogMode(GlStateManager.FogMode.EXP2);
             event.setDensity(2.0F);
             event.setCanceled(true);
-        } else if (actualState.isTagged(FluidTags.LAVA)) {
+        } else if (actualState.is(FluidTags.LAVA)) {
             event.setCanceled(false);
             return;
         } else if (actualState.isEmpty()) {
@@ -44,15 +44,15 @@ public class FogHandler {
     @SubscribeEvent(priority = EventPriority.NORMAL)
     public static void onFogColor(EntityViewRenderEvent.FogColors event) {
 
-        World world = event.getInfo().getRenderViewEntity().getEntityWorld();
-        BlockPos pos = event.getInfo().getBlockPos();
+        World world = event.getInfo().getEntity().getCommandSenderWorld();
+        BlockPos pos = event.getInfo().getBlockPosition();
         FluidState state = world.getFluidState(pos);
 
-        FluidState actualState = event.getInfo().getFluidState();
+        FluidState actualState = event.getInfo().getFluidInCamera();
 
         if (isEntityInHay(state)) {
 
-            int color = ((ThatchFluid) state.getFluid()).getReferenceHolder().getColor();
+            int color = ((ThatchFluid) state.getType()).getReferenceHolder().getColor();
             event.setRed((float) (color >> 16 & 0xFF) / 0xFF);
             event.setGreen((float) ((color >> 8) & 0xFF) / 0xFF);
             event.setBlue((float) (color & 0xFF) / 0xFF);
@@ -60,7 +60,7 @@ public class FogHandler {
     }
 
     private static boolean isEntityInHay(FluidState fluidState) {
-        return fluidTag.contains(fluidState.getFluid());
+        return fluidTag.contains(fluidState.getType());
     }
 
 

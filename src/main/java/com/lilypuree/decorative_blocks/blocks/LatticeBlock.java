@@ -20,12 +20,12 @@ public class LatticeBlock extends TrapDoorBlock {
 
     private static final double d0 = 3D;
     private static final double d1 = 16D - d0;
-    protected static final VoxelShape EAST_OPEN_AABB = Block.makeCuboidShape(0.0D, 0.0D, 0.0D, d0, 16.0D, 16.0D);
-    protected static final VoxelShape WEST_OPEN_AABB = Block.makeCuboidShape(d1, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D);
-    protected static final VoxelShape SOUTH_OPEN_AABB = Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, d0);
-    protected static final VoxelShape NORTH_OPEN_AABB = Block.makeCuboidShape(0.0D, 0.0D, d1, 16.0D, 16.0D, 16.0D);
-    protected static final VoxelShape BOTTOM_AABB = Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, d0, 16.0D);
-    protected static final VoxelShape TOP_AABB = Block.makeCuboidShape(0.0D, d1, 0.0D, 16.0D, 16.0D, 16.0D);
+    protected static final VoxelShape EAST_OPEN_AABB = Block.box(0.0D, 0.0D, 0.0D, d0, 16.0D, 16.0D);
+    protected static final VoxelShape WEST_OPEN_AABB = Block.box(d1, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D);
+    protected static final VoxelShape SOUTH_OPEN_AABB = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, d0);
+    protected static final VoxelShape NORTH_OPEN_AABB = Block.box(0.0D, 0.0D, d1, 16.0D, 16.0D, 16.0D);
+    protected static final VoxelShape BOTTOM_AABB = Block.box(0.0D, 0.0D, 0.0D, 16.0D, d0, 16.0D);
+    protected static final VoxelShape TOP_AABB = Block.box(0.0D, d1, 0.0D, 16.0D, 16.0D, 16.0D);
 
     public LatticeBlock(Block.Properties properties) {
         super(properties);
@@ -33,10 +33,10 @@ public class LatticeBlock extends TrapDoorBlock {
 
     @Override
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        if (!state.get(OPEN)) {
-            return state.get(HALF) == Half.TOP ? TOP_AABB : BOTTOM_AABB;
+        if (!state.getValue(OPEN)) {
+            return state.getValue(HALF) == Half.TOP ? TOP_AABB : BOTTOM_AABB;
         } else {
-            switch (state.get(HORIZONTAL_FACING)) {
+            switch (state.getValue(FACING)) {
                 case NORTH:
                 default:
                     return NORTH_OPEN_AABB;
@@ -51,13 +51,13 @@ public class LatticeBlock extends TrapDoorBlock {
     }
 
     @Override
-    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
-        state = state.func_235896_a_(OPEN);
-        worldIn.setBlockState(pos, state, 2);
-        if (state.get(WATERLOGGED)) {
-            worldIn.getPendingFluidTicks().scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(worldIn));
+    public ActionResultType use(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
+        state = state.cycle(OPEN);
+        worldIn.setBlock(pos, state, 2);
+        if (state.getValue(WATERLOGGED)) {
+            worldIn.getLiquidTicks().scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(worldIn));
         }
-        this.playSound(player, worldIn, pos, state.get(OPEN));
+        this.playSound(player, worldIn, pos, state.getValue(OPEN));
         return ActionResultType.SUCCESS;
     }
 }

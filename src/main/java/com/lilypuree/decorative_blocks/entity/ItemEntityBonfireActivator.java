@@ -22,25 +22,25 @@ public class ItemEntityBonfireActivator extends ItemEntity {
     }
 
     public ItemEntityBonfireActivator(ItemEntity parent) {
-        super(parent.world, parent.getPosX(), parent.getPosY(), parent.getPosZ(), parent.getItem());
-        this.setMotion(parent.getMotion());
-        this.setPickupDelay(40);
-        this.setThrowerId(parent.getThrowerId());
+        super(parent.level, parent.getX(), parent.getY(), parent.getZ(), parent.getItem());
+        this.setDeltaMovement(parent.getDeltaMovement());
+        this.setPickUpDelay(40);
+        this.setThrower(parent.getThrower());
     }
 
     @Override
-    public boolean attackEntityFrom(DamageSource source, float amount) {
+    public boolean hurt(DamageSource source, float amount) {
         if (source == DamageSource.ON_FIRE) {
-            Block block = world.getBlockState(this.getPosition()).getBlock();
+            Block block = level.getBlockState(this.blockPosition()).getBlock();
             if (bonfireMap.containsKey(block)) {
-                if (!world.isRemote()) {
-                    world.setBlockState(this.getPosition(), bonfireMap.get(block).getDefaultState());
-                    world.playSound(null, this.getPosX(), this.getPosY(), this.getPosZ(), SoundEvents.ITEM_FIRECHARGE_USE, SoundCategory.BLOCKS, 1.0f, 0.7f);
+                if (!level.isClientSide()) {
+                    level.setBlockAndUpdate(this.blockPosition(), bonfireMap.get(block).defaultBlockState());
+                    level.playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.FIRECHARGE_USE, SoundCategory.BLOCKS, 1.0f, 0.7f);
                 }
                 this.remove();
             }
         }
-        return super.attackEntityFrom(source, amount);
+        return super.hurt(source, amount);
     }
 
 

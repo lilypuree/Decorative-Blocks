@@ -23,22 +23,22 @@ public class DummyEntityForSitting extends Entity {
     public DummyEntityForSitting(World world, BlockPos pos)
     {
         super(Registration.DUMMY_ENTITY_TYPE.get(), world);
-        setPosition(pos.getX() + 0.5D, pos.getY() + 0.25D, pos.getZ() + 0.5D);
-        noClip = true;
+        setPos(pos.getX() + 0.5D, pos.getY() + 0.25D, pos.getZ() + 0.5D);
+        noPhysics = true;
     }
 
 
     @Override
-    protected void registerData() {}
+    protected void defineSynchedData() {}
 
     @Override
-    protected void readAdditional(CompoundNBT tag) {}
+    protected void readAdditionalSaveData(CompoundNBT tag) {}
 
     @Override
-    protected void writeAdditional(CompoundNBT tag) {}
+    protected void addAdditionalSaveData(CompoundNBT tag) {}
 
     @Override
-    public IPacket<?> createSpawnPacket()
+    public IPacket<?> getAddEntityPacket()
     {
         return NetworkHooks.getEntitySpawningPacket(this);
     }

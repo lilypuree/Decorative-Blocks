@@ -48,12 +48,12 @@ public class SupportBlock extends HorizontalBlock implements IWaterLoggable, IWo
     private static final double d2 = 4D;
     private static final double d3 = 12D;
 
-    private static final VoxelShape TOP_LARGE = Block.makeCuboidShape(0, d1, 0, 16, 16, 16);
-    private static final VoxelShape TOP_SMALL_NS = Block.makeCuboidShape(d2, d1, 0, d3, 16, 16);
-    private static final VoxelShape TOP_SMALL_EW = Block.makeCuboidShape(0, d1, d2, 16, 16, d3);
-    private static final VoxelShape BOTTOM_LARGE = Block.makeCuboidShape(0, 0, 0, 16, d0, 16);
-    private static final VoxelShape BOTTOM_SMALL_NS = Block.makeCuboidShape(d2, 0, 0, d3, d0, 16);
-    private static final VoxelShape BOTTOM_SMALL_EW = Block.makeCuboidShape(0, 0, d2, 16, d0, d3);
+    private static final VoxelShape TOP_LARGE = Block.box(0, d1, 0, 16, 16, 16);
+    private static final VoxelShape TOP_SMALL_NS = Block.box(d2, d1, 0, d3, 16, 16);
+    private static final VoxelShape TOP_SMALL_EW = Block.box(0, d1, d2, 16, 16, d3);
+    private static final VoxelShape BOTTOM_LARGE = Block.box(0, 0, 0, 16, d0, 16);
+    private static final VoxelShape BOTTOM_SMALL_NS = Block.box(d2, 0, 0, d3, d0, 16);
+    private static final VoxelShape BOTTOM_SMALL_EW = Block.box(0, 0, d2, 16, d0, d3);
     private static final Map<Direction, VoxelShape> verticalLarge;
     private static final Map<Direction, VoxelShape> verticalSmall;
 
@@ -67,8 +67,8 @@ public class SupportBlock extends HorizontalBlock implements IWaterLoggable, IWo
 
     public SupportBlock(Block.Properties properties, IWoodType woodType) {
         super(properties);
-        this.stateToShapeMap = getStateToShapeMap(this.getStateContainer());
-        this.setDefaultState(this.stateContainer.getBaseState().with(WATERLOGGED, Boolean.FALSE).with(UP, Boolean.TRUE).with(HORIZONTAL_SHAPE, SupportFaceShape.BIG).with(VERTICAL_SHAPE, SupportFaceShape.SMALL));
+        this.stateToShapeMap = getStateToShapeMap(this.getStateDefinition());
+        this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, Boolean.FALSE).setValue(UP, Boolean.TRUE).setValue(HORIZONTAL_SHAPE, SupportFaceShape.BIG).setValue(VERTICAL_SHAPE, SupportFaceShape.SMALL));
         this.woodType = woodType;
     }
 
@@ -84,99 +84,99 @@ public class SupportBlock extends HorizontalBlock implements IWaterLoggable, IWo
 
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext context) {
-        FluidState ifluidstate = context.getWorld().getFluidState(context.getPos());
-        boolean flag = ifluidstate.isTagged(FluidTags.WATER) && ifluidstate.getLevel() == 8;
-        BlockState blockstate = this.getDefaultState().with(HORIZONTAL_FACING, context.getPlacementHorizontalFacing().getOpposite()).with(WATERLOGGED, flag);
-        ItemStack stack = context.getItem();
+        FluidState ifluidstate = context.getLevel().getFluidState(context.getClickedPos());
+        boolean flag = ifluidstate.is(FluidTags.WATER) && ifluidstate.getAmount() == 8;
+        BlockState blockstate = this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite()).setValue(WATERLOGGED, flag);
+        ItemStack stack = context.getItemInHand();
         if (stack.getItem() instanceof SwitchableBlockItem) {
             blockstate = ((SwitchableBlockItem<?, ?>) stack.getItem()).getSwitchedState(blockstate, stack);
         }
-        if (!blockstate.get(UP)) {
-            blockstate = blockstate.with(HORIZONTAL_SHAPE, SupportFaceShape.SMALL);
+        if (!blockstate.getValue(UP)) {
+            blockstate = blockstate.setValue(HORIZONTAL_SHAPE, SupportFaceShape.SMALL);
         }
         return blockstate;
     }
 
     @Override
-    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
-        if (player.getHeldItem(handIn).getToolTypes().contains(ToolType.AXE)) {
-            if (!worldIn.isRemote()) {
+    public ActionResultType use(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
+        if (player.getItemInHand(handIn).getToolTypes().contains(ToolType.AXE)) {
+            if (!worldIn.isClientSide()) {
                 onSupportActivation(state, worldIn, pos, player, handIn, hit);
             }
-            return ActionResultType.func_233537_a_(worldIn.isRemote);
+            return ActionResultType.sidedSuccess(worldIn.isClientSide);
         }
-        return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
+        return super.use(state, worldIn, pos, player, handIn, hit);
     }
 
     public static void onSupportActivation(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
-        double hitHeight = hit.getHitVec().getY() - pos.getY();
+        double hitHeight = hit.getLocation().y() - pos.getY();
         boolean hitVertical;
-        if (state.get(HORIZONTAL_SHAPE).isHidden()) {
+        if (state.getValue(HORIZONTAL_SHAPE).isHidden()) {
             hitVertical = true;
-        } else if (state.get(VERTICAL_SHAPE).isHidden()) {
+        } else if (state.getValue(VERTICAL_SHAPE).isHidden()) {
             hitVertical = false;
         } else {
-            if (state.get(UP)) {
+            if (state.getValue(UP)) {
                 hitVertical = hitHeight < d1 / 16;
             } else {
                 hitVertical = hitHeight > d0 / 16;
             }
         }
-        if (player.isSneaking()) {
+        if (player.isShiftKeyDown()) {
             if (hitVertical) {
-                if (!state.get(HORIZONTAL_SHAPE).isHidden())
-                    worldIn.setBlockState(pos, state.with(VERTICAL_SHAPE, SupportFaceShape.HIDDEN));
+                if (!state.getValue(HORIZONTAL_SHAPE).isHidden())
+                    worldIn.setBlockAndUpdate(pos, state.setValue(VERTICAL_SHAPE, SupportFaceShape.HIDDEN));
                 else{
-                    worldIn.setBlockState(pos, state.with(HORIZONTAL_SHAPE, SupportFaceShape.BIG));
+                    worldIn.setBlockAndUpdate(pos, state.setValue(HORIZONTAL_SHAPE, SupportFaceShape.BIG));
                 }
             } else {
-                if (!state.get(VERTICAL_SHAPE).isHidden())
-                    worldIn.setBlockState(pos, state.with(HORIZONTAL_SHAPE, SupportFaceShape.HIDDEN));
+                if (!state.getValue(VERTICAL_SHAPE).isHidden())
+                    worldIn.setBlockAndUpdate(pos, state.setValue(HORIZONTAL_SHAPE, SupportFaceShape.HIDDEN));
                 else
-                    worldIn.setBlockState(pos, state.with(VERTICAL_SHAPE, SupportFaceShape.SMALL));
+                    worldIn.setBlockAndUpdate(pos, state.setValue(VERTICAL_SHAPE, SupportFaceShape.SMALL));
             }
         } else {
             if (hitVertical) {
-                worldIn.setBlockState(pos, state.with(VERTICAL_SHAPE, state.get(VERTICAL_SHAPE).getSwitched()));
+                worldIn.setBlockAndUpdate(pos, state.setValue(VERTICAL_SHAPE, state.getValue(VERTICAL_SHAPE).getSwitched()));
             } else {
-                worldIn.setBlockState(pos, state.with(HORIZONTAL_SHAPE, state.get(HORIZONTAL_SHAPE).getSwitched()));
+                worldIn.setBlockAndUpdate(pos, state.setValue(HORIZONTAL_SHAPE, state.getValue(HORIZONTAL_SHAPE).getSwitched()));
             }
         }
     }
 
     @Override
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-        builder.add(HORIZONTAL_FACING, WATERLOGGED, UP, HORIZONTAL_SHAPE, VERTICAL_SHAPE);
+    protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
+        builder.add(FACING, WATERLOGGED, UP, HORIZONTAL_SHAPE, VERTICAL_SHAPE);
     }
 
     @Override
     public boolean propagatesSkylightDown(BlockState state, IBlockReader reader, BlockPos pos) {
-        return !state.get(WATERLOGGED);
+        return !state.getValue(WATERLOGGED);
     }
 
     @Override
     public FluidState getFluidState(BlockState state) {
-        return state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : super.getFluidState(state);
+        return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }
 
     @Override
-    public boolean allowsMovement(BlockState p_196266_1_, IBlockReader p_196266_2_, BlockPos p_196266_3_, PathType p_196266_4_) {
+    public boolean isPathfindable(BlockState p_196266_1_, IBlockReader p_196266_2_, BlockPos p_196266_3_, PathType p_196266_4_) {
         return false;
     }
 
     private static ImmutableMap<BlockState, VoxelShape> getStateToShapeMap(StateContainer<Block, BlockState> stateManager) {
-        Map<BlockState, VoxelShape> map = stateManager.getValidStates().stream()
+        Map<BlockState, VoxelShape> map = stateManager.getPossibleStates().stream()
                 .collect(Collectors.toMap(Function.identity(), SupportBlock::getShapeForState));
         return ImmutableMap.copyOf(map);
     }
 
     private static VoxelShape getShapeForState(BlockState blockState) {
-        boolean up = blockState.get(UP);
-        Direction dir = blockState.get(HORIZONTAL_FACING);
+        boolean up = blockState.getValue(UP);
+        Direction dir = blockState.getValue(FACING);
         boolean ns = dir.getAxis() == Direction.Axis.Z;
         VoxelShape horizontal = VoxelShapes.empty();
         VoxelShape vertical = VoxelShapes.empty();
-        switch (blockState.get(HORIZONTAL_SHAPE)) {
+        switch (blockState.getValue(HORIZONTAL_SHAPE)) {
             case BIG:
                 horizontal = up ? TOP_LARGE : BOTTOM_LARGE;
                 break;
@@ -184,7 +184,7 @@ public class SupportBlock extends HorizontalBlock implements IWaterLoggable, IWo
                 horizontal = up ? (ns ? TOP_SMALL_NS : TOP_SMALL_EW) : (ns ? BOTTOM_SMALL_NS : BOTTOM_SMALL_EW);
                 break;
         }
-        switch (blockState.get(VERTICAL_SHAPE)) {
+        switch (blockState.getValue(VERTICAL_SHAPE)) {
             case BIG:
                 vertical = verticalLarge.get(dir);
                 break;
@@ -193,7 +193,7 @@ public class SupportBlock extends HorizontalBlock implements IWaterLoggable, IWo
                 break;
             case HIDDEN:
                 if (horizontal == VoxelShapes.empty()) {
-                    return VoxelShapes.fullCube();
+                    return VoxelShapes.block();
                 }
         }
         return VoxelShapes.or(horizontal, vertical);
@@ -203,12 +203,12 @@ public class SupportBlock extends HorizontalBlock implements IWaterLoggable, IWo
     static {
         verticalSmall = new EnumMap<Direction, VoxelShape>(Direction.class);
         verticalLarge = new EnumMap<Direction, VoxelShape>(Direction.class);
-        Direction.Plane.HORIZONTAL.getDirectionValues().forEach(dir -> {
-            int x = dir.getXOffset();
-            int z = dir.getZOffset();
-            verticalLarge.put(dir, Block.makeCuboidShape((1 - x * x) * 0 + x * x * (d1 / 2 - d1 / 2 * x), 0, (1 - z * z) * 0 + z * z * (d1 / 2 - d1 / 2 * z),
+        Direction.Plane.HORIZONTAL.stream().forEach(dir -> {
+            int x = dir.getStepX();
+            int z = dir.getStepZ();
+            verticalLarge.put(dir, Block.box((1 - x * x) * 0 + x * x * (d1 / 2 - d1 / 2 * x), 0, (1 - z * z) * 0 + z * z * (d1 / 2 - d1 / 2 * z),
                     (1 - x * x) * 16 + x * x * ((d0 + 16) / 2 + (d0 - 16) / 2 * x), 16, (1 - z * z) * 16 + z * z * ((d0 + 16) / 2 + (d0 - 16) / 2 * z)));
-            verticalSmall.put(dir, Block.makeCuboidShape((1 - x * x) * d2 + x * x * (d1 / 2 - d1 / 2 * x), 0, (1 - z * z) * d2 + z * z * (d1 / 2 - d1 / 2 * z),
+            verticalSmall.put(dir, Block.box((1 - x * x) * d2 + x * x * (d1 / 2 - d1 / 2 * x), 0, (1 - z * z) * d2 + z * z * (d1 / 2 - d1 / 2 * z),
                     (1 - x * x) * d3 + x * x * ((d0 + 16) / 2 + (d0 - 16) / 2 * x), 16, (1 - z * z) * d3 + z * z * ((d0 + 16) / 2 + (d0 - 16) / 2 * z)));
         });
     }

@@ -25,6 +25,8 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.*;
 
+import net.minecraft.item.Item.Properties;
+
 public class BlockstateCopyItem extends Item {
     public static Map<Block, Set<Property<?>>> allowedProperties = new HashMap<>();
 
@@ -34,21 +36,21 @@ public class BlockstateCopyItem extends Item {
     }
 
     @Override
-    public ActionResultType onItemUse(ItemUseContext context) {
-        World world = context.getWorld();
-        if (!world.isRemote) {
+    public ActionResultType useOn(ItemUseContext context) {
+        World world = context.getLevel();
+        if (!world.isClientSide) {
             PlayerEntity entity = context.getPlayer();
-            ItemStack tool = context.getItem();
-            BlockPos pos = context.getPos();
+            ItemStack tool = context.getItemInHand();
+            BlockPos pos = context.getClickedPos();
             BlockState existing = world.getBlockState(pos);
-            if (entity.isSneaking()) {
+            if (entity.isShiftKeyDown()) {
                 if (copyBlockState(tool, existing)) {
                     return ActionResultType.SUCCESS;
                 }
             } else {
                 BlockState pasteResult = pasteTo(existing, tool);
                 if (pasteResult != null) {
-                    world.setBlockState(pos, pasteResult, 2 | 16);
+                    world.setBlock(pos, pasteResult, 2 | 16);
                     return ActionResultType.SUCCESS;
                 }
             }
@@ -59,12 +61,12 @@ public class BlockstateCopyItem extends Item {
     }
 
     private BlockState pasteTo(BlockState state, ItemStack tool) {
-        CompoundNBT tag = tool.getChildTag("blockstate");
+        CompoundNBT tag = tool.getTagElement("blockstate");
         if (tag != null) {
             BlockState clipboard = NBTUtil.readBlockState(tag);
             if (state.getBlock() == clipboard.getBlock()) {
                 for (Property property : allowedProperties.get(state.getBlock())) {
-                    state = state.with(property, clipboard.get(property));
+                    state = state.setValue(property, clipboard.getValue(property));
                 }
                 return state;
             }
@@ -84,18 +86,18 @@ public class BlockstateCopyItem extends Item {
     }
 
     @Override
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+    public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         if (Screen.hasShiftDown()) {
-            CompoundNBT tag = stack.getChildTag("blockstate");
+            CompoundNBT tag = stack.getTagElement("blockstate");
             String blockstatename = "none";
             if (tag != null) {
-                blockstatename = NBTUtil.readBlockState(tag).getBlock().getTranslationKey();
+                blockstatename = NBTUtil.readBlockState(tag).getBlock().getDescriptionId();
             }
             tooltip.add(new TranslationTextComponent("wiki.decorative_blocks.copy1"));
             tooltip.add(new TranslationTextComponent("wiki.decorative_blocks.copy2", blockstatename));
         }
 
-        super.addInformation(stack, worldIn, tooltip, flagIn);
+        super.appendHoverText(stack, worldIn, tooltip, flagIn);
     }
 
     static {
@@ -103,24 +105,24 @@ public class BlockstateCopyItem extends Item {
             if (block instanceof FenceBlock || block instanceof PaneBlock) {
                 addProperties(block, FourWayBlock.NORTH, FourWayBlock.EAST, FourWayBlock.SOUTH, FourWayBlock.WEST);
             } else if (block instanceof WallBlock) {
-                allowedProperties.put(block, ImmutableSet.of(WallBlock.UP, WallBlock.WALL_HEIGHT_EAST, WallBlock.WALL_HEIGHT_NORTH, WallBlock.WALL_HEIGHT_SOUTH, WallBlock.WALL_HEIGHT_WEST));
+                allowedProperties.put(block, ImmutableSet.of(WallBlock.UP, WallBlock.EAST_WALL, WallBlock.NORTH_WALL, WallBlock.SOUTH_WALL, WallBlock.WEST_WALL));
             } else if (block instanceof StairsBlock) {
                 allowedProperties.put(block, ImmutableSet.of(StairsBlock.SHAPE, StairsBlock.FACING, StairsBlock.HALF));
             } else if (block instanceof SlabBlock) {
 //                allowedProperties.put(block, ImmutableSet.of(SlabBlock.TYPE));
             } else if (block instanceof ComparatorBlock) {
                 allowedProperties.put(block, ImmutableSet.of(ComparatorBlock.MODE));
-            } else if (block.getStateContainer().getProperties().contains(BlockStateProperties.RAIL_SHAPE_STRAIGHT)) {
+            } else if (block.getStateDefinition().getProperties().contains(BlockStateProperties.RAIL_SHAPE_STRAIGHT)) {
                 allowedProperties.put(block, ImmutableSet.of(BlockStateProperties.RAIL_SHAPE_STRAIGHT));
             } else if (block instanceof DispenserBlock) {
                 allowedProperties.put(block, ImmutableSet.of(DispenserBlock.FACING));
             } else if (block instanceof GlazedTerracottaBlock || block instanceof RepeaterBlock) {
-                addProperties(block, HorizontalBlock.HORIZONTAL_FACING);
+                addProperties(block, HorizontalBlock.FACING);
             } else if (block instanceof HugeMushroomBlock) {
                 allowedProperties.put(block, ImmutableSet.of(HugeMushroomBlock.UP, HugeMushroomBlock.EAST, HugeMushroomBlock.WEST, HugeMushroomBlock.DOWN, HugeMushroomBlock.NORTH, HugeMushroomBlock.SOUTH));
             } else if (block instanceof ObserverBlock) {
                 allowedProperties.put(block, ImmutableSet.of(DirectionalBlock.FACING));
-            } else if (block.getStateContainer().getProperties().contains(BlockStateProperties.RAIL_SHAPE)) {
+            } else if (block.getStateDefinition().getProperties().contains(BlockStateProperties.RAIL_SHAPE)) {
                 addProperties(block, BlockStateProperties.RAIL_SHAPE);
             } else if (block instanceof TrapDoorBlock) {
                 addProperties(block, BlockStateProperties.HORIZONTAL_FACING, TrapDoorBlock.HALF, TrapDoorBlock.OPEN);

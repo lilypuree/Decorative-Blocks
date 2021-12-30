@@ -27,7 +27,7 @@ public class Recipes extends RecipeProvider {
     }
 
     @Override
-    protected void registerRecipes(Consumer<IFinishedRecipe> consumerIn) {
+    protected void buildShapelessRecipes(Consumer<IFinishedRecipe> consumerIn) {
         for (IWoodType wood : ModWoodTypes.allWoodTypes()) {
             if (wood instanceof VanillaWoodTypes) {
                 makeWoodenBlockRecipes(wood, consumerIn);
@@ -81,42 +81,42 @@ public class Recipes extends RecipeProvider {
 
     private static void makeBeamRecipeOf(IWoodenBlock block, Consumer<IFinishedRecipe> consumer) {
         IWoodType wood = block.getWoodType();
-        ShapedRecipeBuilder.shapedRecipe((Block) block, 2)
-                .patternLine(" x ")
-                .patternLine(" x ")
-                .key('x', wood.getStrippedLog())
-                .addCriterion("has_stripped_log", InventoryChangeTrigger.Instance.forItems(wood.getStrippedLog()))
-                .build(consumer);
+        ShapedRecipeBuilder.shaped((Block) block, 2)
+                .pattern(" x ")
+                .pattern(" x ")
+                .define('x', wood.getStrippedLog())
+                .unlockedBy("has_stripped_log", InventoryChangeTrigger.Instance.hasItems(wood.getStrippedLog()))
+                .save(consumer);
     }
 
     public static void makePalisadeRecipeOf(IWoodenBlock block, Consumer<IFinishedRecipe> consumer) {
         IWoodType wood = block.getWoodType();
-        ShapedRecipeBuilder.shapedRecipe((Block) block, 6)
-                .patternLine("xx ")
-                .key('x', wood.getLog())
-                .addCriterion("has_log", InventoryChangeTrigger.Instance.forItems(wood.getLog()))
-                .build(consumer);
+        ShapedRecipeBuilder.shaped((Block) block, 6)
+                .pattern("xx ")
+                .define('x', wood.getLog())
+                .unlockedBy("has_log", InventoryChangeTrigger.Instance.hasItems(wood.getLog()))
+                .save(consumer);
     }
 
     public static void makeSeatRecipeOf(IWoodenBlock block, Consumer<IFinishedRecipe> consumer) {
         IWoodType wood = block.getWoodType();
-        ShapedRecipeBuilder.shapedRecipe(((Block) block), 2)
-                .patternLine("x  ")
-                .patternLine("y  ")
-                .key('x', wood.getSlab())
-                .key('y', wood.getFence())
-                .addCriterion("has_plank", InventoryChangeTrigger.Instance.forItems(wood.getPlanks()))
-                .build(consumer);
+        ShapedRecipeBuilder.shaped(((Block) block), 2)
+                .pattern("x  ")
+                .pattern("y  ")
+                .define('x', wood.getSlab())
+                .define('y', wood.getFence())
+                .unlockedBy("has_plank", InventoryChangeTrigger.Instance.hasItems(wood.getPlanks()))
+                .save(consumer);
     }
 
     public static void makeSupportRecipeOf(IWoodenBlock block, Consumer<IFinishedRecipe> consumer) {
         IWoodType wood = block.getWoodType();
-        ShapedRecipeBuilder.shapedRecipe(((Block) block), 3)
-                .patternLine("xx ")
-                .patternLine("x  ")
-                .key('x', wood.getPlanks())
-                .addCriterion("has_plank", InventoryChangeTrigger.Instance.forItems(wood.getPlanks()))
-                .build(consumer);
+        ShapedRecipeBuilder.shaped(((Block) block), 3)
+                .pattern("xx ")
+                .pattern("x  ")
+                .define('x', wood.getPlanks())
+                .unlockedBy("has_plank", InventoryChangeTrigger.Instance.hasItems(wood.getPlanks()))
+                .save(consumer);
     }
 
     public static void modConditionalRecipe(Consumer<Consumer<IFinishedRecipe>> baseRecipeBuilder, String modid, Consumer<IFinishedRecipe> consumer) {
@@ -124,7 +124,7 @@ public class Recipes extends RecipeProvider {
         baseRecipeBuilder.accept(iFinishedRecipe -> {
             ConditionalRecipe.builder().addCondition(modLoadedCondition).addRecipe(iFinishedRecipe)
                     .setAdvancement(ConditionalAdvancement.builder().addCondition(modLoadedCondition).addAdvancement(iFinishedRecipe))
-                    .build(consumer, iFinishedRecipe.getID());
+                    .build(consumer, iFinishedRecipe.getId());
         });
     }
 }

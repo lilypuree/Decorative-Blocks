@@ -56,20 +56,20 @@ public class Registration {
         FLUIDS.register(modEventBus);
     }
 
-    public static final RegistryObject<BarPanelBlock> BAR_PANEL = BLOCKS.register("bar_panel", () -> new BarPanelBlock(Block.Properties.create(Material.IRON, MaterialColor.BLACK).hardnessAndResistance(5.0F).sound(SoundType.METAL).notSolid()));
-    public static final RegistryObject<LatticeBlock> LATTICE = BLOCKS.register("lattice", () -> new LatticeBlock(Block.Properties.create(Material.WOOD, MaterialColor.WOOD).hardnessAndResistance(1.2F).sound(SoundType.WOOD).notSolid()));
-    public static final AbstractBlock.Properties chainProperties = Block.Properties.create(Material.IRON, MaterialColor.BLACK).hardnessAndResistance(4.3F).sound(SoundType.METAL).notSolid();
+    public static final RegistryObject<BarPanelBlock> BAR_PANEL = BLOCKS.register("bar_panel", () -> new BarPanelBlock(Block.Properties.of(Material.METAL, MaterialColor.COLOR_BLACK).strength(5.0F).sound(SoundType.METAL).noOcclusion()));
+    public static final RegistryObject<LatticeBlock> LATTICE = BLOCKS.register("lattice", () -> new LatticeBlock(Block.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(1.2F).sound(SoundType.WOOD).noOcclusion()));
+    public static final AbstractBlock.Properties chainProperties = Block.Properties.of(Material.METAL, MaterialColor.COLOR_BLACK).strength(4.3F).sound(SoundType.METAL).noOcclusion();
     public static final RegistryObject<ChainBlock> CHAIN = BLOCKS.register("chain", () -> new ChainBlock(chainProperties));
-    public static final RegistryObject<ChandelierBlock> CHANDELIER = BLOCKS.register("chandelier", () -> new ChandelierBlock(Block.Properties.create(Material.MISCELLANEOUS).hardnessAndResistance(0.3F).sound(SoundType.WOOD).notSolid().setLightLevel(state -> 15), false));
-    public static final RegistryObject<ChandelierBlock> SOUL_CHANDELIER = BLOCKS.register("soul_chandelier", () -> new ChandelierBlock(Block.Properties.create(Material.MISCELLANEOUS).hardnessAndResistance(0.3F).sound(SoundType.WOOD).notSolid().setLightLevel(state -> 11), true));
-    public static final RegistryObject<BrazierBlock> BRAZIER = BLOCKS.register("brazier", () -> new BrazierBlock(Block.Properties.create(Material.IRON).hardnessAndResistance(3.0F).sound(SoundType.METAL).setLightLevel(state -> state.get(BlockStateProperties.LIT) ? 15 : 0).notSolid(), false));
-    public static final RegistryObject<BrazierBlock> SOUL_BRAZIER = BLOCKS.register("soul_brazier", () -> new BrazierBlock(Block.Properties.create(Material.IRON).hardnessAndResistance(3.0F).sound(SoundType.METAL).setLightLevel(state -> state.get(BlockStateProperties.LIT) ? 10 : 0).notSolid(), true));
-    public static final RegistryObject<PillarBlock> STONE_PILLAR = BLOCKS.register("stone_pillar", () -> new PillarBlock(Block.Properties.create(Material.ROCK).hardnessAndResistance(1.5F, 6.5F)));
+    public static final RegistryObject<ChandelierBlock> CHANDELIER = BLOCKS.register("chandelier", () -> new ChandelierBlock(Block.Properties.of(Material.DECORATION).strength(0.3F).sound(SoundType.WOOD).noOcclusion().lightLevel(state -> 15), false));
+    public static final RegistryObject<ChandelierBlock> SOUL_CHANDELIER = BLOCKS.register("soul_chandelier", () -> new ChandelierBlock(Block.Properties.of(Material.DECORATION).strength(0.3F).sound(SoundType.WOOD).noOcclusion().lightLevel(state -> 11), true));
+    public static final RegistryObject<BrazierBlock> BRAZIER = BLOCKS.register("brazier", () -> new BrazierBlock(Block.Properties.of(Material.METAL).strength(3.0F).sound(SoundType.METAL).lightLevel(state -> state.getValue(BlockStateProperties.LIT) ? 15 : 0).noOcclusion(), false));
+    public static final RegistryObject<BrazierBlock> SOUL_BRAZIER = BLOCKS.register("soul_brazier", () -> new BrazierBlock(Block.Properties.of(Material.METAL).strength(3.0F).sound(SoundType.METAL).lightLevel(state -> state.getValue(BlockStateProperties.LIT) ? 10 : 0).noOcclusion(), true));
+    public static final RegistryObject<PillarBlock> STONE_PILLAR = BLOCKS.register("stone_pillar", () -> new PillarBlock(Block.Properties.of(Material.STONE).strength(1.5F, 6.5F)));
     public static final RegistryObject<Block> ROCKY_DIRT = BLOCKS.register("rocky_dirt", () -> new RockyDirtBlock());
-    public static final RegistryObject<BonfireBlock> BONFIRE = BLOCKS.register("bonfire", () -> new BonfireBlock(Block.Properties.create(Material.FIRE, MaterialColor.TNT).doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.CLOTH).setLightLevel(state -> 15).noDrops()));
-    public static final RegistryObject<BonfireBlock> SOUL_BONFIRE = BLOCKS.register("soul_bonfire", () -> new BonfireBlock(Block.Properties.create(Material.FIRE, MaterialColor.CYAN).doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.CLOTH).setLightLevel(state -> 14).noDrops()));
+    public static final RegistryObject<BonfireBlock> BONFIRE = BLOCKS.register("bonfire", () -> new BonfireBlock(Block.Properties.of(Material.FIRE, MaterialColor.FIRE).noCollission().strength(0).sound(SoundType.WOOL).lightLevel(state -> 15).noDrops()));
+    public static final RegistryObject<BonfireBlock> SOUL_BONFIRE = BLOCKS.register("soul_bonfire", () -> new BonfireBlock(Block.Properties.of(Material.FIRE, MaterialColor.COLOR_CYAN).noCollission().strength(0).sound(SoundType.WOOL).lightLevel(state -> 14).noDrops()));
 
-    public static final Item.Properties modItemProperties = new Item.Properties().group(ModSetup.ITEM_GROUP);
+    public static final Item.Properties modItemProperties = new Item.Properties().tab(ModSetup.ITEM_GROUP);
     public static final Item.Properties dummyProperty = new Item.Properties();
 
     public static final RegistryObject<Item> BAR_PANEL_ITEM = ITEMS.register("bar_panel", () -> new BlockItem(BAR_PANEL.get(), modItemProperties));
@@ -81,20 +81,20 @@ public class Registration {
     public static final RegistryObject<Item> SOUL_BRAZIER_ITEM = ITEMS.register("soul_brazier", () -> new BlockItem(SOUL_BRAZIER.get(), modItemProperties));
     public static final RegistryObject<Item> STONE_PILLAR_ITEM = ITEMS.register("stone_pillar", () -> new BlockItem(STONE_PILLAR.get(), modItemProperties));
     public static final RegistryObject<Item> ROCKY_DIRT_ITEM = ITEMS.register("rocky_dirt", () -> new BlockItem(ROCKY_DIRT.get(), modItemProperties));
-    public static final RegistryObject<Item> BLOCKSTATE_COPY_ITEM = ITEMS.register("blockstate_copy_tool", () -> new BlockstateCopyItem(new Item.Properties().group(ModSetup.ITEM_GROUP).maxStackSize(1)));
+    public static final RegistryObject<Item> BLOCKSTATE_COPY_ITEM = ITEMS.register("blockstate_copy_tool", () -> new BlockstateCopyItem(new Item.Properties().tab(ModSetup.ITEM_GROUP).stacksTo(1)));
 
-    public static final Material THATCH_MATERIAL = (new Material.Builder(MaterialColor.YELLOW)).doesNotBlockMovement().notSolid().replaceable().liquid().build();
+    public static final Material THATCH_MATERIAL = (new Material.Builder(MaterialColor.COLOR_YELLOW)).noCollider().nonSolid().replaceable().liquid().build();
     private static final ResourceLocation thatchStillTexture = new ResourceLocation("decorative_blocks", "block/thatch_still");
     private static final ResourceLocation thatchFlowingTexture = new ResourceLocation("decorative_blocks", "block/thatch_flowing");
     public static final ThatchFluid.FluidReferenceHolder referenceHolder = new ThatchFluid.FluidReferenceHolder(() -> Blocks.HAY_BLOCK, thatchStillTexture, thatchFlowingTexture, 0xAC8D08);
     public static final RegistryObject<FlowingFluid> FLOWING_THATCH = FLUIDS.register("flowing_thatch", () -> new ThatchFluid.Flowing(referenceHolder));
     public static final RegistryObject<FlowingFluid> STILL_THATCH = FLUIDS.register("thatch", () -> new ThatchFluid.Source(referenceHolder));
-    public static final RegistryObject<Block> THATCH = BLOCKS.register("thatch", () -> new ThatchFluidBlock(STILL_THATCH, Block.Properties.create(THATCH_MATERIAL).doesNotBlockMovement().tickRandomly().hardnessAndResistance(100.0F).noDrops()));
+    public static final RegistryObject<Block> THATCH = BLOCKS.register("thatch", () -> new ThatchFluidBlock(STILL_THATCH, Block.Properties.of(THATCH_MATERIAL).noCollission().randomTicks().strength(100.0F).noDrops()));
 
-    public static final RegistryObject<EntityType<DummyEntityForSitting>> DUMMY_ENTITY_TYPE = ENTITIES.register("dummy", () -> EntityType.Builder.<DummyEntityForSitting>create(DummyEntityForSitting::new, EntityClassification.MISC)
+    public static final RegistryObject<EntityType<DummyEntityForSitting>> DUMMY_ENTITY_TYPE = ENTITIES.register("dummy", () -> EntityType.Builder.<DummyEntityForSitting>of(DummyEntityForSitting::new, EntityClassification.MISC)
             .setTrackingRange(256)
             .setUpdateInterval(20)
-            .size(0.0001F, 0.0001F)
+            .sized(0.0001F, 0.0001F)
             .build(MODID + ":dummy"));
 
 
@@ -168,8 +168,8 @@ public class Registration {
 
 
     private static Block createDecorativeBlock(IWoodType wood, WoodDecorativeBlockTypes woodDecorativeBlockType) {
-        Block.Properties woodProperty = AbstractBlock.Properties.create(wood.getMaterial(), wood.getMaterialColor()).hardnessAndResistance(1.2F).sound(wood.getSoundType());
-        Block.Properties palisadeProperty = AbstractBlock.Properties.create(wood.getMaterial(), wood.getMaterialColor()).hardnessAndResistance(2.0F, 4.0F).sound(wood.getSoundType());
+        Block.Properties woodProperty = AbstractBlock.Properties.of(wood.getMaterial(), wood.getMaterialColor()).strength(1.2F).sound(wood.getSoundType());
+        Block.Properties palisadeProperty = AbstractBlock.Properties.of(wood.getMaterial(), wood.getMaterialColor()).strength(2.0F, 4.0F).sound(wood.getSoundType());
 
         switch (woodDecorativeBlockType) {
             default:

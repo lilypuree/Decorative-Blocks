@@ -13,7 +13,7 @@ import net.minecraftforge.common.PlantType;
 
 public class RockyDirtBlock extends Block {
     public RockyDirtBlock(){
-        super(Block.Properties.create(Material.EARTH, MaterialColor.STONE).hardnessAndResistance(1.0F, 6.0F).sound(SoundType.GROUND));
+        super(Block.Properties.of(Material.DIRT, MaterialColor.STONE).strength(1.0F, 6.0F).sound(SoundType.GRAVEL));
     }
 
     @Override

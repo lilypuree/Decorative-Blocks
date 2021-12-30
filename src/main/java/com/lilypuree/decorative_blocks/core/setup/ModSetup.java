@@ -50,7 +50,7 @@ public class ModSetup {
 
     public static final ItemGroup ITEM_GROUP = new ItemGroup("decorative_blocks") {
         @Override
-        public ItemStack createIcon() {
+        public ItemStack makeIcon() {
             return new ItemStack(Registration.BRAZIER.get());
         }
     };
@@ -61,14 +61,14 @@ public class ModSetup {
             if (block instanceof PalisadeBlock) {
                 BlockstateCopyItem.addProperties(block, PalisadeBlock.NORTH, PalisadeBlock.EAST, PalisadeBlock.SOUTH, PalisadeBlock.WEST);
             } else if (block instanceof SeatBlock) {
-                BlockstateCopyItem.addProperties(block, SeatBlock.HORIZONTAL_FACING, SeatBlock.POST, SeatBlock.ATTACHED);
+                BlockstateCopyItem.addProperties(block, SeatBlock.FACING, SeatBlock.POST, SeatBlock.ATTACHED);
             } else if (block instanceof SupportBlock) {
-                BlockstateCopyItem.addProperties(block, SupportBlock.HORIZONTAL_SHAPE, SupportBlock.VERTICAL_SHAPE, SupportBlock.HORIZONTAL_FACING, SupportBlock.UP);
+                BlockstateCopyItem.addProperties(block, SupportBlock.HORIZONTAL_SHAPE, SupportBlock.VERTICAL_SHAPE, SupportBlock.FACING, SupportBlock.UP);
             }
         });
 
         e.enqueueWork(() -> {
-            Method setFireInfo = ObfuscationReflectionHelper.findMethod(FireBlock.class, "func_180686_a", Block.class, int.class, int.class);
+            Method setFireInfo = ObfuscationReflectionHelper.findMethod(FireBlock.class, "setFlammable", Block.class, int.class, int.class);
             Registry.BLOCK.forEach(block -> {
                 if (block instanceof IWoodenBlock) {
                     IWoodType woodType = ((IWoodenBlock) block).getWoodType();
@@ -92,7 +92,7 @@ public class ModSetup {
 
     @SubscribeEvent
     public static void onEntityMountEvent(EntityMountEvent event) {
-        if (!event.getWorldObj().isRemote && event.isDismounting()) {
+        if (!event.getWorldObj().isClientSide && event.isDismounting()) {
             Entity seat = event.getEntityBeingMounted();
             if (seat instanceof DummyEntityForSitting) {
                 seat.remove();
@@ -104,14 +104,14 @@ public class ModSetup {
     @SubscribeEvent
     public static void onProjectileCollisionEvent(ProjectileImpactEvent.Throwable event) {
         ThrowableEntity potion = event.getThrowable();
-        World world = potion.getEntityWorld();
-        BlockPos pos = potion.getPosition();
+        World world = potion.getCommandSenderWorld();
+        BlockPos pos = potion.blockPosition();
         BlockState state = world.getBlockState(pos);
-        if (world.isRemote) return;
-        if (potion instanceof PotionEntity && PotionUtils.getPotionFromItem(((PotionEntity) potion).getItem()) == Potions.WATER) {
-            if ((state.getBlock() instanceof BrazierBlock) && state.get(BrazierBlock.LIT)) {
-                world.setBlockState(pos, state.with(BrazierBlock.LIT, Boolean.FALSE));
-                world.playSound((PlayerEntity) null, pos, SoundEvents.ENTITY_GENERIC_EXTINGUISH_FIRE, SoundCategory.BLOCKS, 0.8F, 1.0F);
+        if (world.isClientSide) return;
+        if (potion instanceof PotionEntity && PotionUtils.getPotion(((PotionEntity) potion).getItem()) == Potions.WATER) {
+            if ((state.getBlock() instanceof BrazierBlock) && state.getValue(BrazierBlock.LIT)) {
+                world.setBlockAndUpdate(pos, state.setValue(BrazierBlock.LIT, Boolean.FALSE));
+                world.playSound((PlayerEntity) null, pos, SoundEvents.GENERIC_EXTINGUISH_FIRE, SoundCategory.BLOCKS, 0.8F, 1.0F);
             }
         }
     }
@@ -125,7 +125,7 @@ public class ModSetup {
         if (block instanceof BonfireBlock) {
             event.setCanceled(true);
 
-            world.playEvent(null, 1009, pos, 0);
+            world.levelEvent(null, 1009, pos, 0);
             world.removeBlock(pos, false);
         }
     }
@@ -135,44 +135,44 @@ public class ModSetup {
         World world = event.getWorld();
         Item item = event.getItemStack().getItem();
         BlockPos pos = event.getPos();
-        if (!world.isBlockLoaded(pos)) {
+        if (!world.hasChunkAt(pos)) {
             return;
         }
         Block block = world.getBlockState(pos).getBlock();
         PlayerEntity player = event.getPlayer();
         if (item == Items.SHEARS && ThatchFluid.shearMap.containsKey(block)) {
-            if (world.isRemote) {
-                player.swingArm(event.getHand());
+            if (world.isClientSide) {
+                player.swing(event.getHand());
             } else if (Config.THATCH_ENABLED.get()) {
-                world.setBlockState(pos, ThatchFluid.shearMap.get(block).getFluidBlock().getDefaultState());
-                world.playSound(null, pos, SoundEvents.BLOCK_CROP_BREAK, SoundCategory.BLOCKS, 0.8f, 1.0f);
-                event.getItemStack().damageItem(1, event.getEntityLiving(), (p_220036_0_) -> {
-                    p_220036_0_.sendBreakAnimation(EquipmentSlotType.MAINHAND);
+                world.setBlockAndUpdate(pos, ThatchFluid.shearMap.get(block).getFluidBlock().defaultBlockState());
+                world.playSound(null, pos, SoundEvents.CROP_BREAK, SoundCategory.BLOCKS, 0.8f, 1.0f);
+                event.getItemStack().hurtAndBreak(1, event.getEntityLiving(), (p_220036_0_) -> {
+                    p_220036_0_.broadcastBreakEvent(EquipmentSlotType.MAINHAND);
                 });
             }
         }
 
         if (item instanceof HoeItem) {
-            RayTraceResult rayTraceResult = Item.rayTrace(world, player, RayTraceContext.FluidMode.SOURCE_ONLY);
+            RayTraceResult rayTraceResult = Item.getPlayerPOVHitResult(world, player, RayTraceContext.FluidMode.SOURCE_ONLY);
             if (rayTraceResult.getType() != RayTraceResult.Type.BLOCK) {
                 return;
             }
 
             BlockRayTraceResult blockraytraceresult = (BlockRayTraceResult) rayTraceResult;
-            BlockPos blockpos = blockraytraceresult.getPos();
-            Direction direction = blockraytraceresult.getFace();
-            BlockPos blockpos1 = blockpos.offset(direction);
+            BlockPos blockpos = blockraytraceresult.getBlockPos();
+            Direction direction = blockraytraceresult.getDirection();
+            BlockPos blockpos1 = blockpos.relative(direction);
 
-            if (world.isBlockModifiable(player, blockpos) && player.canPlayerEdit(blockpos1, direction, event.getItemStack())) {
+            if (world.mayInteract(player, blockpos) && player.mayUseItemAt(blockpos1, direction, event.getItemStack())) {
                 BlockState blockstate1 = world.getBlockState(blockpos);
                 if (blockstate1.getBlock() instanceof ThatchFluidBlock) {
                     event.setCanceled(true);
-                    if (blockstate1.get(FlowingFluidBlock.LEVEL) == 0) {
-                        if (world.isRemote()) {
-                            player.swingArm(event.getHand());
+                    if (blockstate1.getValue(FlowingFluidBlock.LEVEL) == 0) {
+                        if (world.isClientSide()) {
+                            player.swing(event.getHand());
                         } else {
-                            world.playSound(null, blockpos, SoundEvents.BLOCK_CROP_BREAK, SoundCategory.BLOCKS, 0.8f, 1.0f);
-                            world.setBlockState(blockpos, Blocks.AIR.getDefaultState(), 11);
+                            world.playSound(null, blockpos, SoundEvents.CROP_BREAK, SoundCategory.BLOCKS, 0.8f, 1.0f);
+                            world.setBlock(blockpos, Blocks.AIR.defaultBlockState(), 11);
                         }
                     }
                 }
@@ -190,9 +190,9 @@ public class ModSetup {
     public static void onEntityDamage(LivingDamageEvent event) {
         if (event.getSource() == DamageSource.FALL) {
             LivingEntity entity = event.getEntityLiving();
-            BlockPos pos = entity.getPosition();
-            World world = entity.getEntityWorld();
-            if (world.getFluidState(pos).getFluid() == Registration.STILL_THATCH.get().getFluid()) {
+            BlockPos pos = entity.blockPosition();
+            World world = entity.getCommandSenderWorld();
+            if (world.getFluidState(pos).getType() == Registration.STILL_THATCH.get().getFluid()) {
                 event.setAmount(event.getAmount() * 0.2f);
             }
         }
@@ -205,7 +205,7 @@ public class ModSetup {
         if (bonfireActivatorItem == null) {
             if (!isBonfireActivatorConfigValueValid()) {
                 if (!didSendMessage) {
-                    player.sendMessage(new TranslationTextComponent("message.decorative_blocks.invalid_bonfire_activator_config"), player.getUniqueID());
+                    player.sendMessage(new TranslationTextComponent("message.decorative_blocks.invalid_bonfire_activator_config"), player.getUUID());
                     didSendMessage = true;
                 }
                 return;
@@ -215,7 +215,7 @@ public class ModSetup {
         if (thrownItemEntity.getItem().getItem() == bonfireActivatorItem) {
             event.setCanceled(true);
             ItemEntity bonfireActivator = new ItemEntityBonfireActivator(thrownItemEntity);
-            player.getEntityWorld().addEntity(bonfireActivator);
+            player.getCommandSenderWorld().addFreshEntity(bonfireActivator);
         }
     }
 
@@ -224,7 +224,7 @@ public class ModSetup {
 
     public static boolean isBonfireActivatorConfigValueValid() {
         String bonfireActivator = Config.BONFIRE_ACTIVATOR.get();
-        ResourceLocation bonfireActivatorResourceLocation = ResourceLocation.tryCreate(bonfireActivator);
+        ResourceLocation bonfireActivatorResourceLocation = ResourceLocation.tryParse(bonfireActivator);
         if (bonfireActivatorResourceLocation != null) {
             if (ForgeRegistries.ITEMS.containsKey(bonfireActivatorResourceLocation)) {
                 bonfireActivatorItem = ForgeRegistries.ITEMS.getValue(bonfireActivatorResourceLocation);

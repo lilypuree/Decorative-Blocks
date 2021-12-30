@@ -34,10 +34,10 @@ public abstract class ThatchFluid extends FlowingFluid {
 
     @Override
     protected FluidAttributes createAttributes() {
-        return FluidAttributes.builder(referenceHolder.thatchStillTexture, referenceHolder.thatchFlowingTexture).overlay(referenceHolder.thatchStillTexture).sound(SoundEvents.BLOCK_CROP_BREAK, SoundEvents.BLOCK_CROP_BREAK).density(200).viscosity(2000).build(this);
+        return FluidAttributes.builder(referenceHolder.thatchStillTexture, referenceHolder.thatchFlowingTexture).overlay(referenceHolder.thatchStillTexture).sound(SoundEvents.CROP_BREAK, SoundEvents.CROP_BREAK).density(200).viscosity(2000).build(this);
     }
 
-    public Item getFilledBucket() {
+    public Item getBucket() {
         return Items.BUCKET;
     }
 
@@ -46,12 +46,12 @@ public abstract class ThatchFluid extends FlowingFluid {
     }
 
     @Override
-    public Fluid getFlowingFluid() {
+    public Fluid getFlowing() {
         return referenceHolder.getFlowingFluid();
     }
 
     @Override
-    public Fluid getStillFluid() {
+    public Fluid getSource() {
         return referenceHolder.getStillFluid();
     }
 
@@ -59,49 +59,49 @@ public abstract class ThatchFluid extends FlowingFluid {
         return 2;
     }
 
-    public BlockState getBlockState(FluidState state) {
-        return referenceHolder.getFluidBlock().getDefaultState().with(FlowingFluidBlock.LEVEL, Integer.valueOf(getLevelFromState(state)));
+    public BlockState createLegacyBlock(FluidState state) {
+        return referenceHolder.getFluidBlock().defaultBlockState().setValue(FlowingFluidBlock.LEVEL, Integer.valueOf(getLegacyLevel(state)));
     }
 
-    public boolean isEquivalentTo(Fluid fluidIn) {
+    public boolean isSame(Fluid fluidIn) {
         return fluidIn == referenceHolder.getFlowingFluid() || fluidIn == referenceHolder.getStillFluid();
     }
 
-    public int getLevelDecreasePerBlock(IWorldReader worldIn) {
+    public int getDropOff(IWorldReader worldIn) {
         return 4;
     }
 
 
     @Override
-    protected void beforeReplacingBlock(IWorld worldIn, BlockPos pos, BlockState state) {
-        TileEntity tileentity = state.getBlock().hasTileEntity(state) ? worldIn.getTileEntity(pos) : null;
-        Block.spawnDrops(state, worldIn, pos, tileentity);
+    protected void beforeDestroyingBlock(IWorld worldIn, BlockPos pos, BlockState state) {
+        TileEntity tileentity = state.getBlock().hasTileEntity(state) ? worldIn.getBlockEntity(pos) : null;
+        Block.dropResources(state, worldIn, pos, tileentity);
     }
 
-    public boolean canDisplace(FluidState p_215665_1_, IBlockReader p_215665_2_, BlockPos p_215665_3_, Fluid p_215665_4_, Direction p_215665_5_) {
+    public boolean canBeReplacedWith(FluidState p_215665_1_, IBlockReader p_215665_2_, BlockPos p_215665_3_, Fluid p_215665_4_, Direction p_215665_5_) {
         return false;
         //from lava fluid
 //        return p_215665_1_.getActualHeight(p_215665_2_, p_215665_3_) >= 0.44444445F && p_215665_4_.isIn(FluidTags.WATER);
     }
 
-    public int getTickRate(IWorldReader p_205569_1_) {
+    public int getTickDelay(IWorldReader p_205569_1_) {
         return 8;
     }
 
-    protected boolean canSourcesMultiply() {
+    protected boolean canConvertToSource() {
         return false;
     }
 
-    protected void flowInto(IWorld worldIn, BlockPos pos, BlockState blockStateIn, Direction direction, FluidState fluidStateIn) {
+    protected void spreadTo(IWorld worldIn, BlockPos pos, BlockState blockStateIn, Direction direction, FluidState fluidStateIn) {
         if (direction == Direction.DOWN) {
             boolean shouldFlowInto = false;
 
 
             for (Direction dir : Direction.Plane.HORIZONTAL) {
-                BlockPos supportPos = pos.offset(dir);
+                BlockPos supportPos = pos.relative(dir);
                 BlockState supportBlock = worldIn.getBlockState(supportPos);
-                FluidState sourceFluid = worldIn.getFluidState(supportPos.up());
-                if (supportBlock.isSolidSide(worldIn, supportPos, dir.getOpposite()) && !sourceFluid.isEmpty()) {
+                FluidState sourceFluid = worldIn.getFluidState(supportPos.above());
+                if (supportBlock.isFaceSturdy(worldIn, supportPos, dir.getOpposite()) && !sourceFluid.isEmpty()) {
                     shouldFlowInto = true;
                 }
             }
@@ -114,18 +114,18 @@ public abstract class ThatchFluid extends FlowingFluid {
             }
         }
         if (blockStateIn.getBlock() instanceof ILiquidContainer) {
-            ((ILiquidContainer) blockStateIn.getBlock()).receiveFluid(worldIn, pos, blockStateIn, fluidStateIn);
+            ((ILiquidContainer) blockStateIn.getBlock()).placeLiquid(worldIn, pos, blockStateIn, fluidStateIn);
         } else {
             if (!blockStateIn.isAir()) {
-                this.beforeReplacingBlock(worldIn, pos, blockStateIn);
+                this.beforeDestroyingBlock(worldIn, pos, blockStateIn);
             }
 
-            worldIn.setBlockState(pos, fluidStateIn.getBlockState(), 3);
+            worldIn.setBlock(pos, fluidStateIn.createLegacyBlock(), 3);
         }
     }
 
 
-    protected boolean ticksRandomly() {
+    protected boolean isRandomlyTicking() {
         return true;
     }
 
@@ -138,13 +138,13 @@ public abstract class ThatchFluid extends FlowingFluid {
             super(referenceHolder);
         }
 
-        protected void fillStateContainer(StateContainer.Builder<Fluid, FluidState> builder) {
-            super.fillStateContainer(builder);
-            builder.add(LEVEL_1_8);
+        protected void createFluidStateDefinition(StateContainer.Builder<Fluid, FluidState> builder) {
+            super.createFluidStateDefinition(builder);
+            builder.add(LEVEL);
         }
 
-        public int getLevel(FluidState p_207192_1_) {
-            return p_207192_1_.get(LEVEL_1_8);
+        public int getAmount(FluidState p_207192_1_) {
+            return p_207192_1_.getValue(LEVEL);
         }
 
         public boolean isSource(FluidState state) {
@@ -158,11 +158,11 @@ public abstract class ThatchFluid extends FlowingFluid {
         }
 
         @Override
-        protected void fillStateContainer(StateContainer.Builder<Fluid, FluidState> builder) {
-            super.fillStateContainer(builder);
+        protected void createFluidStateDefinition(StateContainer.Builder<Fluid, FluidState> builder) {
+            super.createFluidStateDefinition(builder);
         }
 
-        public int getLevel(FluidState p_207192_1_) {
+        public int getAmount(FluidState p_207192_1_) {
             return 8;
         }
 

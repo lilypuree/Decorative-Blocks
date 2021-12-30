@@ -38,10 +38,10 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class SeatBlock extends HorizontalBlock implements IWaterLoggable, IWoodenBlock {
-    protected static final VoxelShape POST_SHAPE = Block.makeCuboidShape(6.0D, 0.0D, 6.0D, 10.0D, 4.0D, 10.0D);
-    protected static final VoxelShape TOP_POST = Block.makeCuboidShape(6.0D, 7.0D, 6.0D, 10.0D, 16.0D, 10.0D);
-    protected static final VoxelShape JOIST_NS = Block.makeCuboidShape(0, 4.0D, 4D, 16D, 7D, 12D);
-    protected static final VoxelShape JOIST_EW = Block.makeCuboidShape(4.0D, 4.0D, 0D, 12D, 7D, 16D);
+    protected static final VoxelShape POST_SHAPE = Block.box(6.0D, 0.0D, 6.0D, 10.0D, 4.0D, 10.0D);
+    protected static final VoxelShape TOP_POST = Block.box(6.0D, 7.0D, 6.0D, 10.0D, 16.0D, 10.0D);
+    protected static final VoxelShape JOIST_NS = Block.box(0, 4.0D, 4D, 16D, 7D, 12D);
+    protected static final VoxelShape JOIST_EW = Block.box(4.0D, 4.0D, 0D, 12D, 7D, 16D);
     protected static final VoxelShape SEAT_NS = VoxelShapes.or(POST_SHAPE, JOIST_NS);
     protected static final VoxelShape SEAT_EW = VoxelShapes.or(POST_SHAPE, JOIST_EW);
     protected static final VoxelShape JOIST_POST_NS = VoxelShapes.or(TOP_POST, JOIST_NS);
@@ -59,7 +59,7 @@ public class SeatBlock extends HorizontalBlock implements IWaterLoggable, IWoode
     public SeatBlock(Block.Properties properties, IWoodType woodType) {
         super(properties);
         this.woodType = woodType;
-        this.setDefaultState(this.getStateContainer().getBaseState().with(WATERLOGGED, false).with(OCCUPIED, false).with(ATTACHED, false).with(POST, false));
+        this.registerDefaultState(this.getStateDefinition().any().setValue(WATERLOGGED, false).setValue(OCCUPIED, false).setValue(ATTACHED, false).setValue(POST, false));
     }
 
     @Override
@@ -69,9 +69,9 @@ public class SeatBlock extends HorizontalBlock implements IWaterLoggable, IWoode
 
     @Override
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        Direction facing = state.get(HORIZONTAL_FACING);
-        boolean attached = state.get(ATTACHED);
-        boolean post = state.get(POST);
+        Direction facing = state.getValue(FACING);
+        boolean attached = state.getValue(ATTACHED);
+        boolean post = state.getValue(POST);
         switch (facing) {
             case NORTH:
             case SOUTH:
@@ -85,22 +85,22 @@ public class SeatBlock extends HorizontalBlock implements IWaterLoggable, IWoode
 
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext context) {
-        World world = context.getWorld();
-        BlockPos pos = context.getPos();
+        World world = context.getLevel();
+        BlockPos pos = context.getClickedPos();
         FluidState ifluidstate = world.getFluidState(pos);
-        ItemStack stack = context.getItem();
-        boolean waterloggedFlag = ifluidstate.isTagged(FluidTags.WATER) && ifluidstate.getLevel() == 8;
+        ItemStack stack = context.getItemInHand();
+        boolean waterloggedFlag = ifluidstate.is(FluidTags.WATER) && ifluidstate.getAmount() == 8;
         boolean attachedFlag = isInAttachablePos(world, pos);
 
-        Direction facingDir = context.getFace();
+        Direction facingDir = context.getClickedFace();
         Direction placementDir;
         if (facingDir == Direction.DOWN || facingDir == Direction.UP) {
-            placementDir = context.getPlacementHorizontalFacing().getOpposite();
+            placementDir = context.getHorizontalDirection().getOpposite();
         } else {
-            placementDir = facingDir.rotateY();
+            placementDir = facingDir.getClockWise();
         }
 
-        BlockState blockstate = this.getDefaultState().with(HORIZONTAL_FACING, placementDir).with(WATERLOGGED, waterloggedFlag).with(OCCUPIED, false).with(ATTACHED, attachedFlag);
+        BlockState blockstate = this.defaultBlockState().setValue(FACING, placementDir).setValue(WATERLOGGED, waterloggedFlag).setValue(OCCUPIED, false).setValue(ATTACHED, attachedFlag);
         if (stack.getItem() instanceof SwitchableBlockItem) {
             blockstate = ((SwitchableBlockItem<?, ?>) stack.getItem()).getSwitchedState(blockstate, stack);
         }
@@ -108,57 +108,57 @@ public class SeatBlock extends HorizontalBlock implements IWaterLoggable, IWoode
     }
 
     @Override
-    public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
-        if (stateIn.get(WATERLOGGED)) {
-            worldIn.getPendingFluidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickRate(worldIn));
+    public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
+        if (stateIn.getValue(WATERLOGGED)) {
+            worldIn.getLiquidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(worldIn));
         }
         if (facing == Direction.DOWN) {
-            return stateIn.with(ATTACHED, isInAttachablePos(worldIn, currentPos));
+            return stateIn.setValue(ATTACHED, isInAttachablePos(worldIn, currentPos));
         } else {
             return stateIn;
         }
     }
 
     private boolean isInAttachablePos(IWorldReader worldIn, BlockPos pos) {
-        if (worldIn.getBlockState(pos.down()).getBlock() == Blocks.LANTERN) {
+        if (worldIn.getBlockState(pos.below()).getBlock() == Blocks.LANTERN) {
             return true;
         }
-        return Block.hasEnoughSolidSide(worldIn, pos.down(), Direction.UP);
+        return Block.canSupportCenter(worldIn, pos.below(), Direction.UP);
     }
 
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-        builder.add(HORIZONTAL_FACING, WATERLOGGED, OCCUPIED, ATTACHED, POST);
+    protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
+        builder.add(FACING, WATERLOGGED, OCCUPIED, ATTACHED, POST);
     }
 
     @Override
     public boolean propagatesSkylightDown(BlockState state, IBlockReader reader, BlockPos pos) {
-        return !state.get(WATERLOGGED);
+        return !state.getValue(WATERLOGGED);
     }
 
     @Override
     public FluidState getFluidState(BlockState state) {
-        return state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : super.getFluidState(state);
+        return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }
 
     @Override
-    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
-        ItemStack heldItem = player.getHeldItem(handIn);
-        BlockState upperBlock = worldIn.getBlockState(pos.up());
-        boolean canSit = hit.getFace() == Direction.UP && !state.get(OCCUPIED) && !state.get(POST) && heldItem.isEmpty() && upperBlock.isAir(worldIn, pos.up()) && isPlayerInRange(player, pos);
+    public ActionResultType use(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
+        ItemStack heldItem = player.getItemInHand(handIn);
+        BlockState upperBlock = worldIn.getBlockState(pos.above());
+        boolean canSit = hit.getDirection() == Direction.UP && !state.getValue(OCCUPIED) && !state.getValue(POST) && heldItem.isEmpty() && upperBlock.isAir(worldIn, pos.above()) && isPlayerInRange(player, pos);
         Item item = heldItem.getItem();
         boolean isSeatAttachableItem = item instanceof BlockItem && ((BlockItem) item).getBlock() instanceof LanternBlock;
-        boolean canAttachLantern = hit.getFace() == Direction.DOWN && isSeatAttachableItem && worldIn.getBlockState(pos.down()).isAir(worldIn, pos.down());
-        if (!worldIn.isRemote()) {
+        boolean canAttachLantern = hit.getDirection() == Direction.DOWN && isSeatAttachableItem && worldIn.getBlockState(pos.below()).isAir(worldIn, pos.below());
+        if (!worldIn.isClientSide()) {
             if (canSit) {
                 DummyEntityForSitting seat = new DummyEntityForSitting(worldIn, pos);
-                worldIn.addEntity(seat);
+                worldIn.addFreshEntity(seat);
                 player.startRiding(seat);
                 return ActionResultType.SUCCESS;
             } else if (canAttachLantern) {
-                BlockState newState = state.with(ATTACHED, Boolean.TRUE);
-                worldIn.setBlockState(pos, newState);
-                worldIn.notifyBlockUpdate(pos, state, newState, 3);
-                worldIn.setBlockState(pos.down(), (((BlockItem) item).getBlock()).getDefaultState().with(BlockStateProperties.HANGING, Boolean.TRUE), 16);
+                BlockState newState = state.setValue(ATTACHED, Boolean.TRUE);
+                worldIn.setBlockAndUpdate(pos, newState);
+                worldIn.sendBlockUpdated(pos, state, newState, 3);
+                worldIn.setBlock(pos.below(), (((BlockItem) item).getBlock()).defaultBlockState().setValue(BlockStateProperties.HANGING, Boolean.TRUE), 16);
                 if (!player.isCreative()) {
                     heldItem.shrink(1);
                 }
@@ -166,39 +166,39 @@ public class SeatBlock extends HorizontalBlock implements IWaterLoggable, IWoode
             }
         }
 
-        return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
+        return super.use(state, worldIn, pos, player, handIn, hit);
     }
 
 
     private static boolean isPlayerInRange(PlayerEntity player, BlockPos pos) {
-        BlockPos playerPos = player.getPosition();
+        BlockPos playerPos = player.blockPosition();
         int blockReachDistance = 2;
 
         if (blockReachDistance == 0) //player has to stand on top of the block
             return playerPos.getY() - pos.getY() <= 1 && playerPos.getX() - pos.getX() == 0 && playerPos.getZ() - pos.getZ() == 0;
 
-        pos = pos.add(0.5D, 0.5D, 0.5D);
+        pos = pos.offset(0.5D, 0.5D, 0.5D);
 
         AxisAlignedBB range = new AxisAlignedBB(pos.getX() + blockReachDistance, pos.getY() + blockReachDistance, pos.getZ() + blockReachDistance, pos.getX() - blockReachDistance, pos.getY() - blockReachDistance, pos.getZ() - blockReachDistance);
 
-        playerPos = playerPos.add(0.5D, 0.5D, 0.5D);
+        playerPos = playerPos.offset(0.5D, 0.5D, 0.5D);
         return range.minX <= playerPos.getX() && range.minY <= playerPos.getY() && range.minZ <= playerPos.getZ() && range.maxX >= playerPos.getX() && range.maxY >= playerPos.getY() && range.maxZ >= playerPos.getZ();
     }
 
     @Override
-    public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
+    public void onRemove(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
         double x = pos.getX();
         double y = pos.getY();
         double z = pos.getZ();
-        List<DummyEntityForSitting> entities = worldIn.getEntitiesWithinAABB(DummyEntityForSitting.class, new AxisAlignedBB(x, y, z, x, y, z));
+        List<DummyEntityForSitting> entities = worldIn.getEntitiesOfClass(DummyEntityForSitting.class, new AxisAlignedBB(x, y, z, x, y, z));
         for (DummyEntityForSitting entity : entities) {
             entity.remove();
         }
-        super.onReplaced(state, worldIn, pos, newState, isMoving);
+        super.onRemove(state, worldIn, pos, newState, isMoving);
     }
 
     @Override
-    public boolean allowsMovement(BlockState p_196266_1_, IBlockReader p_196266_2_, BlockPos p_196266_3_, PathType p_196266_4_) {
+    public boolean isPathfindable(BlockState p_196266_1_, IBlockReader p_196266_2_, BlockPos p_196266_3_, PathType p_196266_4_) {
         return false;
     }
 }

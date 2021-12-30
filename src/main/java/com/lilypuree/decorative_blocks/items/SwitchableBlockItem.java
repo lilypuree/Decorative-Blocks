@@ -14,6 +14,8 @@ import net.minecraftforge.common.util.Constants;
 
 import javax.annotation.Nullable;
 
+import net.minecraft.item.Item.Properties;
+
 public class SwitchableBlockItem<T extends Property<U>, U extends Comparable<U>> extends BlockItem {
     private T switching;
     private int max;
@@ -22,19 +24,19 @@ public class SwitchableBlockItem<T extends Property<U>, U extends Comparable<U>>
     public SwitchableBlockItem(Block blockIn, Properties builder, T switching, String tag) {
         super(blockIn, builder);
         this.switching = switching;
-        this.max = switching.getAllowedValues().size() - 1;
+        this.max = switching.getPossibleValues().size() - 1;
         this.tagName = tag;
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-        if (playerIn.isSneaking()) {
-            if (!worldIn.isRemote()) {
-                cycleValueTag(playerIn.getHeldItem(handIn));
+    public ActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn) {
+        if (playerIn.isShiftKeyDown()) {
+            if (!worldIn.isClientSide()) {
+                cycleValueTag(playerIn.getItemInHand(handIn));
             }
-            return ActionResult.resultSuccess(playerIn.getHeldItem(handIn));
+            return ActionResult.success(playerIn.getItemInHand(handIn));
         }
-        return super.onItemRightClick(worldIn, playerIn, handIn);
+        return super.use(worldIn, playerIn, handIn);
     }
 
 //    @Nullable
@@ -45,7 +47,7 @@ public class SwitchableBlockItem<T extends Property<U>, U extends Comparable<U>>
 //        if (state != null && state.hasProperty(switching)) {
 //            state = state.with(switching, state.getBlock().getDefaultState().get(switching));
 //            for (int i = 0; i < getValueTag(stack); i++) {
-//                state.func_235896_a_(switching);
+//                state.cycle(switching);
 //            }
 //        }
 //        return state;
@@ -53,9 +55,9 @@ public class SwitchableBlockItem<T extends Property<U>, U extends Comparable<U>>
 
     public BlockState getSwitchedState(BlockState state, ItemStack stack) {
         if (state != null && state.hasProperty(switching)) {
-            state = state.with(switching, state.getBlock().getDefaultState().get(switching));
+            state = state.setValue(switching, state.getBlock().defaultBlockState().getValue(switching));
             for (int i = 0; i < getValueTag(stack); i++) {
-                state = state.func_235896_a_(switching);
+                state = state.cycle(switching);
             }
         }
         return state;

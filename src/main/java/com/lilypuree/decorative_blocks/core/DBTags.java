@@ -23,7 +23,7 @@ public class DBTags {
         }
 
         private static ITag.INamedTag<Block> tag(String name) {
-            return BlockTags.makeWrapperTag(DecorativeBlocks.MODID + ":" + name);
+            return BlockTags.bind(DecorativeBlocks.MODID + ":" + name);
         }
     }
 
@@ -38,7 +38,7 @@ public class DBTags {
         }
 
         private static ITag.INamedTag<Item> tag(String name) {
-            return ItemTags.makeWrapperTag(DecorativeBlocks.MODID + ":" + name);
+            return ItemTags.bind(DecorativeBlocks.MODID + ":" + name);
         }
     }
 }

@@ -17,24 +17,26 @@ import net.minecraft.world.World;
 
 import java.util.function.Supplier;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 public class ThatchFluidBlock extends FlowingFluidBlock {
     public ThatchFluidBlock(Supplier<? extends FlowingFluid> supplier, Properties properties) {
         super(supplier, properties);
     }
 
     @Override
-    public void onEntityCollision(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
+    public void entityInside(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
         if (entityIn instanceof PlayerEntity) {
             PlayerEntity player = (PlayerEntity) entityIn;
-            boolean isPlayerMoving = player.getMotion().length() > 0.1;
-            if (worldIn.rand.nextFloat() < 0.1F && isPlayerMoving) {
-                worldIn.playSound(player, pos, SoundEvents.BLOCK_GRASS_HIT, SoundCategory.BLOCKS, 0.8f, 1.5f);
+            boolean isPlayerMoving = player.getDeltaMovement().length() > 0.1;
+            if (worldIn.random.nextFloat() < 0.1F && isPlayerMoving) {
+                worldIn.playSound(player, pos, SoundEvents.GRASS_HIT, SoundCategory.BLOCKS, 0.8f, 1.5f);
             }
         }
     }
 
     @Override
-    public Fluid pickupFluid(IWorld worldIn, BlockPos pos, BlockState state) {
+    public Fluid takeLiquid(IWorld worldIn, BlockPos pos, BlockState state) {
         return Fluids.EMPTY;
     }
 }

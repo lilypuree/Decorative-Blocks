@@ -24,22 +24,22 @@ import javax.annotation.Nullable;
 public class ChainBlock extends RotatedPillarBlock implements IWaterLoggable {
     private static final double d0 = 4D;
     private static final double d1 = 12D;
-    protected static final VoxelShape CHAIN_SHAPE_X = Block.makeCuboidShape(0, d0, d0, 16, d1, d1);
-    protected static final VoxelShape CHAIN_SHAPE_Y = Block.makeCuboidShape(d0, 0, d0, d1, 16, d1);
-    protected static final VoxelShape CHAIN_SHAPE_Z = Block.makeCuboidShape(d0, d0, 0, d1, d1, 16);
+    protected static final VoxelShape CHAIN_SHAPE_X = Block.box(0, d0, d0, 16, d1, d1);
+    protected static final VoxelShape CHAIN_SHAPE_Y = Block.box(d0, 0, d0, d1, 16, d1);
+    protected static final VoxelShape CHAIN_SHAPE_Z = Block.box(d0, d0, 0, d1, d1, 16);
 
-    private static final VoxelShape CHAIN_COLLISION_SHAPE = Block.makeCuboidShape(6D, 0D, 6D, 10D, 16, 10D);
+    private static final VoxelShape CHAIN_COLLISION_SHAPE = Block.box(6D, 0D, 6D, 10D, 16, 10D);
 
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
     public ChainBlock(Block.Properties properties) {
         super(properties);
-        this.setDefaultState(this.stateContainer.getBaseState().with(WATERLOGGED, Boolean.FALSE));
+        this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, Boolean.FALSE));
     }
 
     @Override
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        Direction.Axis axis = state.get(AXIS);
+        Direction.Axis axis = state.getValue(AXIS);
         switch (axis) {
             case X:
                 return CHAIN_SHAPE_X;
@@ -53,7 +53,7 @@ public class ChainBlock extends RotatedPillarBlock implements IWaterLoggable {
 
     @Override
     public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        if (state.get(AXIS) == Direction.Axis.Y) {
+        if (state.getValue(AXIS) == Direction.Axis.Y) {
             return CHAIN_COLLISION_SHAPE;
         }
         return super.getCollisionShape(state, worldIn, pos, context);
@@ -61,21 +61,21 @@ public class ChainBlock extends RotatedPillarBlock implements IWaterLoggable {
 
     @Nullable
     public BlockState getStateForPlacement(BlockItemUseContext context) {
-        FluidState ifluidstate = context.getWorld().getFluidState(context.getPos());
-        boolean flag = ifluidstate.isTagged(FluidTags.WATER) && ifluidstate.getLevel() == 8;
-        return super.getStateForPlacement(context).with(WATERLOGGED, flag);
+        FluidState ifluidstate = context.getLevel().getFluidState(context.getClickedPos());
+        boolean flag = ifluidstate.is(FluidTags.WATER) && ifluidstate.getAmount() == 8;
+        return super.getStateForPlacement(context).setValue(WATERLOGGED, flag);
     }
 
     public boolean propagatesSkylightDown(BlockState state, IBlockReader reader, BlockPos pos) {
-        return !state.get(WATERLOGGED);
+        return !state.getValue(WATERLOGGED);
     }
 
     public FluidState getFluidState(BlockState state) {
-        return state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : super.getFluidState(state);
+        return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }
 
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-        super.fillStateContainer(builder);
+    protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
+        super.createBlockStateDefinition(builder);
         builder.add(WATERLOGGED);
     }
 

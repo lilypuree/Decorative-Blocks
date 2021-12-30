@@ -14,13 +14,13 @@ public enum VanillaWoodTypes implements IWoodType {
     }, SPRUCE("spruce") {
         @Override
         public MaterialColor getMaterialColor() {
-            return MaterialColor.OBSIDIAN;
+            return MaterialColor.PODZOL;
         }
     },
     ACACIA("acacia") {
         @Override
         public MaterialColor getMaterialColor() {
-            return MaterialColor.ADOBE;
+            return MaterialColor.COLOR_ORANGE;
         }
     }, JUNGLE("jungle") {
         @Override
@@ -31,7 +31,7 @@ public enum VanillaWoodTypes implements IWoodType {
     DARK_OAK("dark_oak") {
         @Override
         public MaterialColor getMaterialColor() {
-            return MaterialColor.BROWN;
+            return MaterialColor.COLOR_BROWN;
         }
     },
     CRIMSON("crimson") {
@@ -47,7 +47,7 @@ public enum VanillaWoodTypes implements IWoodType {
 
         @Override
         public MaterialColor getMaterialColor() {
-            return MaterialColor.NETHERRACK;
+            return MaterialColor.NETHER;
         }
     }, WARPED("warped") {
         @Override
@@ -62,7 +62,7 @@ public enum VanillaWoodTypes implements IWoodType {
 
         @Override
         public MaterialColor getMaterialColor() {
-            return MaterialColor.CYAN;
+            return MaterialColor.COLOR_CYAN;
         }
     };
 

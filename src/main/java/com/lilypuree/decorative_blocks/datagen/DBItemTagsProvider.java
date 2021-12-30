@@ -20,7 +20,7 @@ public class DBItemTagsProvider extends ItemTagsProvider {
     }
 
     @Override
-    protected void registerTags() {
+    protected void addTags() {
         copy(DBTags.Blocks.BEAMS, DBTags.Items.BEAMS);
         copy(DBTags.Blocks.PALISADES, DBTags.Items.PALISADES);
         copy(DBTags.Blocks.SEATS, DBTags.Items.SEATS);

@@ -18,20 +18,20 @@ public class DBBlockTagsProvider extends BlockTagsProvider {
     }
 
     @Override
-    protected void registerTags() {
+    protected void addTags() {
         for (IWoodType woodType : ModWoodTypes.allWoodTypes()) {
-            getOrCreateBuilder(DBTags.Blocks.BEAMS).add(Registration.getBeamBlock(woodType));
-            getOrCreateBuilder(DBTags.Blocks.PALISADES).add(Registration.getPalisadeBlock(woodType));
-            getOrCreateBuilder(DBTags.Blocks.SEATS).add(Registration.getSeatBlock(woodType));
-            getOrCreateBuilder(DBTags.Blocks.SUPPORTS).add(Registration.getSupportBlock(woodType));
-            getOrCreateBuilder(BlockTags.WALLS).add(Registration.getPalisadeBlock(woodType));
+            tag(DBTags.Blocks.BEAMS).add(Registration.getBeamBlock(woodType));
+            tag(DBTags.Blocks.PALISADES).add(Registration.getPalisadeBlock(woodType));
+            tag(DBTags.Blocks.SEATS).add(Registration.getSeatBlock(woodType));
+            tag(DBTags.Blocks.SUPPORTS).add(Registration.getSupportBlock(woodType));
+            tag(BlockTags.WALLS).add(Registration.getPalisadeBlock(woodType));
             if (!woodType.isFlammable()) {
-                getOrCreateBuilder(BlockTags.NON_FLAMMABLE_WOOD).add(Registration.getBeamBlock(woodType),
+                tag(BlockTags.NON_FLAMMABLE_WOOD).add(Registration.getBeamBlock(woodType),
                         Registration.getPalisadeBlock(woodType),
                         Registration.getSeatBlock(woodType),
                         Registration.getSupportBlock(woodType));
             }
         }
-        getOrCreateBuilder(DBTags.Blocks.CHANDELIERS).add(Registration.CHANDELIER.get(), Registration.SOUL_CHANDELIER.get());
+        tag(DBTags.Blocks.CHANDELIERS).add(Registration.CHANDELIER.get(), Registration.SOUL_CHANDELIER.get());
     }
 }

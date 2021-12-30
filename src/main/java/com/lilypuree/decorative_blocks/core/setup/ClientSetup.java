@@ -25,22 +25,22 @@ public class ClientSetup {
         RenderingRegistry.registerEntityRenderingHandler(Registration.DUMMY_ENTITY_TYPE.get(), EmptyRenderer::new);
 
 
-        RenderTypeLookup.setRenderLayer(Registration.BAR_PANEL.get(), RenderType.getCutoutMipped());
-        RenderTypeLookup.setRenderLayer(Registration.BONFIRE.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(Registration.SOUL_BONFIRE.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(Registration.LATTICE.get(), RenderType.getCutoutMipped());
-        RenderTypeLookup.setRenderLayer(Registration.BRAZIER.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(Registration.SOUL_BRAZIER.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(Registration.CHAIN.get(), RenderType.getCutoutMipped());
-        RenderTypeLookup.setRenderLayer(Registration.CHANDELIER.get(), RenderType.getCutoutMipped());
-        RenderTypeLookup.setRenderLayer(Registration.SOUL_CHANDELIER.get(), RenderType.getCutoutMipped());
-        RenderTypeLookup.setRenderLayer(Registration.THATCH.get(), RenderType.getSolid());
+        RenderTypeLookup.setRenderLayer(Registration.BAR_PANEL.get(), RenderType.cutoutMipped());
+        RenderTypeLookup.setRenderLayer(Registration.BONFIRE.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(Registration.SOUL_BONFIRE.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(Registration.LATTICE.get(), RenderType.cutoutMipped());
+        RenderTypeLookup.setRenderLayer(Registration.BRAZIER.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(Registration.SOUL_BRAZIER.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(Registration.CHAIN.get(), RenderType.cutoutMipped());
+        RenderTypeLookup.setRenderLayer(Registration.CHANDELIER.get(), RenderType.cutoutMipped());
+        RenderTypeLookup.setRenderLayer(Registration.SOUL_CHANDELIER.get(), RenderType.cutoutMipped());
+        RenderTypeLookup.setRenderLayer(Registration.THATCH.get(), RenderType.solid());
 
         for (IWoodType woodType : ModWoodTypes.allWoodTypes()) {
-            ItemModelsProperties.registerProperty(Registration.getSupportBlock(woodType).asItem(), SupportItem.OVERRIDE_TAG, (stack, world, livingEntity) -> {
+            ItemModelsProperties.register(Registration.getSupportBlock(woodType).asItem(), SupportItem.OVERRIDE_TAG, (stack, world, livingEntity) -> {
                 return stack.hasTag() ? stack.getTag().getInt(SupportItem.OVERRIDE_TAG.getPath()) : 0.0f;
             });
-            ItemModelsProperties.registerProperty(Registration.getSeatBlock(woodType).asItem(), SeatItem.OVERRIDE_TAG, (stack, world, livingEntity) -> {
+            ItemModelsProperties.register(Registration.getSeatBlock(woodType).asItem(), SeatItem.OVERRIDE_TAG, (stack, world, livingEntity) -> {
                 return stack.hasTag() ? stack.getTag().getInt(SeatItem.OVERRIDE_TAG.getPath()) : 0.0f;
             });
         }
@@ -58,7 +58,7 @@ public class ClientSetup {
         }
 
         @Override
-        public ResourceLocation getEntityTexture(DummyEntityForSitting entity) {
+        public ResourceLocation getTextureLocation(DummyEntityForSitting entity) {
             return null;
         }
     }

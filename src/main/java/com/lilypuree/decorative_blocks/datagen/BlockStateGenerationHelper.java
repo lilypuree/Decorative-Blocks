@@ -32,21 +32,21 @@ public class BlockStateGenerationHelper {
         String texture = woodType + "_support";
 
         MultiPartBlockStateBuilder builder = getMultipartBuilder((Block) block);
-        BlockStateProperties.UP.func_241491_c_().forEach(up -> {
-            String upsideDown = up.func_241493_b_() ? "" : "upside_down_";
-            ModBlockProperties.HORIZONTAL_SHAPE.func_241491_c_().forEach(shape -> {
-                if (!shape.func_241493_b_().isHidden()){
-                    addFourDirections(builder, sideEndModel(woodType, SUPPORT, upsideDown, "_horizontal_" + shape.func_241493_b_().getString(), texture), up, shape);
+        BlockStateProperties.UP.getAllValues().forEach(up -> {
+            String upsideDown = up.value() ? "" : "upside_down_";
+            ModBlockProperties.HORIZONTAL_SHAPE.getAllValues().forEach(shape -> {
+                if (!shape.value().isHidden()){
+                    addFourDirections(builder, sideEndModel(woodType, SUPPORT, upsideDown, "_horizontal_" + shape.value().getSerializedName(), texture), up, shape);
                 }
             });
-            ModBlockProperties.VERTICAL_SHAPE.func_241491_c_().forEach(shape -> {
-                if (!shape.func_241493_b_().isHidden()){
-                    addFourDirections(builder, sideEndModel(woodType, SUPPORT, upsideDown, "_vertical_" + shape.func_241493_b_().getString(), texture), up, shape);
+            ModBlockProperties.VERTICAL_SHAPE.getAllValues().forEach(shape -> {
+                if (!shape.value().isHidden()){
+                    addFourDirections(builder, sideEndModel(woodType, SUPPORT, upsideDown, "_vertical_" + shape.value().getSerializedName(), texture), up, shape);
                 }
             });
             addFourDirections(builder, sideEndModel(woodType, SUPPORT, upsideDown, "_post", texture),
-                    ModBlockProperties.HORIZONTAL_SHAPE.func_241490_b_(SupportFaceShape.BIG), ModBlockProperties.HORIZONTAL_SHAPE.func_241490_b_(SupportFaceShape.SMALL),
-                    ModBlockProperties.VERTICAL_SHAPE.func_241490_b_(SupportFaceShape.BIG), ModBlockProperties.VERTICAL_SHAPE.func_241490_b_(SupportFaceShape.SMALL),
+                    ModBlockProperties.HORIZONTAL_SHAPE.value(SupportFaceShape.BIG), ModBlockProperties.HORIZONTAL_SHAPE.value(SupportFaceShape.SMALL),
+                    ModBlockProperties.VERTICAL_SHAPE.value(SupportFaceShape.BIG), ModBlockProperties.VERTICAL_SHAPE.value(SupportFaceShape.SMALL),
                     up);
         });
         sideEndModel(woodType, SUPPORT, "_inventory", texture);
@@ -78,11 +78,11 @@ public class BlockStateGenerationHelper {
         for (Property.ValuePair condition : conditions) {
             List<Comparable<?>> sameConditions = new ArrayList<>();
             for (Property.ValuePair valuePair : conditions) {
-                if (condition.func_240181_a_() == valuePair.func_240181_a_()) {
-                    sameConditions.add(valuePair.func_241493_b_());
+                if (condition.getProperty() == valuePair.getProperty()) {
+                    sameConditions.add(valuePair.value());
                 }
             }
-            allConditions.put(condition.func_240181_a_(), sameConditions);
+            allConditions.put(condition.getProperty(), sameConditions);
         }
         for (Map.Entry<Property, List<Comparable<?>>> entry : allConditions.entrySet()) {
             builder.conditions.putAll(entry.getKey(), entry.getValue());
@@ -121,7 +121,7 @@ public class BlockStateGenerationHelper {
     }
 
     public ModelFile beamModel(IWoodType wood, Direction.Axis axis) {
-        ModelBuilder<?> builder = createModel(wood, BEAM, "_" + axis.getName2());
+        ModelBuilder<?> builder = createModel(wood, BEAM, "_" + axis.getName());
         return withSideEndTextures(builder, wood + "_beam");
     }
 
