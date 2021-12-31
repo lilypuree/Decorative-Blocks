@@ -1,0 +1,166 @@
+package lilypuree.decorative_blocks.core.setup;
+
+import lilypuree.decorative_blocks.CommonConfig;
+import lilypuree.decorative_blocks.blocks.*;
+import lilypuree.decorative_blocks.core.DBBlocks;
+import lilypuree.decorative_blocks.core.DBItems;
+import lilypuree.decorative_blocks.core.Registration;
+import lilypuree.decorative_blocks.entity.ItemEntityBonfireActivator;
+import lilypuree.decorative_blocks.fluid.ThatchFluid;
+import lilypuree.decorative_blocks.fluid.ThatchFluidBlock;
+import lilypuree.decorative_blocks.items.BlockstateCopyItem;
+import lilypuree.decorative_blocks.mixin.FireBlockInvoker;
+import lilypuree.decorative_blocks.mixin.ItemInvoker;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.Registry;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.ClipContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.LiquidBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
+
+public class ModSetup {
+
+    public static void init() {
+        ThatchFluid.addThatchlikeFluid(Registration.referenceHolder);
+        Registry.BLOCK.forEach(block -> {
+            if (block instanceof PalisadeBlock) {
+                BlockstateCopyItem.addProperties(block, PalisadeBlock.NORTH, PalisadeBlock.EAST, PalisadeBlock.SOUTH, PalisadeBlock.WEST);
+            } else if (block instanceof SeatBlock) {
+                BlockstateCopyItem.addProperties(block, SeatBlock.FACING, SeatBlock.POST, SeatBlock.ATTACHED);
+            } else if (block instanceof SupportBlock) {
+                BlockstateCopyItem.addProperties(block, SupportBlock.HORIZONTAL_SHAPE, SupportBlock.VERTICAL_SHAPE, SupportBlock.FACING, SupportBlock.UP);
+            }
+        });
+        FireBlockInvoker invoker = (FireBlockInvoker) Blocks.FIRE;
+        Registry.BLOCK.forEach(block -> {
+            if (block instanceof IWoodenBlock woodenBlock) {
+                if (woodenBlock.getWoodType().isFlammable()) {
+                    invoker.invokeSetFlammable(block, 5, 20);
+                }
+            }
+        });
+        invoker.invokeSetFlammable(DBBlocks.LATTICE, 5, 20);
+        invoker.invokeSetFlammable(Registration.THATCH, 60, 80);
+
+    }
+
+
+    //return true if cancel left click
+    public static boolean onLeftClick(Level world, BlockPos pos) {
+        Block block = world.getBlockState(pos).getBlock();
+        if (block instanceof BonfireBlock) {
+            world.levelEvent(null, 1009, pos, 0);
+            world.removeBlock(pos, false);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * @return 0: no action
+     * -2 : cancel right click
+     * -1 : deny block use
+     * 1 : allow block use
+     */
+    public static int onRightClick(Level world, Player player, InteractionHand hand, ItemStack itemStack, BlockPos pos) {
+        if (!world.hasChunkAt(pos)) {
+            return 0;
+        }
+        Block block = world.getBlockState(pos).getBlock();
+        Item item = itemStack.getItem();
+        if (item == Items.SHEARS && ThatchFluid.shearMap.containsKey(block)) {
+            if (world.isClientSide) {
+                player.swing(hand);
+            } else if (CommonConfig.THATCH_ENABLED) {
+                world.setBlockAndUpdate(pos, ThatchFluid.shearMap.get(block).getFluidBlock().defaultBlockState());
+                world.playSound(null, pos, SoundEvents.CROP_BREAK, SoundSource.BLOCKS, 0.8f, 1.0f);
+                itemStack.hurtAndBreak(1, player, (entity) -> {
+                    entity.broadcastBreakEvent(EquipmentSlot.MAINHAND);
+                });
+            }
+        }
+
+        if (item instanceof HoeItem) {
+            HitResult rayTraceResult = ItemInvoker.getPlayerPOVHitResult(world, player, ClipContext.Fluid.SOURCE_ONLY);
+            if (rayTraceResult.getType() != HitResult.Type.BLOCK) {
+                return 0;
+            }
+
+            BlockHitResult blockraytraceresult = (BlockHitResult) rayTraceResult;
+            BlockPos hit = blockraytraceresult.getBlockPos();
+            Direction direction = blockraytraceresult.getDirection();
+            BlockPos blockpos1 = hit.relative(direction);
+
+            if (world.mayInteract(player, hit) && player.mayUseItemAt(blockpos1, direction, itemStack)) {
+                BlockState hitBlock = world.getBlockState(hit);
+                if (hitBlock.getBlock() instanceof ThatchFluidBlock) {
+                    if (hitBlock.getValue(LiquidBlock.LEVEL) == 0) {
+                        if (world.isClientSide()) {
+                            player.swing(hand);
+                        } else {
+                            world.playSound(null, hit, SoundEvents.CROP_BREAK, SoundSource.BLOCKS, 0.8f, 1.0f);
+                            world.setBlock(hit, Blocks.AIR.defaultBlockState(), 11);
+                        }
+                    }
+                    return -2;
+                }
+            }
+        }
+        if (block instanceof SupportBlock && item instanceof AxeItem) {
+            return 1;
+        }
+        if (item == DBItems.BLOCKSTATE_COPY_ITEM) {
+            return -1;
+        }
+        return 0;
+    }
+
+
+    public static boolean playerToss(Player player, ItemEntity thrown) {
+        if (bonfireActivatorItem == null) {
+            if (!isBonfireActivatorConfigValueValid()) {
+                if (!didSendMessage) {
+                    player.sendMessage(new TranslatableComponent("message.decorative_blocks.invalid_bonfire_activator_config"), player.getUUID());
+                    didSendMessage = true;
+                }
+                return false;
+            }
+        }
+
+        if (thrown.getItem().getItem() == bonfireActivatorItem) {
+            ItemEntity bonfireActivator = new ItemEntityBonfireActivator(thrown);
+            player.getCommandSenderWorld().addFreshEntity(bonfireActivator);
+            return true;
+        }
+        return false;
+    }
+
+    private static boolean didSendMessage = false;
+    private static Item bonfireActivatorItem = null;
+
+    public static boolean isBonfireActivatorConfigValueValid() {
+        ResourceLocation bonfireActivatorResourceLocation = ResourceLocation.tryParse(CommonConfig.BONFIRE_ACTIVATOR);
+        if (bonfireActivatorResourceLocation != null) {
+            if (Registry.ITEM.containsKey(bonfireActivatorResourceLocation)) {
+                bonfireActivatorItem = Registry.ITEM.get(bonfireActivatorResourceLocation);
+                return true;
+            }
+        }
+        return false;
+    }
+
+}

@@ -1,0 +1,21 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "lilypuree.decorative_blocks.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "decorative_blocks.refmap.json",
+  "mixins": [
+    "AbstractFurnaceTileEntityMixin",
+    "BlockTagsInvoker",
+    "FireBlockInvoker",
+    "ItemInvoker",
+    "ItemTagsInvoker"
+  ],
+  "client": [
+    "ItemBlockRenderTypesAccessor",
+    "ItemPropertiesForgeInvoker"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
