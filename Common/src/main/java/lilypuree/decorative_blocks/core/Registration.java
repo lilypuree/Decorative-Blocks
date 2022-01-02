@@ -32,7 +32,6 @@ public class Registration {
 
     public static EntityType<DummyEntityForSitting> DUMMY_ENTITY_TYPE;
 
-    public static final Material THATCH_MATERIAL = (new Material.Builder(MaterialColor.COLOR_YELLOW)).noCollider().nonSolid().replaceable().liquid().build();
     public static FlowingFluid FLOWING_THATCH;
     public static FlowingFluid STILL_THATCH;
     public static Block THATCH;
@@ -42,6 +41,4 @@ public class Registration {
         referenceHolder.setStillFluid(()->STILL_THATCH);
         referenceHolder.setFluidBlock(()->THATCH);
     }
-
-
 }

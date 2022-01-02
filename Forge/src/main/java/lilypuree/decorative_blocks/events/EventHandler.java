@@ -4,16 +4,13 @@ import lilypuree.decorative_blocks.Constants;
 import lilypuree.decorative_blocks.blocks.BrazierBlock;
 import lilypuree.decorative_blocks.core.Registration;
 import lilypuree.decorative_blocks.core.setup.ModSetup;
-import lilypuree.decorative_blocks.entity.DummyEntityForSitting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
-import net.minecraft.world.entity.projectile.ThrowableProjectile;
 import net.minecraft.world.entity.projectile.ThrownPotion;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.alchemy.Potions;
@@ -42,19 +39,8 @@ public class EventHandler {
     }
 
     @SubscribeEvent
-    public static void onEntityMountEvent(EntityMountEvent event) {
-        if (!event.getWorldObj().isClientSide && event.isDismounting()) {
-            Entity seat = event.getEntityBeingMounted();
-            if (seat instanceof DummyEntityForSitting) {
-                seat.remove(Entity.RemovalReason.DISCARDED);
-            }
-        }
-    }
-
-    @SubscribeEvent
     public static void onPlayerToss(ItemTossEvent event) {
-        if (ModSetup.playerToss(event.getPlayer(), event.getEntityItem()))
-            event.setCanceled(true);
+        ModSetup.sendMessageOnThrow(event.getPlayer(), event.getEntityItem());
     }
 
     @SubscribeEvent

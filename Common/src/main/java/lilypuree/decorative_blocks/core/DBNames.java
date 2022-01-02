@@ -1,10 +1,11 @@
 package lilypuree.decorative_blocks.core;
 
 import lilypuree.decorative_blocks.Constants;
+import lilypuree.decorative_blocks.datagen.types.IWoodType;
+import lilypuree.decorative_blocks.datagen.types.WoodDecorativeBlockTypes;
 import net.minecraft.resources.ResourceLocation;
 
 public class DBNames {
-
     public static ResourceLocation BONFIRE = create("bonfire");
     public static ResourceLocation SOUL_BONFIRE = create("soul_bonfire");
     public static ResourceLocation CHANDELIER = create("chandelier");
@@ -27,5 +28,8 @@ public class DBNames {
 
     protected static ResourceLocation create(String name){
         return new ResourceLocation(Constants.MODID, name);
+    }
+    public static ResourceLocation create(IWoodType wood, WoodDecorativeBlockTypes type){
+        return new ResourceLocation(Constants.MODID, wood + "_" + type);
     }
 }

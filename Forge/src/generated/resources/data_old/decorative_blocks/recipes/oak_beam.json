@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " x ",
+    " x "
+  ],
+  "key": {
+    "x": {
+      "item": "minecraft:stripped_oak_log"
+    }
+  },
+  "result": {
+    "item": "decorative_blocks:oak_beam",
+    "count": 2
+  }
+}

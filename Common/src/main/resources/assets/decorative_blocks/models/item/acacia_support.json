@@ -1,0 +1,11 @@
+{
+  "parent": "decorative_blocks:block/acacia_support_inventory",
+  "overrides": [
+    {
+      "predicate": {
+        "decorative_blocks:up": 1.0
+      },
+      "model": "decorative_blocks:block/acacia_upside_down_support_inventory"
+    }
+  ]
+}

@@ -1,12 +1,11 @@
 package lilypuree.decorative_blocks.core.setup;
 
+import lilypuree.decorative_blocks.CommonAPI;
 import lilypuree.decorative_blocks.CommonConfig;
 import lilypuree.decorative_blocks.blocks.*;
 import lilypuree.decorative_blocks.core.DBBlocks;
 import lilypuree.decorative_blocks.core.DBItems;
 import lilypuree.decorative_blocks.core.Registration;
-import lilypuree.decorative_blocks.entity.ItemEntityBonfireActivator;
-import lilypuree.decorative_blocks.fluid.ThatchFluid;
 import lilypuree.decorative_blocks.fluid.ThatchFluidBlock;
 import lilypuree.decorative_blocks.items.BlockstateCopyItem;
 import lilypuree.decorative_blocks.mixin.FireBlockInvoker;
@@ -35,7 +34,10 @@ import net.minecraft.world.phys.HitResult;
 public class ModSetup {
 
     public static void init() {
-        ThatchFluid.addThatchlikeFluid(Registration.referenceHolder);
+        CommonAPI.addThatchlikeFluid(Registration.referenceHolder);
+        CommonAPI.bonfireMap.put(Blocks.FIRE, DBBlocks.BONFIRE);
+        CommonAPI.bonfireMap.put(Blocks.SOUL_FIRE, DBBlocks.SOUL_BONFIRE);
+
         Registry.BLOCK.forEach(block -> {
             if (block instanceof PalisadeBlock) {
                 BlockstateCopyItem.addProperties(block, PalisadeBlock.NORTH, PalisadeBlock.EAST, PalisadeBlock.SOUTH, PalisadeBlock.WEST);
@@ -45,7 +47,8 @@ public class ModSetup {
                 BlockstateCopyItem.addProperties(block, SupportBlock.HORIZONTAL_SHAPE, SupportBlock.VERTICAL_SHAPE, SupportBlock.FACING, SupportBlock.UP);
             }
         });
-        FireBlockInvoker invoker = (FireBlockInvoker) Blocks.FIRE;
+
+        FireBlockInvoker invoker = ((FireBlockInvoker)((Object) Blocks.FIRE));
         Registry.BLOCK.forEach(block -> {
             if (block instanceof IWoodenBlock woodenBlock) {
                 if (woodenBlock.getWoodType().isFlammable()) {
@@ -55,7 +58,6 @@ public class ModSetup {
         });
         invoker.invokeSetFlammable(DBBlocks.LATTICE, 5, 20);
         invoker.invokeSetFlammable(Registration.THATCH, 60, 80);
-
     }
 
 
@@ -82,12 +84,12 @@ public class ModSetup {
         }
         Block block = world.getBlockState(pos).getBlock();
         Item item = itemStack.getItem();
-        if (item == Items.SHEARS && ThatchFluid.shearMap.containsKey(block)) {
+        if (item == Items.SHEARS && CommonAPI.shearMap.containsKey(block)) {
             if (world.isClientSide) {
                 player.swing(hand);
             } else if (CommonConfig.THATCH_ENABLED) {
-                world.setBlockAndUpdate(pos, ThatchFluid.shearMap.get(block).getFluidBlock().defaultBlockState());
-                world.playSound(null, pos, SoundEvents.CROP_BREAK, SoundSource.BLOCKS, 0.8f, 1.0f);
+                world.setBlockAndUpdate(pos, CommonAPI.shearMap.get(block).getFluidBlock().defaultBlockState());
+                world.playSound(null, pos, SoundEvents.CROP_BREAK, SoundSource.BLOCKS, 1.2f, 1.0f);
                 itemStack.hurtAndBreak(1, player, (entity) -> {
                     entity.broadcastBreakEvent(EquipmentSlot.MAINHAND);
                 });
@@ -112,17 +114,17 @@ public class ModSetup {
                         if (world.isClientSide()) {
                             player.swing(hand);
                         } else {
-                            world.playSound(null, hit, SoundEvents.CROP_BREAK, SoundSource.BLOCKS, 0.8f, 1.0f);
+                            world.playSound(null, hit, SoundEvents.CROP_BREAK, SoundSource.BLOCKS, 1.2f, 1.0f);
                             world.setBlock(hit, Blocks.AIR.defaultBlockState(), 11);
                         }
                     }
-                    return -2;
+                    return 1;
                 }
             }
         }
-        if (block instanceof SupportBlock && item instanceof AxeItem) {
-            return 1;
-        }
+//        if (block instanceof SupportBlock && item instanceof AxeItem) {
+//            return 1;
+//        }
         if (item == DBItems.BLOCKSTATE_COPY_ITEM) {
             return -1;
         }
@@ -130,29 +132,28 @@ public class ModSetup {
     }
 
 
-    public static boolean playerToss(Player player, ItemEntity thrown) {
+    public static boolean isBonfireActivator(ItemStack item) {
         if (bonfireActivatorItem == null) {
-            if (!isBonfireActivatorConfigValueValid()) {
-                if (!didSendMessage) {
-                    player.sendMessage(new TranslatableComponent("message.decorative_blocks.invalid_bonfire_activator_config"), player.getUUID());
-                    didSendMessage = true;
-                }
+            checkBonfireActivatorConfig();
+            return isBonfireActivator(item);
+        }
+        return bonfireActivatorItem != Items.AIR
+                && bonfireActivatorItem == item.getItem();
+    }
+
+    public static boolean sendMessageOnThrow(Player player, ItemEntity thrown) {
+        if (bonfireActivatorItem == null) {
+            if (!checkBonfireActivatorConfig()) {
+                player.sendMessage(new TranslatableComponent("message.decorative_blocks.invalid_bonfire_activator_config"), player.getUUID());
                 return false;
             }
         }
-
-        if (thrown.getItem().getItem() == bonfireActivatorItem) {
-            ItemEntity bonfireActivator = new ItemEntityBonfireActivator(thrown);
-            player.getCommandSenderWorld().addFreshEntity(bonfireActivator);
-            return true;
-        }
-        return false;
+        return isBonfireActivator(thrown.getItem());
     }
 
-    private static boolean didSendMessage = false;
     private static Item bonfireActivatorItem = null;
 
-    public static boolean isBonfireActivatorConfigValueValid() {
+    public static boolean checkBonfireActivatorConfig() {
         ResourceLocation bonfireActivatorResourceLocation = ResourceLocation.tryParse(CommonConfig.BONFIRE_ACTIVATOR);
         if (bonfireActivatorResourceLocation != null) {
             if (Registry.ITEM.containsKey(bonfireActivatorResourceLocation)) {
@@ -160,6 +161,7 @@ public class ModSetup {
                 return true;
             }
         }
+        bonfireActivatorItem = Items.AIR;
         return false;
     }
 

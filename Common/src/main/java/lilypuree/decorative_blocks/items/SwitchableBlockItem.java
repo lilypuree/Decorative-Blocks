@@ -34,19 +34,6 @@ public class SwitchableBlockItem<T extends Property<U>, U extends Comparable<U>>
         return super.use(worldIn, playerIn, handIn);
     }
 
-//    @Nullable
-//    @Override
-//    protected BlockState getStateForPlacement(BlockItemUseContext context) {
-//        BlockState state = super.getStateForPlacement(context);
-//        ItemStack stack = context.getItem();
-//        if (state != null && state.hasProperty(switching)) {
-//            state = state.with(switching, state.getBlock().getDefaultState().get(switching));
-//            for (int i = 0; i < getValueTag(stack); i++) {
-//                state.cycle(switching);
-//            }
-//        }
-//        return state;
-//    }
 
     public BlockState getSwitchedState(BlockState state, ItemStack stack) {
         if (state != null && state.hasProperty(switching)) {

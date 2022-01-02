@@ -18,6 +18,13 @@
     "entrypoints": {
       "main": [
         "lilypuree.decorative_blocks.DecorativeBlocks"
+      ],
+      "client": [
+        "lilypuree.decorative_blocks.ClientInitializer"
+      ],
+      "rei" : [
+        "lilypuree.decorative_blocks.compat.DBServerPlugin",
+        "lilypuree.decorative_blocks.compat.DBClientPlugin"
       ]
     },
     "mixins": [

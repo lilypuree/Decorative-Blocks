@@ -2,6 +2,7 @@ package lilypuree.decorative_blocks.core;
 
 import com.google.common.collect.ImmutableMap;
 import lilypuree.decorative_blocks.Constants;
+import lilypuree.decorative_blocks.core.factory.ItemSuppliers;
 import lilypuree.decorative_blocks.core.setup.ModSetup;
 import lilypuree.decorative_blocks.datagen.types.IWoodType;
 import lilypuree.decorative_blocks.datagen.types.VanillaWoodTypes;
@@ -16,22 +17,19 @@ import net.minecraft.world.level.block.Block;
 import java.util.HashMap;
 import java.util.Map;
 
+import static lilypuree.decorative_blocks.core.factory.ItemSuppliers.modItemProperties;
+
 public class DBItems {
-    public static final Item.Properties modItemProperties = new Item.Properties().tab(Constants.ITEM_GROUP);
-    public static final Item.Properties dummyProperty = new Item.Properties();
-    public static Item CHANDELIER = new BlockItem(DBBlocks.CHANDELIER, modItemProperties);
-    public static Item SOUL_CHANDELIER = new BlockItem(DBBlocks.SOUL_CHANDELIER, modItemProperties);
-    public static Item BRAZIER = new BlockItem(DBBlocks.BRAZIER, modItemProperties);
-    public static Item SOUL_BRAZIER = new BlockItem(DBBlocks.SOUL_BRAZIER, modItemProperties);
-
-    public static Item BAR_PANEL = new BlockItem(DBBlocks.BAR_PANEL, modItemProperties);
-    public static Item LATTICE = new BlockItem(DBBlocks.LATTICE, modItemProperties);
-    public static Item CHAIN= new BlockItem(DBBlocks.CHAIN, modItemProperties);
-    public static Item STONE_PILLAR = new BlockItem(DBBlocks.STONE_PILLAR, modItemProperties);
-    public static Item ROCKY_DIRT = new BlockItem(DBBlocks.ROCKY_DIRT, modItemProperties);
-    public static Item BLOCKSTATE_COPY_ITEM = new BlockstateCopyItem(new Item.Properties().stacksTo(1));
-
-//    public static ImmutableMap<String, Item> DECORATIVE_ITEMBLOCKS;
+    public static Item CHANDELIER;
+    public static Item SOUL_CHANDELIER;
+    public static Item BRAZIER;
+    public static Item SOUL_BRAZIER;
+    public static Item BAR_PANEL;
+    public static Item LATTICE;
+    public static Item CHAIN;
+    public static Item STONE_PILLAR;
+    public static Item ROCKY_DIRT;
+    public static Item BLOCKSTATE_COPY_ITEM;
 
     public static Map<IWoodType, Item> BEAM_ITEMBLOCKS = new HashMap<>();
     public static Map<IWoodType, Item> SEAT_ITEMBLOCKS = new HashMap<>();
@@ -39,7 +37,18 @@ public class DBItems {
     public static Map<IWoodType, Item> PALISADE_ITEMBLOCKS = new HashMap<>();
 
 
-    static {
+    public static void init() {
+        CHANDELIER = ItemSuppliers.CHANDELIER.get();
+        SOUL_CHANDELIER = ItemSuppliers.SOUL_CHANDELIER.get();
+        BRAZIER = ItemSuppliers.BRAZIER.get();
+        SOUL_BRAZIER = ItemSuppliers.SOUL_BRAZIER.get();
+        BAR_PANEL = ItemSuppliers.BAR_PANEL.get();
+        LATTICE = ItemSuppliers.LATTICE.get();
+        CHAIN = ItemSuppliers.CHAIN.get();
+        STONE_PILLAR = ItemSuppliers.STONE_PILLAR.get();
+        ROCKY_DIRT = ItemSuppliers.ROCKY_DIRT.get();
+        BLOCKSTATE_COPY_ITEM = ItemSuppliers.BLOCKSTATE_COPY_ITEM.get();
+
         for (IWoodType wood : VanillaWoodTypes.values()) {
             BEAM_ITEMBLOCKS.put(wood, new BlockItem(DBBlocks.BEAMS.get(wood), modItemProperties));
             SEAT_ITEMBLOCKS.put(wood, new SeatItem(DBBlocks.SEATS.get(wood), modItemProperties));

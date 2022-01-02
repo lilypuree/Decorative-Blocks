@@ -17,7 +17,6 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import javax.annotation.Nullable;
 
 public class ChainBlock extends RotatedPillarBlock implements SimpleWaterloggedBlock {
     private static final double d0 = 4D;
@@ -57,7 +56,7 @@ public class ChainBlock extends RotatedPillarBlock implements SimpleWaterloggedB
         return super.getCollisionShape(state, worldIn, pos, context);
     }
 
-    @Nullable
+    @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         FluidState ifluidstate = context.getLevel().getFluidState(context.getClickedPos());
         boolean flag = ifluidstate.is(FluidTags.WATER) && ifluidstate.getAmount() == 8;

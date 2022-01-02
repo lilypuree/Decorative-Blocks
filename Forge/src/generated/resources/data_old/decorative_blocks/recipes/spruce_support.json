@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "xx ",
+    "x  "
+  ],
+  "key": {
+    "x": {
+      "item": "minecraft:spruce_planks"
+    }
+  },
+  "result": {
+    "item": "decorative_blocks:spruce_support",
+    "count": 3
+  }
+}

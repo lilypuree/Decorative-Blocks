@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "decorative_blocks:warped_support"
+    ]
+  },
+  "criteria": {
+    "has_plank": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:warped_planks"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "decorative_blocks:warped_support"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_plank",
+      "has_the_recipe"
+    ]
+  ]
+}

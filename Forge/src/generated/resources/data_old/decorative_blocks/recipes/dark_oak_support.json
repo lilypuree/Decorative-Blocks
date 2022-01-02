@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "xx ",
+    "x  "
+  ],
+  "key": {
+    "x": {
+      "item": "minecraft:dark_oak_planks"
+    }
+  },
+  "result": {
+    "item": "decorative_blocks:dark_oak_support",
+    "count": 3
+  }
+}

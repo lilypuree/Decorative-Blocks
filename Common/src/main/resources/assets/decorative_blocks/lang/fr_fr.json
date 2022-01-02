@@ -1,5 +1,5 @@
 {
-  "itemGroup.decorative_blocks" : "Decorative Blocks",
+  "itemGroup.decorative_blocks.general" : "Decorative Blocks",
 
   "block.decorative_blocks.acacia_seat": "Siège en Acacia",
   "block.decorative_blocks.oak_support": "Soutien en chêne",
@@ -34,6 +34,7 @@
   "block.decorative_blocks.bonfire": "Feu de camp",
   "block.decorative_blocks.lattice": "Treillis",
   "fluid.decorative_blocks.thatch": "Chaume",
+  "block.decorative_blocks.thatch": "Chaume",
 
   "wiki.decorative_blocks.thatch" :  "Ouvrez une balle de foin avec des ciseaux.",
 

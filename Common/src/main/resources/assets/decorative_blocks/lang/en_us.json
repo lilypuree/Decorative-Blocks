@@ -1,5 +1,5 @@
 {
-  "itemGroup.decorative_blocks" : "Decorative Blocks",
+  "itemGroup.decorative_blocks.general" : "Decorative Blocks",
   "block.decorative_blocks.crimson_beam": "Crimson Beam",
   "block.decorative_blocks.crimson_palisade": "Crimson Palisade",
   "block.decorative_blocks.crimson_seat": "Crimson Seat",
@@ -44,6 +44,7 @@
   "block.decorative_blocks.soul_bonfire": "Soul Bonfire",
   "block.decorative_blocks.lattice": "Lattice",
   "fluid.decorative_blocks.thatch": "Thatch",
+  "block.decorative_blocks.thatch": "Thatch",
 
   "wiki.decorative_blocks.thatch" :  "Cut open a hay bale with shears.",
   "wiki.decorative_blocks.support.condition1" : "§7Sneak right-click in air:",

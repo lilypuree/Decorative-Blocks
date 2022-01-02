@@ -1,11 +1,10 @@
 package lilypuree.decorative_blocks.blocks;
 
-import lilypuree.decorative_blocks.CommonAPI;
 import lilypuree.decorative_blocks.core.Registration;
 import lilypuree.decorative_blocks.datagen.types.IWoodType;
 import lilypuree.decorative_blocks.entity.DummyEntityForSitting;
 import lilypuree.decorative_blocks.items.SwitchableBlockItem;
-import lilypuree.decorative_blocks.state.ModBlockProperties;
+import lilypuree.decorative_blocks.blocks.state.ModBlockProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.FluidTags;
@@ -192,7 +191,7 @@ public class SeatBlock extends HorizontalDirectionalBlock implements SimpleWater
         double x = pos.getX();
         double y = pos.getY();
         double z = pos.getZ();
-        List<DummyEntityForSitting> entities = worldIn.getEntitiesOfClass(DummyEntityForSitting.class, new AABB(x, y, z, x, y, z));
+        List<DummyEntityForSitting> entities = worldIn.getEntitiesOfClass(DummyEntityForSitting.class, new AABB(x, y, z, x+1, y+1, z+1));
         for (DummyEntityForSitting entity : entities) {
             entity.remove(Entity.RemovalReason.DISCARDED);
         }

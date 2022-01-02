@@ -31,10 +31,4 @@ public class ThatchFluidBlock extends LiquidBlock {
             }
         }
     }
-
-//
-//    @Override
-//    public Fluid takeLiquid(LevelAccessor worldIn, BlockPos pos, BlockState state) {
-//        return Fluids.EMPTY;
-//    }
 }

@@ -1,5 +1,6 @@
 package lilypuree.decorative_blocks.blocks;
 
+import lilypuree.decorative_blocks.core.DBTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -34,12 +35,11 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import javax.annotation.Nullable;
 import java.util.Random;
 
 public class BrazierBlock extends Block implements SimpleWaterloggedBlock {
     protected static final VoxelShape BRAZIER_SHAPE = Block.box(2D, 0.0D, 2D, 14D, 14D, 14D);
-    protected static final VoxelShape BRAZIER_COLLISION_SHAPE = Block.box(1.5D, 0.0D, 1.5D, 14.5D, 13.5D, 14.5D);
+    protected static final VoxelShape BRAZIER_COLLISION_SHAPE = Block.box(2.5D, 0.0D, 2.5D, 13.5D, 13.5D, 13.5D);
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     private final boolean isSoul;
@@ -61,7 +61,6 @@ public class BrazierBlock extends Block implements SimpleWaterloggedBlock {
     }
 
 
-    @Nullable
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         LevelAccessor iworld = context.getLevel();
@@ -172,6 +171,9 @@ public class BrazierBlock extends Block implements SimpleWaterloggedBlock {
         return false;
     }
 
+    public static boolean isLitBrazier(BlockState blockState) {
+        return blockState.hasProperty(LIT) && blockState.is(DBTags.Blocks.BRAZIERS) && blockState.getValue(LIT);
+    }
 //    @Nullable
 //    @Override
 //    public BlockPathTypes getAiPathNodeType(BlockState state, BlockGetter world, BlockPos pos, @Nullable Mob entity) {

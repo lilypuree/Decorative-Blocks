@@ -1,5 +1,5 @@
 {
-  "itemGroup.decorative_blocks" : "Decorative Blocks",
+  "itemGroup.decorative_blocks.general" : "Decorative Blocks",
   "block.decorative_blocks.crimson_beam": "진홍빛 들보",
   "block.decorative_blocks.crimson_palisade": "진홍빛 말뚝",
   "block.decorative_blocks.crimson_seat": "진홍빛 의자",
@@ -45,6 +45,7 @@
   "block.decorative_blocks.soul_bonfire": "영혼 캠프파이어",
   "block.decorative_blocks.lattice": "목재 격자",
   "fluid.decorative_blocks.thatch": "초가지붕",
+  "block.decorative_blocks.thatch": "초가지붕",
 
   "wiki.decorative_blocks.thatch" : "건초 더미를 묶는 끈을 가위로 자르세요. 순식간에 초가지붕을 만들어내는 초가지붕 유체가 흘러내립니다.",
 

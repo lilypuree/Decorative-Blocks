@@ -12,7 +12,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class SupportItem extends SwitchableBlockItem<BooleanProperty, Boolean> {
@@ -23,7 +22,7 @@ public class SupportItem extends SwitchableBlockItem<BooleanProperty, Boolean> {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
+    public void appendHoverText(ItemStack stack, Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
         if (Screen.hasShiftDown()) {
             tooltip.add(new TranslatableComponent("wiki.decorative_blocks.support.condition1"));
             tooltip.add(new TranslatableComponent("wiki.decorative_blocks.support.behavior1"));

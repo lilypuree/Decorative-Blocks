@@ -52,6 +52,7 @@ public class BonfireBlock extends Block implements SimpleWaterloggedBlock {
     public void entityInside(BlockState state, Level worldIn, BlockPos pos, Entity entityIn) {
         if (!entityIn.fireImmune() && entityIn instanceof LivingEntity && !EnchantmentHelper.hasFrostWalker((LivingEntity) entityIn)) {
             entityIn.hurt(DamageSource.IN_FIRE, 1.0F);
+            entityIn.setSecondsOnFire(10);
         }
         super.entityInside(state, worldIn, pos, entityIn);
     }

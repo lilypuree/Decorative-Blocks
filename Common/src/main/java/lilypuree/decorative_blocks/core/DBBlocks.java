@@ -2,6 +2,7 @@ package lilypuree.decorative_blocks.core;
 
 import com.google.common.collect.ImmutableMap;
 import lilypuree.decorative_blocks.blocks.*;
+import lilypuree.decorative_blocks.core.factory.BlockSuppliers;
 import lilypuree.decorative_blocks.datagen.types.IWoodType;
 import lilypuree.decorative_blocks.datagen.types.VanillaWoodTypes;
 import lilypuree.decorative_blocks.datagen.types.WoodDecorativeBlockTypes;
@@ -22,50 +23,42 @@ import java.util.Map;
 import static lilypuree.decorative_blocks.core.Registration.STILL_THATCH;
 
 public class DBBlocks {
-    protected static final BlockBehaviour.Properties chainProperties = Block.Properties.of(Material.METAL, MaterialColor.COLOR_BLACK).strength(4.3F).sound(SoundType.METAL).noOcclusion();
-
-    public static Block BONFIRE = new BonfireBlock(Block.Properties.of(Material.FIRE, MaterialColor.FIRE).noCollission().strength(0).sound(SoundType.WOOL).lightLevel(state -> 15).noDrops());
-    public static Block SOUL_BONFIRE = new BonfireBlock(Block.Properties.of(Material.FIRE, MaterialColor.COLOR_CYAN).noCollission().strength(0).sound(SoundType.WOOL).lightLevel(state -> 14).noDrops());
-    public static Block CHANDELIER = new ChandelierBlock(Block.Properties.of(Material.DECORATION).strength(0.3F).sound(SoundType.WOOD).noOcclusion().lightLevel(state -> 15), false);
-    public static Block SOUL_CHANDELIER = new ChandelierBlock(Block.Properties.of(Material.DECORATION).strength(0.3F).sound(SoundType.WOOD).noOcclusion().lightLevel(state -> 11), true);
-    public static Block BRAZIER = new BrazierBlock(Block.Properties.of(Material.METAL).strength(3.0F).sound(SoundType.METAL).lightLevel(state -> state.getValue(BlockStateProperties.LIT) ? 15 : 0).noOcclusion(), false);
-    public static Block SOUL_BRAZIER = new BrazierBlock(Block.Properties.of(Material.METAL).strength(3.0F).sound(SoundType.METAL).lightLevel(state -> state.getValue(BlockStateProperties.LIT) ? 10 : 0).noOcclusion(), true);
-
-    public static Block BAR_PANEL = new BarPanelBlock(Block.Properties.of(Material.METAL, MaterialColor.COLOR_BLACK).strength(5.0F).sound(SoundType.METAL).noOcclusion());
-    public static Block LATTICE = new LatticeBlock(Block.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(1.2F).sound(SoundType.WOOD).noOcclusion());
-    public static Block CHAIN = new ChainBlock(chainProperties);
-    public static Block STONE_PILLAR = new PillarBlock(Block.Properties.of(Material.STONE).strength(1.5F, 6.5F));
-    public static Block ROCKY_DIRT = new RockyDirtBlock();
+    public static Block BONFIRE;
+    public static Block CHANDELIER;
+    public static Block BRAZIER;
+    public static Block SOUL_CHANDELIER;
+    public static Block SOUL_BRAZIER;
+    public static Block SOUL_BONFIRE;
+    public static Block BAR_PANEL;
+    public static Block LATTICE;
+    public static Block CHAIN;
+    public static Block STONE_PILLAR;
+    public static Block ROCKY_DIRT;
 
     public static Map<IWoodType, BeamBlock> BEAMS = new HashMap<>();
     public static Map<IWoodType, PalisadeBlock> PALISADES = new HashMap<>();
     public static Map<IWoodType, SupportBlock> SUPPORTS = new HashMap<>();
     public static Map<IWoodType, SeatBlock> SEATS = new HashMap<>();
 
-    private static Block createDecorativeBlock(IWoodType wood, WoodDecorativeBlockTypes woodDecorativeBlockType) {
-        Block.Properties woodProperty = BlockBehaviour.Properties.of(wood.getMaterial(), wood.getMaterialColor()).strength(1.2F).sound(wood.getSoundType());
-        Block.Properties palisadeProperty = BlockBehaviour.Properties.of(wood.getMaterial(), wood.getMaterialColor()).strength(2.0F, 4.0F).sound(wood.getSoundType());
 
-        switch (woodDecorativeBlockType) {
-            default:
-            case BEAM:
-                return new BeamBlock(woodProperty, wood);
-            case SEAT:
-                return new SeatBlock(woodProperty, wood);
-            case SUPPORT:
-                return new SupportBlock(woodProperty, wood);
-            case PALISADE:
-                return new PalisadeBlock(palisadeProperty, wood);
+    public static void init() {
+        BONFIRE = BlockSuppliers.BONFIRE.get();
+        CHANDELIER = BlockSuppliers.CHANDELIER.get();
+        BRAZIER = BlockSuppliers.BRAZIER.get();
+        SOUL_BONFIRE = BlockSuppliers.SOUL_BONFIRE.get();
+        SOUL_CHANDELIER = BlockSuppliers.SOUL_CHANDELIER.get();
+        SOUL_BRAZIER = BlockSuppliers.SOUL_BRAZIER.get();
+        BAR_PANEL = BlockSuppliers.BAR_PANEL.get();
+        LATTICE = BlockSuppliers.LATTICE.get();
+        CHAIN = BlockSuppliers.CHAIN.get();
+        STONE_PILLAR = BlockSuppliers.STONE_PILLAR.get();
+        ROCKY_DIRT = BlockSuppliers.ROCKY_DIRT.get();
+
+        for (IWoodType woodType : VanillaWoodTypes.values()) {
+            BEAMS.put(woodType, (BeamBlock) BlockSuppliers.createDecorativeBlock(woodType, WoodDecorativeBlockTypes.BEAM));
+            PALISADES.put(woodType, (PalisadeBlock) BlockSuppliers.createDecorativeBlock(woodType, WoodDecorativeBlockTypes.PALISADE));
+            SUPPORTS.put(woodType, (SupportBlock) BlockSuppliers.createDecorativeBlock(woodType, WoodDecorativeBlockTypes.SUPPORT));
+            SEATS.put(woodType, (SeatBlock) BlockSuppliers.createDecorativeBlock(woodType, WoodDecorativeBlockTypes.SEAT));
         }
     }
-
-    static {
-        for (IWoodType wood : VanillaWoodTypes.values()) {
-            BEAMS.put(wood, (BeamBlock) createDecorativeBlock(wood, WoodDecorativeBlockTypes.BEAM));
-            SEATS.put(wood, (SeatBlock) createDecorativeBlock(wood, WoodDecorativeBlockTypes.SEAT));
-            SUPPORTS.put(wood, (SupportBlock) createDecorativeBlock(wood, WoodDecorativeBlockTypes.SUPPORT));
-            PALISADES.put(wood, (PalisadeBlock) createDecorativeBlock(wood, WoodDecorativeBlockTypes.PALISADE));
-        }
-    }
-
 }

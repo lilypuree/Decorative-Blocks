@@ -1,5 +1,6 @@
 package lilypuree.decorative_blocks.mixin;
 
+import lilypuree.decorative_blocks.core.DBBlocks;
 import lilypuree.decorative_blocks.core.DBTags;
 import net.minecraft.tags.Tag;
 import net.minecraft.world.item.Item;
@@ -32,5 +33,6 @@ public abstract class AbstractFurnaceTileEntityMixin {
         add(map, DBTags.Items.SEATS, 300);
         add(map, DBTags.Items.SUPPORTS, 300);
         add(map, DBTags.Items.CHANDELIERS, 1600);
+        add(map, DBBlocks.LATTICE, 100);
     }
 }

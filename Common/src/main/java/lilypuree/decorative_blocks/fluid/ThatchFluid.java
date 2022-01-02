@@ -18,25 +18,14 @@ import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.function.Supplier;
 
 public abstract class ThatchFluid extends FlowingFluid {
-    public static Map<Block, FluidReferenceHolder> shearMap = new HashMap<>();
     protected FluidReferenceHolder referenceHolder;
 
     public ThatchFluid(FluidReferenceHolder referenceHolder) {
         this.referenceHolder = referenceHolder;
     }
-
-    public static void addThatchlikeFluid(FluidReferenceHolder referenceHolder){
-        shearMap.put(referenceHolder.getSourceBlock(), referenceHolder);
-    }
-
-//    @Override
-//    protected FluidAttributes createAttributes() {
-//    }
 
     public Item getBucket() {
         return Items.BUCKET;
@@ -86,9 +75,7 @@ public abstract class ThatchFluid extends FlowingFluid {
     @Override
     public boolean canBeReplacedWith(FluidState p_215665_1_, BlockGetter p_215665_2_, BlockPos p_215665_3_, Fluid p_215665_4_, Direction p_215665_5_) {
         return false;
-        //from lava fluid
-//        return p_215665_1_.getActualHeight(p_215665_2_, p_215665_3_) >= 0.44444445F && p_215665_4_.isIn(FluidTags.WATER);
-    }
+  }
 
     @Override
     public int getTickDelay(LevelReader level) {
@@ -143,7 +130,7 @@ public abstract class ThatchFluid extends FlowingFluid {
         return 100.0F;
     }
 
-    public abstract static class Flowing extends ThatchFluid {
+    public static class Flowing extends ThatchFluid {
         public Flowing(FluidReferenceHolder referenceHolder) {
             super(referenceHolder);
         }
@@ -165,7 +152,7 @@ public abstract class ThatchFluid extends FlowingFluid {
         }
     }
 
-    public abstract static class Source extends ThatchFluid {
+    public static class Source extends ThatchFluid {
         public Source(FluidReferenceHolder referenceHolder) {
             super(referenceHolder);
         }

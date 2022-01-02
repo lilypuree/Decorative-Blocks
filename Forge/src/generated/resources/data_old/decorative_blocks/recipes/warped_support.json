@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "xx ",
+    "x  "
+  ],
+  "key": {
+    "x": {
+      "item": "minecraft:warped_planks"
+    }
+  },
+  "result": {
+    "item": "decorative_blocks:warped_support",
+    "count": 3
+  }
+}

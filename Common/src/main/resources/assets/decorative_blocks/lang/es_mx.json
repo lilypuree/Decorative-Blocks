@@ -1,5 +1,5 @@
 {
-  "itemGroup.decorative_blocks" : "Decorative Blocks",
+  "itemGroup.decorative_blocks.general" : "Decorative Blocks",
   "block.decorative_blocks.crimson_beam": "Viga carmesí",
   "block.decorative_blocks.crimson_palisade": "Empalizada carmesí",
   "block.decorative_blocks.crimson_seat": "Asiento carmesí",
@@ -44,6 +44,7 @@
   "block.decorative_blocks.soul_bonfire": "Hoguera de almas",
   "block.decorative_blocks.lattice": "Enrejado",
   "fluid.decorative_blocks.thatch": "Paja",
+  "block.decorative_blocks.thatch": "Paja",
 
   "wiki.decorative_blocks.thatch" :  "Corta una paca de heno con unas tijeras.",
 

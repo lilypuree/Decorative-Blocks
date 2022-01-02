@@ -16,7 +16,6 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class BarPanelBlock extends TrapDoorBlock {
-
     private static final double d0 = 3D;
     private static final double d1 = 16D - d0;
     protected static final VoxelShape EAST_OPEN_AABB = Block.box(0.0D, 0.0D, 0.0D, d0, 16.0D, 16.0D);

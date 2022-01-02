@@ -1,17 +1,14 @@
 package lilypuree.decorative_blocks.blocks;
 
 import com.google.common.collect.ImmutableMap;
+import lilypuree.decorative_blocks.blocks.state.ModBlockProperties;
+import lilypuree.decorative_blocks.blocks.state.SupportFaceShape;
 import lilypuree.decorative_blocks.datagen.types.IWoodType;
 import lilypuree.decorative_blocks.items.SwitchableBlockItem;
-import lilypuree.decorative_blocks.state.ModBlockProperties;
-import lilypuree.decorative_blocks.state.SupportFaceShape;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
@@ -27,7 +24,7 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.pathfinder.PathComputationType;
-import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -92,19 +89,19 @@ public class SupportBlock extends HorizontalDirectionalBlock implements SimpleWa
         return blockstate;
     }
 
-    @Override
-    public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
-        if (player.getItemInHand(handIn).getItem() instanceof AxeItem) {
-            if (!worldIn.isClientSide()) {
-                onSupportActivation(state, worldIn, pos, player, handIn, hit);
-            }
-            return InteractionResult.sidedSuccess(worldIn.isClientSide);
-        }
-        return super.use(state, worldIn, pos, player, handIn, hit);
-    }
+//    @Override
+//    public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
+//        if (player.getItemInHand(handIn).getItem() instanceof AxeItem) {
+//            if (!worldIn.isClientSide()) {
+//                onSupportActivation(state, worldIn, pos, player, hit.getLocation());
+//            }
+//            return InteractionResult.sidedSuccess(worldIn.isClientSide);
+//        }
+//        return super.use(state, worldIn, pos, player, handIn, hit);
+//    }
 
-    public static void onSupportActivation(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
-        double hitHeight = hit.getLocation().y() - pos.getY();
+    public static void onSupportActivation(BlockState state, Level worldIn, BlockPos pos, Player player, Vec3 hitPos) {
+        double hitHeight = hitPos.y() - pos.getY();
         boolean hitVertical;
         if (state.getValue(HORIZONTAL_SHAPE).isHidden()) {
             hitVertical = true;
@@ -121,7 +118,7 @@ public class SupportBlock extends HorizontalDirectionalBlock implements SimpleWa
             if (hitVertical) {
                 if (!state.getValue(HORIZONTAL_SHAPE).isHidden())
                     worldIn.setBlockAndUpdate(pos, state.setValue(VERTICAL_SHAPE, SupportFaceShape.HIDDEN));
-                else{
+                else {
                     worldIn.setBlockAndUpdate(pos, state.setValue(HORIZONTAL_SHAPE, SupportFaceShape.BIG));
                 }
             } else {
