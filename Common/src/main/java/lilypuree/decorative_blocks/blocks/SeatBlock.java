@@ -109,7 +109,7 @@ public class SeatBlock extends HorizontalDirectionalBlock implements SimpleWater
     @Override
     public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, LevelAccessor worldIn, BlockPos currentPos, BlockPos facingPos) {
         if (stateIn.getValue(WATERLOGGED)) {
-            worldIn.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(worldIn));
+            worldIn.getLiquidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(worldIn));
         }
         if (facing == Direction.DOWN) {
             return stateIn.setValue(ATTACHED, isInAttachablePos(worldIn, currentPos));

@@ -1,6 +1,7 @@
 package lilypuree.decorative_blocks.mixin;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import lilypuree.decorative_blocks.Constants;
 import lilypuree.decorative_blocks.core.DBTags;
 import lilypuree.decorative_blocks.fluid.ThatchFluid;
 import net.minecraft.client.Camera;
@@ -13,8 +14,11 @@ import net.minecraft.world.level.material.FluidState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import static org.apache.logging.log4j.Level.INFO;
 
 @Mixin(FogRenderer.class)
 public class FogRendererMixin {
@@ -38,11 +42,14 @@ public class FogRendererMixin {
 
             Level world = entity.getCommandSenderWorld();
             FluidState state = world.getFluidState(entity.eyeBlockPosition());
-            int color = ((ThatchFluid) state.getType()).getReferenceHolder().getColor();
-            fogRed = ((float) (color >> 16 & 0xFF) / 0xFF);
-            fogGreen = ((float) ((color >> 8) & 0xFF) / 0xFF);
-            fogBlue = ((float) (color & 0xFF) / 0xFF);
-            biomeChangedTime = -1L;
+            if (state.getType() instanceof ThatchFluid thatchFluid){
+                int color = thatchFluid.getReferenceHolder().getColor();
+                fogRed = ((float) (color >> 16 & 0xFF) / 0xFF);
+                fogGreen = ((float) ((color >> 8) & 0xFF) / 0xFF);
+                fogBlue = ((float) (color & 0xFF) / 0xFF);
+                biomeChangedTime = -1L;
+                Constants.LOG.log(INFO, "color fog");
+            }
         }
     }
 
@@ -62,6 +69,8 @@ public class FogRendererMixin {
             }
             RenderSystem.setShaderFogStart(start);
             RenderSystem.setShaderFogEnd(end);
+            Constants.LOG.log(INFO, "density fog");
+
         }
     }
 }

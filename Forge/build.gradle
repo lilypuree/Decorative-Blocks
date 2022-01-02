@@ -19,7 +19,7 @@ apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
 archivesBaseName = "${mod_name}-forge-${minecraft_version}"
-java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+java.toolchain.languageVersion = JavaLanguageVersion.of(16)
 
 minecraft {
     mappings channel: 'parchment', version: "${parchment_version}-${minecraft_version}"
@@ -104,7 +104,7 @@ mixin {
 
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
-    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+    annotationProcessor 'org.spongepowered:mixin:0.8.4:processor'
     compileOnly project(":Common")
 
     // compile against the JEI API but do not include it at runtime

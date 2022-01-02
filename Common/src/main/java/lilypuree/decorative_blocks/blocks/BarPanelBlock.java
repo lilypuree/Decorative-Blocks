@@ -53,7 +53,7 @@ public class BarPanelBlock extends TrapDoorBlock {
         state = state.cycle(OPEN);
         worldIn.setBlock(pos, state, 2);
         if (state.getValue(WATERLOGGED)) {
-            worldIn.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(worldIn));
+            worldIn.getLiquidTicks().scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(worldIn));
         }
         this.playSound(player, worldIn, pos, state.getValue(OPEN));
         return InteractionResult.sidedSuccess(worldIn.isClientSide);

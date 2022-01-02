@@ -58,7 +58,7 @@ public class ClientEventHandler {
 
     @SubscribeEvent
     public static void onEntityRenderFog(EntityViewRenderEvent.RenderFogEvent event) {
-        Entity entity = event.getCamera().getEntity();
+        Entity entity = event.getInfo().getEntity();
         if (entity.isEyeInFluid(DBTags.Fluids.THATCH)) {
 
             float start;

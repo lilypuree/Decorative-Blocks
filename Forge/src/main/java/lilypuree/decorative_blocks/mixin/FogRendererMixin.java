@@ -36,11 +36,13 @@ public class FogRendererMixin {
 
             Level world = entity.getCommandSenderWorld();
             FluidState state = world.getFluidState(entity.eyeBlockPosition());
-            int color = ((ThatchFluid) state.getType()).getReferenceHolder().getColor();
-            fogRed = ((float) (color >> 16 & 0xFF) / 0xFF);
-            fogGreen = ((float) ((color >> 8) & 0xFF) / 0xFF);
-            fogBlue = ((float) (color & 0xFF) / 0xFF);
-            biomeChangedTime = -1L;
+            if (state.getType() instanceof ThatchFluid thatchFluid) {
+                int color = thatchFluid.getReferenceHolder().getColor();
+                fogRed = ((float) (color >> 16 & 0xFF) / 0xFF);
+                fogGreen = ((float) ((color >> 8) & 0xFF) / 0xFF);
+                fogBlue = ((float) (color & 0xFF) / 0xFF);
+                biomeChangedTime = -1L;
+            }
         }
     }
 
