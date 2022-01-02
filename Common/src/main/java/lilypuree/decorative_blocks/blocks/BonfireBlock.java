@@ -8,6 +8,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -52,7 +53,7 @@ public class BonfireBlock extends Block implements SimpleWaterloggedBlock {
     public void entityInside(BlockState state, Level worldIn, BlockPos pos, Entity entityIn) {
         if (!entityIn.fireImmune() && entityIn instanceof LivingEntity && !EnchantmentHelper.hasFrostWalker((LivingEntity) entityIn)) {
             entityIn.hurt(DamageSource.IN_FIRE, 1.0F);
-            entityIn.setSecondsOnFire(10);
+            entityIn.setSecondsOnFire(3);
         }
         super.entityInside(state, worldIn, pos, entityIn);
     }
@@ -68,6 +69,10 @@ public class BonfireBlock extends Block implements SimpleWaterloggedBlock {
 //    public boolean addDestroyEffects(BlockState state, World world, BlockPos pos, ParticleManager manager) {
 //        return true;
 //    }
+
+
+
+
 
     @Override
     public void animateTick(BlockState stateIn, Level worldIn, BlockPos pos, Random rand) {

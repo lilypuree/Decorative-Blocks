@@ -6,12 +6,9 @@ import lilypuree.decorative_blocks.blocks.*;
 import lilypuree.decorative_blocks.core.DBBlocks;
 import lilypuree.decorative_blocks.core.DBItems;
 import lilypuree.decorative_blocks.core.Registration;
-import lilypuree.decorative_blocks.fluid.ThatchFluidBlock;
 import lilypuree.decorative_blocks.items.BlockstateCopyItem;
 import lilypuree.decorative_blocks.mixin.FireBlockInvoker;
-import lilypuree.decorative_blocks.mixin.ItemInvoker;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
@@ -22,14 +19,9 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
-import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.LiquidBlock;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.HitResult;
 
 public class ModSetup {
 
@@ -95,36 +87,6 @@ public class ModSetup {
                 });
             }
         }
-
-        if (item instanceof HoeItem) {
-            HitResult rayTraceResult = ItemInvoker.getPlayerPOVHitResult(world, player, ClipContext.Fluid.SOURCE_ONLY);
-            if (rayTraceResult.getType() != HitResult.Type.BLOCK) {
-                return 0;
-            }
-
-            BlockHitResult blockraytraceresult = (BlockHitResult) rayTraceResult;
-            BlockPos hit = blockraytraceresult.getBlockPos();
-            Direction direction = blockraytraceresult.getDirection();
-            BlockPos blockpos1 = hit.relative(direction);
-
-            if (world.mayInteract(player, hit) && player.mayUseItemAt(blockpos1, direction, itemStack)) {
-                BlockState hitBlock = world.getBlockState(hit);
-                if (hitBlock.getBlock() instanceof ThatchFluidBlock) {
-                    if (hitBlock.getValue(LiquidBlock.LEVEL) == 0) {
-                        if (world.isClientSide()) {
-                            player.swing(hand);
-                        } else {
-                            world.playSound(null, hit, SoundEvents.CROP_BREAK, SoundSource.BLOCKS, 1.2f, 1.0f);
-                            world.setBlock(hit, Blocks.AIR.defaultBlockState(), 11);
-                        }
-                    }
-                    return 1;
-                }
-            }
-        }
-//        if (block instanceof SupportBlock && item instanceof AxeItem) {
-//            return 1;
-//        }
         if (item == DBItems.BLOCKSTATE_COPY_ITEM) {
             return -1;
         }

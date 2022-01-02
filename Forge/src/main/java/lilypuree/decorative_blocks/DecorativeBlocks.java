@@ -53,6 +53,7 @@ public class DecorativeBlocks {
         });
         modBus.addListener(ClientEventHandler::initRenderLayers);
         modBus.addListener(ClientEventHandler::registerItemFunc);
+        modBus.addListener(ClientEventHandler::onEntityRendererRegistry);
 
         modBus.addGenericListener(Block.class, this::registerBlocks);
         modBus.addGenericListener(Item.class, this::registerItems);

@@ -6,13 +6,13 @@ import lilypuree.decorative_blocks.entity.EmptyRenderer;
 import lilypuree.decorative_blocks.fluid.ThatchFluid;
 import lilypuree.decorative_blocks.items.SeatItem;
 import lilypuree.decorative_blocks.items.SupportItem;
-import lilypuree.decorative_blocks.mixin.ItemPropertiesFabricInvoker;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;
 import net.fabricmc.fabric.api.client.render.fluid.v1.SimpleFluidRenderHandler;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.event.client.ClientSpriteRegistryCallback;
+import net.fabricmc.fabric.api.object.builder.v1.client.model.FabricModelPredicateProviderRegistry;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.level.block.Block;
@@ -40,12 +40,12 @@ public class ClientInitializer implements ClientModInitializer {
     }
 
     public static void registerSupportItemProperties(Block block) {
-        ItemPropertiesFabricInvoker.invokeRegister(block.asItem(), SupportItem.OVERRIDE_TAG, (stack, level, entity, i) -> {
+        FabricModelPredicateProviderRegistry.register(block.asItem(), SupportItem.OVERRIDE_TAG, (stack, level, entity, i) -> {
             return stack.hasTag() ? stack.getTag().getInt(SupportItem.OVERRIDE_TAG.getPath()) : 0.0f;
         });
     }
     public static void registerSeatItemProperties(Block block) {
-        ItemPropertiesFabricInvoker.invokeRegister(block.asItem(), SeatItem.OVERRIDE_TAG, (stack, world, livingEntity, i) -> {
+        FabricModelPredicateProviderRegistry.register(block.asItem(), SeatItem.OVERRIDE_TAG, (stack, world, livingEntity, i) -> {
             return stack.hasTag() ? stack.getTag().getInt(SeatItem.OVERRIDE_TAG.getPath()) : 0.0f;
         });
     }

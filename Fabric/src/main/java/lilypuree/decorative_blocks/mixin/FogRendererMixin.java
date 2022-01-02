@@ -7,6 +7,7 @@ import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.FogRenderer;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.FluidState;
 import org.spongepowered.asm.mixin.Mixin;
@@ -32,11 +33,11 @@ public class FogRendererMixin {
 
     @Inject(method = "setupColor", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/multiplayer/ClientLevel$ClientLevelData;getClearColorScale()D"))
     private static void onColorFog(Camera camera, float pPartialTicks, ClientLevel pLevel, int pRenderDistanceChunks, float pBossColorModifier, CallbackInfo ci) {
-        Level world = camera.getEntity().getCommandSenderWorld();
-        BlockPos pos = camera.getBlockPosition();
-        FluidState state = world.getFluidState(pos);
+        Entity entity = camera.getEntity();
+        if (entity.isEyeInFluid(DBTags.Fluids.THATCH)) {
 
-        if (isEntityInHay(state)) {
+            Level world = entity.getCommandSenderWorld();
+            FluidState state = world.getFluidState(entity.eyeBlockPosition());
             int color = ((ThatchFluid) state.getType()).getReferenceHolder().getColor();
             fogRed = ((float) (color >> 16 & 0xFF) / 0xFF);
             fogGreen = ((float) ((color >> 8) & 0xFF) / 0xFF);
@@ -47,15 +48,12 @@ public class FogRendererMixin {
 
     @Inject(method = "setupFog*", at = @At("RETURN"))
     private static void onSetupFog(Camera camera, FogRenderer.FogMode mode, float pFarPlaneDistance, boolean pNearFog, CallbackInfo ci) {
-        Level world = camera.getEntity().getCommandSenderWorld();
-        BlockPos pos = camera.getBlockPosition();
-        FluidState state = world.getFluidState(pos);
-
-        if (isEntityInHay(state)) {
+        Entity entity = camera.getEntity();
+        if (entity.isEyeInFluid(DBTags.Fluids.THATCH)) {
             float start;
             float end;
 
-            if (camera.getEntity().isSpectator()) {
+            if (entity.isSpectator()) {
                 start = -8.0F;
                 end = pFarPlaneDistance * 0.5F;
             } else {
@@ -66,10 +64,4 @@ public class FogRendererMixin {
             RenderSystem.setShaderFogEnd(end);
         }
     }
-
-
-    private static boolean isEntityInHay(FluidState fluidState) {
-        return DBTags.Fluids.THATCH.contains(fluidState.getType());
-    }
-
 }

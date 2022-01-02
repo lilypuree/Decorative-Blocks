@@ -5,13 +5,12 @@
   "mixins": [
     "AbstractFurnaceTileEntityMixin",
     "FireBlockInvoker",
-    "ItemInvoker",
     "ItemEntityMixin",
     "WalkNodeEvaluatorMixin",
-    "AxeItemMixin"
+    "AxeItemMixin",
+    "HoeItemMixin"
   ],
   "client": [
-    "ItemPropertiesFabricInvoker",
     "FogRendererMixin"
   ],
   "injectors": {
