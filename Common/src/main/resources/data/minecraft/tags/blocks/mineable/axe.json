@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "#decorative_blocks:beams",
+    "#decorative_blocks:palisades",
+    "#decorative_blocks:seats",
+    "#decorative_blocks:supports",
+    "decorative_blocks:lattice"
+  ]
+}
