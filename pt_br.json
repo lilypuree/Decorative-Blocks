@@ -1,0 +1,70 @@
+{
+  "itemGroup.decorative_blocks.general" : "Blocos Decorativos",
+
+  "block.decorative_blocks.acacia_beam": "Viga de acácia",
+  "block.decorative_blocks.acacia_palisade": "Paliçada de acácia",
+  "block.decorative_blocks.acacia_seat": "Assento de acácia",
+  "block.decorative_blocks.acacia_support": "Suporte de acácia",
+  
+  "block.decorative_blocks.birch_beam": "Viga de bétula",
+  "block.decorative_blocks.birch_palisade": "Paliçada de bétula",
+  "block.decorative_blocks.birch_seat": "Assento de bétula",
+  "block.decorative_blocks.birch_support": "Suporte de bétula",
+
+  "block.decorative_blocks.crimson_beam": "Viga carmesim",
+  "block.decorative_blocks.crimson_palisade": "Paliçada carmesim",
+  "block.decorative_blocks.crimson_seat": "Assento carmesim",
+  "block.decorative_blocks.crimson_support": "Suporte carmesim",
+
+  "block.decorative_blocks.dark_oak_beam": "Viga de carvalho escuro",
+  "block.decorative_blocks.dark_oak_palisade": "Paliçada de carvalho escuro",
+  "block.decorative_blocks.dark_oak_seat": "Assento de carvalho escuro",
+  "block.decorative_blocks.dark_oak_support": "Suporte de carvalho escuro",
+
+  "block.decorative_blocks.jungle_beam": "Viga de madeira da selva",
+  "block.decorative_blocks.jungle_palisade": "Paliçada de madeira da selva",
+  "block.decorative_blocks.jungle_seat": "Assento de madeira da selva",
+  "block.decorative_blocks.jungle_support": "Suporte de madeira da selva",
+
+  "block.decorative_blocks.oak_beam": "Viga de carvalho",
+  "block.decorative_blocks.oak_palisade": "Paliçada de carvalho",
+  "block.decorative_blocks.oak_seat": "Assento de carvalho",
+  "block.decorative_blocks.oak_support": "Suporte de carvalho",
+
+  "block.decorative_blocks.spruce_beam": "Viga de pinheiro",
+  "block.decorative_blocks.spruce_palisade": "Paliçada de pinheiro",
+  "block.decorative_blocks.spruce_seat": "Assento de pinheiro",
+  "block.decorative_blocks.spruce_support": "Suporte de pinheiro",
+
+  "block.decorative_blocks.warped_beam": "Viga distorcida",
+  "block.decorative_blocks.warped_palisade": "Paliçada distorcida",
+  "block.decorative_blocks.warped_seat": "Assento distorcido",
+  "block.decorative_blocks.warped_support": "Suporte distorcido",
+
+  "block.decorative_blocks.chain": "Corrente grande",
+  "block.decorative_blocks.brazier": "Braseiro",
+  "block.decorative_blocks.soul_brazier": "Braseiro das almas",
+  "block.decorative_blocks.chandelier": "Candelabro",
+  "block.decorative_blocks.soul_chandelier": "Candelabro das almas",
+  "block.decorative_blocks.bar_panel": "Painel de barra",
+  "block.decorative_blocks.stone_pillar": "Pilar de pedra",
+  "block.decorative_blocks.rocky_dirt": "Terra com pedras",
+  "block.decorative_blocks.bonfire": "Fogueira grande",
+  "block.decorative_blocks.soul_bonfire": "Fogueira das almas grande",
+  "block.decorative_blocks.lattice": "Grade",
+  "fluid.decorative_blocks.thatch": "Palha",
+  "block.decorative_blocks.thatch": "Palha",
+
+  "wiki.decorative_blocks.thatch" :  "Corte um fardo de feno com tesouras.",
+  "wiki.decorative_blocks.support.condition1" : "§7Clique-dierito segurando Shift no ar:",
+  "wiki.decorative_blocks.support.behavior1" : "§3Gira um bloco em 180°",
+  "wiki.decorative_blocks.support.condition2" : "§7Clique-direito com um machado:",
+  "wiki.decorative_blocks.support.behavior2" : "§3Alterna um lado entre grande e pequeno",
+  "wiki.decorative_blocks.support.condition3" : "§7Clique-dierito segurando Shift com um machado:",
+  "wiki.decorative_blocks.support.behavior3" : "§3Esconde/mostra um lado",
+  "wiki.decorative_blocks.seat" :  "§3Interaja enquanto se esgueira no ar para alternar entre modos.",
+  "wiki.decorative_blocks.copy1" :  "§3Colagens padrão, interaja enquato se esgueira para copiar.",
+  "wiki.decorative_blocks.copy2" :  "§3%s copiado.",
+
+  "message.decorative_blocks.invalid_bonfire_activator_config" : "Configuração incorreta de ativação da Fogueira grande!"
+}
