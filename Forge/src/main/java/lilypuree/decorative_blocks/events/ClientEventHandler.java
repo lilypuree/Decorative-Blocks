@@ -2,6 +2,7 @@ package lilypuree.decorative_blocks.events;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import lilypuree.decorative_blocks.Constants;
+import lilypuree.decorative_blocks.client.FogHelper;
 import lilypuree.decorative_blocks.core.DBBlocks;
 import lilypuree.decorative_blocks.core.DBTags;
 import lilypuree.decorative_blocks.core.Registration;
@@ -24,7 +25,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
-@Mod.EventBusSubscriber(value = Dist.CLIENT,modid = Constants.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
+@Mod.EventBusSubscriber(value = Dist.CLIENT, modid = Constants.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ClientEventHandler {
 
     public static void initRenderLayers(FMLClientSetupEvent e) {
@@ -58,21 +59,6 @@ public class ClientEventHandler {
 
     @SubscribeEvent
     public static void onEntityRenderFog(EntityViewRenderEvent.RenderFogEvent event) {
-        Entity entity = event.getCamera().getEntity();
-        if (entity.isEyeInFluid(DBTags.Fluids.THATCH)) {
-
-            float start;
-            float end;
-
-            if (entity.isSpectator()) {
-                start = -8.0F;
-                end = event.getFarPlaneDistance() * 0.5F;
-            } else {
-                start = 0.25F;
-                end = 1.0F;
-            }
-            RenderSystem.setShaderFogStart(start);
-            RenderSystem.setShaderFogEnd(end);
-        }
+        FogHelper.onFogSetup(event.getCamera(), event.getFarPlaneDistance());
     }
 }

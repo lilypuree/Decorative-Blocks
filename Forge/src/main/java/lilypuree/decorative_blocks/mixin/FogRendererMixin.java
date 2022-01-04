@@ -1,5 +1,6 @@
 package lilypuree.decorative_blocks.mixin;
 
+import lilypuree.decorative_blocks.client.FogHelper;
 import lilypuree.decorative_blocks.core.DBTags;
 import lilypuree.decorative_blocks.fluid.ThatchFluid;
 import net.minecraft.client.Camera;
@@ -31,18 +32,12 @@ public class FogRendererMixin {
 
     @Inject(method = "setupColor", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/multiplayer/ClientLevel$ClientLevelData;getClearColorScale()D"))
     private static void onColorFog(Camera camera, float pPartialTicks, ClientLevel pLevel, int pRenderDistanceChunks, float pBossColorModifier, CallbackInfo ci) {
-        Entity entity = camera.getEntity();
-        if (entity.isEyeInFluid(DBTags.Fluids.THATCH)) {
-
-            Level world = entity.getCommandSenderWorld();
-            FluidState state = world.getFluidState(entity.eyeBlockPosition());
-            if (state.getType() instanceof ThatchFluid thatchFluid) {
-                int color = thatchFluid.getReferenceHolder().getColor();
-                fogRed = ((float) (color >> 16 & 0xFF) / 0xFF);
-                fogGreen = ((float) ((color >> 8) & 0xFF) / 0xFF);
-                fogBlue = ((float) (color & 0xFF) / 0xFF);
-                biomeChangedTime = -1L;
-            }
+        FogHelper.Info info = FogHelper.onColorFog(camera);
+        if (info != null) {
+            fogRed = info.fogRed();
+            fogBlue = info.fogBlue();
+            fogGreen = info.fogGreen();
+            biomeChangedTime = info.time();
         }
     }
 

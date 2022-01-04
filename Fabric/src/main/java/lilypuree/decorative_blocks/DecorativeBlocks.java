@@ -14,6 +14,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.item.ItemStack;
@@ -53,6 +54,7 @@ public class DecorativeBlocks implements ModInitializer {
         DBTags.Items.CHANDELIERS = TagFactory.ITEM.create(tagName("chandeliers"));
 
         DBTags.Fluids.THATCH = TagFactory.FLUID.create(tagName("thatch"));
+        FluidTags.getStaticTags().add(DBTags.Fluids.THATCH);
     }
 
     private ResourceLocation tagName(String name){
