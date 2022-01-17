@@ -42,11 +42,20 @@
   "block.decorative_blocks.spruce_support": "Soporte de abeto",
   "block.decorative_blocks.bonfire": "Hoguera",
   "block.decorative_blocks.soul_bonfire": "Hoguera de almas",
-  "block.decorative_blocks.lattice": "Enrejado",
+  "block.decorative_blocks.lattice": "Celosía",
   "fluid.decorative_blocks.thatch": "Paja",
   "block.decorative_blocks.thatch": "Paja",
 
   "wiki.decorative_blocks.thatch" :  "Corta una bala de heno con unas tijeras.",
+  "wiki.decorative_blocks.support.condition1" : "§7Mayús. + clic derecho en el aire:",
+  "wiki.decorative_blocks.support.behavior1" : "§3Dar vuelta el ítem del bloque",
+  "wiki.decorative_blocks.support.condition2" : "§7Clic derecho con un hacha:",
+  "wiki.decorative_blocks.support.behavior2" : "§3Alternar lado entre pequeño y grande",
+  "wiki.decorative_blocks.support.condition3" : "§7Mayús. + clic derecho con un hacha:",
+  "wiki.decorative_blocks.support.behavior3" : "§3Ocultar/mostrar lado",
+  "wiki.decorative_blocks.seat" :  "§3Mayús. + clic derecho en el aire para cambiar de estado.",
+  "wiki.decorative_blocks.copy1" :  "§3Clic derecho para pegar, mayús. + clic derecho para copiar.",
+  "wiki.decorative_blocks.copy2" :  "§3Copiado: %s",
 
   "message.decorative_blocks.invalid_bonfire_activator_config" : "¡La configuración del activador de hoguera es incorrecta!"
 }
