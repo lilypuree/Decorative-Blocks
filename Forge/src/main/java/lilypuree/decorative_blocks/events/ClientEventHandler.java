@@ -41,14 +41,17 @@ public class ClientEventHandler {
     }
 
     public static void registerItemFunc(FMLClientSetupEvent e) {
-        DBBlocks.SUPPORTS.values().forEach(block -> {
-            ItemProperties.register(block.asItem(), SupportItem.OVERRIDE_TAG, (stack, level, entity, i) -> {
-                return stack.hasTag() ? stack.getTag().getInt(SupportItem.OVERRIDE_TAG.getPath()) : 0.0f;
+        e.enqueueWork(() -> {
+            DBBlocks.SUPPORTS.values().forEach(block ->
+            {
+                ItemProperties.register(block.asItem(), SupportItem.OVERRIDE_TAG, (stack, level, entity, i) -> {
+                    return stack.hasTag() ? stack.getTag().getInt(SupportItem.OVERRIDE_TAG.getPath()) : 0.0f;
+                });
             });
-        });
-        DBBlocks.SEATS.values().forEach(block -> {
-            ItemProperties.register(block.asItem(), SeatItem.OVERRIDE_TAG, (stack, world, livingEntity, i) -> {
-                return stack.hasTag() ? stack.getTag().getInt(SeatItem.OVERRIDE_TAG.getPath()) : 0.0f;
+            DBBlocks.SEATS.values().forEach(block -> {
+                ItemProperties.register(block.asItem(), SeatItem.OVERRIDE_TAG, (stack, world, livingEntity, i) -> {
+                    return stack.hasTag() ? stack.getTag().getInt(SeatItem.OVERRIDE_TAG.getPath()) : 0.0f;
+                });
             });
         });
     }
