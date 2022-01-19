@@ -1,5 +1,6 @@
 package lilypuree.decorative_blocks.datagen;
 
+import lilypuree.decorative_blocks.Constants;
 import lilypuree.decorative_blocks.blocks.IWoodenBlock;
 import lilypuree.decorative_blocks.blocks.PalisadeBlock;
 import lilypuree.decorative_blocks.blocks.state.ModBlockProperties;
@@ -166,7 +167,7 @@ public class BlockStateGenerationHelper {
     private ModelBuilder<?> createModel(IWoodType wood, WoodDecorativeBlockTypes type, String prefix, String suffix) {
         String name = prefix + type + suffix;
         return models().getBuilder(wood + "_" + name)
-                .parent(modelFile(modLoc("custom/" + name)));
+                .parent(modelFile(new ResourceLocation(Constants.MODID,"custom/" + name)));
     }
 
     private ModelBuilder<?> withParticleTexture(ModelBuilder<?> model, String name) {
