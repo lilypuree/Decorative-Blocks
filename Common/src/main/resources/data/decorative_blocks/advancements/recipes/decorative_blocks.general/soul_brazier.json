@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "decorative_blocks:soul_brazier"
+    ]
+  },
+  "criteria": {
+    "has_bar": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:iron_bars"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "decorative_blocks:soul_brazier"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_bar",
+      "has_the_recipe"
+    ]
+  ]
+}

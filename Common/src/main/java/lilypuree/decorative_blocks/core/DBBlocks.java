@@ -1,26 +1,14 @@
 package lilypuree.decorative_blocks.core;
 
-import com.google.common.collect.ImmutableMap;
 import lilypuree.decorative_blocks.blocks.*;
 import lilypuree.decorative_blocks.core.factory.BlockSuppliers;
-import lilypuree.decorative_blocks.datagen.types.IWoodType;
-import lilypuree.decorative_blocks.datagen.types.VanillaWoodTypes;
-import lilypuree.decorative_blocks.datagen.types.WoodDecorativeBlockTypes;
-import lilypuree.decorative_blocks.fluid.ThatchFluidBlock;
-import net.minecraft.world.item.Item;
+import lilypuree.decorative_blocks.blocks.types.IWoodType;
+import lilypuree.decorative_blocks.blocks.types.VanillaWoodTypes;
+import lilypuree.decorative_blocks.blocks.types.WoodDecorativeBlockTypes;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.SoundType;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.material.Material;
-import net.minecraft.world.level.material.MaterialColor;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
-import static lilypuree.decorative_blocks.core.Registration.STILL_THATCH;
 
 public class DBBlocks {
     public static Block BONFIRE;

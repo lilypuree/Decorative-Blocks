@@ -1,8 +1,8 @@
 package lilypuree.decorative_blocks.core;
 
 import lilypuree.decorative_blocks.Constants;
-import lilypuree.decorative_blocks.datagen.types.IWoodType;
-import lilypuree.decorative_blocks.datagen.types.WoodDecorativeBlockTypes;
+import lilypuree.decorative_blocks.blocks.types.IWoodType;
+import lilypuree.decorative_blocks.blocks.types.WoodDecorativeBlockTypes;
 import net.minecraft.resources.ResourceLocation;
 
 public class DBNames {

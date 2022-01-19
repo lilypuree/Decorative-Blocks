@@ -4,7 +4,7 @@ package lilypuree.decorative_blocks;
 import lilypuree.decorative_blocks.core.*;
 import lilypuree.decorative_blocks.core.factory.BlockSuppliers;
 import lilypuree.decorative_blocks.core.setup.ModSetup;
-import lilypuree.decorative_blocks.datagen.types.WoodDecorativeBlockTypes;
+import lilypuree.decorative_blocks.blocks.types.WoodDecorativeBlockTypes;
 import lilypuree.decorative_blocks.entity.DummyEntityForSitting;
 import lilypuree.decorative_blocks.fluid.ThatchFluid;
 import net.fabricmc.api.ModInitializer;

@@ -1,18 +1,16 @@
 {
-	"group": "decorative_blocks",
-    "type": "minecraft:crafting_shaped",
-    "pattern": [
-        " # ",
-        "# #",
-        " # "
-    ],
-    "key": {
-        "#": {
-            "item": "minecraft:stick"
-        }
-    },
-    "result": {
-        "item": "decorative_blocks:lattice",
-        "count": 1
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " # ",
+    "# #",
+    " # "
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:stick"
     }
+  },
+  "result": {
+    "item": "decorative_blocks:lattice"
+  }
 }

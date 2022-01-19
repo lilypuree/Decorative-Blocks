@@ -3,7 +3,7 @@ package lilypuree.decorative_blocks.blocks;
 import com.google.common.collect.ImmutableMap;
 import lilypuree.decorative_blocks.blocks.state.ModBlockProperties;
 import lilypuree.decorative_blocks.blocks.state.SupportFaceShape;
-import lilypuree.decorative_blocks.datagen.types.IWoodType;
+import lilypuree.decorative_blocks.blocks.types.IWoodType;
 import lilypuree.decorative_blocks.items.SwitchableBlockItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

@@ -1,8 +1,0 @@
-{
-  "parent": "decorative_blocks:custom/upside_down_support_inventory",
-  "textures": {
-    "particle": "decorative_blocks:block/dark_oak_support_side",
-    "side": "decorative_blocks:block/dark_oak_support_side",
-    "end": "decorative_blocks:block/dark_oak_support_end"
-  }
-}

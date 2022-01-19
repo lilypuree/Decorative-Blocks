@@ -1,7 +1,7 @@
 package lilypuree.decorative_blocks.blocks;
 
 import lilypuree.decorative_blocks.core.Registration;
-import lilypuree.decorative_blocks.datagen.types.IWoodType;
+import lilypuree.decorative_blocks.blocks.types.IWoodType;
 import lilypuree.decorative_blocks.entity.DummyEntityForSitting;
 import lilypuree.decorative_blocks.items.SwitchableBlockItem;
 import lilypuree.decorative_blocks.blocks.state.ModBlockProperties;

@@ -1,18 +1,12 @@
 package lilypuree.decorative_blocks.core;
 
-import com.google.common.collect.ImmutableMap;
-import lilypuree.decorative_blocks.Constants;
 import lilypuree.decorative_blocks.core.factory.ItemSuppliers;
-import lilypuree.decorative_blocks.core.setup.ModSetup;
-import lilypuree.decorative_blocks.datagen.types.IWoodType;
-import lilypuree.decorative_blocks.datagen.types.VanillaWoodTypes;
-import lilypuree.decorative_blocks.datagen.types.WoodDecorativeBlockTypes;
-import lilypuree.decorative_blocks.items.BlockstateCopyItem;
+import lilypuree.decorative_blocks.blocks.types.IWoodType;
+import lilypuree.decorative_blocks.blocks.types.VanillaWoodTypes;
 import lilypuree.decorative_blocks.items.SeatItem;
 import lilypuree.decorative_blocks.items.SupportItem;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
 
 import java.util.HashMap;
 import java.util.Map;

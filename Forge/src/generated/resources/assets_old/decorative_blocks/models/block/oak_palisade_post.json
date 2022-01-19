@@ -1,8 +1,0 @@
-{
-  "parent": "decorative_blocks:custom/palisade_post",
-  "textures": {
-    "particle": "decorative_blocks:block/oak_palisade_side",
-    "side": "decorative_blocks:block/oak_palisade_side",
-    "end": "decorative_blocks:block/oak_palisade_end"
-  }
-}

@@ -2,8 +2,8 @@ package lilypuree.decorative_blocks.core.factory;
 
 import lilypuree.decorative_blocks.blocks.*;
 import lilypuree.decorative_blocks.core.Registration;
-import lilypuree.decorative_blocks.datagen.types.IWoodType;
-import lilypuree.decorative_blocks.datagen.types.WoodDecorativeBlockTypes;
+import lilypuree.decorative_blocks.blocks.types.IWoodType;
+import lilypuree.decorative_blocks.blocks.types.WoodDecorativeBlockTypes;
 import lilypuree.decorative_blocks.fluid.ThatchFluidBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
