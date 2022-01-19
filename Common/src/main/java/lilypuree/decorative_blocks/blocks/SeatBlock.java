@@ -44,7 +44,7 @@ public class SeatBlock extends HorizontalDirectionalBlock implements SimpleWater
     protected static final VoxelShape SEAT_NS = Shapes.or(POST_SHAPE, JOIST_NS);
     protected static final VoxelShape SEAT_EW = Shapes.or(POST_SHAPE, JOIST_EW);
     protected static final VoxelShape JOIST_POST_NS = Shapes.or(TOP_POST, JOIST_NS);
-    protected static final VoxelShape JOIST_POST_EW = Shapes.or(TOP_POST, JOIST_NS);
+    protected static final VoxelShape JOIST_POST_EW = Shapes.or(TOP_POST, JOIST_EW);
     protected static final VoxelShape SEAT_POST_NS = Shapes.or(SEAT_NS, TOP_POST);
     protected static final VoxelShape SEAT_POST_EW = Shapes.or(SEAT_EW, TOP_POST);
 

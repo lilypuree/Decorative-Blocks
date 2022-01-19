@@ -2,6 +2,8 @@ package lilypuree.decorative_blocks.events;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import lilypuree.decorative_blocks.Constants;
+import lilypuree.decorative_blocks.blocks.SeatBlock;
+import lilypuree.decorative_blocks.blocks.SupportBlock;
 import lilypuree.decorative_blocks.client.FogHelper;
 import lilypuree.decorative_blocks.core.DBBlocks;
 import lilypuree.decorative_blocks.core.DBTags;
@@ -15,6 +17,7 @@ import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Registry;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.FluidState;
@@ -42,16 +45,16 @@ public class ClientEventHandler {
 
     public static void registerItemFunc(FMLClientSetupEvent e) {
         e.enqueueWork(() -> {
-            DBBlocks.SUPPORTS.values().forEach(block ->
-            {
-                ItemProperties.register(block.asItem(), SupportItem.OVERRIDE_TAG, (stack, level, entity, i) -> {
-                    return stack.hasTag() ? stack.getTag().getInt(SupportItem.OVERRIDE_TAG.getPath()) : 0.0f;
-                });
-            });
-            DBBlocks.SEATS.values().forEach(block -> {
-                ItemProperties.register(block.asItem(), SeatItem.OVERRIDE_TAG, (stack, world, livingEntity, i) -> {
-                    return stack.hasTag() ? stack.getTag().getInt(SeatItem.OVERRIDE_TAG.getPath()) : 0.0f;
-                });
+            Registry.BLOCK.forEach(block -> {
+                if (block instanceof SupportBlock) {
+                    ItemProperties.register(block.asItem(), SupportItem.OVERRIDE_TAG, (stack, level, entity, i) -> {
+                        return stack.hasTag() ? stack.getTag().getInt(SupportItem.OVERRIDE_TAG.getPath()) : 0.0f;
+                    });
+                } else if (block instanceof SeatBlock) {
+                    ItemProperties.register(block.asItem(), SeatItem.OVERRIDE_TAG, (stack, world, livingEntity, i) -> {
+                        return stack.hasTag() ? stack.getTag().getInt(SeatItem.OVERRIDE_TAG.getPath()) : 0.0f;
+                    });
+                }
             });
         });
     }
