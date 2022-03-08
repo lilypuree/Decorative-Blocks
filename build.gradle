@@ -1,30 +1,33 @@
+plugins {
+    id 'fabric-loom' version '0.10-SNAPSHOT' apply false
+    id "com.matthewprenger.cursegradle" version "$cursegradle_version" apply false
+}
+
 subprojects {
-    
     apply plugin: 'java'
-    
+
     java.toolchain.languageVersion = JavaLanguageVersion.of(17)
-    java.withSourcesJar()
-    java.withJavadocJar()
-        
+//    java.withSourcesJar()
+//    java.withJavadocJar()
+
     jar {
         manifest {
             attributes([
-                'Specification-Title'     : mod_name,
-                'Specification-Vendor'    : mod_author,
-                'Specification-Version'   : project.jar.archiveVersion,
-                'Implementation-Title'    : project.name,
-                'Implementation-Version'  : project.jar.archiveVersion,
-                'Implementation-Vendor'   : mod_author,
-                'Implementation-Timestamp': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
-                'Timestampe'              : System.currentTimeMillis(),
-                'Built-On-Java'           : "${System.getProperty('java.vm.version')} (${System.getProperty('java.vm.vendor')})",
-                'Build-On-Minecraft'      : minecraft_version
+                    'Specification-Title'     : mod_name,
+                    'Specification-Vendor'    : mod_author,
+                    'Specification-Version'   : project.jar.archiveVersion,
+                    'Implementation-Title'    : project.name,
+                    'Implementation-Version'  : project.jar.archiveVersion,
+                    'Implementation-Vendor'   : mod_author,
+                    'Implementation-Timestamp': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+                    'Timestampe'              : System.currentTimeMillis(),
+                    'Built-On-Java'           : "${System.getProperty('java.vm.version')} (${System.getProperty('java.vm.vendor')})",
+                    'Build-On-Minecraft'      : minecraft_version
             ])
         }
     }
-    
-    repositories {
 
+    repositories {
         mavenCentral()
 
         maven {
@@ -37,10 +40,9 @@ subprojects {
             url = 'https://maven.blamejared.com'
         }
     }
-    
+
 
     tasks.withType(JavaCompile).configureEach {
-    
         it.options.encoding = 'UTF-8'
         it.options.release = 17
     }
@@ -49,7 +51,30 @@ subprojects {
     // metadata includes mapped dependencies which are not reasonably consumable by
     // other mod developers.
     tasks.withType(GenerateModuleMetadata) {
-
         enabled = false
+    }
+
+    def isForge = project.name == 'Forge'
+    if (project.name != 'Common') {
+        apply plugin: 'com.matthewprenger.cursegradle'
+        if (!isForge) apply plugin: 'fabric-loom'
+        def changelogFile = rootProject.file('CHANGELOG.md').text
+
+        curseforge {
+            apiKey = "$System.env.CURSEFORGEKEY"
+            project {
+                id = project.projectId
+                releaseType = project.releaseType
+                changelogType = 'markdown'
+                changelog = changelogFile
+                addGameVersion project.minecraft_version
+                addGameVersion project.name
+                mainArtifact(isForge ? jar : remapJar)
+            }
+            options {
+                debug = false
+                forgeGradleIntegration = isForge
+            }
+        }
     }
 }

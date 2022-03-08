@@ -65,6 +65,7 @@ public class Registration {
         helper.register(DBItems.LATTICE, DBNames.LATTICE);
         helper.register(DBItems.CHANDELIER, DBNames.CHANDELIER);
         helper.register(DBItems.SOUL_CHANDELIER, DBNames.SOUL_CHANDELIER);
+        helper.register(DBItems.BLOCKSTATE_COPY_ITEM, DBNames.BLOCKSTATE_COPY_ITEM);
         DBItems.BEAM_ITEMBLOCKS.forEach((wood, item)->helper.register(item, wood + "_beam"));
         DBItems.PALISADE_ITEMBLOCKS.forEach((wood, item)->helper.register(item, wood + "_palisade"));
         DBItems.SUPPORT_ITEMBLOCKS.forEach((wood, item)->helper.register(item, wood + "_support"));
