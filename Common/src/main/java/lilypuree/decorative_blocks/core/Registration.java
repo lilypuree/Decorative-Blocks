@@ -8,8 +8,11 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MaterialColor;
 
 public class Registration {
     private static final ResourceLocation thatchStillTexture = new ResourceLocation(Constants.MODID, "block/thatch_still");
@@ -20,16 +23,20 @@ public class Registration {
 
     public static FlowingFluid FLOWING_THATCH;
     public static FlowingFluid STILL_THATCH;
+    public static Block THATCH;
+
+    public static final Material thatchMaterial = (new Material.Builder(MaterialColor.COLOR_YELLOW)).noCollider().nonSolid().replaceable().liquid().build();
+    public static final BlockBehaviour.Properties thatchProperties = Block.Properties.of(thatchMaterial).noCollission().randomTicks().strength(100.0F).noDrops();
 
     static {
         referenceHolder.setFlowingFluid(() -> FLOWING_THATCH);
         referenceHolder.setStillFluid(() -> STILL_THATCH);
-        referenceHolder.setFluidBlock(() -> DBBlocks.THATCH);
+        referenceHolder.setFluidBlock(() -> THATCH);
     }
 
     public static void registerBlocks(RegistryHelper<Block> helper) {
         DBBlocks.init();
-        helper.register(DBBlocks.THATCH, DBNames.THATCH);
+        helper.register(THATCH, DBNames.THATCH);
         helper.register(DBBlocks.ROCKY_DIRT, DBNames.ROCKY_DIRT);
         helper.register(DBBlocks.STONE_PILLAR, DBNames.STONE_PILLAR);
         helper.register(DBBlocks.CHAIN, DBNames.CHAIN);

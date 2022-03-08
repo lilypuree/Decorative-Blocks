@@ -5,7 +5,6 @@ import lilypuree.decorative_blocks.CommonConfig;
 import lilypuree.decorative_blocks.blocks.*;
 import lilypuree.decorative_blocks.core.DBBlocks;
 import lilypuree.decorative_blocks.core.DBItems;
-import lilypuree.decorative_blocks.core.DBTags;
 import lilypuree.decorative_blocks.core.Registration;
 import lilypuree.decorative_blocks.items.BlockstateCopyItem;
 import lilypuree.decorative_blocks.mixin.FireBlockInvoker;
@@ -50,7 +49,7 @@ public class ModSetup {
             }
         });
         invoker.invokeSetFlammable(DBBlocks.LATTICE, 5, 20);
-        invoker.invokeSetFlammable(DBBlocks.THATCH, 60, 80);
+        invoker.invokeSetFlammable(Registration.THATCH, 60, 80);
     }
 
 

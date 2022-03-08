@@ -6,23 +6,16 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FlowingFluid;
-import net.minecraft.world.level.material.Fluid;
-import net.minecraft.world.level.material.FluidState;
-import net.minecraft.world.level.material.Fluids;
 
 import java.util.function.Supplier;
 
-public abstract class ThatchFluidBlock extends LiquidBlock {
-    protected ThatchFluidBlock(FlowingFluid $$0, Properties $$1) {
-        super($$0, $$1);
+public class ForgeThatchFluidBlock extends LiquidBlock {
+    public ForgeThatchFluidBlock(Supplier<FlowingFluid> fluid, Properties properties) {
+        super(fluid, properties);
     }
-//    public ThatchFluidBlock(FlowingFluid fluid, Properties properties) {
-//        super(fluid, properties);
-//    }
 
     @Override
     public void entityInside(BlockState state, Level worldIn, BlockPos pos, Entity entityIn) {

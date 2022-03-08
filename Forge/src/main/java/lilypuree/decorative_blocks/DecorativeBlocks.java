@@ -5,6 +5,7 @@ import lilypuree.decorative_blocks.core.setup.ModSetup;
 import lilypuree.decorative_blocks.entity.DummyEntityForSitting;
 import lilypuree.decorative_blocks.events.ClientEventHandler;
 import lilypuree.decorative_blocks.fluid.ForgeThatchFluid;
+import lilypuree.decorative_blocks.fluid.ForgeThatchFluidBlock;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
@@ -60,18 +61,13 @@ public class DecorativeBlocks {
     }
 
     public void registerBlocks(RegistryEvent.Register<Block> event) {
-        if (Registration.STILL_THATCH == null) {
-            Registration.STILL_THATCH = new ForgeThatchFluid.Source(Registration.referenceHolder);
-            Registration.FLOWING_THATCH = new ForgeThatchFluid.Flowing(Registration.referenceHolder);
-        }
+        Registration.THATCH = new ForgeThatchFluidBlock(() -> Registration.STILL_THATCH, Registration.thatchProperties);
         Registration.registerBlocks(new RegistryHelperForge<>(event.getRegistry()));
     }
 
     public void registerFluids(RegistryEvent.Register<Fluid> event) {
-        if (Registration.STILL_THATCH == null) {
-            Registration.STILL_THATCH = new ForgeThatchFluid.Source(Registration.referenceHolder);
-            Registration.FLOWING_THATCH = new ForgeThatchFluid.Flowing(Registration.referenceHolder);
-        }
+        Registration.STILL_THATCH = new ForgeThatchFluid.Source(Registration.referenceHolder);
+        Registration.FLOWING_THATCH = new ForgeThatchFluid.Flowing(Registration.referenceHolder);
         Registration.registerFluids(new RegistryHelperForge<>(event.getRegistry()));
     }
 

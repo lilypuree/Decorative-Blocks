@@ -1,26 +1,18 @@
 package lilypuree.decorative_blocks.events;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import lilypuree.decorative_blocks.Constants;
 import lilypuree.decorative_blocks.blocks.SeatBlock;
 import lilypuree.decorative_blocks.blocks.SupportBlock;
 import lilypuree.decorative_blocks.client.FogHelper;
 import lilypuree.decorative_blocks.core.DBBlocks;
-import lilypuree.decorative_blocks.core.DBTags;
 import lilypuree.decorative_blocks.core.Registration;
 import lilypuree.decorative_blocks.entity.EmptyRenderer;
-import lilypuree.decorative_blocks.fluid.ThatchFluid;
 import lilypuree.decorative_blocks.items.SeatItem;
 import lilypuree.decorative_blocks.items.SupportItem;
-import net.minecraft.client.Camera;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.item.ItemProperties;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.material.FluidState;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
@@ -40,7 +32,7 @@ public class ClientEventHandler {
         ItemBlockRenderTypes.setRenderLayer(DBBlocks.SOUL_BRAZIER, RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(DBBlocks.CHANDELIER, RenderType.cutoutMipped());
         ItemBlockRenderTypes.setRenderLayer(DBBlocks.SOUL_CHANDELIER, RenderType.cutoutMipped());
-        ItemBlockRenderTypes.setRenderLayer(DBBlocks.THATCH, RenderType.solid());
+        ItemBlockRenderTypes.setRenderLayer(Registration.THATCH, RenderType.solid());
     }
 
     public static void registerItemFunc(FMLClientSetupEvent e) {

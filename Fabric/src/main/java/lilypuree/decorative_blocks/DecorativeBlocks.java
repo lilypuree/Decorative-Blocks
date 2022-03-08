@@ -30,10 +30,11 @@ public class DecorativeBlocks implements ModInitializer {
         };
         Registration.STILL_THATCH = new ThatchFluid.Source(Registration.referenceHolder);
         Registration.FLOWING_THATCH = new ThatchFluid.Flowing(Registration.referenceHolder);
+        Registration.THATCH = new FabricThatchFluidBlock(Registration.STILL_THATCH, Registration.thatchProperties);
         Registration.registerBlocks(new RegistryHelperFabric<>(Registry.BLOCK));
         Registration.registerItems(new RegistryHelperFabric<>(Registry.ITEM));
         Registration.registerFluids(new RegistryHelperFabric<>(Registry.FLUID));
-        Registration.DUMMY_ENTITY_TYPE = (EntityType<DummyEntityForSitting>) EntityType.Builder.of(DummyEntityForSitting.factory, MobCategory.MISC)
+        Registration.DUMMY_ENTITY_TYPE = EntityType.Builder.of(DummyEntityForSitting.factory, MobCategory.MISC)
                 .clientTrackingRange(256)
                 .updateInterval(20)
                 .sized(0.0001F, 0.0001F)

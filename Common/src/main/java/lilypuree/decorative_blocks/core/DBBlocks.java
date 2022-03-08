@@ -4,7 +4,6 @@ import lilypuree.decorative_blocks.blocks.*;
 import lilypuree.decorative_blocks.blocks.types.IWoodType;
 import lilypuree.decorative_blocks.blocks.types.VanillaWoodTypes;
 import lilypuree.decorative_blocks.blocks.types.WoodDecorativeBlockTypes;
-import lilypuree.decorative_blocks.fluid.ThatchFluidBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -16,7 +15,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class DBBlocks {
-    public static Block THATCH;
 
     public static Block BONFIRE;
     public static Block CHANDELIER;
@@ -36,11 +34,8 @@ public class DBBlocks {
     public static Map<IWoodType, SeatBlock> SEATS = new HashMap<>();
 
     public static final BlockBehaviour.Properties chainProperties = Block.Properties.of(Material.METAL, MaterialColor.COLOR_BLACK).strength(4.3F).sound(SoundType.METAL).noOcclusion();
-    public static final Material thatchMaterial = (new Material.Builder(MaterialColor.COLOR_YELLOW)).noCollider().nonSolid().replaceable().liquid().build();
 
     public static void init() {
-        THATCH =  new ThatchFluidBlock(Registration.STILL_THATCH, Block.Properties.of(thatchMaterial).noCollission().randomTicks().strength(100.0F).noDrops());
-
         BONFIRE = new BonfireBlock(Block.Properties.of(Material.FIRE, MaterialColor.FIRE).noCollission().strength(0).sound(SoundType.WOOL).lightLevel(state -> 15).noDrops());
         CHANDELIER = new ChandelierBlock(Block.Properties.of(Material.DECORATION).strength(0.3F).sound(SoundType.WOOD).noOcclusion().lightLevel(state -> 15), false);
         BRAZIER = new BrazierBlock(Block.Properties.of(Material.METAL).strength(3.0F).sound(SoundType.METAL).lightLevel(state -> state.getValue(BlockStateProperties.LIT) ? 15 : 0).noOcclusion(), false);
