@@ -7,6 +7,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -31,7 +32,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(HoeItem.class)
 public abstract class HoeItemMixin extends DiggerItem {
 
-    protected HoeItemMixin(float $$0, float $$1, Tier $$2, Tag<Block> $$3, Properties $$4) {
+    protected HoeItemMixin(float $$0, float $$1, Tier $$2, TagKey<Block> $$3, Properties $$4) {
         super($$0, $$1, $$2, $$3, $$4);
     }
     @Inject(method = "useOn", at = @At("HEAD"), cancellable = true)

@@ -3,6 +3,7 @@ package lilypuree.decorative_blocks.mixin;
 import lilypuree.decorative_blocks.blocks.SupportBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.DiggerItem;
@@ -20,7 +21,7 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 @Mixin(AxeItem.class)
 public class AxeItemMixin extends DiggerItem {
 
-    protected AxeItemMixin(float $$0, float $$1, Tier $$2, Tag<Block> $$3, Properties $$4) {
+    protected AxeItemMixin(float $$0, float $$1, Tier $$2, TagKey<Block> $$3, Properties $$4) {
         super($$0, $$1, $$2, $$3, $$4);
     }
     @Inject(method = "useOn", at = @At("HEAD"), cancellable = true)

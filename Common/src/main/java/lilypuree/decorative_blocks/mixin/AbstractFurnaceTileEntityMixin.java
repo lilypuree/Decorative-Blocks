@@ -3,6 +3,7 @@ package lilypuree.decorative_blocks.mixin;
 import lilypuree.decorative_blocks.core.DBBlocks;
 import lilypuree.decorative_blocks.core.DBTags;
 import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
@@ -19,11 +20,11 @@ import java.util.Map;
 public abstract class AbstractFurnaceTileEntityMixin {
 
     @Shadow
-    protected static void add(Map<Item, Integer> map, Tag<Item> itemTag, int burnTimeIn) {
+    private static void add(Map<Item, Integer> map, TagKey<Item> itemTag, int burnTimeIn) {
     }
 
     @Shadow
-    protected static void add(Map<Item, Integer> map, ItemLike itemProvider, int burnTimeIn) {
+    private static void add(Map<Item, Integer> map, ItemLike itemProvider, int burnTimeIn) {
     }
 
     @Inject(method = "getFuel", at = @At("RETURN"), locals = LocalCapture.CAPTURE_FAILSOFT)

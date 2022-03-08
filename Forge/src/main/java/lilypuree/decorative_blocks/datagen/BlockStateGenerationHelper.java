@@ -37,15 +37,15 @@ public class BlockStateGenerationHelper {
 
         MultiPartBlockStateBuilder builder = getMultipartBuilder((Block) block);
         BlockStateProperties.UP.getAllValues().forEach(up -> {
-            String upsideDown = up.pValue() ? "" : "upside_down_";
+            String upsideDown = up.value() ? "" : "upside_down_";
             ModBlockProperties.HORIZONTAL_SHAPE.getAllValues().forEach(shape -> {
-                if (!shape.pValue().isHidden()){
-                    addFourDirections(builder, sideEndModel(woodType, SUPPORT, upsideDown, "_horizontal_" + shape.pValue().getSerializedName(), texture), up, shape);
+                if (!shape.value().isHidden()){
+                    addFourDirections(builder, sideEndModel(woodType, SUPPORT, upsideDown, "_horizontal_" + shape.value().getSerializedName(), texture), up, shape);
                 }
             });
             ModBlockProperties.VERTICAL_SHAPE.getAllValues().forEach(shape -> {
-                if (!shape.pValue().isHidden()){
-                    addFourDirections(builder, sideEndModel(woodType, SUPPORT, upsideDown, "_vertical_" + shape.pValue().getSerializedName(), texture), up, shape);
+                if (!shape.value().isHidden()){
+                    addFourDirections(builder, sideEndModel(woodType, SUPPORT, upsideDown, "_vertical_" + shape.value().getSerializedName(), texture), up, shape);
                 }
             });
             addFourDirections(builder, sideEndModel(woodType, SUPPORT, upsideDown, "_post", texture),
@@ -82,11 +82,11 @@ public class BlockStateGenerationHelper {
         for (Property.Value<?> condition : conditions) {
             List<Comparable<?>> sameConditions = new ArrayList<>();
             for (Property.Value<?> valuePair : conditions) {
-                if (condition.pProperty() == valuePair.pProperty()) {
-                    sameConditions.add(valuePair.pValue());
+                if (condition.property() == valuePair.property()) {
+                    sameConditions.add(valuePair.value());
                 }
             }
-            allConditions.put(condition.pProperty(), sameConditions);
+            allConditions.put(condition.property(), sameConditions);
         }
         for (Map.Entry<Property<?>, List<Comparable<?>>> entry : allConditions.entrySet()) {
             builder.conditions.putAll(entry.getKey(), entry.getValue());

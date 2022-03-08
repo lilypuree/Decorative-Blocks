@@ -40,7 +40,7 @@ public class ClientEventHandler {
         ItemBlockRenderTypes.setRenderLayer(DBBlocks.SOUL_BRAZIER, RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(DBBlocks.CHANDELIER, RenderType.cutoutMipped());
         ItemBlockRenderTypes.setRenderLayer(DBBlocks.SOUL_CHANDELIER, RenderType.cutoutMipped());
-        ItemBlockRenderTypes.setRenderLayer(Registration.THATCH, RenderType.solid());
+        ItemBlockRenderTypes.setRenderLayer(DBBlocks.THATCH, RenderType.solid());
     }
 
     public static void registerItemFunc(FMLClientSetupEvent e) {

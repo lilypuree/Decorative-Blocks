@@ -70,10 +70,6 @@ public class BonfireBlock extends Block implements SimpleWaterloggedBlock {
 //        return true;
 //    }
 
-
-
-
-
     @Override
     public void animateTick(BlockState stateIn, Level worldIn, BlockPos pos, Random rand) {
         if (rand.nextInt(18) == 0) {

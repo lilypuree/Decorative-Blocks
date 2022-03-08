@@ -1,8 +1,9 @@
 package lilypuree.decorative_blocks.core;
 
-import lilypuree.decorative_blocks.core.factory.ItemSuppliers;
+import lilypuree.decorative_blocks.Constants;
 import lilypuree.decorative_blocks.blocks.types.IWoodType;
 import lilypuree.decorative_blocks.blocks.types.VanillaWoodTypes;
+import lilypuree.decorative_blocks.items.BlockstateCopyItem;
 import lilypuree.decorative_blocks.items.SeatItem;
 import lilypuree.decorative_blocks.items.SupportItem;
 import net.minecraft.world.item.BlockItem;
@@ -10,8 +11,6 @@ import net.minecraft.world.item.Item;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import static lilypuree.decorative_blocks.core.factory.ItemSuppliers.modItemProperties;
 
 public class DBItems {
     public static Item CHANDELIER;
@@ -30,18 +29,19 @@ public class DBItems {
     public static Map<IWoodType, Item> SUPPORT_ITEMBLOCKS = new HashMap<>();
     public static Map<IWoodType, Item> PALISADE_ITEMBLOCKS = new HashMap<>();
 
+    public static final Item.Properties modItemProperties = new Item.Properties().tab(Constants.ITEM_GROUP);
 
     public static void init() {
-        CHANDELIER = ItemSuppliers.CHANDELIER.get();
-        SOUL_CHANDELIER = ItemSuppliers.SOUL_CHANDELIER.get();
-        BRAZIER = ItemSuppliers.BRAZIER.get();
-        SOUL_BRAZIER = ItemSuppliers.SOUL_BRAZIER.get();
-        BAR_PANEL = ItemSuppliers.BAR_PANEL.get();
-        LATTICE = ItemSuppliers.LATTICE.get();
-        CHAIN = ItemSuppliers.CHAIN.get();
-        STONE_PILLAR = ItemSuppliers.STONE_PILLAR.get();
-        ROCKY_DIRT = ItemSuppliers.ROCKY_DIRT.get();
-        BLOCKSTATE_COPY_ITEM = ItemSuppliers.BLOCKSTATE_COPY_ITEM.get();
+        CHANDELIER = new BlockItem(DBBlocks.CHANDELIER, modItemProperties);
+        SOUL_CHANDELIER = new BlockItem(DBBlocks.SOUL_CHANDELIER, modItemProperties);
+        BRAZIER = new BlockItem(DBBlocks.BRAZIER, modItemProperties);
+        SOUL_BRAZIER = new BlockItem(DBBlocks.SOUL_BRAZIER, modItemProperties);
+        BAR_PANEL = new BlockItem(DBBlocks.BAR_PANEL, modItemProperties);
+        LATTICE = new BlockItem(DBBlocks.LATTICE, modItemProperties);
+        CHAIN = new BlockItem(DBBlocks.CHAIN, modItemProperties);
+        STONE_PILLAR = new BlockItem(DBBlocks.STONE_PILLAR, modItemProperties);
+        ROCKY_DIRT = new BlockItem(DBBlocks.ROCKY_DIRT, modItemProperties);
+        BLOCKSTATE_COPY_ITEM = new BlockstateCopyItem(new Item.Properties().stacksTo(1));
 
         for (IWoodType wood : VanillaWoodTypes.values()) {
             BEAM_ITEMBLOCKS.put(wood, new BlockItem(DBBlocks.BEAMS.get(wood), modItemProperties));
