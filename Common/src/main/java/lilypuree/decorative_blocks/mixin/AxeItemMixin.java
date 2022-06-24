@@ -2,7 +2,6 @@ package lilypuree.decorative_blocks.mixin;
 
 import lilypuree.decorative_blocks.blocks.SupportBlock;
 import net.minecraft.core.BlockPos;
-import net.minecraft.tags.Tag;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.AxeItem;

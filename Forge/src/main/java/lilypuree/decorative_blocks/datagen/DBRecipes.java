@@ -15,6 +15,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.function.Consumer;
 
@@ -94,7 +95,7 @@ public class DBRecipes extends RecipeProvider {
         ShapedRecipeBuilder.shaped(chandelier).group("decorative_chandeliers").pattern("##").pattern("##").define('#', torch)
                 .unlockedBy("has_torch", InventoryChangeTrigger.TriggerInstance.hasItems(torch)).save(consumer);
         ShapelessRecipeBuilder.shapeless(torch, 4).group("torches_from_chandeliers").requires(chandelier)
-                .unlockedBy("has_torch", InventoryChangeTrigger.TriggerInstance.hasItems(torch)).save(consumer, "decorative_blocks:"+torch.getRegistryName().getPath()+"_from_"+chandelier.getRegistryName().getPath());
+                .unlockedBy("has_torch", InventoryChangeTrigger.TriggerInstance.hasItems(torch)).save(consumer, "decorative_blocks:"+ ForgeRegistries.ITEMS.getKey(torch).getPath()+"_from_"+ForgeRegistries.BLOCKS.getKey(chandelier).getPath());
     }
 
 

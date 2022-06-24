@@ -7,7 +7,6 @@ import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -91,8 +90,8 @@ public class BlockstateCopyItem extends Item {
             if (tag != null) {
                 blockstatename = NbtUtils.readBlockState(tag).getBlock().getDescriptionId();
             }
-            tooltip.add(new TranslatableComponent("wiki.decorative_blocks.copy1"));
-            tooltip.add(new TranslatableComponent("wiki.decorative_blocks.copy2", blockstatename));
+            tooltip.add(Component.translatable("wiki.decorative_blocks.copy1"));
+            tooltip.add(Component.translatable("wiki.decorative_blocks.copy2", blockstatename));
         }
 
         super.appendHoverText(stack, worldIn, tooltip, flagIn);

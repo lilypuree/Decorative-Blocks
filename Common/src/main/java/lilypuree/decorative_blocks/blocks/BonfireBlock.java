@@ -5,6 +5,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -71,7 +72,7 @@ public class BonfireBlock extends Block implements SimpleWaterloggedBlock {
 //    }
 
     @Override
-    public void animateTick(BlockState stateIn, Level worldIn, BlockPos pos, Random rand) {
+    public void animateTick(BlockState stateIn, Level worldIn, BlockPos pos, RandomSource rand) {
         if (rand.nextInt(18) == 0) {
             worldIn.playLocalSound((double) ((float) pos.getX() + 0.5F), (double) ((float) pos.getY() + 0.5F), (double) ((float) pos.getZ() + 0.5F), SoundEvents.FIRE_AMBIENT, SoundSource.BLOCKS, 1.5F + rand.nextFloat(), rand.nextFloat() * 0.7F + 0.3F, false);
         }
@@ -107,7 +108,7 @@ public class BonfireBlock extends Block implements SimpleWaterloggedBlock {
 
 
     public static void spawnExtinguishSmoke(LevelAccessor world, BlockPos pos) {
-        Random rand = world.getRandom();
+        RandomSource rand = world.getRandom();
         for (int i = 0; i < 5; ++i) {
             double d0 = world.getRandom().nextGaussian() * 0.02D;
             double d1 = world.getRandom().nextGaussian() * 0.02D;

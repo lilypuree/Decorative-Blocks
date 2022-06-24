@@ -17,6 +17,7 @@ public class ForgeThatchFluidBlock extends LiquidBlock {
         super(fluid, properties);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void entityInside(BlockState state, Level worldIn, BlockPos pos, Entity entityIn) {
         if (entityIn instanceof Player) {

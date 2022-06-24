@@ -15,6 +15,7 @@ import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.client.model.generators.ModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public class DBItemModels extends ItemModelProvider {
 
@@ -42,12 +43,12 @@ public class DBItemModels extends ItemModelProvider {
     }
 
     private void simpleItem(ItemLike provider) {
-        String name = provider.asItem().getRegistryName().getPath();
+        String name = ForgeRegistries.ITEMS.getKey(provider.asItem()).getPath();
         generated(name, modLoc("item/" + name));
     }
 
     private void simpleItem(ItemLike provider, ResourceLocation texture) {
-        String name = provider.asItem().getRegistryName().getPath();
+        String name = ForgeRegistries.ITEMS.getKey(provider.asItem()).getPath();
         generated(name, texture);
     }
 
@@ -56,7 +57,7 @@ public class DBItemModels extends ItemModelProvider {
     }
 
     private void blockItemModel(Block block) {
-        String name = block.getRegistryName().getPath();
+        String name = ForgeRegistries.BLOCKS.getKey(block).getPath();
         getBuilder(name).parent(new ModelFile.UncheckedModelFile(modLoc(ModelProvider.BLOCK_FOLDER + "/" + name)));
     }
 

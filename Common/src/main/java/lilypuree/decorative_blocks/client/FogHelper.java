@@ -4,6 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import lilypuree.decorative_blocks.core.DBTags;
 import lilypuree.decorative_blocks.fluid.ThatchFluid;
 import net.minecraft.client.Camera;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.FluidState;
@@ -15,7 +16,7 @@ public class FogHelper {
         if (entity.isEyeInFluid(DBTags.Fluids.THATCH)) {
 
             Level world = entity.getCommandSenderWorld();
-            FluidState state = world.getFluidState(entity.eyeBlockPosition());
+            FluidState state = world.getFluidState(new BlockPos(entity.getEyePosition()));
             if (state.getType() instanceof ThatchFluid thatchFluid) {
                 int color = thatchFluid.getReferenceHolder().getColor();
                 float fogRed = ((float) (color >> 16 & 0xFF) / 0xFF);

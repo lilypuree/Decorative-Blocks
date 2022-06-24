@@ -37,7 +37,7 @@ public class FogRendererMixin {
     }
 
     @Inject(method = "setupFog*", at = @At("RETURN"))
-    private static void onSetupFog(Camera camera, FogRenderer.FogMode mode, float pFarPlaneDistance, boolean pNearFog, CallbackInfo ci) {
+    private static void onSetupFog(Camera camera, FogRenderer.FogMode fogMode, float pFarPlaneDistance, boolean p, float g, CallbackInfo ci) {
         FogHelper.onFogSetup(camera, pFarPlaneDistance);
     }
 }

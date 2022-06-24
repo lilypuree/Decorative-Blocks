@@ -12,18 +12,14 @@ public class DataGenerators {
     @SubscribeEvent
     public static void gatherData(GatherDataEvent event) {
         DataGenerator generator = event.getGenerator();
-        if (event.includeServer()) {
-            generator.addProvider(new DBRecipes(generator));
-            generator.addProvider(new DBLootTables(generator));
-            BlockTagsProvider blockTagsProvider = new DBBlockTagsProvider(generator, Constants.MODID, event.getExistingFileHelper());
-            generator.addProvider(blockTagsProvider);
-            generator.addProvider(new DBItemTagsProvider(generator, blockTagsProvider, event.getExistingFileHelper()));
-        }
-        if (event.includeClient()) {
-            generator.addProvider(new DBBlockStates(generator, Constants.MODID, event.getExistingFileHelper()));
-            generator.addProvider(new DBItemModels(generator, Constants.MODID, event.getExistingFileHelper()));
-//            generator.addProvider(new Languages(generator, "en_us"));
-        }
+        generator.addProvider(event.includeServer(), new DBRecipes(generator));
+        generator.addProvider(event.includeServer(), new DBLootTables(generator));
+        BlockTagsProvider blockTagsProvider = new DBBlockTagsProvider(generator, Constants.MODID, event.getExistingFileHelper());
+        generator.addProvider(event.includeServer(), blockTagsProvider);
+        generator.addProvider(event.includeServer(), new DBItemTagsProvider(generator, blockTagsProvider, event.getExistingFileHelper()));
+        generator.addProvider(event.includeClient(), new DBBlockStates(generator, Constants.MODID, event.getExistingFileHelper()));
+        generator.addProvider(event.includeClient(), new DBItemModels(generator, Constants.MODID, event.getExistingFileHelper()));
+//        generator.addProvider(event.includeClient(), new Languages(generator, "en_us"));
     }
 
 }

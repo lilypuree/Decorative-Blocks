@@ -21,10 +21,6 @@ public class DBBlockStates extends BlockStateProvider {
         super(gen, modid, exFileHelper);
     }
 
-    private static String name(Block block) {
-        return block.getRegistryName().getPath();
-    }
-
 
     private ModelBuilder<?> createModel(IWoodType wood, WoodDecorativeBlockTypes type) {
         return createModel(wood, type, null);

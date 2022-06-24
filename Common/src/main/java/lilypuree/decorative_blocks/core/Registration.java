@@ -26,7 +26,7 @@ public class Registration {
     public static Block THATCH;
 
     public static final Material thatchMaterial = (new Material.Builder(MaterialColor.COLOR_YELLOW)).noCollider().nonSolid().replaceable().liquid().build();
-    public static final BlockBehaviour.Properties thatchProperties = Block.Properties.of(thatchMaterial).noCollission().randomTicks().strength(100.0F).noDrops();
+    public static final BlockBehaviour.Properties thatchProperties = Block.Properties.of(thatchMaterial).noCollission().randomTicks().strength(100.0F).noLootTable();
 
     static {
         referenceHolder.setFlowingFluid(() -> FLOWING_THATCH);

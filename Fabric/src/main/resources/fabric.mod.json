@@ -22,7 +22,7 @@
       "client": [
         "lilypuree.decorative_blocks.ClientInitializer"
       ],
-      "rei" : [
+      "rei_common" : [
         "lilypuree.decorative_blocks.compat.DBServerPlugin",
         "lilypuree.decorative_blocks.compat.DBClientPlugin"
       ]
@@ -41,4 +41,3 @@
       "another-mod": "*"
     }
   }
-  
