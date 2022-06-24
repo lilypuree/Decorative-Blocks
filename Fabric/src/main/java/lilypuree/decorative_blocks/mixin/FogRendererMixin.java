@@ -1,9 +1,11 @@
 package lilypuree.decorative_blocks.mixin;
 
 import lilypuree.decorative_blocks.client.FogHelper;
+import lilypuree.decorative_blocks.core.DBTags;
 import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.FogRenderer;
+import net.minecraft.world.entity.Entity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -38,6 +40,9 @@ public class FogRendererMixin {
 
     @Inject(method = "setupFog*", at = @At("RETURN"))
     private static void onSetupFog(Camera camera, FogRenderer.FogMode fogMode, float pFarPlaneDistance, boolean p, float g, CallbackInfo ci) {
-        FogHelper.onFogSetup(camera, pFarPlaneDistance);
+        Entity entity = camera.getEntity();
+        if (entity.isEyeInFluid(DBTags.Fluids.THATCH)) {
+            FogHelper.onFogSetup(entity, pFarPlaneDistance);
+        }
     }
 }
