@@ -54,9 +54,4 @@ public class ClientEventHandler {
     public static void onEntityRendererRegistry(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(Registration.DUMMY_ENTITY_TYPE, EmptyRenderer::new);
     }
-
-    @SubscribeEvent
-    public static void onEntityRenderFog(EntityViewRenderEvent.RenderFogEvent event) {
-        FogHelper.onFogSetup(event.getCamera(), event.getFarPlaneDistance());
-    }
 }

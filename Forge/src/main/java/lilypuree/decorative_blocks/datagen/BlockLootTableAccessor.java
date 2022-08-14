@@ -75,11 +75,11 @@ public abstract class BlockLootTableAccessor implements Consumer<BiConsumer<Reso
 //    }
 
 
-    public static <T> T applyExplosionDecay(ItemLike itemLike, FunctionUserBuilder<T> builder) {
+    public static <T extends FunctionUserBuilder<T>> T applyExplosionDecay(ItemLike itemLike, FunctionUserBuilder<T> builder) {
         return (T) (!EXPLOSION_RESISTANT.contains(itemLike.asItem()) ? builder.apply(ApplyExplosionDecay.explosionDecay()) : builder.unwrap());
     }
 
-    public static <T> T applyExplosionCondition(ItemLike itemLike, ConditionUserBuilder<T> builder) {
+    public static <T extends ConditionUserBuilder<T>> T applyExplosionCondition(ItemLike itemLike, ConditionUserBuilder<T> builder) {
         return (T) (!EXPLOSION_RESISTANT.contains(itemLike.asItem()) ? builder.when(ExplosionCondition.survivesExplosion()) : builder.unwrap());
     }
 

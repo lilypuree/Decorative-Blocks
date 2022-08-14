@@ -12,7 +12,6 @@
     "HoeItemMixin"
   ],
   "client": [
-    "FogRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

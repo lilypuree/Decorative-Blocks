@@ -11,20 +11,20 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluid;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.network.NetworkHooks;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.IForgeRegistry;
-import net.minecraftforge.registries.IForgeRegistryEntry;
+import net.minecraftforge.registries.RegisterEvent;
 
 @Mod(Constants.MODID)
 public class DecorativeBlocks {
@@ -54,32 +54,50 @@ public class DecorativeBlocks {
         modBus.addListener(ClientEventHandler::registerItemFunc);
         modBus.addListener(ClientEventHandler::onEntityRendererRegistry);
 
-        modBus.addGenericListener(Block.class, this::registerBlocks);
-        modBus.addGenericListener(Item.class, (RegistryEvent.Register<Item> e) -> Registration.registerItems(new RegistryHelperForge<>(e.getRegistry())));
-        modBus.addGenericListener(Fluid.class, this::registerFluids);
-        modBus.addGenericListener(EntityType.class, this::registerEntities);
+        modBus.addListener(this::onRegisterEvent);
     }
 
-    public void registerBlocks(RegistryEvent.Register<Block> event) {
+    private void onRegisterEvent(RegisterEvent event) {
+        if (event.getRegistryKey() == ForgeRegistries.BLOCKS.getRegistryKey()) {
+            this.registerBlocks(event.getForgeRegistry());
+        } else if (event.getRegistryKey() == ForgeRegistries.ITEMS.getRegistryKey()) {
+            Registration.registerItems(new RegistryHelperForge<>(event.getForgeRegistry()));
+        }  else if (event.getRegistryKey() == ForgeRegistries.FLUIDS.getRegistryKey()) {
+            registerFluids(event.getForgeRegistry());
+        } else if (event.getRegistryKey() == ForgeRegistries.FLUID_TYPES.get().getRegistryKey()) {
+            registerFluidTypes(event.getForgeRegistry());
+        } else if (event.getRegistryKey() == ForgeRegistries.ENTITIES.getRegistryKey()) {
+            registerEntities(event.getForgeRegistry());
+        }
+    }
+
+    public void registerBlocks(IForgeRegistry<Block> registry) {
         Registration.THATCH = new ForgeThatchFluidBlock(() -> Registration.STILL_THATCH, Registration.thatchProperties);
-        Registration.registerBlocks(new RegistryHelperForge<>(event.getRegistry()));
+        Registration.registerBlocks(new RegistryHelperForge<>(registry));
     }
 
-    public void registerFluids(RegistryEvent.Register<Fluid> event) {
+    public void registerFluids(IForgeRegistry<Fluid> registry) {
         Registration.STILL_THATCH = new ForgeThatchFluid.Source(Registration.referenceHolder);
         Registration.FLOWING_THATCH = new ForgeThatchFluid.Flowing(Registration.referenceHolder);
-        Registration.registerFluids(new RegistryHelperForge<>(event.getRegistry()));
+        Registration.registerFluids(new RegistryHelperForge<>(registry));
     }
 
-    public void registerEntities(RegistryEvent.Register<EntityType<?>> event) {
-        event.getRegistry().register(Registration.DUMMY_ENTITY_TYPE = (EntityType<DummyEntityForSitting>) EntityType.Builder.of(DummyEntityForSitting.factory, MobCategory.MISC)
+    public void registerFluidTypes(IForgeRegistry<FluidType> registry) {
+        registry.register(DBNames.STILL_THATCH, Registration.STILL_THATCH.getFluidType());
+        registry.register(DBNames.FLOWING_THATCH, Registration.FLOWING_THATCH.getFluidType());
+    }
+
+    public void registerEntities(IForgeRegistry<EntityType<?>> registry) {
+        registry.register(DBNames.DUMMY_ENTITY,
+                Registration.DUMMY_ENTITY_TYPE = EntityType.Builder.of(DummyEntityForSitting.factory, MobCategory.MISC)
                 .clientTrackingRange(256)
                 .updateInterval(20)
                 .sized(0.0001F, 0.0001F)
-                .build(Constants.MODID + ":dummy").setRegistryName(DBNames.DUMMY_ENTITY));
+                .build(Constants.MODID + ":dummy")
+        );
     }
 
-    public static class RegistryHelperForge<T extends IForgeRegistryEntry<T>> implements RegistryHelper<T> {
+    public static class RegistryHelperForge<T> implements RegistryHelper<T> {
         IForgeRegistry<T> registry;
 
         public RegistryHelperForge(IForgeRegistry<T> registry) {
@@ -88,7 +106,7 @@ public class DecorativeBlocks {
 
         @Override
         public void register(T entry, ResourceLocation name) {
-            registry.register(entry.setRegistryName(name));
+            registry.register(name, entry);
         }
     }
 }

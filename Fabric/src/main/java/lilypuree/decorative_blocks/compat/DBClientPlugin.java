@@ -17,8 +17,6 @@ import me.shedaniel.rei.api.common.util.EntryStacks;
 import me.shedaniel.rei.plugin.client.BuiltinClientPlugin;
 import me.shedaniel.rei.plugin.common.displays.DefaultInformationDisplay;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 
@@ -31,8 +29,8 @@ public class DBClientPlugin implements REIClientPlugin {
     @Override
     public void registerDisplays(DisplayRegistry registry) {
         EntryStack<FluidStack> thatch = EntryStacks.of(Registration.STILL_THATCH);
-        Component name = new TextComponent("Thatch");
-        Component line = new TranslatableComponent("wiki.decorative_blocks.thatch");
+        Component name = Component.literal("Thatch");
+        Component line = Component.translatable("wiki.decorative_blocks.thatch");
         DefaultInformationDisplay info = DefaultInformationDisplay.createFromEntry(thatch, name);
         info.line(line);
         registry.add(info);

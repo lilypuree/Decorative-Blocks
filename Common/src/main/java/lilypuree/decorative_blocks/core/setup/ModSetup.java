@@ -10,7 +10,7 @@ import lilypuree.decorative_blocks.items.BlockstateCopyItem;
 import lilypuree.decorative_blocks.mixin.FireBlockInvoker;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -106,7 +106,7 @@ public class ModSetup {
     public static boolean sendMessageOnThrow(Player player, ItemEntity thrown) {
         if (bonfireActivatorItem == null) {
             if (!checkBonfireActivatorConfig()) {
-                player.sendMessage(new TranslatableComponent("message.decorative_blocks.invalid_bonfire_activator_config"), player.getUUID());
+                player.sendSystemMessage(Component.translatable("message.decorative_blocks.invalid_bonfire_activator_config"));
                 return false;
             }
         }

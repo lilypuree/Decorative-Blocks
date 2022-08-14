@@ -5,10 +5,9 @@ import lilypuree.decorative_blocks.Constants;
 import lilypuree.decorative_blocks.core.Registration;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
-import mezz.jei.api.constants.VanillaTypes;
+import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.registration.IRecipeRegistration;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -24,8 +23,8 @@ public class DecorativeBlocksJEIPlugin implements IModPlugin {
     public void registerRecipes(IRecipeRegistration registration) {
         if(CommonConfig.THATCH_ENABLED){
             FluidStack thatch = new FluidStack(Registration.STILL_THATCH, 1000);
-            Component message = new TranslatableComponent("wiki.decorative_blocks.thatch");
-            registration.addIngredientInfo(thatch, VanillaTypes.FLUID, message);
+            Component message = Component.translatable("wiki.decorative_blocks.thatch");
+            registration.addIngredientInfo(thatch, ForgeTypes.FLUID_STACK, message);
         }
     }
 }

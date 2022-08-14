@@ -4,7 +4,6 @@ import lilypuree.decorative_blocks.Constants;
 import lilypuree.decorative_blocks.blocks.state.ModBlockProperties;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -24,7 +23,7 @@ public class SeatItem extends SwitchableBlockItem<BooleanProperty, Boolean> {
     @Override
     public void appendHoverText(ItemStack stack, Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
         if (Screen.hasShiftDown()) {
-            tooltip.add(new TranslatableComponent("wiki.decorative_blocks.seat"));
+            tooltip.add(Component.translatable("wiki.decorative_blocks.seat"));
         }
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
     }
