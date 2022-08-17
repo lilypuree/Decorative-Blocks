@@ -5,3 +5,6 @@ Updated to 1.18.2
 Added Norwegian Bokmål (no_no) translation
 
 Updated Japanese & Chinese translation
+
+### [3.0.0] (Minecraft 1.19.2)
+Updated to 1.19.2

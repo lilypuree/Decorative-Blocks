@@ -93,10 +93,11 @@ subprojects {
 }
 
 registrationUtils {
-    group "lilypuree.${mod_id}.registration"
+    group 'lilypuree.decorative_blocks.registration'
     projects {
         Fabric { type 'fabric' } // The fabric project
         Forge { type 'forge' } // The forge project
         Common { type 'common' } // The common project
     }
 }
+

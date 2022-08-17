@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class DBBlocks {
-    public static final Registra<Block> BLOCK_REGISTRY = RegistrationProvider.get(Registry.BLOCK, Constants.MOD_ID);
+    public static final Registratio<Block> BLOCK_REGISTRY = RegistrationProvider.get(Registry.BLOCK, Constants.MOD_ID);
 
     public static Block BONFIRE;
     public static Block CHANDELIER;
