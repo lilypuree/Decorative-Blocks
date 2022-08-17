@@ -1,6 +1,7 @@
 plugins {
     id 'fabric-loom' version '0.12-SNAPSHOT' apply false
     id "com.matthewprenger.cursegradle" version "$cursegradle_version" apply false
+    id 'com.matyrobbrt.mc.registrationutils' version "$regVersion"
 }
 
 subprojects {
@@ -38,6 +39,16 @@ subprojects {
         maven {
             name = 'BlameJared Maven (CrT / Bookshelf)'
             url = 'https://maven.blamejared.com'
+        }
+        maven {
+            // location of the maven that hosts JEI files
+            name = "Progwml6 maven"
+            url = "https://dvs1.progwml6.com/files/maven/"
+        }
+        maven {
+            // location of a maven mirror for JEI files, as a fallback
+            name = "ModMaven"
+            url = "https://modmaven.dev"
         }
     }
 
@@ -78,5 +89,14 @@ subprojects {
                 forgeGradleIntegration = isForge
             }
         }
+    }
+}
+
+registrationUtils {
+    group "lilypuree.${mod_id}.registration"
+    projects {
+        Fabric { type 'fabric' } // The fabric project
+        Forge { type 'forge' } // The forge project
+        Common { type 'common' } // The common project
     }
 }

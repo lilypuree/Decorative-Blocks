@@ -1,9 +1,11 @@
 package lilypuree.decorative_blocks.core;
 
+import lilypuree.decorative_blocks.Constants;
 import lilypuree.decorative_blocks.blocks.*;
 import lilypuree.decorative_blocks.blocks.types.IWoodType;
 import lilypuree.decorative_blocks.blocks.types.VanillaWoodTypes;
 import lilypuree.decorative_blocks.blocks.types.WoodDecorativeBlockTypes;
+import net.minecraft.core.Registry;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -15,6 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class DBBlocks {
+    public static final Registra<Block> BLOCK_REGISTRY = RegistrationProvider.get(Registry.BLOCK, Constants.MOD_ID);
 
     public static Block BONFIRE;
     public static Block CHANDELIER;

@@ -21,6 +21,7 @@ dependencies {
     }
     modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
+    modCompileOnlyApi("mezz.jei:jei-${minecraft_version}-fabric-api:${jei_version}")
 
     modCompileOnly "me.shedaniel:RoughlyEnoughItems-fabric:${rei_version}"
     modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:${rei_version}"

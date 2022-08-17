@@ -25,7 +25,6 @@ import java.util.List;
 import java.util.function.UnaryOperator;
 
 public class DBClientPlugin implements REIClientPlugin {
-
     @Override
     public void registerDisplays(DisplayRegistry registry) {
         EntryStack<FluidStack> thatch = EntryStacks.of(Registration.STILL_THATCH);
