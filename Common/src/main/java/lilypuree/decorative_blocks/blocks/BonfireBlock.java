@@ -9,7 +9,6 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -25,8 +24,6 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-
-import java.util.Random;
 
 public class BonfireBlock extends Block implements SimpleWaterloggedBlock {
     public BonfireBlock(Properties properties) {
@@ -58,7 +55,6 @@ public class BonfireBlock extends Block implements SimpleWaterloggedBlock {
         }
         super.entityInside(state, worldIn, pos, entityIn);
     }
-
 
 
 //    @Override

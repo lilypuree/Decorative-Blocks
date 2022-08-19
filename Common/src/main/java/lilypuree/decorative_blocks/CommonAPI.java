@@ -11,7 +11,7 @@ public class CommonAPI {
 
     public static Map<Block, ThatchFluid.FluidReferenceHolder> shearMap = new HashMap<>();
 
-    public static void addThatchlikeFluid(ThatchFluid.FluidReferenceHolder referenceHolder){
+    public static void addThatchlikeFluid(ThatchFluid.FluidReferenceHolder referenceHolder) {
         shearMap.put(referenceHolder.getSourceBlock(), referenceHolder);
     }
 }

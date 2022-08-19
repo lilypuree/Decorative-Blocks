@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 public class ModWoodTypes {
     private static final Set<IWoodType> modWoodTypes = findWoodTypes();
 
-    private static Set<IWoodType> findWoodTypes(){
+    private static Set<IWoodType> findWoodTypes() {
         Set<IWoodType> woodTypes = Arrays.stream(VanillaWoodTypes.values()).collect(Collectors.toSet());
 //        if(ModList.get().isLoaded("biomesoplenty")){
 //            woodTypes.addAll(Arrays.stream(BOPWoodTypes.values()).collect(Collectors.toSet()));
@@ -15,7 +15,7 @@ public class ModWoodTypes {
         return woodTypes;
     }
 
-    public static Set<IWoodType> allWoodTypes(){
+    public static Set<IWoodType> allWoodTypes() {
         return modWoodTypes;
     }
 }

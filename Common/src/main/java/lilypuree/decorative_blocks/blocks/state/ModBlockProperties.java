@@ -1,8 +1,6 @@
 package lilypuree.decorative_blocks.blocks.state;
 
-import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 
 public class ModBlockProperties {

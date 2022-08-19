@@ -1,5 +1,5 @@
 {
-  "itemGroup.decorative_blocks.general" : "Decorative Blocks",
+  "itemGroup.decorative_blocks.general": "Decorative Blocks",
   "block.decorative_blocks.crimson_beam": "Karmosinbjelke",
   "block.decorative_blocks.crimson_palisade": "Karmosinpalisade",
   "block.decorative_blocks.crimson_seat": "Karmosinsete",
@@ -45,17 +45,15 @@
   "block.decorative_blocks.lattice": "Flettet Tred",
   "fluid.decorative_blocks.thatch": "Halm",
   "block.decorative_blocks.thatch": "Halm",
-
-  "wiki.decorative_blocks.thatch" :  "Klipp opp en høyball med saks.",
-  "wiki.decorative_blocks.support.condition1" : "§7Snik og høyreklikk i luften:",
-  "wiki.decorative_blocks.support.behavior1" : "§3Snu blokkelementet opp ned",
-  "wiki.decorative_blocks.support.condition2" : "§7Høyreklikk med en øks:",
-  "wiki.decorative_blocks.support.behavior2" : "§3Veksle en side mellom stor og liten",
-  "wiki.decorative_blocks.support.condition3" : "§7Snik og høyreklikk med en øks:",
-  "wiki.decorative_blocks.support.behavior3" : "§3Skjul/vis en side",
-  "wiki.decorative_blocks.seat" :  "§3Snik bruk i luften for å bytte mellom faser.",
-  "wiki.decorative_blocks.copy1" :  "§3Standard bruk limer inn, snik og bruk for å kopiere.",
-  "wiki.decorative_blocks.copy2" :  "§3Kopiert: %s",
-
-  "message.decorative_blocks.invalid_bonfire_activator_config" : "Stort bål aktivatorkonfigurasjon feil!"
+  "wiki.decorative_blocks.thatch": "Klipp opp en høyball med saks.",
+  "wiki.decorative_blocks.support.condition1": "§7Snik og høyreklikk i luften:",
+  "wiki.decorative_blocks.support.behavior1": "§3Snu blokkelementet opp ned",
+  "wiki.decorative_blocks.support.condition2": "§7Høyreklikk med en øks:",
+  "wiki.decorative_blocks.support.behavior2": "§3Veksle en side mellom stor og liten",
+  "wiki.decorative_blocks.support.condition3": "§7Snik og høyreklikk med en øks:",
+  "wiki.decorative_blocks.support.behavior3": "§3Skjul/vis en side",
+  "wiki.decorative_blocks.seat": "§3Snik bruk i luften for å bytte mellom faser.",
+  "wiki.decorative_blocks.copy1": "§3Standard bruk limer inn, snik og bruk for å kopiere.",
+  "wiki.decorative_blocks.copy2": "§3Kopiert: %s",
+  "message.decorative_blocks.invalid_bonfire_activator_config": "Stort bål aktivatorkonfigurasjon feil!"
 }

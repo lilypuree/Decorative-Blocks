@@ -36,8 +36,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import java.util.Random;
-
 public class BrazierBlock extends Block implements SimpleWaterloggedBlock {
     protected static final VoxelShape BRAZIER_SHAPE = Block.box(2D, 0.0D, 2D, 14D, 14D, 14D);
     protected static final VoxelShape BRAZIER_COLLISION_SHAPE = Block.box(2.5D, 0.0D, 2.5D, 13.5D, 13.5D, 13.5D);

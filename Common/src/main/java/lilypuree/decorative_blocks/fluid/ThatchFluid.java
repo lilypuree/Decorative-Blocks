@@ -27,6 +27,16 @@ public abstract class ThatchFluid extends FlowingFluid {
         this.referenceHolder = referenceHolder;
     }
 
+    @Override
+    public Fluid getFlowing() {
+        return referenceHolder.flowing().get();
+    }
+
+    @Override
+    public Fluid getSource() {
+        return referenceHolder.source().get();
+    }
+
     public Item getBucket() {
         return Items.BUCKET;
     }
@@ -36,13 +46,10 @@ public abstract class ThatchFluid extends FlowingFluid {
     }
 
     @Override
-    public Fluid getFlowing() {
-        return referenceHolder.getFlowingFluid();
-    }
 
-    @Override
-    public Fluid getSource() {
-        return referenceHolder.getStillFluid();
+    protected void beforeDestroyingBlock(LevelAccessor worldIn, BlockPos pos, BlockState state) {
+        BlockEntity tileentity = state.hasBlockEntity() ? worldIn.getBlockEntity(pos) : null;
+        Block.dropResources(state, worldIn, pos, tileentity);
     }
 
     @Override
@@ -52,12 +59,16 @@ public abstract class ThatchFluid extends FlowingFluid {
 
     @Override
     public BlockState createLegacyBlock(FluidState state) {
-        return referenceHolder.getFluidBlock().defaultBlockState().setValue(LiquidBlock.LEVEL, getLegacyLevel(state));
+        return referenceHolder.liquidBlock.get().defaultBlockState().setValue(LiquidBlock.LEVEL, getLegacyLevel(state));
+    }
+
+    public boolean isSame(Fluid fluidIn) {
+        return fluidIn == getFlowing() || fluidIn == getSource();
     }
 
     @Override
-    public boolean isSame(Fluid fluidIn) {
-        return fluidIn == referenceHolder.getFlowingFluid() || fluidIn == referenceHolder.getStillFluid();
+    public boolean isSource(FluidState fluidState) {
+        return false;
     }
 
     @Override
@@ -65,17 +76,10 @@ public abstract class ThatchFluid extends FlowingFluid {
         return 4;
     }
 
-
-    @Override
-    protected void beforeDestroyingBlock(LevelAccessor worldIn, BlockPos pos, BlockState state) {
-        BlockEntity tileentity = state.hasBlockEntity() ? worldIn.getBlockEntity(pos) : null;
-        Block.dropResources(state, worldIn, pos, tileentity);
-    }
-
     @Override
     public boolean canBeReplacedWith(FluidState p_215665_1_, BlockGetter p_215665_2_, BlockPos p_215665_3_, Fluid p_215665_4_, Direction p_215665_5_) {
         return false;
-  }
+    }
 
     @Override
     public int getTickDelay(LevelReader level) {
@@ -153,6 +157,7 @@ public abstract class ThatchFluid extends FlowingFluid {
     }
 
     public static class Source extends ThatchFluid {
+
         public Source(FluidReferenceHolder referenceHolder) {
             super(referenceHolder);
         }
@@ -174,54 +179,26 @@ public abstract class ThatchFluid extends FlowingFluid {
     }
 
 
+    public record FluidReferenceHolder(Supplier<Block> sourceBlock, Supplier<LiquidBlock> liquidBlock,
+                                       Supplier<FlowingFluid> flowing, Supplier<FlowingFluid> source,
+                                       ResourceLocation thatchStillTexture,
+                                       ResourceLocation thatchFlowingTexture, int color) {
 
-    public static class FluidReferenceHolder {
-        public Supplier<Block> sourceBlock;
-        public ResourceLocation thatchStillTexture;
-        public ResourceLocation thatchFlowingTexture;
-        public Supplier<Fluid> flowingFluid;
-        public Supplier<Fluid> stillFluid;
-        public Supplier<Block> fluidBlock;
-        public int color;
-
-        public FluidReferenceHolder(Supplier<Block> sourceBlock, ResourceLocation thatchStillTexture, ResourceLocation thatchFlowingTexture, int color) {
-            this.sourceBlock = sourceBlock;
-            this.thatchStillTexture = thatchStillTexture;
-            this.thatchFlowingTexture = thatchFlowingTexture;
-            this.color = color;
-        }
-
-        public void setFlowingFluid(Supplier<Fluid> flowingFluid) {
-            this.flowingFluid = flowingFluid;
-        }
-
-        public Fluid getFlowingFluid() {
-            return flowingFluid.get();
-        }
-
-        public void setStillFluid(Supplier<Fluid> stillFluid) {
-            this.stillFluid = stillFluid;
-        }
-
-        public Fluid getStillFluid() {
-            return stillFluid.get();
-        }
-
-
-        public void setFluidBlock(Supplier<Block> fluidBlock) {
-            this.fluidBlock = fluidBlock;
-        }
-
-        public Block getFluidBlock() {
-            return fluidBlock.get();
-        }
 
         public Block getSourceBlock() {
             return sourceBlock.get();
         }
 
-        public int getColor() {
-            return color;
+        public LiquidBlock getLiquidBlock() {
+            return liquidBlock.get();
+        }
+
+        public FlowingFluid getFlowingFluid() {
+            return flowing.get();
+        }
+
+        public FlowingFluid getSourceFluid() {
+            return source.get();
         }
 
     }

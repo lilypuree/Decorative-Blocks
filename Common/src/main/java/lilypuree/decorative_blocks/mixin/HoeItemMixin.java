@@ -1,13 +1,11 @@
 package lilypuree.decorative_blocks.mixin;
 
-import lilypuree.decorative_blocks.fluid.ThatchFluidBlock;
+import lilypuree.decorative_blocks.fluid.ThatchBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DiggerItem;
@@ -34,6 +32,7 @@ public abstract class HoeItemMixin extends DiggerItem {
     protected HoeItemMixin(float $$0, float $$1, Tier $$2, TagKey<Block> $$3, Properties $$4) {
         super($$0, $$1, $$2, $$3, $$4);
     }
+
     @Inject(method = "useOn", at = @At("HEAD"), cancellable = true)
     private void whenUsed(UseOnContext ctx, CallbackInfoReturnable<InteractionResult> cir) {
         Level level = ctx.getLevel();
@@ -47,7 +46,7 @@ public abstract class HoeItemMixin extends DiggerItem {
 
             if (level.mayInteract(player, hit) && player.mayUseItemAt(thatchPos, dir, ctx.getItemInHand())) {
                 BlockState hitBlock = level.getBlockState(hit);
-                if (hitBlock.getBlock() instanceof ThatchFluidBlock) {
+                if (hitBlock.getBlock() instanceof ThatchBlock) {
                     if (hitBlock.getValue(LiquidBlock.LEVEL) == 0) {
                         if (level.isClientSide()) {
                             player.swing(ctx.getHand());

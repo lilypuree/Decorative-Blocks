@@ -7,7 +7,7 @@
     }
   ],
   "result": {
-    "item": "minecraft:soul_torch",
-    "count": 4
+    "count": 4,
+    "item": "minecraft:soul_torch"
   }
 }

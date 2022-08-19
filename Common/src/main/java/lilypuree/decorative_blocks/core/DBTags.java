@@ -1,7 +1,6 @@
 package lilypuree.decorative_blocks.core;
 
 import lilypuree.decorative_blocks.Constants;
-import net.minecraft.core.HolderSet;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -19,7 +18,7 @@ public class DBTags {
         public static TagKey<Block> BRAZIERS;
         public static TagKey<Block> BONFIRES;
 
-        public static void init(){
+        public static void init() {
             PALISADES = TagKey.create(Registry.BLOCK_REGISTRY, id("palisades"));
             SUPPORTS = TagKey.create(Registry.BLOCK_REGISTRY, id("supports"));
             SEATS = TagKey.create(Registry.BLOCK_REGISTRY, id("seats"));

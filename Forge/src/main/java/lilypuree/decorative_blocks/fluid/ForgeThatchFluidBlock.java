@@ -12,7 +12,7 @@ import net.minecraft.world.level.material.FlowingFluid;
 
 import java.util.function.Supplier;
 
-public class ForgeThatchFluidBlock extends LiquidBlock {
+public class ForgeThatchFluidBlock extends LiquidBlock implements ThatchBlock {
     public ForgeThatchFluidBlock(Supplier<FlowingFluid> fluid, Properties properties) {
         super(fluid, properties);
     }

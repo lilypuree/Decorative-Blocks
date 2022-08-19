@@ -1,6 +1,5 @@
 package lilypuree.decorative_blocks.entity;
 
-import lilypuree.decorative_blocks.entity.DummyEntityForSitting;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;

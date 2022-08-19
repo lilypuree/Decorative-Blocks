@@ -1,16 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
   "group": "decorative_palisades",
-  "pattern": [
-    "xx "
-  ],
   "key": {
     "x": {
       "item": "minecraft:warped_stem"
     }
   },
+  "pattern": [
+    "xx "
+  ],
   "result": {
-    "item": "decorative_blocks:warped_palisade",
-    "count": 6
+    "count": 6,
+    "item": "decorative_blocks:warped_palisade"
   }
 }

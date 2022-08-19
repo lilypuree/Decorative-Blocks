@@ -1,5 +1,9 @@
 {
-  "itemGroup.decorative_blocks.general" : "Decorative Blocks",
+  "itemGroup.decorative_blocks.general": "Decorative Blocks",
+  "block.decorative_blocks.mangrove_beam": "망그로브 들보",
+  "block.decorative_blocks.mangrove_palisade": "망그로브 말뚝",
+  "block.decorative_blocks.mangrove_seat": "망그로브 의자",
+  "block.decorative_blocks.mangrove_support": "망그로브 지지대",
   "block.decorative_blocks.crimson_beam": "진홍빛 들보",
   "block.decorative_blocks.crimson_palisade": "진홍빛 말뚝",
   "block.decorative_blocks.crimson_seat": "진홍빛 의자",
@@ -40,14 +44,11 @@
   "block.decorative_blocks.spruce_seat": "가문비나무 의자",
   "block.decorative_blocks.rocky_dirt": "돌밭",
   "block.decorative_blocks.spruce_support": "가문비나무 지지대",
-
   "block.decorative_blocks.bonfire": "캠프파이어",
   "block.decorative_blocks.soul_bonfire": "영혼 캠프파이어",
   "block.decorative_blocks.lattice": "목재 격자",
   "fluid.decorative_blocks.thatch": "초가지붕",
   "block.decorative_blocks.thatch": "초가지붕",
-
-  "wiki.decorative_blocks.thatch" : "건초 더미를 묶는 끈을 가위로 자르세요. 순식간에 초가지붕을 만들어내는 초가지붕 유체가 흘러내립니다.",
-
-  "message.decorative_blocks.invalid_bonfire_activator_config" : "캠프파이어 활성 아이템 설정이 잘못되었습니다!"
+  "wiki.decorative_blocks.thatch": "건초 더미를 묶는 끈을 가위로 자르세요. 순식간에 초가지붕을 만들어내는 초가지붕 유체가 흘러내립니다.",
+  "message.decorative_blocks.invalid_bonfire_activator_config": "캠프파이어 활성 아이템 설정이 잘못되었습니다!"
 }

@@ -18,7 +18,7 @@ public class FogHelper {
             Level world = entity.getCommandSenderWorld();
             FluidState state = world.getFluidState(new BlockPos(entity.getEyePosition()));
             if (state.getType() instanceof ThatchFluid thatchFluid) {
-                int color = thatchFluid.getReferenceHolder().getColor();
+                int color = thatchFluid.getReferenceHolder().color();
                 return decodeColor(color);
             }
         }
@@ -38,7 +38,7 @@ public class FogHelper {
 
     }
 
-    public static void onFogSetup(Entity entity, float farPlaneDist){
+    public static void onFogSetup(Entity entity, float farPlaneDist) {
         float start;
         float end;
 

@@ -1,6 +1,5 @@
 {
-  "itemGroup.decorative_blocks.general" : "Decorative Blocks",
-
+  "itemGroup.decorative_blocks.general": "Decorative Blocks",
   "block.decorative_blocks.acacia_seat": "Siège en Acacia",
   "block.decorative_blocks.oak_support": "Soutien en chêne",
   "block.decorative_blocks.jungle_support": "Soutien en acajou",
@@ -35,12 +34,8 @@
   "block.decorative_blocks.lattice": "Treillis",
   "fluid.decorative_blocks.thatch": "Chaume",
   "block.decorative_blocks.thatch": "Chaume",
-
-  "wiki.decorative_blocks.thatch" :  "Ouvrez une balle de foin avec des ciseaux.",
-
-  "message.decorative_blocks.invalid_bonfire_activator_config" : "Mauvaise configuration de l'activateur de feu de camp !",
-
-
+  "wiki.decorative_blocks.thatch": "Ouvrez une balle de foin avec des ciseaux.",
+  "message.decorative_blocks.invalid_bonfire_activator_config": "Mauvaise configuration de l'activateur de feu de camp !",
   "block.decorative_blocks.cherry_beam": "Poutre en cerisier",
   "block.decorative_blocks.cherry_palisade": "Palissade en cerisier",
   "block.decorative_blocks.cherry_seat": "Siège en cerisier",

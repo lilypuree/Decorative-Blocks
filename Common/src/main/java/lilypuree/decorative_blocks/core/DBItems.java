@@ -1,53 +1,84 @@
 package lilypuree.decorative_blocks.core;
 
+import com.google.common.collect.ImmutableMap;
 import lilypuree.decorative_blocks.Constants;
 import lilypuree.decorative_blocks.blocks.types.IWoodType;
 import lilypuree.decorative_blocks.blocks.types.VanillaWoodTypes;
 import lilypuree.decorative_blocks.items.BlockstateCopyItem;
 import lilypuree.decorative_blocks.items.SeatItem;
 import lilypuree.decorative_blocks.items.SupportItem;
+import lilypuree.decorative_blocks.platform.Services;
+import lilypuree.decorative_blocks.registration.BlockRegistryObject;
+import lilypuree.decorative_blocks.registration.RegistrationProvider;
+import lilypuree.decorative_blocks.registration.RegistryObject;
+import net.minecraft.core.Registry;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.function.Supplier;
+
+import static lilypuree.decorative_blocks.blocks.types.WoodDecorativeBlockTypes.SEAT;
+import static lilypuree.decorative_blocks.blocks.types.WoodDecorativeBlockTypes.SUPPORT;
 
 public class DBItems {
-    public static Item CHANDELIER;
-    public static Item SOUL_CHANDELIER;
-    public static Item BRAZIER;
-    public static Item SOUL_BRAZIER;
-    public static Item BAR_PANEL;
-    public static Item LATTICE;
-    public static Item CHAIN;
-    public static Item STONE_PILLAR;
-    public static Item ROCKY_DIRT;
-    public static Item BLOCKSTATE_COPY_ITEM;
+    private static final RegistrationProvider<Item> ITEM_REGISTRY = RegistrationProvider.get(Registry.ITEM, Constants.MODID);
+    public static final CreativeModeTab ITEM_GROUP = Services.PLATFORM.createModTab("general", () -> new ItemStack(DBItems.BRAZIER.get()));
+    public static final RegistryObject<Item> CHANDELIER;
+    public static final RegistryObject<Item> SOUL_CHANDELIER;
+    public static final RegistryObject<Item> BRAZIER;
+    public static final RegistryObject<Item> SOUL_BRAZIER;
+    public static final RegistryObject<Item> BAR_PANEL;
+    public static final RegistryObject<Item> LATTICE;
+    public static final RegistryObject<Item> CHAIN;
+    public static final RegistryObject<Item> STONE_PILLAR;
+    public static final RegistryObject<Item> ROCKY_DIRT;
+    public static final RegistryObject<Item> BLOCKSTATE_COPY_ITEM;
 
-    public static Map<IWoodType, Item> BEAM_ITEMBLOCKS = new HashMap<>();
-    public static Map<IWoodType, Item> SEAT_ITEMBLOCKS = new HashMap<>();
-    public static Map<IWoodType, Item> SUPPORT_ITEMBLOCKS = new HashMap<>();
-    public static Map<IWoodType, Item> PALISADE_ITEMBLOCKS = new HashMap<>();
+    public static final ImmutableMap<IWoodType, RegistryObject<Item>> BEAM_ITEMBLOCKS;
+    public static final ImmutableMap<IWoodType, RegistryObject<Item>> SEAT_ITEMBLOCKS;
+    public static final ImmutableMap<IWoodType, RegistryObject<Item>> SUPPORT_ITEMBLOCKS;
+    public static final ImmutableMap<IWoodType, RegistryObject<Item>> PALISADE_ITEMBLOCKS;
 
-    public static final Item.Properties modItemProperties = new Item.Properties().tab(Constants.ITEM_GROUP);
+    public static final Item.Properties modItemProperties = new Item.Properties().tab(ITEM_GROUP);
+
+    static {
+        CHANDELIER = registerBlockItem(DBBlocks.CHANDELIER);
+        SOUL_CHANDELIER = registerBlockItem(DBBlocks.SOUL_CHANDELIER);
+        BRAZIER = registerBlockItem(DBBlocks.BRAZIER);
+        SOUL_BRAZIER = registerBlockItem(DBBlocks.SOUL_BRAZIER);
+        BAR_PANEL = registerBlockItem(DBBlocks.BAR_PANEL);
+        LATTICE = registerBlockItem(DBBlocks.LATTICE);
+        CHAIN = registerBlockItem(DBBlocks.CHAIN);
+        STONE_PILLAR = registerBlockItem(DBBlocks.STONE_PILLAR);
+        ROCKY_DIRT = registerBlockItem(DBBlocks.ROCKY_DIRT);
+        BLOCKSTATE_COPY_ITEM = registerItem("blockstate_copy_item", () -> new BlockstateCopyItem(new Item.Properties().stacksTo(1)));
+
+        ImmutableMap.Builder<IWoodType, RegistryObject<Item>> beams = new ImmutableMap.Builder<>();
+        ImmutableMap.Builder<IWoodType, RegistryObject<Item>> palisades = new ImmutableMap.Builder<>();
+        ImmutableMap.Builder<IWoodType, RegistryObject<Item>> supports = new ImmutableMap.Builder<>();
+        ImmutableMap.Builder<IWoodType, RegistryObject<Item>> seats = new ImmutableMap.Builder<>();
+        for (IWoodType woodType : VanillaWoodTypes.values()) {
+            beams.put(woodType, registerBlockItem(DBBlocks.BEAMS.get(woodType)));
+            seats.put(woodType, registerItem(DBNames.name(woodType, SEAT), () -> new SeatItem(DBBlocks.SEATS.get(woodType).get(), modItemProperties)));
+            supports.put(woodType, registerItem(DBNames.name(woodType, SUPPORT), () -> new SupportItem(DBBlocks.SUPPORTS.get(woodType).get(), modItemProperties)));
+            palisades.put(woodType, registerBlockItem(DBBlocks.PALISADES.get(woodType)));
+        }
+        BEAM_ITEMBLOCKS = beams.build();
+        PALISADE_ITEMBLOCKS = palisades.build();
+        SUPPORT_ITEMBLOCKS = supports.build();
+        SEAT_ITEMBLOCKS = seats.build();
+    }
 
     public static void init() {
-        CHANDELIER = new BlockItem(DBBlocks.CHANDELIER, modItemProperties);
-        SOUL_CHANDELIER = new BlockItem(DBBlocks.SOUL_CHANDELIER, modItemProperties);
-        BRAZIER = new BlockItem(DBBlocks.BRAZIER, modItemProperties);
-        SOUL_BRAZIER = new BlockItem(DBBlocks.SOUL_BRAZIER, modItemProperties);
-        BAR_PANEL = new BlockItem(DBBlocks.BAR_PANEL, modItemProperties);
-        LATTICE = new BlockItem(DBBlocks.LATTICE, modItemProperties);
-        CHAIN = new BlockItem(DBBlocks.CHAIN, modItemProperties);
-        STONE_PILLAR = new BlockItem(DBBlocks.STONE_PILLAR, modItemProperties);
-        ROCKY_DIRT = new BlockItem(DBBlocks.ROCKY_DIRT, modItemProperties);
-        BLOCKSTATE_COPY_ITEM = new BlockstateCopyItem(new Item.Properties().stacksTo(1));
+    }
 
-        for (IWoodType wood : VanillaWoodTypes.values()) {
-            BEAM_ITEMBLOCKS.put(wood, new BlockItem(DBBlocks.BEAMS.get(wood), modItemProperties));
-            SEAT_ITEMBLOCKS.put(wood, new SeatItem(DBBlocks.SEATS.get(wood), modItemProperties));
-            SUPPORT_ITEMBLOCKS.put(wood, new SupportItem(DBBlocks.SUPPORTS.get(wood), modItemProperties));
-            PALISADE_ITEMBLOCKS.put(wood, new BlockItem(DBBlocks.PALISADES.get(wood), modItemProperties));
-        }
+    private static RegistryObject<Item> registerItem(String name, Supplier<Item> itemSupplier) {
+        return ITEM_REGISTRY.register(name, itemSupplier);
+    }
+
+    private static RegistryObject<Item> registerBlockItem(BlockRegistryObject<?> block) {
+        return ITEM_REGISTRY.register(block.getId().getPath(), () -> new BlockItem(block.get(), modItemProperties));
     }
 }

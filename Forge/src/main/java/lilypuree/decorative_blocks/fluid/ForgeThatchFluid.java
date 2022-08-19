@@ -10,6 +10,7 @@ public class ForgeThatchFluid {
             .sound(SoundActions.BUCKET_EMPTY, SoundEvents.CROP_BREAK)
             .density(200)
             .viscosity(2000)
+            .motionScale(1)
             .fallDistanceModifier(1)
             .canPushEntity(false)
             .canSwim(false)
@@ -20,7 +21,7 @@ public class ForgeThatchFluid {
 
         public Flowing(FluidReferenceHolder referenceHolder) {
             super(referenceHolder);
-            this.fluidType = new DBFluidType(FLUID_PROPERTIES, referenceHolder.thatchStillTexture, referenceHolder.thatchFlowingTexture, referenceHolder.thatchStillTexture, referenceHolder.color);
+            this.fluidType = new DBFluidType(FLUID_PROPERTIES, referenceHolder.thatchStillTexture(), referenceHolder.thatchFlowingTexture(), referenceHolder.thatchStillTexture(), referenceHolder.color());
         }
 
         @Override
@@ -34,7 +35,7 @@ public class ForgeThatchFluid {
 
         public Source(FluidReferenceHolder referenceHolder) {
             super(referenceHolder);
-            this.fluidType = new DBFluidType(FLUID_PROPERTIES, referenceHolder.thatchStillTexture, referenceHolder.thatchFlowingTexture, referenceHolder.thatchStillTexture, referenceHolder.color);
+            this.fluidType = new DBFluidType(FLUID_PROPERTIES, referenceHolder.thatchStillTexture(), referenceHolder.thatchFlowingTexture(), referenceHolder.thatchStillTexture(), referenceHolder.color());
         }
 
         @Override

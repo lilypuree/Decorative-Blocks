@@ -27,7 +27,7 @@ import java.util.function.UnaryOperator;
 public class DBClientPlugin implements REIClientPlugin {
     @Override
     public void registerDisplays(DisplayRegistry registry) {
-        EntryStack<FluidStack> thatch = EntryStacks.of(Registration.STILL_THATCH);
+        EntryStack<FluidStack> thatch = EntryStacks.of(Registration.STILL_THATCH.get());
         Component name = Component.literal("Thatch");
         Component line = Component.translatable("wiki.decorative_blocks.thatch");
         DefaultInformationDisplay info = DefaultInformationDisplay.createFromEntry(thatch, name);

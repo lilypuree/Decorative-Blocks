@@ -19,19 +19,19 @@ public class DBBlockTagsProvider extends BlockTagsProvider {
     @Override
     protected void addTags() {
         for (IWoodType woodType : VanillaWoodTypes.values()) {
-            tag(DBTags.Blocks.BEAMS).add(DBBlocks.BEAMS.get(woodType));
-            tag(DBTags.Blocks.PALISADES).add(DBBlocks.PALISADES.get(woodType));
-            tag(DBTags.Blocks.SEATS).add(DBBlocks.SEATS.get(woodType));
-            tag(DBTags.Blocks.SUPPORTS).add(DBBlocks.SUPPORTS.get(woodType));
+            tag(DBTags.Blocks.BEAMS).add(DBBlocks.BEAMS.get(woodType).get());
+            tag(DBTags.Blocks.PALISADES).add(DBBlocks.PALISADES.get(woodType).get());
+            tag(DBTags.Blocks.SEATS).add(DBBlocks.SEATS.get(woodType).get());
+            tag(DBTags.Blocks.SUPPORTS).add(DBBlocks.SUPPORTS.get(woodType).get());
             if (!woodType.isFlammable()) {
-                tag(BlockTags.NON_FLAMMABLE_WOOD).add(DBBlocks.BEAMS.get(woodType),
-                        DBBlocks.PALISADES.get(woodType),
-                        DBBlocks.SEATS.get(woodType),
-                        DBBlocks.SUPPORTS.get(woodType));
+                tag(BlockTags.NON_FLAMMABLE_WOOD).add(DBBlocks.BEAMS.get(woodType).get(),
+                        DBBlocks.PALISADES.get(woodType).get(),
+                        DBBlocks.SEATS.get(woodType).get(),
+                        DBBlocks.SUPPORTS.get(woodType).get());
             }
         }
         tag(BlockTags.WALLS).addTag(DBTags.Blocks.PALISADES);
 
-        tag(DBTags.Blocks.CHANDELIERS).add(DBBlocks.CHANDELIER, DBBlocks.SOUL_CHANDELIER);
+        tag(DBTags.Blocks.CHANDELIERS).add(DBBlocks.CHANDELIER.get(), DBBlocks.SOUL_CHANDELIER.get());
     }
 }

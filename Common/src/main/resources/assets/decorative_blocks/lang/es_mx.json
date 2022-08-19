@@ -1,5 +1,5 @@
 {
-  "itemGroup.decorative_blocks.general" : "Decorative Blocks",
+  "itemGroup.decorative_blocks.general": "Decorative Blocks",
   "block.decorative_blocks.crimson_beam": "Viga carmesí",
   "block.decorative_blocks.crimson_palisade": "Empalizada carmesí",
   "block.decorative_blocks.crimson_seat": "Asiento carmesí",
@@ -45,17 +45,15 @@
   "block.decorative_blocks.lattice": "Celosía",
   "fluid.decorative_blocks.thatch": "Paja",
   "block.decorative_blocks.thatch": "Paja",
-
-  "wiki.decorative_blocks.thatch" :  "Corta una paca de heno con unas tijeras.",
-  "wiki.decorative_blocks.support.condition1" : "§7Shift + clic derecho en el aire:",
-  "wiki.decorative_blocks.support.behavior1" : "§3Dar vuelta el ítem del bloque",
-  "wiki.decorative_blocks.support.condition2" : "§7Clic derecho con un hacha:",
-  "wiki.decorative_blocks.support.behavior2" : "§3Alternar lado entre pequeño y grande",
-  "wiki.decorative_blocks.support.condition3" : "§7Shift + clic derecho con un hacha:",
-  "wiki.decorative_blocks.support.behavior3" : "§3Ocultar/mostrar lado",
-  "wiki.decorative_blocks.seat" :  "§3Shift + clic derecho en el aire para cambiar de estado.",
-  "wiki.decorative_blocks.copy1" :  "§3Clic derecho para pegar, shift + clic derecho para copiar.",
-  "wiki.decorative_blocks.copy2" :  "§3Copiado: %s",
-
-  "message.decorative_blocks.invalid_bonfire_activator_config" : "¡La configuración del activador de hoguera es incorrecta!"
+  "wiki.decorative_blocks.thatch": "Corta una paca de heno con unas tijeras.",
+  "wiki.decorative_blocks.support.condition1": "§7Shift + clic derecho en el aire:",
+  "wiki.decorative_blocks.support.behavior1": "§3Dar vuelta el ítem del bloque",
+  "wiki.decorative_blocks.support.condition2": "§7Clic derecho con un hacha:",
+  "wiki.decorative_blocks.support.behavior2": "§3Alternar lado entre pequeño y grande",
+  "wiki.decorative_blocks.support.condition3": "§7Shift + clic derecho con un hacha:",
+  "wiki.decorative_blocks.support.behavior3": "§3Ocultar/mostrar lado",
+  "wiki.decorative_blocks.seat": "§3Shift + clic derecho en el aire para cambiar de estado.",
+  "wiki.decorative_blocks.copy1": "§3Clic derecho para pegar, shift + clic derecho para copiar.",
+  "wiki.decorative_blocks.copy2": "§3Copiado: %s",
+  "message.decorative_blocks.invalid_bonfire_activator_config": "¡La configuración del activador de hoguera es incorrecta!"
 }

@@ -1,5 +1,5 @@
 {
-  "itemGroup.decorative_blocks.general" : "Decorative Blocks",
+  "itemGroup.decorative_blocks.general": "Decorative Blocks",
   "block.decorative_blocks.crimson_beam": "绯红菌柄支撑柱",
   "block.decorative_blocks.crimson_palisade": "绯红菌柄实心栅栏",
   "block.decorative_blocks.crimson_seat": "绯红菌柄板凳",
@@ -45,17 +45,15 @@
   "block.decorative_blocks.lattice": "栅栏",
   "fluid.decorative_blocks.thatch": "茅草块",
   "block.decorative_blocks.thatch": "茅草块",
-
-  "wiki.decorative_blocks.thatch" :  "用剪刀右键干草块获得.",
-  "wiki.decorative_blocks.support.condition1" : "§7对着空气潜行右键:",
-  "wiki.decorative_blocks.support.behavior1" : "§3翻转物品",
-  "wiki.decorative_blocks.support.condition2" : "§7用斧头右键:",
-  "wiki.decorative_blocks.support.behavior2" : "§3在大小之间切换",
-  "wiki.decorative_blocks.support.condition3" : "§7使用斧头潜行右键:",
-  "wiki.decorative_blocks.support.behavior3" : "§3设置这面是否隐藏",
-  "wiki.decorative_blocks.seat" :  "§3对着空气右键潜行切换.",
-  "wiki.decorative_blocks.copy1" :  "§3默认使用粘贴，潜行右键复制.",
-  "wiki.decorative_blocks.copy2" :  "§3复制: %s",
-
-  "message.decorative_blocks.invalid_bonfire_activator_config" : "篝火点燃器配置错误!"
+  "wiki.decorative_blocks.thatch": "用剪刀右键干草块获得.",
+  "wiki.decorative_blocks.support.condition1": "§7对着空气潜行右键:",
+  "wiki.decorative_blocks.support.behavior1": "§3翻转物品",
+  "wiki.decorative_blocks.support.condition2": "§7用斧头右键:",
+  "wiki.decorative_blocks.support.behavior2": "§3在大小之间切换",
+  "wiki.decorative_blocks.support.condition3": "§7使用斧头潜行右键:",
+  "wiki.decorative_blocks.support.behavior3": "§3设置这面是否隐藏",
+  "wiki.decorative_blocks.seat": "§3对着空气右键潜行切换.",
+  "wiki.decorative_blocks.copy1": "§3默认使用粘贴，潜行右键复制.",
+  "wiki.decorative_blocks.copy2": "§3复制: %s",
+  "message.decorative_blocks.invalid_bonfire_activator_config": "篝火点燃器配置错误!"
 }

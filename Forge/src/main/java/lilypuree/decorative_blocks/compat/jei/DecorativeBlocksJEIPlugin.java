@@ -22,7 +22,7 @@ public class DecorativeBlocksJEIPlugin implements IModPlugin {
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
         if(CommonConfig.THATCH_ENABLED){
-            FluidStack thatch = new FluidStack(Registration.STILL_THATCH, 1000);
+            FluidStack thatch = new FluidStack(Registration.STILL_THATCH.get(), 1000);
             Component message = Component.translatable("wiki.decorative_blocks.thatch");
             registration.addIngredientInfo(thatch, ForgeTypes.FLUID_STACK, message);
         }

@@ -11,7 +11,6 @@
   "block.decorative_blocks.soul_bonfire": "Duże eteryczne ognisko",
   "block.decorative_blocks.lattice": "Drewniana siatka",
   "fluid.decorative_blocks.thatch": "Strzecha",
-
   "block.decorative_blocks.oak_beam": "Dębowa belka",
   "block.decorative_blocks.oak_palisade": "Dębowa palisada",
   "block.decorative_blocks.oak_seat": "Dębowe siedzenie",
@@ -44,8 +43,6 @@
   "block.decorative_blocks.warped_palisade": "Spaczona palisada",
   "block.decorative_blocks.warped_seat": "Spaczone siedzenie",
   "block.decorative_blocks.warped_support": "Spaczony wspornik",
-
-  "wiki.decorative_blocks.thatch" :  "Rozetnij snop siana przy pomocy nożyczek.",
-
-  "message.decorative_blocks.invalid_bonfire_activator_config" : "Nieprawidłowa konfiguracja aktywowania dużego ogniska!"
+  "wiki.decorative_blocks.thatch": "Rozetnij snop siana przy pomocy nożyczek.",
+  "message.decorative_blocks.invalid_bonfire_activator_config": "Nieprawidłowa konfiguracja aktywowania dużego ogniska!"
 }

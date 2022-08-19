@@ -32,11 +32,11 @@ public class DBItemModels extends ItemModelProvider {
             generationHelper.seatModel(wood);
             generationHelper.supportModel(wood);
         }
-        blockItemModel(DBBlocks.ROCKY_DIRT);
-        simpleItem(DBItems.CHAIN);
+        blockItemModel(DBBlocks.ROCKY_DIRT.get());
+        simpleItem(DBItems.CHAIN.get());
 //        simpleItem(DBItems.BLOCKSTATE_COPY_ITEM);
-        simpleItem(DBItems.BRAZIER);
-        simpleItem(DBItems.SOUL_BRAZIER);
+        simpleItem(DBItems.BRAZIER.get());
+        simpleItem(DBItems.SOUL_BRAZIER.get());
         /*
         bar panels, chandeliers, lattices, stone pillars have a custom item model
          */

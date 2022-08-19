@@ -1,16 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
   "group": "decorative_palisades",
-  "pattern": [
-    "xx "
-  ],
   "key": {
     "x": {
       "item": "minecraft:crimson_stem"
     }
   },
+  "pattern": [
+    "xx "
+  ],
   "result": {
-    "item": "decorative_blocks:crimson_palisade",
-    "count": 6
+    "count": 6,
+    "item": "decorative_blocks:crimson_palisade"
   }
 }

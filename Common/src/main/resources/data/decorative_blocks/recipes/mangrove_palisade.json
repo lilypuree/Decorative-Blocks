@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "decorative_palisades",
+  "key": {
+    "x": {
+      "item": "minecraft:mangrove_log"
+    }
+  },
+  "pattern": [
+    "xx "
+  ],
+  "result": {
+    "count": 6,
+    "item": "decorative_blocks:mangrove_palisade"
+  }
+}

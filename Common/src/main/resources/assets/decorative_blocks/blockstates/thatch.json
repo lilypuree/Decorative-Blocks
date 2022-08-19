@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model": "decorative_blocks:block/thatch" }
+    "": {
+      "model": "decorative_blocks:block/thatch"
+    }
   }
 }

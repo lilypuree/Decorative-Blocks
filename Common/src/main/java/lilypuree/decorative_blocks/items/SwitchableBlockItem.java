@@ -3,6 +3,7 @@ package lilypuree.decorative_blocks.items;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
@@ -52,7 +53,7 @@ public class SwitchableBlockItem<T extends Property<U>, U extends Comparable<U>>
         return 0;
     }
 
-    private ItemStack cycleValueTag(ItemStack stack) {
+    public ItemStack cycleValueTag(ItemStack stack) {
         CompoundTag tag = stack.getOrCreateTag();
         int currentValue = tag.contains(tagName, 3) ? tag.getInt(tagName) : 0;
         if (currentValue == max) {
@@ -67,6 +68,13 @@ public class SwitchableBlockItem<T extends Property<U>, U extends Comparable<U>>
         tag.putInt(tagName, currentValue + 1);
         stack.setTag(tag);
         return stack;
+    }
+
+    public static void switchHeldItem(Player player) {
+        ItemStack stack = player.getMainHandItem();
+        if (stack.getItem() instanceof SwitchableBlockItem<?, ?> switchableBlockItem) {
+            player.setItemSlot(EquipmentSlot.MAINHAND, switchableBlockItem.cycleValueTag(stack));
+        }
     }
 
     public String getTagName() {

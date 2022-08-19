@@ -1,5 +1,5 @@
 {
-  "itemGroup.decorative_blocks.general" : "Decorative Blocks",
+  "itemGroup.decorative_blocks.general": "Decorative Blocks",
   "block.decorative_blocks.crimson_beam": "Багровая балка",
   "block.decorative_blocks.crimson_palisade": "Багровый чистокол",
   "block.decorative_blocks.crimson_seat": "Багровое сиденье",
@@ -40,14 +40,11 @@
   "block.decorative_blocks.spruce_seat": "Еловое сиденье",
   "block.decorative_blocks.rocky_dirt": "Земля с камнями",
   "block.decorative_blocks.spruce_support": "Еловая подпорка",
-
   "block.decorative_blocks.bonfire": "Костёр",
   "block.decorative_blocks.soul_bonfire": "Костёр душ",
   "block.decorative_blocks.lattice": "Решётка",
   "fluid.decorative_blocks.thatch": "Солома",
   "block.decorative_blocks.thatch": "Солома",
-
-  "wiki.decorative_blocks.thatch" :  "Используйте ножницы на стоге сена.",
-
-  "message.decorative_blocks.invalid_bonfire_activator_config" : "Произошла ошибка в конфиге при активации костра!"
+  "wiki.decorative_blocks.thatch": "Используйте ножницы на стоге сена.",
+  "message.decorative_blocks.invalid_bonfire_activator_config": "Произошла ошибка в конфиге при активации костра!"
 }

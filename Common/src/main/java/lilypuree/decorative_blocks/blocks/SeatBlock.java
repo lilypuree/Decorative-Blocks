@@ -1,10 +1,10 @@
 package lilypuree.decorative_blocks.blocks;
 
-import lilypuree.decorative_blocks.core.Registration;
+import lilypuree.decorative_blocks.blocks.state.ModBlockProperties;
 import lilypuree.decorative_blocks.blocks.types.IWoodType;
+import lilypuree.decorative_blocks.core.Registration;
 import lilypuree.decorative_blocks.entity.DummyEntityForSitting;
 import lilypuree.decorative_blocks.items.SwitchableBlockItem;
-import lilypuree.decorative_blocks.blocks.state.ModBlockProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.FluidTags;
@@ -150,7 +150,7 @@ public class SeatBlock extends HorizontalDirectionalBlock implements SimpleWater
         boolean canAttachLantern = hit.getDirection() == Direction.DOWN && isSeatAttachableItem && worldIn.getBlockState(pos.below()).isAir();
         if (!worldIn.isClientSide()) {
             if (canSit) {
-                DummyEntityForSitting seat = Registration.DUMMY_ENTITY_TYPE.create(worldIn);
+                DummyEntityForSitting seat = Registration.DUMMY_ENTITY_TYPE.get().create(worldIn);
                 seat.setSeatPos(pos);
                 worldIn.addFreshEntity(seat);
                 player.startRiding(seat);
@@ -191,7 +191,7 @@ public class SeatBlock extends HorizontalDirectionalBlock implements SimpleWater
         double x = pos.getX();
         double y = pos.getY();
         double z = pos.getZ();
-        List<DummyEntityForSitting> entities = worldIn.getEntitiesOfClass(DummyEntityForSitting.class, new AABB(x, y, z, x+1, y+1, z+1));
+        List<DummyEntityForSitting> entities = worldIn.getEntitiesOfClass(DummyEntityForSitting.class, new AABB(x, y, z, x + 1, y + 1, z + 1));
         for (DummyEntityForSitting entity : entities) {
             entity.remove(Entity.RemovalReason.DISCARDED);
         }

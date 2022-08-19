@@ -26,10 +26,15 @@ public class DBNames {
     public static ResourceLocation FLOWING_THATCH = create("flowing_thatch");
     public static ResourceLocation STILL_THATCH = create("thatch");
 
-    protected static ResourceLocation create(String name){
+    protected static ResourceLocation create(String name) {
         return new ResourceLocation(Constants.MODID, name);
     }
-    public static ResourceLocation create(IWoodType wood, WoodDecorativeBlockTypes type){
+
+    public static ResourceLocation create(IWoodType wood, WoodDecorativeBlockTypes type) {
         return new ResourceLocation(Constants.MODID, wood + "_" + type);
+    }
+
+    public static String name(IWoodType wood, WoodDecorativeBlockTypes type) {
+        return wood + "_" + type;
     }
 }

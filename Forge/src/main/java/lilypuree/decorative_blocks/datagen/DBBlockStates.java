@@ -47,10 +47,10 @@ public class DBBlockStates extends BlockStateProvider {
     protected void registerStatesAndModels() {
         BlockStateGenerationHelper generationHelper = new BlockStateGenerationHelper(Constants.MODID, this);
         for (IWoodType wood : VanillaWoodTypes.values()) {
-            generationHelper.beamBlock(DBBlocks.BEAMS.get(wood));
-            generationHelper.palisadeBlock(DBBlocks.PALISADES.get(wood));
-            generationHelper.seatBlock(DBBlocks.SEATS.get(wood));
-            generationHelper.supportBlock(DBBlocks.SUPPORTS.get(wood));
+            generationHelper.beamBlock(DBBlocks.BEAMS.get(wood).get());
+            generationHelper.palisadeBlock(DBBlocks.PALISADES.get(wood).get());
+            generationHelper.seatBlock(DBBlocks.SEATS.get(wood).get());
+            generationHelper.supportBlock(DBBlocks.SUPPORTS.get(wood).get());
         }
 
 
@@ -63,7 +63,7 @@ public class DBBlockStates extends BlockStateProvider {
         builder = models().getBuilder("bar_panel_open").parent(new ModelFile.UncheckedModelFile(modLoc("custom/bar_panel_open")));
         ModelFile barPanelOpenModel = withSideEndTextures(builder, "bar_panel");
 
-        trapdoorBlock((TrapDoorBlock) DBBlocks.BAR_PANEL, barPanelBottomModel, barPanelTopModel, barPanelOpenModel, true);
+        trapdoorBlock((TrapDoorBlock) DBBlocks.BAR_PANEL.get(), barPanelBottomModel, barPanelTopModel, barPanelOpenModel, true);
 
 //        ModelFile chainModel = models().getBuilder("chain").parent(new ModelFile.UncheckedModelFile(modLoc("custom/chain")))
 //                .texture("particle", modLoc("block/chain"))

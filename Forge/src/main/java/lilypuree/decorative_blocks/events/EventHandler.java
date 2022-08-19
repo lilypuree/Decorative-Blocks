@@ -29,7 +29,7 @@ public class EventHandler {
     @SubscribeEvent
     public static void onEntityDamage(LivingDamageEvent event) {
         if (event.getSource() == DamageSource.FALL) {
-            LivingEntity entity = event.getEntityLiving();
+            LivingEntity entity = event.getEntity();
             BlockPos pos = entity.blockPosition();
             Level world = entity.getCommandSenderWorld();
             if (world.getFluidState(pos).getType() == Registration.STILL_THATCH) {
@@ -40,7 +40,7 @@ public class EventHandler {
 
     @SubscribeEvent
     public static void onPlayerToss(ItemTossEvent event) {
-        ModSetup.sendMessageOnThrow(event.getPlayer(), event.getEntityItem());
+        ModSetup.sendMessageOnThrow(event.getPlayer(), event.getEntity());
     }
 
     @SubscribeEvent

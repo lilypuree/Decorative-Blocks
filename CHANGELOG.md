@@ -8,3 +8,5 @@ Updated Japanese & Chinese translation
 
 ### [3.0.0] (Minecraft 1.19.2)
 Updated to 1.19.2
+Thatch fluids have fluid properties on forge
+Mangrove wood set added

@@ -45,8 +45,8 @@ public class DBRecipes extends RecipeProvider {
                 .define('0', Items.IRON_BARS).define('1', ItemTags.COALS).define('2', ItemTags.SOUL_FIRE_BASE_BLOCKS)
                 .unlockedBy("has_bar", InventoryChangeTrigger.TriggerInstance.hasItems(Items.IRON_BARS)).save(consumer);
 
-        makeChandelierRecipeOf(DBBlocks.CHANDELIER, Items.TORCH, consumer);
-        makeChandelierRecipeOf(DBBlocks.SOUL_CHANDELIER, Items.SOUL_TORCH, consumer);
+        makeChandelierRecipeOf(DBBlocks.CHANDELIER.get(), Items.TORCH, consumer);
+        makeChandelierRecipeOf(DBBlocks.SOUL_CHANDELIER.get(), Items.SOUL_TORCH, consumer);
     }
 
 //    public static void makeCompatBlockRecipes(IWoodType woodType, Consumer<FinishedRecipe> recipeConsumer) {

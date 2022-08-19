@@ -1,43 +1,39 @@
 {
-    "schemaVersion": 1,
-    "id": "decorative_blocks",
-    "version": "${version}",
-  
-    "name": "Decorative Blocks",
-    "description": "Adds several new decorative blocks",
-    "authors": [
-      "Stohun, lilypuree"
+  "schemaVersion": 1,
+  "id": "decorative_blocks",
+  "version": "${version}",
+  "name": "Decorative Blocks",
+  "description": "Adds several new decorative blocks",
+  "authors": [
+    "Stohun, lilypuree"
+  ],
+  "contact": {
+    "sources": "https://github.com/lilypuree/Decorative-Blocks"
+  },
+  "license": "MIT",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "lilypuree.decorative_blocks.DecorativeBlocks"
     ],
-    "contact": {
-      "sources": "https://github.com/lilypuree/Decorative-Blocks"
-    },
-  
-    "license": "MIT",
-  
-    "environment": "*",
-    "entrypoints": {
-      "main": [
-        "lilypuree.decorative_blocks.DecorativeBlocks"
-      ],
-      "client": [
-        "lilypuree.decorative_blocks.ClientInitializer"
-      ],
-      "rei_common" : [
-        "lilypuree.decorative_blocks.compat.DBServerPlugin",
-        "lilypuree.decorative_blocks.compat.DBClientPlugin"
-      ]
-    },
-    "mixins": [
-      "decorative_blocks.mixins.json"
+    "client": [
+      "lilypuree.decorative_blocks.ClientInitializer"
     ],
-  
-    "depends": {
-      "fabricloader": ">=0.14",
-      "fabric": "*",
-      "minecraft": ">=1.19",
-      "java": ">=17"
-    },
-    "suggests": {
-      "another-mod": "*"
-    }
+    "rei_client": [
+      "lilypuree.decorative_blocks.compat.DBServerPlugin",
+      "lilypuree.decorative_blocks.compat.DBClientPlugin"
+    ]
+  },
+  "mixins": [
+    "decorative_blocks.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.14",
+    "fabric": "*",
+    "minecraft": ">=1.19",
+    "java": ">=17"
+  },
+  "suggests": {
+    "another-mod": "*"
   }
+}

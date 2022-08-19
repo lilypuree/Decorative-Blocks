@@ -34,6 +34,12 @@ public enum VanillaWoodTypes implements IWoodType {
             return MaterialColor.COLOR_BROWN;
         }
     },
+    MANGROVE("mangrove") {
+        @Override
+        public MaterialColor getMaterialColor() {
+            return MaterialColor.COLOR_RED;
+        }
+    },
     CRIMSON("crimson") {
         @Override
         public boolean isFlammable() {
@@ -86,7 +92,6 @@ public enum VanillaWoodTypes implements IWoodType {
     }
 
 
-
     public static VanillaWoodTypes withName(String name) {
         if (name.equalsIgnoreCase("oak")) return OAK;
         else if (name.equalsIgnoreCase("birch")) return BIRCH;
@@ -94,6 +99,7 @@ public enum VanillaWoodTypes implements IWoodType {
         else if (name.equalsIgnoreCase("acacia")) return ACACIA;
         else if (name.equalsIgnoreCase("jungle")) return JUNGLE;
         else if (name.equalsIgnoreCase("dark")) return DARK_OAK;
+        else if (name.equalsIgnoreCase("mangrove")) return MANGROVE;
         else if (name.equalsIgnoreCase("crimson")) return CRIMSON;
         else if (name.equalsIgnoreCase("warped")) return WARPED;
         return OAK;
@@ -118,6 +124,8 @@ public enum VanillaWoodTypes implements IWoodType {
                 return Blocks.DARK_OAK_LOG;
             case ACACIA:
                 return Blocks.ACACIA_LOG;
+            case MANGROVE:
+                return Blocks.MANGROVE_LOG;
             case CRIMSON:
                 return Blocks.CRIMSON_STEM;
             case WARPED:
@@ -140,6 +148,8 @@ public enum VanillaWoodTypes implements IWoodType {
                 return Blocks.STRIPPED_DARK_OAK_LOG;
             case ACACIA:
                 return Blocks.STRIPPED_ACACIA_LOG;
+            case MANGROVE:
+                return Blocks.STRIPPED_MANGROVE_LOG;
             case CRIMSON:
                 return Blocks.STRIPPED_CRIMSON_STEM;
             case WARPED:
@@ -162,6 +172,8 @@ public enum VanillaWoodTypes implements IWoodType {
                 return Blocks.DARK_OAK_SLAB;
             case ACACIA:
                 return Blocks.ACACIA_SLAB;
+            case MANGROVE:
+                return Blocks.MANGROVE_SLAB;
             case CRIMSON:
                 return Blocks.CRIMSON_SLAB;
             case WARPED:
@@ -184,6 +196,8 @@ public enum VanillaWoodTypes implements IWoodType {
                 return Blocks.DARK_OAK_FENCE;
             case ACACIA:
                 return Blocks.ACACIA_FENCE;
+            case MANGROVE:
+                return Blocks.MANGROVE_FENCE;
             case CRIMSON:
                 return Blocks.CRIMSON_FENCE;
             case WARPED:
@@ -206,6 +220,8 @@ public enum VanillaWoodTypes implements IWoodType {
                 return Blocks.DARK_OAK_PLANKS;
             case ACACIA:
                 return Blocks.ACACIA_PLANKS;
+            case MANGROVE:
+                return Blocks.MANGROVE_PLANKS;
             case CRIMSON:
                 return Blocks.CRIMSON_PLANKS;
             case WARPED:

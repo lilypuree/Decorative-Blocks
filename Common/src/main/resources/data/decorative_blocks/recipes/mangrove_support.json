@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "support",
+  "key": {
+    "x": {
+      "item": "minecraft:mangrove_planks"
+    }
+  },
+  "pattern": [
+    "xx ",
+    "x  "
+  ],
+  "result": {
+    "count": 3,
+    "item": "decorative_blocks:mangrove_support"
+  }
+}

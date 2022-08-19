@@ -11,7 +11,7 @@ import net.minecraftforge.fml.common.Mod;
 public class CallBacks {
     @SubscribeEvent
     public static void onRightClick(PlayerInteractEvent.RightClickBlock event) {
-        int result = ModSetup.onRightClick(event.getWorld(), event.getPlayer(), event.getHand(), event.getItemStack(), event.getPos());
+        int result = ModSetup.onRightClick(event.getLevel(), event.getEntity(), event.getHand(), event.getItemStack(), event.getPos());
         if (result == -2) {
             event.setCanceled(true);
         } else if (result == -1) {
@@ -23,7 +23,7 @@ public class CallBacks {
 
     @SubscribeEvent
     public static void onLeftClick(PlayerInteractEvent.LeftClickBlock event){
-        if (ModSetup.onLeftClick(event.getWorld(), event.getPos())){
+        if (ModSetup.onLeftClick(event.getLevel(), event.getPos())){
             event.setCanceled(true);
         }
     }

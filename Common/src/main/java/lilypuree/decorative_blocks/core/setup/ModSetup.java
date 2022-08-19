@@ -18,7 +18,9 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -27,8 +29,8 @@ public class ModSetup {
 
     public static void init() {
         CommonAPI.addThatchlikeFluid(Registration.referenceHolder);
-        CommonAPI.bonfireMap.put(Blocks.FIRE, DBBlocks.BONFIRE);
-        CommonAPI.bonfireMap.put(Blocks.SOUL_FIRE, DBBlocks.SOUL_BONFIRE);
+        CommonAPI.bonfireMap.put(Blocks.FIRE, DBBlocks.BONFIRE.get());
+        CommonAPI.bonfireMap.put(Blocks.SOUL_FIRE, DBBlocks.SOUL_BONFIRE.get());
 
         Registry.BLOCK.forEach(block -> {
             if (block instanceof PalisadeBlock) {
@@ -40,7 +42,7 @@ public class ModSetup {
             }
         });
 
-        FireBlockInvoker invoker = ((FireBlockInvoker)((Object) Blocks.FIRE));
+        FireBlockInvoker invoker = ((FireBlockInvoker) ((Object) Blocks.FIRE));
         Registry.BLOCK.forEach(block -> {
             if (block instanceof IWoodenBlock woodenBlock) {
                 if (woodenBlock.getWoodType().isFlammable()) {
@@ -48,8 +50,8 @@ public class ModSetup {
                 }
             }
         });
-        invoker.invokeSetFlammable(DBBlocks.LATTICE, 5, 20);
-        invoker.invokeSetFlammable(Registration.THATCH, 60, 80);
+        invoker.invokeSetFlammable(DBBlocks.LATTICE.get(), 5, 20);
+        invoker.invokeSetFlammable(DBBlocks.THATCH.get(), 60, 80);
     }
 
 
@@ -80,7 +82,7 @@ public class ModSetup {
             if (world.isClientSide) {
                 player.swing(hand);
             } else if (CommonConfig.THATCH_ENABLED) {
-                world.setBlockAndUpdate(pos, CommonAPI.shearMap.get(block).getFluidBlock().defaultBlockState());
+                world.setBlockAndUpdate(pos, CommonAPI.shearMap.get(block).getLiquidBlock().defaultBlockState());
                 world.playSound(null, pos, SoundEvents.CROP_BREAK, SoundSource.BLOCKS, 1.2f, 1.0f);
                 itemStack.hurtAndBreak(1, player, (entity) -> {
                     entity.broadcastBreakEvent(EquipmentSlot.MAINHAND);

@@ -2,10 +2,10 @@
   "parent": "decorative_blocks:block/warped_seat_inventory",
   "overrides": [
     {
+      "model": "decorative_blocks:block/warped_seat_post_inventory",
       "predicate": {
         "decorative_blocks:post": 1.0
-      },
-      "model": "decorative_blocks:block/warped_seat_post_inventory"
+      }
     }
   ]
 }
