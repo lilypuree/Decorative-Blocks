@@ -48,7 +48,7 @@ public class DecorativeBlocks {
 
         IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
         modBus.addListener((FMLCommonSetupEvent e) -> {
-            ModSetup.init();
+            e.enqueueWork(ModSetup::init);
         });
         modBus.addListener(ClientEventHandler::initRenderLayers);
         modBus.addListener(ClientEventHandler::registerItemFunc);

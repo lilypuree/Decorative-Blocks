@@ -5,3 +5,6 @@ Updated to 1.18.2
 Added Norwegian Bokmål (no_no) translation
 
 Updated Japanese & Chinese translation
+
+### [2.1.2] (Minecraft 1.18.2)
+Bug fix (flammable block registration)

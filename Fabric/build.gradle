@@ -9,6 +9,7 @@ repositories {
         url = 'https://maven.parchmentmc.org'
     }
     maven { url "https://maven.shedaniel.me/" }
+
 }
 
 archivesBaseName = "${mod_name}-fabric-${minecraft_version}"
@@ -24,6 +25,7 @@ dependencies {
 
     modCompileOnly "me.shedaniel:RoughlyEnoughItems-fabric:${rei_version}"
     modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:${rei_version}"
+
     implementation project(":Common")
 
 }
