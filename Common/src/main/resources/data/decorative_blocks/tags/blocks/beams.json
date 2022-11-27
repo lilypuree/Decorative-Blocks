@@ -1,12 +1,6 @@
 {
   "values": [
-    "decorative_blocks:oak_beam",
-    "decorative_blocks:birch_beam",
-    "decorative_blocks:spruce_beam",
-    "decorative_blocks:acacia_beam",
-    "decorative_blocks:jungle_beam",
-    "decorative_blocks:dark_oak_beam",
-    "decorative_blocks:mangrove_beam",
+    "#decorative_blocks:beams_that_burn",
     "decorative_blocks:crimson_beam",
     "decorative_blocks:warped_beam"
   ]

@@ -3,7 +3,6 @@
   "package": "lilypuree.decorative_blocks.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "AbstractFurnaceTileEntityMixin",
     "FireBlockInvoker",
     "ItemEntityMixin",
     "WalkNodeEvaluatorMixin",

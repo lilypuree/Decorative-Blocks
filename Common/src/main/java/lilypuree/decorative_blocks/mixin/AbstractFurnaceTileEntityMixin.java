@@ -28,10 +28,10 @@ public abstract class AbstractFurnaceTileEntityMixin {
 
     @Inject(method = "getFuel", at = @At("RETURN"), locals = LocalCapture.CAPTURE_FAILSOFT)
     private static void onGetBurnTime(CallbackInfoReturnable<Map<Item, Integer>> cir, Map<Item, Integer> map) {
-        add(map, DBTags.Items.BEAMS, 300);
-        add(map, DBTags.Items.PALISADES, 300);
-        add(map, DBTags.Items.SEATS, 300);
-        add(map, DBTags.Items.SUPPORTS, 300);
+        add(map, DBTags.Items.BEAMS_THAT_BURN, 300);
+        add(map, DBTags.Items.PALISADES_THAT_BURN, 300);
+        add(map, DBTags.Items.SEATS_THAT_BURN, 300);
+        add(map, DBTags.Items.SUPPORTS_THAT_BURN, 300);
         add(map, DBTags.Items.CHANDELIERS, 1600);
         add(map, DBBlocks.LATTICE, 100);
     }
