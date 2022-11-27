@@ -24,6 +24,7 @@ public class DecorativeBlocks implements ModInitializer {
         Registration.init();
         DBBlocks.init();
         DBItems.init();
+        FuelRegistration.init();
         ModSetup.init();
         Callbacks.initCallbacks();
     }

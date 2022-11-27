@@ -10,6 +10,10 @@ import net.minecraft.world.level.material.Fluid;
 
 public class DBTags {
     public static class Blocks {
+        public static TagKey<Block> PALISADES_THAT_BURN;
+        public static TagKey<Block> SUPPORTS_THAT_BURN;
+        public static TagKey<Block> SEATS_THAT_BURN;
+        public static TagKey<Block> BEAMS_THAT_BURN;
         public static TagKey<Block> PALISADES;
         public static TagKey<Block> SUPPORTS;
         public static TagKey<Block> SEATS;
@@ -19,10 +23,16 @@ public class DBTags {
         public static TagKey<Block> BONFIRES;
 
         public static void init() {
+            PALISADES_THAT_BURN = TagKey.create(Registry.BLOCK_REGISTRY, id("palisades_that_burn"));
+            SUPPORTS_THAT_BURN = TagKey.create(Registry.BLOCK_REGISTRY, id("supports_that_burn"));
+            SEATS_THAT_BURN = TagKey.create(Registry.BLOCK_REGISTRY, id("seats_that_burn"));
+            BEAMS_THAT_BURN = TagKey.create(Registry.BLOCK_REGISTRY, id("beams_that_burn"));
+
             PALISADES = TagKey.create(Registry.BLOCK_REGISTRY, id("palisades"));
             SUPPORTS = TagKey.create(Registry.BLOCK_REGISTRY, id("supports"));
             SEATS = TagKey.create(Registry.BLOCK_REGISTRY, id("seats"));
             BEAMS = TagKey.create(Registry.BLOCK_REGISTRY, id("beams"));
+
             CHANDELIERS = TagKey.create(Registry.BLOCK_REGISTRY, id("chandeliers"));
             BRAZIERS = TagKey.create(Registry.BLOCK_REGISTRY, id("braziers"));
             BONFIRES = TagKey.create(Registry.BLOCK_REGISTRY, id("bonfires"));
@@ -30,6 +40,10 @@ public class DBTags {
     }
 
     public static class Items {
+        public static TagKey<Item> PALISADES_THAT_BURN;
+        public static TagKey<Item> SUPPORTS_THAT_BURN;
+        public static TagKey<Item> SEATS_THAT_BURN;
+        public static TagKey<Item> BEAMS_THAT_BURN;
         public static TagKey<Item> PALISADES;
         public static TagKey<Item> SUPPORTS;
         public static TagKey<Item> SEATS;
@@ -37,10 +51,16 @@ public class DBTags {
         public static TagKey<Item> CHANDELIERS;
 
         public static void init() {
+            PALISADES_THAT_BURN = TagKey.create(Registry.ITEM_REGISTRY, id("palisades_that_burn"));
+            SUPPORTS_THAT_BURN = TagKey.create(Registry.ITEM_REGISTRY, id("supports_that_burn"));
+            SEATS_THAT_BURN = TagKey.create(Registry.ITEM_REGISTRY, id("seats_that_burn"));
+            BEAMS_THAT_BURN = TagKey.create(Registry.ITEM_REGISTRY, id("beams_that_burn"));
+
             PALISADES = TagKey.create(Registry.ITEM_REGISTRY, id("palisades"));
             SUPPORTS = TagKey.create(Registry.ITEM_REGISTRY, id("supports"));
             SEATS = TagKey.create(Registry.ITEM_REGISTRY, id("seats"));
             BEAMS = TagKey.create(Registry.ITEM_REGISTRY, id("beams"));
+
             CHANDELIERS = TagKey.create(Registry.ITEM_REGISTRY, id("chandeliers"));
         }
     }
