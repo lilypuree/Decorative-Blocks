@@ -10,7 +10,7 @@
   "block.decorative_blocks.warped_support": "Искажённая подпорка",
   "block.decorative_blocks.acacia_seat": "Акациевое сиденье",
   "block.decorative_blocks.oak_support": "Дубовая подпорка",
-  "block.decorative_blocks.jungle_support": "Сиденье из тропического дерева",
+  "block.decorative_blocks.jungle_support": "Подпорка из тропического дерева",
   "block.decorative_blocks.dark_oak_beam": "Балка из тёмного дуба",
   "block.decorative_blocks.birch_seat": "Берёзовое сиденье",
   "block.decorative_blocks.chain": "Большая цепь",
@@ -47,7 +47,16 @@
   "fluid.decorative_blocks.thatch": "Солома",
   "block.decorative_blocks.thatch": "Солома",
 
-  "wiki.decorative_blocks.thatch" :  "Используйте ножницы на стоге сена.",
+  "wiki.decorative_blocks.thatch": "Используйте ножницы на стоге сена.",
+  "wiki.decorative_blocks.support.condition1": "§7ПКМ крадучись в воздух:",
+  "wiki.decorative_blocks.support.behavior1": "§3Переверачивает элемент блока вверх ногами",
+  "wiki.decorative_blocks.support.condition2": "§7ПКМ с топором:",
+  "wiki.decorative_blocks.support.behavior2": "§3Переключает стороны между большой и маленькой",
+  "wiki.decorative_blocks.support.condition3": "§7ПКМ крадучись с топором:",
+  "wiki.decorative_blocks.support.behavior3": "§3Показать/скрыть сторону",
+  "wiki.decorative_blocks.seat": "§3ПКМ крадучись в воздух, чтобы переключится между состояниями.",
+  "wiki.decorative_blocks.copy1": "§3ПКМ для вставки, ПКМ крудчись для копирования.",
+  "wiki.decorative_blocks.copy2": "§3Скопировано: %s",
 
-  "message.decorative_blocks.invalid_bonfire_activator_config" : "Произошла ошибка в конфиге при активации костра!"
+  "message.decorative_blocks.invalid_bonfire_activator_config": "Произошла ошибка в конфиге при активации костра!"
 }
