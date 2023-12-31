@@ -2,8 +2,9 @@ package lilypuree.decorative_blocks.blocks.types;
 
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
-import net.minecraft.world.level.material.Material;
-import net.minecraft.world.level.material.MaterialColor;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
+import net.minecraft.world.level.material.MapColor;
 
 public interface IWoodType {
     String toString();
@@ -20,12 +21,17 @@ public interface IWoodType {
 
     Block getPlanks();
 
-    default MaterialColor getMaterialColor() {
-        return MaterialColor.WOOD;
+    default BlockBehaviour.Properties getProperties() {
+        BlockBehaviour.Properties properties = BlockBehaviour.Properties.of().mapColor(getMapColor()).sound(getSoundType());
+        if (isFlammable()) {
+            return properties.ignitedByLava().instrument(NoteBlockInstrument.BASS);
+        } else {
+            return properties;
+        }
     }
 
-    default Material getMaterial() {
-        return Material.WOOD;
+    default MapColor getMapColor() {
+        return MapColor.WOOD;
     }
 
     default SoundType getSoundType() {

@@ -12,6 +12,7 @@ import lilypuree.decorative_blocks.registration.BlockRegistryObject;
 import lilypuree.decorative_blocks.registration.RegistrationProvider;
 import lilypuree.decorative_blocks.registration.RegistryObject;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -23,8 +24,7 @@ import static lilypuree.decorative_blocks.blocks.types.WoodDecorativeBlockTypes.
 import static lilypuree.decorative_blocks.blocks.types.WoodDecorativeBlockTypes.SUPPORT;
 
 public class DBItems {
-    private static final RegistrationProvider<Item> ITEM_REGISTRY = RegistrationProvider.get(Registry.ITEM, Constants.MODID);
-    public static final CreativeModeTab ITEM_GROUP = Services.PLATFORM.createModTab("general", () -> new ItemStack(DBItems.BRAZIER.get()));
+    private static final RegistrationProvider<Item> ITEM_REGISTRY = RegistrationProvider.get(Registries.ITEM, Constants.MOD_ID);
     public static final RegistryObject<Item> CHANDELIER;
     public static final RegistryObject<Item> SOUL_CHANDELIER;
     public static final RegistryObject<Item> BRAZIER;
@@ -41,7 +41,6 @@ public class DBItems {
     public static final ImmutableMap<IWoodType, RegistryObject<Item>> SUPPORT_ITEMBLOCKS;
     public static final ImmutableMap<IWoodType, RegistryObject<Item>> PALISADE_ITEMBLOCKS;
 
-    public static final Item.Properties modItemProperties = new Item.Properties().tab(ITEM_GROUP);
 
     static {
         CHANDELIER = registerBlockItem(DBBlocks.CHANDELIER);
@@ -61,8 +60,8 @@ public class DBItems {
         ImmutableMap.Builder<IWoodType, RegistryObject<Item>> seats = new ImmutableMap.Builder<>();
         for (IWoodType woodType : VanillaWoodTypes.values()) {
             beams.put(woodType, registerBlockItem(DBBlocks.BEAMS.get(woodType)));
-            seats.put(woodType, registerItem(DBNames.name(woodType, SEAT), () -> new SeatItem(DBBlocks.SEATS.get(woodType).get(), modItemProperties)));
-            supports.put(woodType, registerItem(DBNames.name(woodType, SUPPORT), () -> new SupportItem(DBBlocks.SUPPORTS.get(woodType).get(), modItemProperties)));
+            seats.put(woodType, registerItem(DBNames.name(woodType, SEAT), () -> new SeatItem(DBBlocks.SEATS.get(woodType).get(), new Item.Properties())));
+            supports.put(woodType, registerItem(DBNames.name(woodType, SUPPORT), () -> new SupportItem(DBBlocks.SUPPORTS.get(woodType).get(), new Item.Properties())));
             palisades.put(woodType, registerBlockItem(DBBlocks.PALISADES.get(woodType)));
         }
         BEAM_ITEMBLOCKS = beams.build();
@@ -74,11 +73,13 @@ public class DBItems {
     public static void init() {
     }
 
+
     private static RegistryObject<Item> registerItem(String name, Supplier<Item> itemSupplier) {
         return ITEM_REGISTRY.register(name, itemSupplier);
     }
 
     private static RegistryObject<Item> registerBlockItem(BlockRegistryObject<?> block) {
-        return ITEM_REGISTRY.register(block.getId().getPath(), () -> new BlockItem(block.get(), modItemProperties));
+        return ITEM_REGISTRY.register(block.getId().getPath(), () -> new BlockItem(block.get(), new Item.Properties()));
     }
+
 }

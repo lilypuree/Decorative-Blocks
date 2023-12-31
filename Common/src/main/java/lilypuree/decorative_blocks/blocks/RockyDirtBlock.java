@@ -2,12 +2,11 @@ package lilypuree.decorative_blocks.blocks;
 
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
-import net.minecraft.world.level.material.Material;
-import net.minecraft.world.level.material.MaterialColor;
+import net.minecraft.world.level.material.MapColor;
 
 public class RockyDirtBlock extends Block {
     public RockyDirtBlock() {
-        super(Properties.of(Material.DIRT, MaterialColor.STONE).strength(1.0F, 6.0F).sound(SoundType.GRAVEL));
+        super(Properties.of().mapColor(MapColor.DIRT).strength(1.0F, 6.0F).sound(SoundType.GRAVEL));
     }
 
 //    @Override

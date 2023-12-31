@@ -1,12 +1,6 @@
 {
   "values": [
-    "decorative_blocks:oak_support",
-    "decorative_blocks:birch_support",
-    "decorative_blocks:spruce_support",
-    "decorative_blocks:acacia_support",
-    "decorative_blocks:jungle_support",
-    "decorative_blocks:dark_oak_support",
-    "decorative_blocks:mangrove_support",
+    "#decorative_blocks:supports_that_burn",
     "decorative_blocks:crimson_support",
     "decorative_blocks:warped_support"
   ]

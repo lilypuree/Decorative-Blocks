@@ -1,35 +1,30 @@
-buildscript {
-    repositories {
-        maven { url = 'https://maven.minecraftforge.net' }
-        maven { url = 'https://maven.parchmentmc.org' }
-        maven { url = 'https://repo.spongepowered.org/repository/maven-public/' }
-        mavenCentral()
-    }
-    dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
-        classpath 'org.parchmentmc:librarian:1.+'
-        classpath group: 'org.spongepowered', name: 'mixingradle', version: '0.7-SNAPSHOT'
-    }
+plugins {
+    id 'idea'
+    id 'maven-publish'
+    id 'net.minecraftforge.gradle' version '[6.0,6.2)'
+    id 'org.spongepowered.mixin' version '0.7-SNAPSHOT'
+    id 'org.parchmentmc.librarian.forgegradle' version '1.+'
 }
-apply plugin: 'java'
-apply plugin: 'net.minecraftforge.gradle'
-apply plugin: 'org.parchmentmc.librarian.forgegradle'
-apply plugin: 'org.spongepowered.mixin'
-apply plugin: 'eclipse'
-apply plugin: 'maven-publish'
+base {
+    archivesName = "${mod_name}-forge-${minecraft_version}"
+}
+mixin {
+    add(sourceSets.main, "${mod_id}.refmap.json")
+    config("${mod_id}.mixins.json")
+    config("${mod_id}.forge.mixins.json")
 
-archivesBaseName = "${mod_name}-forge-${minecraft_version}"
-java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+    debug = true
+    debug.verbose = true
+}
 
 minecraft {
     mappings channel: 'parchment', version: "${parchment_version}-${parchment_mc_version}"
+    copyIdeResources = true //Calls processResources when in dev
 
-    if (project.hasProperty('forge_ats_enabled') && project.findProperty('forge_ats_enabled').toBoolean()) {
-        // This location is hardcoded in Forge and can not be changed.
-        // https://github.com/MinecraftForge/MinecraftForge/blob/be1698bb1554f9c8fa2f58e32b9ab70bc4385e60/fmlloader/src/main/java/net/minecraftforge/fml/loading/moddiscovery/ModFile.java#L123
+    if (file('src/main/resources/META-INF/accesstransformer.cfg').exists()) {
         accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
-        project.logger.debug('Forge Access Transformers are enabled for this project.')
     }
+
 
     runs {
         client {
@@ -38,10 +33,11 @@ minecraft {
             taskName 'Client'
             property 'forge.logging.console.level', 'debug'
 
-            arg "--mixin=decorative_blocks.mixins.json"
-
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
+            
             mods {
-                "${mod_id}" {
+                modClientRun {
                     source sourceSets.main
                     source project(":Common").sourceSets.main
                 }
@@ -51,12 +47,14 @@ minecraft {
         server {
             workingDirectory project.file('run')
             ideaModule "${rootProject.name}.${project.name}.main"
-            taskName 'Server'
+            
             property 'forge.logging.console.level', 'debug'
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
 
-            arg "--mixin=decorative_blocks.mixins.json"
+            taskName 'Server'
             mods {
-                "${mod_id}" {
+                modServerRun {
                     source sourceSets.main
                     source project(":Common").sourceSets.main
                 }
@@ -67,13 +65,14 @@ minecraft {
             workingDirectory project.file('run')
             ideaModule "${rootProject.name}.${project.name}.main"
             args '--mod', mod_id, '--all', '--output', file('src/generated/resources/'), '--existing', project(":Common").file('src/main/resources/')
-            arg "--mixin=decorative_blocks.mixins.json"
-
+            
             property 'forge.logging.console.level', 'debug'
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
 
             taskName 'Data'
             mods {
-                "${mod_id}" {
+                modDataRun {
                     source sourceSets.main
                     source project(":Common").sourceSets.main
                 }
@@ -82,24 +81,12 @@ minecraft {
     }
 }
 
-//sourceSets.main.resources.srcDir 'src/generated/resources'
-
-repositories {
-    maven { url = 'https://repo.spongepowered.org/repository/maven-public/' }
-}
-
-mixin {
-    add sourceSets.main, "decorative_blocks.refmap.json"
-    config "decorative_blocks.mixins.json"
-
-    debug = true
-    debug.verbose = true
-}
+sourceSets.main.resources.srcDir 'src/generated/resources'
 
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
-    annotationProcessor 'org.spongepowered:mixin:0.8.4-SNAPSHOT:processor'
     compileOnly project(":Common")
+    annotationProcessor 'org.spongepowered:mixin:0.8.5-SNAPSHOT:processor'
 
     // compile against the JEI API but do not include it at runtime
     compileOnly(fg.deobf("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"))
@@ -109,9 +96,14 @@ dependencies {
 
 }
 
-
-tasks.withType(JavaCompile) {
+tasks.withType(JavaCompile).configureEach {
     source(project(":Common").sourceSets.main.allSource)
+}
+tasks.withType(Javadoc).configureEach {
+    source(project(":Common").sourceSets.main.allJava)
+}
+tasks.named("sourcesJar", Jar) {
+    from(project(":Common").sourceSets.main.allSource)
 }
 
 processResources {
@@ -120,13 +112,13 @@ processResources {
 
 jar.finalizedBy('reobfJar')
 
+
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            groupId project.group
-            artifactId project.archivesBaseName
-            version project.version
-            artifact jar
+            artifactId base.archivesName.get()
+            from components.java
+            fg.component(it)
         }
     }
     repositories {

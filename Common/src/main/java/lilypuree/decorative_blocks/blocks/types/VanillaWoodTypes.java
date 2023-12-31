@@ -2,42 +2,41 @@ package lilypuree.decorative_blocks.blocks.types;
 
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.material.Material;
-import net.minecraft.world.level.material.MaterialColor;
+import net.minecraft.world.level.material.MapColor;
 
 public enum VanillaWoodTypes implements IWoodType {
     OAK("oak"), BIRCH("birch") {
         @Override
-        public MaterialColor getMaterialColor() {
-            return MaterialColor.SAND;
+        public MapColor getMapColor() {
+            return MapColor.SAND;
         }
     }, SPRUCE("spruce") {
         @Override
-        public MaterialColor getMaterialColor() {
-            return MaterialColor.PODZOL;
+        public MapColor getMapColor() {
+            return MapColor.PODZOL;
         }
     },
     ACACIA("acacia") {
         @Override
-        public MaterialColor getMaterialColor() {
-            return MaterialColor.COLOR_ORANGE;
+        public MapColor getMapColor() {
+            return MapColor.COLOR_ORANGE;
         }
     }, JUNGLE("jungle") {
         @Override
-        public MaterialColor getMaterialColor() {
-            return MaterialColor.DIRT;
+        public MapColor getMapColor() {
+            return MapColor.DIRT;
         }
     },
     DARK_OAK("dark_oak") {
         @Override
-        public MaterialColor getMaterialColor() {
-            return MaterialColor.COLOR_BROWN;
+        public MapColor getMapColor() {
+            return MapColor.COLOR_BROWN;
         }
     },
     MANGROVE("mangrove") {
         @Override
-        public MaterialColor getMaterialColor() {
-            return MaterialColor.COLOR_RED;
+        public MapColor getMapColor() {
+            return MapColor.COLOR_RED;
         }
     },
     CRIMSON("crimson") {
@@ -45,15 +44,10 @@ public enum VanillaWoodTypes implements IWoodType {
         public boolean isFlammable() {
             return false;
         }
-
+        
         @Override
-        public Material getMaterial() {
-            return Material.NETHER_WOOD;
-        }
-
-        @Override
-        public MaterialColor getMaterialColor() {
-            return MaterialColor.NETHER;
+        public MapColor getMapColor() {
+            return MapColor.NETHER;
         }
     }, WARPED("warped") {
         @Override
@@ -62,13 +56,8 @@ public enum VanillaWoodTypes implements IWoodType {
         }
 
         @Override
-        public Material getMaterial() {
-            return Material.NETHER_WOOD;
-        }
-
-        @Override
-        public MaterialColor getMaterialColor() {
-            return MaterialColor.COLOR_CYAN;
+        public MapColor getMapColor() {
+            return MapColor.COLOR_CYAN;
         }
     };
 

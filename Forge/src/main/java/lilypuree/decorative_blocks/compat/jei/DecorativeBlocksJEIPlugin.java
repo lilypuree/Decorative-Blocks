@@ -2,6 +2,7 @@ package lilypuree.decorative_blocks.compat.jei;
 
 import lilypuree.decorative_blocks.CommonConfig;
 import lilypuree.decorative_blocks.Constants;
+import lilypuree.decorative_blocks.config.Config;
 import lilypuree.decorative_blocks.core.Registration;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
@@ -16,12 +17,12 @@ public class DecorativeBlocksJEIPlugin implements IModPlugin {
 
     @Override
     public ResourceLocation getPluginUid() {
-        return new ResourceLocation(Constants.MODID, "main");
+        return new ResourceLocation(Constants.MOD_ID, "main");
     }
 
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
-        if(CommonConfig.THATCH_ENABLED){
+        if (Config.get().isThatchEnabled()) {
             FluidStack thatch = new FluidStack(Registration.STILL_THATCH.get(), 1000);
             Component message = Component.translatable("wiki.decorative_blocks.thatch");
             registration.addIngredientInfo(thatch, ForgeTypes.FLUID_STACK, message);

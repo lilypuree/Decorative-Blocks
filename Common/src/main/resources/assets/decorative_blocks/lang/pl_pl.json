@@ -10,7 +10,7 @@
   "block.decorative_blocks.bonfire": "Duże ognisko",
   "block.decorative_blocks.soul_bonfire": "Duże eteryczne ognisko",
   "block.decorative_blocks.lattice": "Drewniana siatka",
-  "fluid.decorative_blocks.thatch": "Strzecha",
+  "fluid_type.decorative_blocks.thatch": "Strzecha",
   "block.decorative_blocks.oak_beam": "Dębowa belka",
   "block.decorative_blocks.oak_palisade": "Dębowa palisada",
   "block.decorative_blocks.oak_seat": "Dębowe siedzenie",

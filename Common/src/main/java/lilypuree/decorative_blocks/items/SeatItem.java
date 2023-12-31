@@ -14,7 +14,7 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import java.util.List;
 
 public class SeatItem extends SwitchableBlockItem<BooleanProperty, Boolean> {
-    public static final ResourceLocation OVERRIDE_TAG = new ResourceLocation(Constants.MODID, "post");
+    public static final ResourceLocation OVERRIDE_TAG = new ResourceLocation(Constants.MOD_ID, "post");
 
     public SeatItem(Block blockIn, Properties builder) {
         super(blockIn, builder, ModBlockProperties.POST, OVERRIDE_TAG.getPath());

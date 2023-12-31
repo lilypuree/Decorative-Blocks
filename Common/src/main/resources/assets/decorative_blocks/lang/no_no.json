@@ -43,7 +43,7 @@
   "block.decorative_blocks.bonfire": "Stort Bål",
   "block.decorative_blocks.soul_bonfire": "Stort Sjelebål",
   "block.decorative_blocks.lattice": "Flettet Tred",
-  "fluid.decorative_blocks.thatch": "Halm",
+  "fluid_type.decorative_blocks.thatch": "Halm",
   "block.decorative_blocks.thatch": "Halm",
   "wiki.decorative_blocks.thatch": "Klipp opp en høyball med saks.",
   "wiki.decorative_blocks.support.condition1": "§7Snik og høyreklikk i luften:",

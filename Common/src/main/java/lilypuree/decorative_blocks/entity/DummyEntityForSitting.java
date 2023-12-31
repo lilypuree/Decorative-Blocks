@@ -31,7 +31,7 @@ public abstract class DummyEntityForSitting extends Entity {
     @Override
     protected void removePassenger(Entity entity) {
         super.removePassenger(entity);
-        if (!this.isRemoved() && !this.level.isClientSide()) {
+        if (!this.isRemoved() && !this.level().isClientSide()) {
             entity.absMoveTo(entity.getX(), entity.getY(), entity.getZ(), entity.yRotO, entity.xRotO);
             this.discard();
         }

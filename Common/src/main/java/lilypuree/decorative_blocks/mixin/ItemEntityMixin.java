@@ -1,14 +1,17 @@
 package lilypuree.decorative_blocks.mixin;
 
 import lilypuree.decorative_blocks.CommonAPI;
-import lilypuree.decorative_blocks.core.setup.ModSetup;
+import lilypuree.decorative_blocks.DecorativeBlocksCommon;
+import lilypuree.decorative_blocks.config.Config;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import org.spongepowered.asm.mixin.Mixin;
@@ -29,8 +32,10 @@ public abstract class ItemEntityMixin extends Entity {
 
     @Inject(method = "hurt", at = @At("HEAD"), cancellable = true)
     public void onHurt(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
-        if (source == DamageSource.ON_FIRE && ModSetup.isBonfireActivator(this.getItem())) {
-            if (this.level.isClientSide || this.isRemoved()) cir.setReturnValue(false);
+        Item activator = Config.get().getBonfireActivatorItem();
+        if (source == this.damageSources().inFire()  && activator != Items.AIR && this.getItem().is(activator)) {
+            Level level = this.level();
+            if (level.isClientSide || this.isRemoved()) cir.setReturnValue(false);
             else {
                 Block block = level.getBlockState(this.blockPosition()).getBlock();
                 if (CommonAPI.bonfireMap.containsKey(block)) {

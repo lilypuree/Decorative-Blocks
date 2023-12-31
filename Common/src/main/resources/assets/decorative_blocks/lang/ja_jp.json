@@ -43,7 +43,7 @@
   "block.decorative_blocks.bonfire": "篝火",
   "block.decorative_blocks.soul_bonfire": "魂の篝火",
   "block.decorative_blocks.lattice": "格子の板",
-  "fluid.decorative_blocks.thatch": "茅葺",
+  "fluid_type.decorative_blocks.thatch": "茅葺",
   "block.decorative_blocks.thatch": "茅葺",
   "wiki.decorative_blocks.thatch": "干草の俵をハサミで切ることで作成できます。",
   "wiki.decorative_blocks.support.condition1": "§7空中に向かってスニークしながら右クリックすると:",

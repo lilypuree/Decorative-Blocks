@@ -8,15 +8,15 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.phys.Vec3;
 
 public class FogHelper {
 
     public static Info onColorFog(Camera camera) {
         Entity entity = camera.getEntity();
         if (entity.isEyeInFluid(DBTags.Fluids.THATCH)) {
-
-            Level world = entity.getCommandSenderWorld();
-            FluidState state = world.getFluidState(new BlockPos(entity.getEyePosition()));
+            Level level = entity.getCommandSenderWorld();
+            FluidState state = level.getFluidState(BlockPos.containing(entity.getEyePosition()));
             if (state.getType() instanceof ThatchFluid thatchFluid) {
                 int color = thatchFluid.getReferenceHolder().color();
                 return decodeColor(color);

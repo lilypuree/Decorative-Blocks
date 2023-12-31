@@ -43,7 +43,7 @@
   "block.decorative_blocks.bonfire": "Костёр",
   "block.decorative_blocks.soul_bonfire": "Костёр душ",
   "block.decorative_blocks.lattice": "Решётка",
-  "fluid.decorative_blocks.thatch": "Солома",
+  "fluid_type.decorative_blocks.thatch": "Солома",
   "block.decorative_blocks.thatch": "Солома",
   "wiki.decorative_blocks.thatch": "Используйте ножницы на стоге сена.",
   "message.decorative_blocks.invalid_bonfire_activator_config": "Произошла ошибка в конфиге при активации костра!"

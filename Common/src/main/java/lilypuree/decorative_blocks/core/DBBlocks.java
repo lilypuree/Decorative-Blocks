@@ -9,21 +9,21 @@ import lilypuree.decorative_blocks.blocks.types.WoodDecorativeBlockTypes;
 import lilypuree.decorative_blocks.platform.Services;
 import lilypuree.decorative_blocks.registration.BlockRegistryObject;
 import lilypuree.decorative_blocks.registration.RegistrationProvider;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.material.Material;
-import net.minecraft.world.level.material.MaterialColor;
+import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
 
 import java.util.function.Supplier;
 
 import static lilypuree.decorative_blocks.blocks.types.WoodDecorativeBlockTypes.*;
 
 public class DBBlocks {
-    private static final RegistrationProvider<Block> BLOCK_REGISTRY = RegistrationProvider.get(Registry.BLOCK, Constants.MODID);
+    private static final RegistrationProvider<Block> BLOCK_REGISTRY = RegistrationProvider.get(Registries.BLOCK, Constants.MOD_ID);
 
     public static final BlockRegistryObject<Block> BONFIRE;
     public static final BlockRegistryObject<Block> CHANDELIER;
@@ -44,20 +44,30 @@ public class DBBlocks {
     public static final ImmutableMap<IWoodType, BlockRegistryObject<SeatBlock>> SEATS;
 
     static {
-        BlockBehaviour.Properties chainProperties = Block.Properties.of(Material.METAL, MaterialColor.COLOR_BLACK).strength(4.3F).sound(SoundType.METAL).noOcclusion();
-        Material thatchMaterial = (new Material.Builder(MaterialColor.COLOR_YELLOW)).noCollider().nonSolid().replaceable().liquid().build();
-        BlockBehaviour.Properties thatchProperties = Block.Properties.of(thatchMaterial).noCollission().randomTicks().strength(100.0F).noLootTable();
+        BlockBehaviour.Properties chainProperties = Block.Properties.of().mapColor(MapColor.METAL).strength(4.3F).sound(SoundType.METAL).noOcclusion();
+        BlockBehaviour.Properties thatchProperties = Block.Properties.of().liquid().replaceable().noCollission().randomTicks().noLootTable()
+                .mapColor(MapColor.COLOR_YELLOW).pushReaction(PushReaction.DESTROY).strength(100.0F);
 
-        BONFIRE = registerBlock("bonfire", () -> new BonfireBlock(Block.Properties.of(Material.FIRE, MaterialColor.FIRE).noCollission().strength(0).sound(SoundType.WOOL).lightLevel(state -> 15).noLootTable()));
-        CHANDELIER = registerBlock("chandelier", () -> new ChandelierBlock(Block.Properties.of(Material.DECORATION).strength(0.3F).sound(SoundType.WOOD).noOcclusion().lightLevel(state -> 15), false));
-        BRAZIER = registerBlock("brazier", () -> new BrazierBlock(Block.Properties.of(Material.METAL).strength(3.0F).sound(SoundType.METAL).lightLevel(state -> state.getValue(BlockStateProperties.LIT) ? 15 : 0).noOcclusion(), false));
-        SOUL_BONFIRE = registerBlock("soul_bonfire", () -> new BonfireBlock(Block.Properties.of(Material.FIRE, MaterialColor.COLOR_CYAN).noCollission().strength(0).sound(SoundType.WOOL).lightLevel(state -> 14).noLootTable()));
-        SOUL_CHANDELIER = registerBlock("soul_chandelier", () -> new ChandelierBlock(Block.Properties.of(Material.DECORATION).strength(0.3F).sound(SoundType.WOOD).noOcclusion().lightLevel(state -> 11), true));
-        SOUL_BRAZIER = registerBlock("soul_brazier", () -> new BrazierBlock(Block.Properties.of(Material.METAL).strength(3.0F).sound(SoundType.METAL).lightLevel(state -> state.getValue(BlockStateProperties.LIT) ? 10 : 0).noOcclusion(), true));
-        BAR_PANEL = registerBlock("bar_panel", () -> new BarPanelBlock(Block.Properties.of(Material.METAL, MaterialColor.COLOR_BLACK).strength(5.0F).sound(SoundType.METAL).noOcclusion()));
-        LATTICE = registerBlock("lattice", () -> new LatticeBlock(Block.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(1.2F).sound(SoundType.WOOD).noOcclusion()));
+        BlockBehaviour.Properties bonfire = BlockBehaviour.Properties.of().sound(SoundType.WOOL).strength(0).mapColor(MapColor.FIRE).pushReaction(PushReaction.DESTROY).replaceable().noCollission().lightLevel(state -> 15).noLootTable();
+        BlockBehaviour.Properties soul_bonfire = BlockBehaviour.Properties.of().sound(SoundType.WOOL).strength(0).mapColor(MapColor.COLOR_CYAN).pushReaction(PushReaction.DESTROY).replaceable().noCollission().lightLevel(state -> 14).noLootTable();
+        BlockBehaviour.Properties chandelier = BlockBehaviour.Properties.of().sound(SoundType.WOOD).strength(0.3f).pushReaction(PushReaction.DESTROY).replaceable().noCollission().noOcclusion().lightLevel(state -> 15);
+        BlockBehaviour.Properties soul_chandelier = BlockBehaviour.Properties.of().sound(SoundType.WOOD).strength(0.3f).pushReaction(PushReaction.DESTROY).replaceable().noCollission().noOcclusion().lightLevel(state -> 11);
+        BlockBehaviour.Properties brazier = BlockBehaviour.Properties.of().sound(SoundType.METAL).strength(3.0f).mapColor(MapColor.METAL).noOcclusion().lightLevel(state -> state.getValue(BlockStateProperties.LIT) ? 15 : 0);
+        BlockBehaviour.Properties soul_brazier = BlockBehaviour.Properties.of().sound(SoundType.METAL).strength(3.0f).mapColor(MapColor.METAL).noOcclusion().lightLevel(state -> state.getValue(BlockStateProperties.LIT) ? 10 : 0);
+        BlockBehaviour.Properties bar_banel = BlockBehaviour.Properties.of().sound(SoundType.METAL).strength(5.0f).mapColor(MapColor.METAL).noOcclusion();
+        BlockBehaviour.Properties lattice = BlockBehaviour.Properties.of().sound(SoundType.WOOD).strength(1.2f).mapColor(MapColor.WOOD).noOcclusion();
+        BlockBehaviour.Properties pillar = BlockBehaviour.Properties.of().sound(SoundType.STONE).strength(1.5F, 6.5F).mapColor(MapColor.STONE);
+
+        BONFIRE = registerBlock("bonfire", () -> new BonfireBlock(bonfire));
+        CHANDELIER = registerBlock("chandelier", () -> new ChandelierBlock(chandelier, false));
+        BRAZIER = registerBlock("brazier", () -> new BrazierBlock(brazier, false));
+        SOUL_BONFIRE = registerBlock("soul_bonfire", () -> new BonfireBlock(soul_bonfire));
+        SOUL_CHANDELIER = registerBlock("soul_chandelier", () -> new ChandelierBlock(soul_chandelier, true));
+        SOUL_BRAZIER = registerBlock("soul_brazier", () -> new BrazierBlock(soul_brazier, true));
+        BAR_PANEL = registerBlock("bar_panel", () -> new BarPanelBlock(bar_banel));
+        LATTICE = registerBlock("lattice", () -> new LatticeBlock(lattice));
         CHAIN = registerBlock("chain", () -> new ChainBlock(chainProperties));
-        STONE_PILLAR = registerBlock("stone_pillar", () -> new PillarBlock(Block.Properties.of(Material.STONE).strength(1.5F, 6.5F)));
+        STONE_PILLAR = registerBlock("stone_pillar", () -> new PillarBlock(pillar));
         ROCKY_DIRT = registerBlock("rocky_dirt", RockyDirtBlock::new);
         THATCH = registerBlock("thatch", () -> Services.PLATFORM.createThatchFluidBlock(Registration.STILL_THATCH, thatchProperties));
 
@@ -81,8 +91,8 @@ public class DBBlocks {
     }
 
     public static Block createDecorativeBlock(IWoodType wood, WoodDecorativeBlockTypes woodDecorativeBlockType) {
-        Block.Properties woodProperty = BlockBehaviour.Properties.of(wood.getMaterial(), wood.getMaterialColor()).strength(1.2F).sound(wood.getSoundType());
-        Block.Properties palisadeProperty = BlockBehaviour.Properties.of(wood.getMaterial(), wood.getMaterialColor()).strength(2.0F, 4.0F).sound(wood.getSoundType());
+        BlockBehaviour.Properties woodProperty = wood.getProperties().strength(1.2F);
+        BlockBehaviour.Properties palisadeProperty = wood.getProperties().strength(2.0F, 4.0F);
 
         return switch (woodDecorativeBlockType) {
             case BEAM -> new BeamBlock(woodProperty, wood);

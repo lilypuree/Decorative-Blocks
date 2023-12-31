@@ -1,8 +1,9 @@
 package lilypuree.decorative_blocks;
 
 import lilypuree.decorative_blocks.core.*;
-import lilypuree.decorative_blocks.core.setup.ModSetup;
 import lilypuree.decorative_blocks.events.ClientEventHandler;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -14,7 +15,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.RegisterEvent;
 
-@Mod(Constants.MODID)
+@Mod(Constants.MOD_ID)
 public class DecorativeBlocks {
 
     public DecorativeBlocks() {
@@ -23,12 +24,14 @@ public class DecorativeBlocks {
         DBBlocks.init();
         DBItems.init();
 
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.COMMON_CONFIG);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, ForgeConfig.COMMON_CONFIG);
 
         IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
+        modBus.register(ForgeConfig.INSTANCE);
         modBus.addListener((FMLCommonSetupEvent e) -> {
-            ModSetup.init();
+            DecorativeBlocksCommon.init();
         });
+        
         modBus.addListener(ClientEventHandler::clientSetup);
         modBus.addListener(ClientEventHandler::onEntityRendererRegistry);
 
@@ -42,10 +45,8 @@ public class DecorativeBlocks {
     }
 
 
-    public void registerFluidTypes(IForgeRegistry<FluidType> registry) {
+    private void registerFluidTypes(IForgeRegistry<FluidType> registry) {
         registry.register(DBNames.STILL_THATCH, Registration.STILL_THATCH.get().getFluidType());
         registry.register(DBNames.FLOWING_THATCH, Registration.FLOWING_THATCH.get().getFluidType());
     }
-
-
 }

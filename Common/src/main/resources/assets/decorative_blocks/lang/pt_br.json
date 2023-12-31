@@ -43,7 +43,7 @@
   "block.decorative_blocks.bonfire": "Fogueira grande",
   "block.decorative_blocks.soul_bonfire": "Fogueira das almas grande",
   "block.decorative_blocks.lattice": "Grade",
-  "fluid.decorative_blocks.thatch": "Palha",
+  "fluid_type.decorative_blocks.thatch": "Palha",
   "block.decorative_blocks.thatch": "Palha",
   "wiki.decorative_blocks.thatch": "Corte um fardo de feno com tesouras.",
   "wiki.decorative_blocks.support.condition1": "§7Clique-dierito segurando Shift no ar:",

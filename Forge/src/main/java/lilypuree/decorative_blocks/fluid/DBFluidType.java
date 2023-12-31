@@ -1,7 +1,6 @@
 package lilypuree.decorative_blocks.fluid;
 
 import com.mojang.blaze3d.shaders.FogShape;
-import com.mojang.math.Vector3f;
 import lilypuree.decorative_blocks.client.FogHelper;
 import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -11,6 +10,7 @@ import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.minecraftforge.fluids.FluidType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Vector3f;
 
 import java.util.function.Consumer;
 

@@ -2,6 +2,7 @@ package lilypuree.decorative_blocks.blocks;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -25,7 +26,8 @@ public class ChandelierBlock extends Block {
         return CHANDELIER_SHAPE;
     }
 
-    public void animateTick(BlockState stateIn, Level worldIn, BlockPos pos, Random rand) {
+    @Override
+    public void animateTick(BlockState stateIn, Level worldIn, BlockPos pos, RandomSource rand) {
         double d0 = (double) pos.getX() + 0.5D;
         double d1 = (double) pos.getY() + 0.7D;
         double d2 = (double) pos.getZ() + 0.5D;

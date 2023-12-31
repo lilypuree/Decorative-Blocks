@@ -1,16 +1,17 @@
 {
   "schemaVersion": 1,
-  "id": "decorative_blocks",
+  "id": "${mod_id}",
   "version": "${version}",
-  "name": "Decorative Blocks",
-  "description": "Adds several new decorative blocks",
+  "name": "${mod_name}",
+  "description": "${description}",
   "authors": [
-    "Stohun, lilypuree"
+    "${mod_author}"
   ],
   "contact": {
     "sources": "https://github.com/lilypuree/Decorative-Blocks"
   },
-  "license": "MIT",
+  "license": "${mod_license}",
+  "icon" : "logo.png",
   "environment": "*",
   "entrypoints": {
     "main": [
@@ -25,12 +26,13 @@
     ]
   },
   "mixins": [
-    "decorative_blocks.mixins.json"
+    "${mod_id}.mixins.json",
+    "${mod_id}.fabric.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=0.14",
     "fabric": "*",
-    "minecraft": ">=1.19",
+    "minecraft": ">=1.20.1",
     "java": ">=17"
   },
   "suggests": {

@@ -53,7 +53,7 @@ public class BrazierBlock extends Block implements SimpleWaterloggedBlock {
     public void entityInside(BlockState state, Level worldIn, BlockPos pos, Entity entityIn) {
         if (!entityIn.fireImmune() && state.getValue(LIT) && entityIn instanceof LivingEntity && !EnchantmentHelper.hasFrostWalker((LivingEntity) entityIn)) {
             if (entityIn.getY() >= state.getCollisionShape(worldIn, pos).max(Direction.Axis.Y) + pos.getY() - 0.1f) {
-                entityIn.hurt(DamageSource.IN_FIRE, 1.0F);
+                entityIn.hurt(entityIn.damageSources().inFire(), 1.0F);
             }
         }
         super.entityInside(state, worldIn, pos, entityIn);

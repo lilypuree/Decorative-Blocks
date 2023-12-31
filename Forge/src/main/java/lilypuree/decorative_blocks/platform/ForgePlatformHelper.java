@@ -1,7 +1,8 @@
 package lilypuree.decorative_blocks.platform;
 
 import lilypuree.decorative_blocks.Constants;
-import lilypuree.decorative_blocks.core.DBItems;
+import lilypuree.decorative_blocks.ForgeConfig;
+import lilypuree.decorative_blocks.config.Config;
 import lilypuree.decorative_blocks.entity.DummyEntityForSitting;
 import lilypuree.decorative_blocks.fluid.ForgeThatchFluid;
 import lilypuree.decorative_blocks.fluid.ForgeThatchFluidBlock;
@@ -12,10 +13,13 @@ import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.client.renderer.item.ItemPropertyFunction;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -29,10 +33,16 @@ import java.util.function.Supplier;
 
 public class ForgePlatformHelper implements IPlatformHelper {
     @Override
+    public Config getConfig() {
+        return ForgeConfig.INSTANCE;
+    }
+
+    @Override
     public DummyEntityForSitting createDummyEntity(EntityType<DummyEntityForSitting> type, Level level) {
         return new DummyEntityForSitting(type, level) {
+
             @Override
-            public Packet<?> getAddEntityPacket() {
+            public Packet<ClientGamePacketListener> getAddEntityPacket() {
                 return NetworkHooks.getEntitySpawningPacket(this);
             }
         };
@@ -54,13 +64,8 @@ public class ForgePlatformHelper implements IPlatformHelper {
     }
 
     @Override
-    public CreativeModeTab createModTab(String name, Supplier<ItemStack> icon) {
-        return new CreativeModeTab(-1, Constants.MODID + "." + name) {
-            @Override
-            public ItemStack makeIcon() {
-                return icon.get();
-            }
-        };
+    public CreativeModeTab.Builder createModTab() {
+        return CreativeModeTab.builder();
     }
 
     @Override

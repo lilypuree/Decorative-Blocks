@@ -43,7 +43,7 @@
   "block.decorative_blocks.bonfire": "篝火",
   "block.decorative_blocks.soul_bonfire": "灵魂篝火",
   "block.decorative_blocks.lattice": "栅栏",
-  "fluid.decorative_blocks.thatch": "茅草块",
+  "fluid_type.decorative_blocks.thatch": "茅草块",
   "block.decorative_blocks.thatch": "茅草块",
   "wiki.decorative_blocks.thatch": "用剪刀右键干草块获得.",
   "wiki.decorative_blocks.support.condition1": "§7对着空气潜行右键:",

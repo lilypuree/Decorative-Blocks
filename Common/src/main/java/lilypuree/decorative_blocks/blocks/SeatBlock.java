@@ -30,6 +30,7 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -71,15 +72,11 @@ public class SeatBlock extends HorizontalDirectionalBlock implements SimpleWater
         Direction facing = state.getValue(FACING);
         boolean attached = state.getValue(ATTACHED);
         boolean post = state.getValue(POST);
-        switch (facing) {
-            case NORTH:
-            case SOUTH:
-                return (attached) ? (post ? SEAT_POST_NS : SEAT_NS) : (post ? JOIST_POST_NS : JOIST_NS);
-            case EAST:
-            case WEST:
-                return (attached) ? (post ? SEAT_POST_EW : SEAT_EW) : (post ? JOIST_POST_EW : JOIST_EW);
-        }
-        return SEAT_NS;
+        return switch (facing) {
+            case NORTH, SOUTH -> (attached) ? (post ? SEAT_POST_NS : SEAT_NS) : (post ? JOIST_POST_NS : JOIST_NS);
+            case EAST, WEST -> (attached) ? (post ? SEAT_POST_EW : SEAT_EW) : (post ? JOIST_POST_EW : JOIST_EW);
+            default -> SEAT_NS;
+        };
     }
 
     @Override
@@ -172,18 +169,11 @@ public class SeatBlock extends HorizontalDirectionalBlock implements SimpleWater
 
 
     private static boolean isPlayerInRange(Player player, BlockPos pos) {
-        BlockPos playerPos = player.blockPosition();
+        Vec3 position = pos.getCenter();
         int blockReachDistance = 2;
-
-        if (blockReachDistance == 0) //player has to stand on top of the block
-            return playerPos.getY() - pos.getY() <= 1 && playerPos.getX() - pos.getX() == 0 && playerPos.getZ() - pos.getZ() == 0;
-
-        pos = pos.offset(0.5D, 0.5D, 0.5D);
-
-        AABB range = new AABB(pos.getX() + blockReachDistance, pos.getY() + blockReachDistance, pos.getZ() + blockReachDistance, pos.getX() - blockReachDistance, pos.getY() - blockReachDistance, pos.getZ() - blockReachDistance);
-
-        playerPos = playerPos.offset(0.5D, 0.5D, 0.5D);
-        return range.minX <= playerPos.getX() && range.minY <= playerPos.getY() && range.minZ <= playerPos.getZ() && range.maxX >= playerPos.getX() && range.maxY >= playerPos.getY() && range.maxZ >= playerPos.getZ();
+        
+        AABB range = AABB.ofSize(position, blockReachDistance, blockReachDistance, blockReachDistance);
+        return range.contains(player.position());
     }
 
     @Override

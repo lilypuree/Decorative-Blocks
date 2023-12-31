@@ -1,13 +1,13 @@
 package lilypuree.decorative_blocks.datagen;
 
 import lilypuree.decorative_blocks.Constants;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraftforge.common.data.LanguageProvider;
 
 public class Languages extends LanguageProvider {
 
-    public Languages(DataGenerator gen, String locale) {
-        super(gen, Constants.MODID, locale);
+    public Languages(PackOutput output, String locale) {
+        super(output, Constants.MOD_ID, locale);
     }
 
     @Override

@@ -14,7 +14,7 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import java.util.List;
 
 public class SupportItem extends SwitchableBlockItem<BooleanProperty, Boolean> {
-    public static final ResourceLocation OVERRIDE_TAG = new ResourceLocation(Constants.MODID, "up");
+    public static final ResourceLocation OVERRIDE_TAG = new ResourceLocation(Constants.MOD_ID, "up");
 
     public SupportItem(Block blockIn, Properties builder) {
         super(blockIn, builder, BlockStateProperties.UP, OVERRIDE_TAG.getPath());

@@ -32,7 +32,7 @@
   "block.decorative_blocks.spruce_support": "Soutien en sapin",
   "block.decorative_blocks.bonfire": "Feu de camp",
   "block.decorative_blocks.lattice": "Treillis",
-  "fluid.decorative_blocks.thatch": "Chaume",
+  "fluid_type.decorative_blocks.thatch": "Chaume",
   "block.decorative_blocks.thatch": "Chaume",
   "wiki.decorative_blocks.thatch": "Ouvrez une balle de foin avec des ciseaux.",
   "message.decorative_blocks.invalid_bonfire_activator_config": "Mauvaise configuration de l'activateur de feu de camp !",

@@ -9,6 +9,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.TrapDoorBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.Half;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
@@ -27,7 +28,7 @@ public class LatticeBlock extends TrapDoorBlock {
     protected static final VoxelShape TOP_AABB = Block.box(0.0D, d1, 0.0D, 16.0D, 16.0D, 16.0D);
 
     public LatticeBlock(Properties properties) {
-        super(properties);
+        super(properties, BlockSetType.OAK);
     }
 
     @Override

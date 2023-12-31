@@ -43,7 +43,7 @@
   "block.decorative_blocks.bonfire": "Hoguera",
   "block.decorative_blocks.soul_bonfire": "Hoguera de almas",
   "block.decorative_blocks.lattice": "Celosía",
-  "fluid.decorative_blocks.thatch": "Paja",
+  "fluid_type.decorative_blocks.thatch": "Paja",
   "block.decorative_blocks.thatch": "Paja",
   "wiki.decorative_blocks.thatch": "Cortá un bloque de heno con unas tijeras.",
   "wiki.decorative_blocks.support.condition1": "§7Shift + clic derecho en el aire:",
