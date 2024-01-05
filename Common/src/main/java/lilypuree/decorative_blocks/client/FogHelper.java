@@ -11,7 +11,6 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.Vec3;
 
 public class FogHelper {
-
     public static Info onColorFog(Camera camera) {
         Entity entity = camera.getEntity();
         if (entity.isEyeInFluid(DBTags.Fluids.THATCH)) {

@@ -1,5 +1,12 @@
 {
   "itemGroup.decorative_blocks.general": "Decorative Blocks",
+  "block.decorative_blocks.bamboo_palisade": "Bamboo Palisade",
+  "block.decorative_blocks.bamboo_seat": "Bamboo Seat",
+  "block.decorative_blocks.bamboo_support": "Bamboo Support",
+  "block.decorative_blocks.cherry_beam": "Cherry Beam",
+  "block.decorative_blocks.cherry_palisade": "Cherry Palisade",
+  "block.decorative_blocks.cherry_seat": "Cherry Seat",
+  "block.decorative_blocks.cherry_support": "Cherry Support",
   "block.decorative_blocks.mangrove_beam": "Mangrove Beam",
   "block.decorative_blocks.mangrove_palisade": "Mangrove Palisade",
   "block.decorative_blocks.mangrove_seat": "Mangrove Seat",

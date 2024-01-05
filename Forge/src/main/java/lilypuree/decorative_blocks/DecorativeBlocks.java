@@ -23,17 +23,13 @@ public class DecorativeBlocks {
         Registration.init();
         DBBlocks.init();
         DBItems.init();
-
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, ForgeConfig.COMMON_CONFIG);
-
+        
         IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
-        modBus.register(ForgeConfig.INSTANCE);
         modBus.addListener((FMLCommonSetupEvent e) -> {
             DecorativeBlocksCommon.init();
         });
         
-        modBus.addListener(ClientEventHandler::clientSetup);
-        modBus.addListener(ClientEventHandler::onEntityRendererRegistry);
+ 
 
         modBus.addListener(this::onRegisterEvent);
     }

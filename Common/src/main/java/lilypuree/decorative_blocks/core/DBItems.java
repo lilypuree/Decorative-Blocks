@@ -59,7 +59,8 @@ public class DBItems {
         ImmutableMap.Builder<IWoodType, RegistryObject<Item>> supports = new ImmutableMap.Builder<>();
         ImmutableMap.Builder<IWoodType, RegistryObject<Item>> seats = new ImmutableMap.Builder<>();
         for (IWoodType woodType : VanillaWoodTypes.values()) {
-            beams.put(woodType, registerBlockItem(DBBlocks.BEAMS.get(woodType)));
+            if (woodType != VanillaWoodTypes.BAMBOO)
+                beams.put(woodType, registerBlockItem(DBBlocks.BEAMS.get(woodType)));
             seats.put(woodType, registerItem(DBNames.name(woodType, SEAT), () -> new SeatItem(DBBlocks.SEATS.get(woodType).get(), new Item.Properties())));
             supports.put(woodType, registerItem(DBNames.name(woodType, SUPPORT), () -> new SupportItem(DBBlocks.SUPPORTS.get(woodType).get(), new Item.Properties())));
             palisades.put(woodType, registerBlockItem(DBBlocks.PALISADES.get(woodType)));

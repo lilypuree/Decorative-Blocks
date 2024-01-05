@@ -6,13 +6,17 @@ import lilypuree.decorative_blocks.core.DBItems;
 import lilypuree.decorative_blocks.core.Registration;
 import lilypuree.decorative_blocks.items.BlockstateCopyItem;
 import lilypuree.decorative_blocks.mixin.FireBlockInvoker;
+import lilypuree.decorative_blocks.platform.Services;
 import lilypuree.decorative_blocks.registration.RegistryObject;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.block.Blocks;
 
 public class DecorativeBlocksCommon {
+
+
     public static void init() {
         CommonAPI.addThatchlikeFluid(Registration.referenceHolder);
         CommonAPI.bonfireMap.put(Blocks.FIRE, DBBlocks.BONFIRE.get());

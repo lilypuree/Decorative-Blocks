@@ -1,8 +1,7 @@
 package lilypuree.decorative_blocks.mixin;
 
 import lilypuree.decorative_blocks.CommonAPI;
-import lilypuree.decorative_blocks.DecorativeBlocksCommon;
-import lilypuree.decorative_blocks.config.Config;
+import lilypuree.decorative_blocks.core.DBTags;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
@@ -32,8 +31,7 @@ public abstract class ItemEntityMixin extends Entity {
 
     @Inject(method = "hurt", at = @At("HEAD"), cancellable = true)
     public void onHurt(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
-        Item activator = Config.get().getBonfireActivatorItem();
-        if (source == this.damageSources().inFire()  && activator != Items.AIR && this.getItem().is(activator)) {
+        if (source == this.damageSources().inFire() && this.getItem().is(DBTags.Items.BONFIRE_ACTIVATORS)) {
             Level level = this.level();
             if (level.isClientSide || this.isRemoved()) cir.setReturnValue(false);
             else {

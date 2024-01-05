@@ -1,0 +1,14 @@
+{
+  "conditions": {
+    "condition": "minecraft:location_check",
+    "predicate": {
+      "block": {
+        "blocks": [
+          "decorative_blocks:bonfire"
+        ]
+      }
+    }
+  },
+  "warmth_effect": 2.0,
+  "range": 5.0
+}

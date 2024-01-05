@@ -1,0 +1,17 @@
+{
+  "conditions": {
+    "condition": "minecraft:location_check",
+    "predicate": {
+      "block": {
+        "blocks": [
+          "decorative_blocks:brazier"
+        ],
+        "state": {
+          "lit": "true"
+        }
+      }
+    }
+  },
+  "warmth_effect": 1.0,
+  "range": 4.0
+}

@@ -1,6 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
-  "group": "support",
+  "category": "building",
+  "group": "decorative_supports",
   "key": {
     "x": {
       "item": "minecraft:birch_planks"
@@ -11,7 +12,8 @@
     "x  "
   ],
   "result": {
-    "count": 3,
+    "count": 6,
     "item": "decorative_blocks:birch_support"
-  }
+  },
+  "show_notification": true
 }

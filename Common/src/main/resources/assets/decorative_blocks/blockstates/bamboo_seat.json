@@ -1,0 +1,55 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "decorative_blocks:block/bamboo_seat"
+      },
+      "when": {
+        "facing": "north"
+      }
+    },
+    {
+      "apply": {
+        "model": "decorative_blocks:block/bamboo_seat",
+        "y": 90
+      },
+      "when": {
+        "facing": "east"
+      }
+    },
+    {
+      "apply": {
+        "model": "decorative_blocks:block/bamboo_seat",
+        "y": 180
+      },
+      "when": {
+        "facing": "south"
+      }
+    },
+    {
+      "apply": {
+        "model": "decorative_blocks:block/bamboo_seat",
+        "y": 270
+      },
+      "when": {
+        "facing": "west"
+      }
+    },
+    {
+      "apply": {
+        "model": "decorative_blocks:block/bamboo_seat_post"
+      },
+      "when": {
+        "attached": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "decorative_blocks:block/bamboo_seat_top_post"
+      },
+      "when": {
+        "post": "true"
+      }
+    }
+  ]
+}

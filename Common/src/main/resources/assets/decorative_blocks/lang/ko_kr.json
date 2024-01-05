@@ -1,5 +1,12 @@
 {
   "itemGroup.decorative_blocks.general": "Decorative Blocks",
+  "block.decorative_blocks.bamboo_palisade": "대나무 말뚝",
+  "block.decorative_blocks.bamboo_seat": "대나무 의자",
+  "block.decorative_blocks.bamboo_support": "대나무 지지대",
+  "block.decorative_blocks.cherry_beam": "벚나무 들보",
+  "block.decorative_blocks.cherry_palisade": "벚나무 말뚝",
+  "block.decorative_blocks.cherry_seat": "벚나무 의자",
+  "block.decorative_blocks.cherry_support": "벚나무 지지대",
   "block.decorative_blocks.mangrove_beam": "망그로브 들보",
   "block.decorative_blocks.mangrove_palisade": "망그로브 말뚝",
   "block.decorative_blocks.mangrove_seat": "망그로브 의자",

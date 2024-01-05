@@ -76,7 +76,8 @@ public class DBBlocks {
         ImmutableMap.Builder<IWoodType, BlockRegistryObject<SupportBlock>> supports = new ImmutableMap.Builder<>();
         ImmutableMap.Builder<IWoodType, BlockRegistryObject<SeatBlock>> seats = new ImmutableMap.Builder<>();
         for (IWoodType woodType : VanillaWoodTypes.values()) {
-            beams.put(woodType, registerBlock(DBNames.name(woodType, BEAM), () -> (BeamBlock) createDecorativeBlock(woodType, BEAM)));
+            if (woodType != VanillaWoodTypes.BAMBOO)
+                beams.put(woodType, registerBlock(DBNames.name(woodType, BEAM), () -> (BeamBlock) createDecorativeBlock(woodType, BEAM)));
             palisades.put(woodType, registerBlock(DBNames.name(woodType, PALISADE), () -> (PalisadeBlock) createDecorativeBlock(woodType, PALISADE)));
             supports.put(woodType, registerBlock(DBNames.name(woodType, SUPPORT), () -> (SupportBlock) createDecorativeBlock(woodType, SUPPORT)));
             seats.put(woodType, registerBlock(DBNames.name(woodType, SEAT), () -> (SeatBlock) createDecorativeBlock(woodType, SEAT)));
@@ -85,6 +86,7 @@ public class DBBlocks {
         PALISADES = palisades.build();
         SUPPORTS = supports.build();
         SEATS = seats.build();
+
     }
 
     public static void init() {

@@ -1,0 +1,8 @@
+{
+  "parent": "decorative_blocks:custom/upside_down_support_post",
+  "textures": {
+    "end": "decorative_blocks:block/cherry_support_end",
+    "particle": "decorative_blocks:block/cherry_support_side",
+    "side": "decorative_blocks:block/cherry_support_side"
+  }
+}

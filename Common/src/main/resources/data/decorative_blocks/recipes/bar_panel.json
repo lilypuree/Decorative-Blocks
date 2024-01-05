@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "building",
   "key": {
     "#": {
       "item": "minecraft:iron_bars"
@@ -11,5 +12,6 @@
   "result": {
     "count": 2,
     "item": "decorative_blocks:bar_panel"
-  }
+  },
+  "show_notification": true
 }

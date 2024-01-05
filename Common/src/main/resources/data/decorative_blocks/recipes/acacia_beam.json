@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "building",
   "group": "decorative_beams",
   "key": {
     "x": {
@@ -13,5 +14,6 @@
   "result": {
     "count": 2,
     "item": "decorative_blocks:acacia_beam"
-  }
+  },
+  "show_notification": true
 }

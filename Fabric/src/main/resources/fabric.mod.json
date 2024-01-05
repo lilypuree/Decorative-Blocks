@@ -3,7 +3,7 @@
   "id": "${mod_id}",
   "version": "${version}",
   "name": "${mod_name}",
-  "description": "${description}",
+  "description": "${mod_description}",
   "authors": [
     "${mod_author}"
   ],
@@ -19,10 +19,6 @@
     ],
     "client": [
       "lilypuree.decorative_blocks.ClientInitializer"
-    ],
-    "rei_client": [
-      "lilypuree.decorative_blocks.compat.DBServerPlugin",
-      "lilypuree.decorative_blocks.compat.DBClientPlugin"
     ]
   },
   "mixins": [

@@ -48,6 +48,7 @@ public class DBTags {
         public static TagKey<Item> SEATS;
         public static TagKey<Item> BEAMS;
         public static TagKey<Item> CHANDELIERS;
+        public static TagKey<Item> BONFIRE_ACTIVATORS;
 
         public static void init() {
             PALISADES_THAT_BURN = TagKey.create(Registries.ITEM, id("palisades_that_burn"));
@@ -59,6 +60,7 @@ public class DBTags {
             SEATS = TagKey.create(Registries.ITEM, id("seats"));
             BEAMS = TagKey.create(Registries.ITEM, id("beams"));
             CHANDELIERS = TagKey.create(Registries.ITEM, id("chandeliers"));
+            BONFIRE_ACTIVATORS = TagKey.create(Registries.ITEM, id("bonfire_activators"));
         }
     }
 

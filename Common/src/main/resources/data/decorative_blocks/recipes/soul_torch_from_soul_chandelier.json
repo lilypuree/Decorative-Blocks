@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shapeless",
+  "category": "misc",
   "group": "torches_from_chandeliers",
   "ingredients": [
     {

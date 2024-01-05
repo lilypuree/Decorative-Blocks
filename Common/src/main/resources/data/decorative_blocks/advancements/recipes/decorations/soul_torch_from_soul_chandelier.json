@@ -30,5 +30,6 @@
     "recipes": [
       "decorative_blocks:soul_torch_from_soul_chandelier"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

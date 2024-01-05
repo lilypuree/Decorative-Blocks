@@ -1,8 +1,5 @@
 package lilypuree.decorative_blocks.platform;
 
-import lilypuree.decorative_blocks.Constants;
-import lilypuree.decorative_blocks.ForgeConfig;
-import lilypuree.decorative_blocks.config.Config;
 import lilypuree.decorative_blocks.entity.DummyEntityForSitting;
 import lilypuree.decorative_blocks.fluid.ForgeThatchFluid;
 import lilypuree.decorative_blocks.fluid.ForgeThatchFluidBlock;
@@ -13,15 +10,13 @@ import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.client.renderer.item.ItemPropertyFunction;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LiquidBlock;
@@ -29,12 +24,10 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraftforge.network.NetworkHooks;
 
-import java.util.function.Supplier;
-
 public class ForgePlatformHelper implements IPlatformHelper {
     @Override
-    public Config getConfig() {
-        return ForgeConfig.INSTANCE;
+    public GameRules.Key<GameRules.BooleanValue> registerGameRule(String name, GameRules.Category category, boolean defaultValue) {
+        return GameRules.register(name, category, GameRules.BooleanValue.create(defaultValue));
     }
 
     @Override

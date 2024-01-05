@@ -30,5 +30,6 @@
     "recipes": [
       "decorative_blocks:torch_from_chandelier"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

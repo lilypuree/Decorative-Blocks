@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "group": "decorative_braziers",
   "key": {
     "0": {
@@ -15,5 +16,6 @@
   ],
   "result": {
     "item": "decorative_blocks:brazier"
-  }
+  },
+  "show_notification": true
 }
