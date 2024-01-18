@@ -15,6 +15,7 @@ public class WalkNodeEvaluatorMixin {
     @Inject(method = "isBurningBlock", at = @At("HEAD"), cancellable = true)
     private static void onCheckBurningBlock(BlockState block, CallbackInfoReturnable<Boolean> cir) {
         if (BrazierBlock.isLitBrazier(block)) cir.setReturnValue(true);
-        if (block.is(DBTags.Blocks.BONFIRES)) cir.setReturnValue(true);
+        if (DBTags.Blocks.BONFIRES != null)
+            if (block.is(DBTags.Blocks.BONFIRES)) cir.setReturnValue(true);
     }
 }

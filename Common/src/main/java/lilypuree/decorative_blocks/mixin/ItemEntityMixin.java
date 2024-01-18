@@ -22,8 +22,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(ItemEntity.class)
 public abstract class ItemEntityMixin extends Entity {
 
-    @Shadow
-    public abstract ItemStack getItem();
+
+    @Shadow public abstract ItemStack getItem();
 
     public ItemEntityMixin(EntityType<?> $$0, Level $$1) {
         super($$0, $$1);
