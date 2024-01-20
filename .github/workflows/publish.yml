@@ -4,8 +4,15 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  publish:
+    needs: build
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        website: [ modrinth, curseforge ]
+        loader: [ Forge, Fabric ]
+    name: ${{ matrix.website }} (${{ matrix.loader }})
+    
     steps:
       - name: checkout repository
         uses: actions/checkout@v2
@@ -20,25 +27,16 @@ jobs:
         run: chmod +x ./gradlew
       - name: build
         run: ./gradlew build
-    
-  publish:
-    needs: build
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        website: [ modrinth, curseforge ]
-        loader: [ Forge, Fabric ]
-    name: ${{ matrix.website }} (${{ matrix.loader }})
-    
-    steps:
+        
       - name: Publish Modrinth Release
         uses: Kir-Antipov/mc-publish@v3.3
         if: matrix.website == 'modrinth'
         with:
           modrinth-id: t6BIRVZn
           modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
-          files-primary: ${{ matrix.loader }}/build/libs/!(*-@(dev|sources|javadoc)).jar
-          files-secondary: ${{ matrix.loader }}/build/libs/(*-@(dev|sources|javadoc)).jar
+          files: |
+            ${{ matrix.loader }}/build/libs/!(*-@(dev|sources|javadoc)).jar
+            ${{ matrix.loader }}/build/libs/*-@(dev|sources|javadocs).jar
           version-type: release
           java: Java 17
           name: ""
@@ -50,8 +48,9 @@ jobs:
         with:
           curseforge-id: 362528
           curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
-          files-primary: ${{ matrix.loader }}/build/libs/!(*-@(dev|sources|javadoc)).jar
-          files-secondary: ${{ matrix.loader }}/build/libs/(*-@(dev|sources|javadoc)).jar
+          files: |
+            ${{ matrix.loader }}/build/libs/!(*-@(dev|sources|javadoc)).jar
+            ${{ matrix.loader }}/build/libs/*-@(dev|sources|javadocs).jar
           version-type: release
           java: Java 17
           name: ""
