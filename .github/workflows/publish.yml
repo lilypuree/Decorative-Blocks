@@ -24,6 +24,7 @@ jobs:
     name: ${{ matrix.website }} (${{ matrix.loader }})
     
     steps:
+      - uses: actions/checkout@v3
       - name: Download artifact
         uses: actions/download-artifact@v3
         continue-on-error: true
@@ -59,7 +60,7 @@ jobs:
           name: \[${{ matrix.loader }} ${{ env.mc_version }}\] v${{ env.mod_version }}  
           version: ${{ env.mod_version }}+${{ env.loader_name }}
           version-type: release
-          changelog-file: ./CHANGELOG.*
+          changelog-file: CHANGELOG.*
           
       - name: Publish Curseforge Release
         uses: Kir-Antipov/mc-publish@v3.3
@@ -74,4 +75,4 @@ jobs:
           name: \[${{ matrix.loader }} ${{ env.mc_version }}\] v${{ env.mod_version }}
           version: ${{ env.mod_version }}+${{ env.loader_name }}
           version-type: release
-          changelog-file: ./CHANGELOG.*
+          changelog-file: CHANGELOG.*
