@@ -59,7 +59,7 @@ jobs:
           name: \[${{ matrix.loader }} ${{ env.mc_version }}\] v${{ env.mod_version }}  
           version: ${{ env.mod_version }}+${{ env.loader_name }}
           version-type: release
-          changelog-file: CHANGELOG.md
+          changelog-file: CHANGELOG.*
           
       - name: Publish Curseforge Release
         uses: Kir-Antipov/mc-publish@v3.3
@@ -74,4 +74,4 @@ jobs:
           name: \[${{ matrix.loader }} ${{ env.mc_version }}\] v${{ env.mod_version }}
           version: ${{ env.mod_version }}+${{ env.loader_name }}
           version-type: release
-          changelog-file: CHANGELOG.md
+          changelog-file: CHANGELOG.*
