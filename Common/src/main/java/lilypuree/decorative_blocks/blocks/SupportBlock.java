@@ -8,6 +8,9 @@ import lilypuree.decorative_blocks.items.SwitchableBlockItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -24,6 +27,7 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.pathfinder.PathComputationType;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -88,17 +92,6 @@ public class SupportBlock extends HorizontalDirectionalBlock implements SimpleWa
         }
         return blockstate;
     }
-
-//    @Override
-//    public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
-//        if (player.getItemInHand(handIn).getItem() instanceof AxeItem) {
-//            if (!worldIn.isClientSide()) {
-//                onSupportActivation(state, worldIn, pos, player, hit.getLocation());
-//            }
-//            return InteractionResult.sidedSuccess(worldIn.isClientSide);
-//        }
-//        return super.use(state, worldIn, pos, player, handIn, hit);
-//    }
 
     public static void onSupportActivation(BlockState state, Level worldIn, BlockPos pos, Player player, Vec3 hitPos) {
         double hitHeight = hitPos.y() - pos.getY();
@@ -193,8 +186,8 @@ public class SupportBlock extends HorizontalDirectionalBlock implements SimpleWa
 
 
     static {
-        verticalSmall = new EnumMap<Direction, VoxelShape>(Direction.class);
-        verticalLarge = new EnumMap<Direction, VoxelShape>(Direction.class);
+        verticalSmall = new EnumMap<>(Direction.class);
+        verticalLarge = new EnumMap<>(Direction.class);
         Direction.Plane.HORIZONTAL.stream().forEach(dir -> {
             int x = dir.getStepX();
             int z = dir.getStepZ();

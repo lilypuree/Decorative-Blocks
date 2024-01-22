@@ -1,11 +1,22 @@
 name: publish
-
+env: 
+  MOD_NAME: Decorative Blocks
+  CURSEFORGE_ID: 362528
+  MODRINTH_ID: t6BIRVZn
 on:
   workflow_dispatch:
 
 jobs:
+  call-build-workflow:
+    permissions:
+      contents: read
+    uses: "./.github/workflows/build.yml"
+    
   publish:
+    needs: call-build-workflow
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     strategy:
       matrix:
         website: [ modrinth, curseforge ]
@@ -13,44 +24,54 @@ jobs:
     name: ${{ matrix.website }} (${{ matrix.loader }})
     
     steps:
-      - name: checkout repository
-        uses: actions/checkout@v2
-      - name: validate gradle wrapper
-        uses: gradle/wrapper-validation-action@v1
-      - name: setup jdk 17
-        uses: actions/setup-java@v1
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        continue-on-error: true
         with:
-          java-version: "17"
-      - name: make gradle wrapper executable
-        if: ${{ runner.os != 'Windows' }}
-        run: chmod +x ./gradlew
-      - name: build
-        run: ./gradlew build
-        
+          name: ${{ env.MOD_NAME }}
+          
+      - name: Checking and setting the environment
+        continue-on-error: true
+        run: |
+          export loader=${{ matrix.loader }}
+          export name=$(ls ${loader}/build/libs/ | grep shadow -v | grep sources -v | grep javadoc -v | awk -F.jar '{print $1}')
+          export mod_name=$(echo $name | awk -F- '{print $1}')
+          export loader_name=$(echo $name | awk -F- '{print $2}')
+          export mc_version=$(echo $name | awk -F- '{print $3}')
+          export mod_version=$(echo $name | awk -F- '{print $4}')
+          echo "name=$name" >> $GITHUB_ENV
+          echo "mod_name=$mod_name" >> $GITHUB_ENV
+          echo "loader_name=$loader_name" >> $GITHUB_ENV
+          echo "mc_version=$mc_version" >> $GITHUB_ENV
+          echo "mod_version=$mod_version" >> $GITHUB_ENV
+          rm ${loader}/build/libs/*shadow.jar
+          
       - name: Publish Modrinth Release
         uses: Kir-Antipov/mc-publish@v3.3
         if: matrix.website == 'modrinth'
         with:
-          modrinth-id: t6BIRVZn
+          modrinth-id: ${{ env.MODRINTH_ID }}
           modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
           files: |
             ${{ matrix.loader }}/build/libs/!(*-@(dev|sources|javadoc)).jar
             ${{ matrix.loader }}/build/libs/*-@(dev|sources|javadocs).jar
-          version-type: release
           java: Java 17
-          name: ""
-          changelog: CHANGELOG.md
+          name: \[${{ matrix.loader }} ${{ env.mc_version }}\] v${{ env.mod_version }}  
+          version: ${{ env.mod_version }}+${{ env.loader_name }}
+          version-type: release
+          changelog-file: CHANGELOG.md
           
       - name: Publish Curseforge Release
         uses: Kir-Antipov/mc-publish@v3.3
         if: matrix.website == 'curseforge'
         with:
-          curseforge-id: 362528
+          curseforge-id: ${{ env.CURSEFORGE_ID }}
           curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
           files: |
             ${{ matrix.loader }}/build/libs/!(*-@(dev|sources|javadoc)).jar
             ${{ matrix.loader }}/build/libs/*-@(dev|sources|javadocs).jar
-          version-type: release
           java: Java 17
-          name: ""
-          changelog: CHANGELOG.md
+          name: \[${{ matrix.loader }} ${{ env.mc_version }}\] v${{ env.mod_version }}
+          version: ${{ env.mod_version }}+${{ env.loader_name }}
+          version-type: release
+          changelog-file: CHANGELOG.md

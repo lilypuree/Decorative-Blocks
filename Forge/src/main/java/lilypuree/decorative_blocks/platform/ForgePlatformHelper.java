@@ -13,6 +13,7 @@ import net.minecraft.client.renderer.item.ItemPropertyFunction;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -22,6 +23,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.FlowingFluid;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.network.NetworkHooks;
 
 public class ForgePlatformHelper implements IPlatformHelper {
@@ -69,5 +71,10 @@ public class ForgePlatformHelper implements IPlatformHelper {
     @Override
     public void registerItemFunc(Item item, ResourceLocation name, ItemPropertyFunction func) {
         ItemProperties.register(item, name, func);
+    }
+
+    @Override
+    public TagKey<Item> getShearTag() {
+        return Tags.Items.SHEARS;
     }
 }

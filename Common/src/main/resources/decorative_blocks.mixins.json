@@ -1,21 +1,19 @@
 {
-    "required": true,
-    "minVersion": "0.8",
-    "package": "lilypuree.decorative_blocks.mixin",
-    "refmap": "${mod_id}.refmap.json",
-    "compatibilityLevel": "JAVA_17",
-    "mixins": [
-        "FireBlockInvoker",
-        "ItemEntityMixin",
-        "WalkNodeEvaluatorMixin",
-        "AxeItemMixin",
-        "HoeItemMixin"
-    ],
- 
-    "server": [
-    ],
-    "injectors": {
-        "defaultRequire": 1
-    }
+  "required": true,
+  "minVersion": "0.8",
+  "package": "lilypuree.decorative_blocks.mixin",
+  "refmap": "${mod_id}.refmap.json",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "FireBlockInvoker",
+    "ItemEntityMixin",
+    "WalkNodeEvaluatorMixin",
+    "ItemAccessor"
+  ],
+  "server": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
 }
 

@@ -34,4 +34,4 @@ ordering="NONE"
 side="BOTH"
 
 [mc-publish]
-loaders = ['neoforge']
+loaders = ['forge', 'neoforge']

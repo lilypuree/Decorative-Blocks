@@ -42,5 +42,8 @@ public class ForgeThatchFluid {
         public FluidType getFluidType() {
             return fluidType;
         }
+        
+        
+        
     }
 }

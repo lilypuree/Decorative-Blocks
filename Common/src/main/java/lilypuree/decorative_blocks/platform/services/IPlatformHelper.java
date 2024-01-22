@@ -6,6 +6,7 @@ import lilypuree.decorative_blocks.registration.RegistryObject;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.item.ItemPropertyFunction;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -33,4 +34,6 @@ public interface IPlatformHelper {
     void setRenderLayer(Block block, RenderType renderType);
 
     void registerItemFunc(Item item, ResourceLocation name, ItemPropertyFunction func);
+
+    TagKey<Item> getShearTag();
 }
