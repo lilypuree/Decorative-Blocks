@@ -72,7 +72,7 @@ jobs:
             ${{ matrix.loader }}/build/libs/!(*-@(dev|sources|javadoc)).jar
             ${{ matrix.loader }}/build/libs/*-@(dev|sources|javadocs).jar
           java: Java 17
-          name: \[${{ matrix.loader }} ${{ env.mc_version }}\] v${{ env.mod_version }}
+          name: [${{ matrix.loader }} ${{ env.mc_version }}] v${{ env.mod_version }}
           version: ${{ env.mod_version }}+${{ env.loader_name }}
           version-type: release
           changelog-file: CHANGELOG.*
