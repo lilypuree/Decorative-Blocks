@@ -1,0 +1,8 @@
+{
+  "parent": "decorative_blocks:custom/bar_panel_top",
+  "textures": {
+    "end": "decorative_blocks:block/bar_panel_end",
+    "particle": "decorative_blocks:block/bar_panel_side",
+    "side": "decorative_blocks:block/bar_panel_side"
+  }
+}

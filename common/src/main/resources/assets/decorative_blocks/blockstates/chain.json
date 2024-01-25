@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "decorative_blocks:block/chain",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "decorative_blocks:block/chain"
+    },
+    "axis=z": {
+      "model": "decorative_blocks:block/chain",
+      "x": 90
+    }
+  }
+}

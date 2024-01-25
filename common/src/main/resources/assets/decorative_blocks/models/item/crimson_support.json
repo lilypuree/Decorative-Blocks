@@ -1,0 +1,11 @@
+{
+  "parent": "decorative_blocks:block/crimson_support_inventory",
+  "overrides": [
+    {
+      "model": "decorative_blocks:block/crimson_upside_down_support_inventory",
+      "predicate": {
+        "decorative_blocks:up": 1.0
+      }
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "decorative_blocks:block/soul_bonfire"
+      },
+      {
+        "model": "decorative_blocks:block/soul_bonfire_alt"
+      }
+    ]
+  }
+}

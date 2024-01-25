@@ -1,0 +1,8 @@
+{
+  "parent": "decorative_blocks:custom/beam_y",
+  "textures": {
+    "end": "decorative_blocks:block/acacia_beam_end",
+    "particle": "decorative_blocks:block/acacia_beam_side",
+    "side": "decorative_blocks:block/acacia_beam_side"
+  }
+}

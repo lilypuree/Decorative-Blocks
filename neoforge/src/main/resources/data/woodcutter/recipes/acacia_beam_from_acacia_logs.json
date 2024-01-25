@@ -1,0 +1,14 @@
+{
+  "type": "woodcutter:woodcutter",
+  "ingredient": {
+    "tag": "minecraft:acacia_logs"
+  },
+  "result": "decorative_blocks:acacia_beam",
+  "count": 1,
+  "conditions" : [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "woodcutter"
+    }
+  ]
+}

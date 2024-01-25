@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=true": {
+      "model": "decorative_blocks:block/soul_brazier"
+    },
+    "lit=false": {
+      "model": "decorative_blocks:block/brazier_extinguished"
+    }
+  }
+}

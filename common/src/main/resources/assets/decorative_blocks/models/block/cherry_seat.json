@@ -1,0 +1,7 @@
+{
+  "parent": "decorative_blocks:custom/seat",
+  "textures": {
+    "particle": "decorative_blocks:block/cherry_seat",
+    "texture": "decorative_blocks:block/cherry_seat"
+  }
+}

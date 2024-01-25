@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "decorative_blocks:block/rocky_dirt"
+      },
+      {
+        "model": "decorative_blocks:block/rocky_dirt",
+        "y": 90
+      },
+      {
+        "model": "decorative_blocks:block/rocky_dirt",
+        "y": 180
+      },
+      {
+        "model": "decorative_blocks:block/rocky_dirt",
+        "y": 270
+      }
+    ]
+  }
+}
