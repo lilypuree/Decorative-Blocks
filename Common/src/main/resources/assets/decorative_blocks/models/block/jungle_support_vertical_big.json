@@ -1,8 +1,0 @@
-{
-  "parent": "decorative_blocks:custom/support_vertical_big",
-  "textures": {
-    "end": "decorative_blocks:block/jungle_support_end",
-    "particle": "decorative_blocks:block/jungle_support_side",
-    "side": "decorative_blocks:block/jungle_support_side"
-  }
-}

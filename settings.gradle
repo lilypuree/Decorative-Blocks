@@ -6,8 +6,8 @@ pluginManagement {
             url = 'https://maven.fabricmc.net/'
         }
         maven {
-            name = 'Forge'
-            url = 'https://maven.minecraftforge.net/'
+            name = 'NeoForge'
+            url = 'https://maven.neoforged.net/releases/'
         }
         maven {
             name = 'ParchmentMC'
@@ -25,4 +25,4 @@ plugins {
 }
 
 rootProject.name = 'Decorative-Blocks'
-include("Common", "Fabric", "Forge")
+include("common", "fabric", "neoforge")
