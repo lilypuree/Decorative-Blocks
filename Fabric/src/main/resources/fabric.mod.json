@@ -36,7 +36,10 @@
   },
   "custom": {
     "mc-publish": {
-      "loaders": ["fabric"]
+      "loaders": ["fabric"],
+      "dependencies": [
+        "soulfired@3.2.1.0(optional){modrinth:d6MhxwRo}{curseforge:662413}"
+      ]
     }
   }
 }
