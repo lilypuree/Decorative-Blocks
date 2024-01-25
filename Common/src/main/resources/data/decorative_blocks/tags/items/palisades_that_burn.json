@@ -6,6 +6,8 @@
     "decorative_blocks:acacia_palisade",
     "decorative_blocks:jungle_palisade",
     "decorative_blocks:dark_oak_palisade",
-    "decorative_blocks:mangrove_palisade"
+    "decorative_blocks:mangrove_palisade",
+    "decorative_blocks:cherry_palisade",
+    "decorative_blocks:bamboo_palisade"
   ]
 }

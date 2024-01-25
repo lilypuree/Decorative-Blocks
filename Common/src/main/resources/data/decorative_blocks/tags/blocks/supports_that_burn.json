@@ -6,6 +6,8 @@
     "decorative_blocks:acacia_support",
     "decorative_blocks:jungle_support",
     "decorative_blocks:dark_oak_support",
-    "decorative_blocks:mangrove_support"
+    "decorative_blocks:mangrove_support",
+    "decorative_blocks:cherry_support",
+    "decorative_blocks:bamboo_support"
   ]
 }

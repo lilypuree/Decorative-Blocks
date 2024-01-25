@@ -33,5 +33,12 @@ versionRange="${minecraft_version_range}"
 ordering="NONE"
 side="BOTH"
 
+[[dependencies.${mod_id}]]
+modId="soulfired"
+mandatory=false
+versionRange="[3.2.1.0,)"
+ordering="NONE"
+side="BOTH"
+
 [mc-publish]
 loaders = ['forge', 'neoforge']

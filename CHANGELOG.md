@@ -1,5 +1,9 @@
 ## Minecraft 1.20.1 Changelog
 
+### 4.1.1
+- Cherry blocks properly tagged
+- Bonfires causes soul fire to entities when soul fire'd mod is installed
+
 ### 4.1.0
 - update pl_pl.json
 - interaction behavior now uses item tags for axes, hoes, and shears(forge/shears or c/shears)

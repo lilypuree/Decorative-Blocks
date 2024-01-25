@@ -1,5 +1,8 @@
 package lilypuree.decorative_blocks.blocks;
 
+import lilypuree.decorative_blocks.core.DBBlocks;
+import lilypuree.decorative_blocks.core.Registration;
+import lilypuree.decorative_blocks.platform.Services;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -51,7 +54,10 @@ public class BonfireBlock extends Block implements SimpleWaterloggedBlock {
     public void entityInside(BlockState state, Level worldIn, BlockPos pos, Entity entityIn) {
         if (!entityIn.fireImmune() && entityIn instanceof LivingEntity && !EnchantmentHelper.hasFrostWalker((LivingEntity) entityIn)) {
             entityIn.hurt(entityIn.damageSources().inFire(), 1.0F);
-            entityIn.setSecondsOnFire(3);
+            if (Services.PLATFORM.isModLoaded("soulfired")) {
+                Services.SOULFIRED.setSecondsOnFire(entityIn, 3, state.is(DBBlocks.SOUL_BONFIRE.get()));
+            } else
+                entityIn.setSecondsOnFire(3);
         }
         super.entityInside(state, worldIn, pos, entityIn);
     }

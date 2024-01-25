@@ -1,5 +1,6 @@
 package lilypuree.decorative_blocks.platform;
 
+import crystalspider.soulfired.api.FireManager;
 import lilypuree.decorative_blocks.entity.DummyEntityForSitting;
 import lilypuree.decorative_blocks.fluid.ForgeThatchFluid;
 import lilypuree.decorative_blocks.fluid.ForgeThatchFluidBlock;
@@ -14,6 +15,7 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -24,9 +26,16 @@ import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.network.NetworkHooks;
 
 public class ForgePlatformHelper implements IPlatformHelper {
+
+    @Override
+    public boolean isModLoaded(String modid) {
+        return ModList.get().isLoaded(modid);
+    }
+
     @Override
     public GameRules.Key<GameRules.BooleanValue> registerGameRule(String name, GameRules.Category category, boolean defaultValue) {
         return GameRules.register(name, category, GameRules.BooleanValue.create(defaultValue));
@@ -77,4 +86,6 @@ public class ForgePlatformHelper implements IPlatformHelper {
     public TagKey<Item> getShearTag() {
         return Tags.Items.SHEARS;
     }
+
+
 }
