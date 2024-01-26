@@ -1,8 +1,8 @@
 package lilypuree.decorative_blocks.fluid;
 
 import net.minecraft.sounds.SoundEvents;
-import net.minecraftforge.common.SoundActions;
-import net.minecraftforge.fluids.FluidType;
+import net.neoforged.neoforge.common.SoundActions;
+import net.neoforged.neoforge.fluids.FluidType;
 
 public class ForgeThatchFluid {
     private static final FluidType.Properties FLUID_PROPERTIES = FluidType.Properties.create()
@@ -42,8 +42,8 @@ public class ForgeThatchFluid {
         public FluidType getFluidType() {
             return fluidType;
         }
-        
-        
-        
+
+
+
     }
 }

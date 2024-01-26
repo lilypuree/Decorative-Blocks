@@ -10,8 +10,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import java.util.Random;
-
 public class ChandelierBlock extends Block {
     protected final VoxelShape CHANDELIER_SHAPE = Block.box(2D, 0.0D, 2D, 14D, 12D, 14D);
     private final boolean isSoul;

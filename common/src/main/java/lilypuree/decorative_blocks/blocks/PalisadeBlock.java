@@ -1,6 +1,7 @@
 package lilypuree.decorative_blocks.blocks;
 
-import lilypuree.decorative_blocks.blocks.types.IWoodType;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -11,21 +12,30 @@ import net.minecraft.world.level.block.CrossCollisionBlock;
 import net.minecraft.world.level.block.FenceGateBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 
 public class PalisadeBlock extends CrossCollisionBlock implements IWoodenBlock {
-    private IWoodType woodType;
+    public static final MapCodec<PalisadeBlock> CODEC = RecordCodecBuilder.mapCodec(
+            inst -> inst.group(WoodType.CODEC.fieldOf("wood_type").forGetter(block -> block.woodType), propertiesCodec()).apply(inst, PalisadeBlock::new)
+    );
+    @Override
+    protected MapCodec<? extends CrossCollisionBlock> codec() {
+        return CODEC;
+    }
+    
+    private WoodType woodType;
 
-    public PalisadeBlock(Properties properties, IWoodType woodType) {
+    public PalisadeBlock(WoodType woodType, Properties properties) {
         super(3.0F, 3.0F, 16.0F, 16.0F, 24.0F, properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(NORTH, Boolean.FALSE).setValue(EAST, Boolean.FALSE).setValue(SOUTH, Boolean.FALSE).setValue(WEST, Boolean.FALSE).setValue(WATERLOGGED, Boolean.FALSE));
         this.woodType = woodType;
     }
 
     @Override
-    public IWoodType getWoodType() {
+    public WoodType getWoodType() {
         return woodType;
     }
 
@@ -76,4 +86,6 @@ public class PalisadeBlock extends CrossCollisionBlock implements IWoodenBlock {
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(NORTH, EAST, WEST, SOUTH, WATERLOGGED);
     }
+
+  
 }

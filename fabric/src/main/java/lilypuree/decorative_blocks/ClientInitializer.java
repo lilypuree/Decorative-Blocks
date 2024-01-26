@@ -1,12 +1,11 @@
 package lilypuree.decorative_blocks;
 
 import lilypuree.decorative_blocks.client.ClientSetup;
-import lilypuree.decorative_blocks.core.Registration;
 import lilypuree.decorative_blocks.entity.EmptyRenderer;
 import lilypuree.decorative_blocks.fluid.ThatchFluid;
+import lilypuree.decorative_blocks.registration.Registration;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
-import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;
 import net.fabricmc.fabric.api.client.render.fluid.v1.SimpleFluidRenderHandler;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;

@@ -1,6 +1,5 @@
 plugins {
     id "org.jetbrains.gradle.plugin.idea-ext" version "1.1.7"
-    id 'com.matyrobbrt.mc.registrationutils' version "$regVersion"
 }
 
 subprojects {
@@ -94,13 +93,3 @@ subprojects {
         enabled = false
     }
 }
-
-registrationUtils {
-    group 'lilypuree.decorative_blocks.registration'
-    projects {
-        fabric { type 'fabric' } // The fabric project
-        neoforge { type 'neoforge' } // The forge project
-        common { type 'common' } // The common project
-    }
-}
-

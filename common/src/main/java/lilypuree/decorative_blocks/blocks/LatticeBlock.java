@@ -28,7 +28,7 @@ public class LatticeBlock extends TrapDoorBlock {
     protected static final VoxelShape TOP_AABB = Block.box(0.0D, d1, 0.0D, 16.0D, 16.0D, 16.0D);
 
     public LatticeBlock(Properties properties) {
-        super(properties, BlockSetType.OAK);
+        super(BlockSetType.OAK, properties);
     }
 
     @Override

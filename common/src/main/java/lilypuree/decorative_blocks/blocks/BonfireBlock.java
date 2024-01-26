@@ -1,17 +1,16 @@
 package lilypuree.decorative_blocks.blocks;
 
-import lilypuree.decorative_blocks.core.DBBlocks;
-import lilypuree.decorative_blocks.core.Registration;
 import lilypuree.decorative_blocks.platform.Services;
+import lilypuree.decorative_blocks.registration.DBBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -27,6 +26,7 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.Nullable;
 
 public class BonfireBlock extends Block implements SimpleWaterloggedBlock {
     public BonfireBlock(Properties properties) {
@@ -88,9 +88,8 @@ public class BonfireBlock extends Block implements SimpleWaterloggedBlock {
             worldIn.addParticle(ParticleTypes.LARGE_SMOKE, x, y, z, -0.03 + rand.nextDouble() * 0.06, +rand.nextDouble() * 0.1, -0.03 + rand.nextDouble() * 0.06);
         }
     }
-
     @Override
-    public boolean canPlaceLiquid(BlockGetter worldIn, BlockPos pos, BlockState state, Fluid fluidIn) {
+    public boolean canPlaceLiquid(@Nullable Player player, BlockGetter worldIn, BlockPos pos, BlockState state, Fluid fluidIn) {
         return false;
     }
 

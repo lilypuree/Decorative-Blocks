@@ -2,7 +2,7 @@ package lilypuree.decorative_blocks.datagen;
 
 import lilypuree.decorative_blocks.Constants;
 import net.minecraft.data.PackOutput;
-import net.minecraftforge.common.data.LanguageProvider;
+import net.neoforged.neoforge.common.data.LanguageProvider;
 
 public class Languages extends LanguageProvider {
 

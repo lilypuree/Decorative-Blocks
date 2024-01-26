@@ -1,9 +1,9 @@
 package lilypuree.decorative_blocks.blocks;
 
 
-import lilypuree.decorative_blocks.blocks.types.IWoodType;
+import net.minecraft.world.level.block.state.properties.WoodType;
 
 public interface IWoodenBlock {
 
-    IWoodType getWoodType();
+    WoodType getWoodType();
 }

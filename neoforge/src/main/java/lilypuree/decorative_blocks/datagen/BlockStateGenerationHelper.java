@@ -5,14 +5,14 @@ import lilypuree.decorative_blocks.blocks.IWoodenBlock;
 import lilypuree.decorative_blocks.blocks.PalisadeBlock;
 import lilypuree.decorative_blocks.blocks.state.ModBlockProperties;
 import lilypuree.decorative_blocks.blocks.state.SupportFaceShape;
-import lilypuree.decorative_blocks.blocks.types.IWoodType;
 import lilypuree.decorative_blocks.blocks.types.WoodDecorativeBlockTypes;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.Property;
-import net.minecraftforge.client.model.generators.*;
+import net.minecraft.world.level.block.state.properties.WoodType;
+import net.neoforged.neoforge.client.model.generators.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,7 +32,7 @@ public class BlockStateGenerationHelper {
     }
 
     public void supportBlock(IWoodenBlock block) {
-        IWoodType woodType = block.getWoodType();
+        WoodType woodType = block.getWoodType();
         String texture = woodType + "_support";
 
         MultiPartBlockStateBuilder builder = getMultipartBuilder((Block) block);
@@ -95,7 +95,7 @@ public class BlockStateGenerationHelper {
     }
 
     public void seatBlock(IWoodenBlock block) {
-        IWoodType woodType = block.getWoodType();
+        WoodType woodType = block.getWoodType();
         String texture = woodType + "_seat";
         MultiPartBlockStateBuilder builder = getMultipartBuilder((Block) block);
         addFourDirections(builder, simpleModel(woodType, SEAT, "", texture));
@@ -114,7 +114,7 @@ public class BlockStateGenerationHelper {
     }
 
     public void beamBlock(IWoodenBlock block) {
-        IWoodType woodType = block.getWoodType();
+        WoodType woodType = block.getWoodType();
         ModelFile beamXModel = beamModel(woodType, Direction.Axis.X);
         ModelFile beamYModel = beamModel(woodType, Direction.Axis.Y);
         ModelFile beamZModel = beamModel(woodType, Direction.Axis.Z);
@@ -124,13 +124,13 @@ public class BlockStateGenerationHelper {
                 .partialState().with(BlockStateProperties.AXIS, Direction.Axis.Z).modelForState().modelFile(beamZModel).addModel();
     }
 
-    public ModelFile beamModel(IWoodType wood, Direction.Axis axis) {
+    public ModelFile beamModel(WoodType wood, Direction.Axis axis) {
         ModelBuilder<?> builder = createModel(wood, BEAM, "_" + axis.getName());
         return withSideEndTextures(builder, wood + "_beam");
     }
 
     public void palisadeBlock(IWoodenBlock block) {
-        IWoodType woodType = block.getWoodType();
+        WoodType woodType = block.getWoodType();
         String texture = woodType + "_palisade";
 
         ModelFile postModel = sideEndModel(woodType, PALISADE, "_post", texture);
@@ -144,30 +144,30 @@ public class BlockStateGenerationHelper {
                 .part().modelFile(sideModel).uvLock(true).rotationY(270).addModel().condition(BlockStateProperties.WEST, Boolean.TRUE).end();
     }
 
-    private ModelFile sideEndModel(IWoodType wood, WoodDecorativeBlockTypes blockType, String modelSuffix, String texture) {
+    private ModelFile sideEndModel(WoodType wood, WoodDecorativeBlockTypes blockType, String modelSuffix, String texture) {
         return withSideEndTextures(createModel(wood, blockType, modelSuffix), texture);
     }
 
-    private ModelFile sideEndModel(IWoodType wood, WoodDecorativeBlockTypes blockType, String modelPrefix, String modelSuffix, String texture) {
+    private ModelFile sideEndModel(WoodType wood, WoodDecorativeBlockTypes blockType, String modelPrefix, String modelSuffix, String texture) {
         return withSideEndTextures(createModel(wood, blockType, modelPrefix, modelSuffix), texture);
     }
 
-    private ModelFile simpleModel(IWoodType wood, WoodDecorativeBlockTypes blockType, String modelSuffix, String texture) {
+    private ModelFile simpleModel(WoodType wood, WoodDecorativeBlockTypes blockType, String modelSuffix, String texture) {
         return withParticleTexture(createModel(wood, blockType, modelSuffix), texture);
     }
 
 
-    private ModelBuilder<?> createModel(IWoodType wood, WoodDecorativeBlockTypes type) {
+    private ModelBuilder<?> createModel(WoodType wood, WoodDecorativeBlockTypes type) {
         return createModel(wood, type, "");
     }
 
-    private ModelBuilder<?> createModel(IWoodType wood, WoodDecorativeBlockTypes type, String suffix) {
+    private ModelBuilder<?> createModel(WoodType wood, WoodDecorativeBlockTypes type, String suffix) {
         return createModel(wood, type, "", suffix);
     }
 
-    private ModelBuilder<?> createModel(IWoodType wood, WoodDecorativeBlockTypes type, String prefix, String suffix) {
+    private ModelBuilder<?> createModel(WoodType wood, WoodDecorativeBlockTypes type, String prefix, String suffix) {
         String name = prefix + type + suffix;
-        return models().getBuilder(wood + "_" + name)
+        return models().getBuilder(wood.name() + "_" + name)
                 .parent(modelFile(new ResourceLocation(Constants.MOD_ID, "custom/" + name)));
     }
 

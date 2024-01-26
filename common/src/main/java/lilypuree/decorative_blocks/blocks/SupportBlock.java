@@ -1,16 +1,14 @@
 package lilypuree.decorative_blocks.blocks;
 
 import com.google.common.collect.ImmutableMap;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import lilypuree.decorative_blocks.blocks.state.ModBlockProperties;
 import lilypuree.decorative_blocks.blocks.state.SupportFaceShape;
-import lilypuree.decorative_blocks.blocks.types.IWoodType;
 import lilypuree.decorative_blocks.items.SwitchableBlockItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.tags.ItemTags;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -24,10 +22,10 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.pathfinder.PathComputationType;
-import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -39,6 +37,10 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class SupportBlock extends HorizontalDirectionalBlock implements SimpleWaterloggedBlock, IWoodenBlock {
+    public static final MapCodec<SupportBlock> CODEC = RecordCodecBuilder.mapCodec(
+            inst -> inst.group(WoodType.CODEC.fieldOf("wood_type").forGetter(block -> block.woodType), propertiesCodec()).apply(inst, SupportBlock::new)
+    );
+
     private static final double d0 = 3D;
     private static final double d1 = 13D;
     private static final double d2 = 4D;
@@ -57,19 +59,19 @@ public class SupportBlock extends HorizontalDirectionalBlock implements SimpleWa
     public static final BooleanProperty UP = BlockStateProperties.UP;
     public static final EnumProperty<SupportFaceShape> HORIZONTAL_SHAPE = ModBlockProperties.HORIZONTAL_SHAPE;
     public static final EnumProperty<SupportFaceShape> VERTICAL_SHAPE = ModBlockProperties.VERTICAL_SHAPE;
-    private IWoodType woodType;
+    private WoodType woodType;
 
     private final ImmutableMap<BlockState, VoxelShape> stateToShapeMap;
 
-    public SupportBlock(Properties properties, IWoodType woodType) {
+    public SupportBlock(WoodType woodType, Properties properties) {
         super(properties);
+        this.woodType = woodType;
         this.stateToShapeMap = getStateToShapeMap(this.getStateDefinition());
         this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, Boolean.FALSE).setValue(UP, Boolean.TRUE).setValue(HORIZONTAL_SHAPE, SupportFaceShape.BIG).setValue(VERTICAL_SHAPE, SupportFaceShape.SMALL));
-        this.woodType = woodType;
     }
 
     @Override
-    public IWoodType getWoodType() {
+    public WoodType getWoodType() {
         return woodType;
     }
 
@@ -198,4 +200,8 @@ public class SupportBlock extends HorizontalDirectionalBlock implements SimpleWa
         });
     }
 
+    @Override
+    protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
+        return CODEC;
+    }
 }

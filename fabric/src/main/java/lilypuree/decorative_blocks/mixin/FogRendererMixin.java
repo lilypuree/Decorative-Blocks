@@ -1,7 +1,7 @@
 package lilypuree.decorative_blocks.mixin;
 
 import lilypuree.decorative_blocks.client.FogHelper;
-import lilypuree.decorative_blocks.core.DBTags;
+import lilypuree.decorative_blocks.registration.DBTags;
 import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.FogRenderer;

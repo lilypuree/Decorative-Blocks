@@ -1,7 +1,7 @@
 package lilypuree.decorative_blocks.mixin;
 
 import lilypuree.decorative_blocks.blocks.BrazierBlock;
-import lilypuree.decorative_blocks.core.DBTags;
+import lilypuree.decorative_blocks.registration.DBTags;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
 import org.spongepowered.asm.mixin.Mixin;

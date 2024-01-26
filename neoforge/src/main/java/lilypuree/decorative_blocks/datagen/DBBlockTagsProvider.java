@@ -1,30 +1,30 @@
 package lilypuree.decorative_blocks.datagen;
 
 import lilypuree.decorative_blocks.Constants;
-import lilypuree.decorative_blocks.blocks.types.IWoodType;
 import lilypuree.decorative_blocks.blocks.types.VanillaWoodTypes;
-import lilypuree.decorative_blocks.core.DBBlocks;
-import lilypuree.decorative_blocks.core.DBTags;
+import lilypuree.decorative_blocks.registration.DBBlocks;
+import lilypuree.decorative_blocks.registration.DBTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BlockTags;
-import net.minecraftforge.common.data.BlockTagsProvider;
-import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraft.world.level.block.state.properties.WoodType;
+import net.neoforged.neoforge.common.data.BlockTagsProvider;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 import java.util.concurrent.CompletableFuture;
 
 public class DBBlockTagsProvider extends BlockTagsProvider {
 
-    public DBBlockTagsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, @org.jetbrains.annotations.Nullable ExistingFileHelper existingFileHelper) {
+    public DBBlockTagsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper existingFileHelper) {
         super(output, lookupProvider, Constants.MOD_ID, existingFileHelper);
     }
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
 
-        for (IWoodType woodType : VanillaWoodTypes.values()) {
-            if (woodType.isFlammable()) {
-                if (woodType != VanillaWoodTypes.BAMBOO)
+        for (WoodType woodType : VanillaWoodTypes.VANILLA) {
+            if (!VanillaWoodTypes.isNetherWood(woodType)) {
+                if (woodType != WoodType.BAMBOO)
                     tag(DBTags.Blocks.BEAMS_THAT_BURN).add(DBBlocks.BEAMS.get(woodType).get());
                 tag(DBTags.Blocks.SEATS_THAT_BURN).add(DBBlocks.SEATS.get(woodType).get());
                 tag(DBTags.Blocks.PALISADES_THAT_BURN).add(DBBlocks.PALISADES.get(woodType).get());

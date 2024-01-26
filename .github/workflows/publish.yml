@@ -20,7 +20,7 @@ jobs:
     strategy:
       matrix:
         website: [ modrinth, curseforge ]
-        loader: [ Forge, Fabric ]
+        loader: [ forge, fabric ]
     name: ${{ matrix.website }} (${{ matrix.loader }})
     
     steps:
@@ -59,10 +59,10 @@ jobs:
           java: Java 17
           name: >
             [
-            ${{ matrix.loader }} ${{ env.mc_version }}
+            ${{ env.loader_name  }} ${{ env.mc_version }}
             ]
             v${{ env.mod_version }}  
-          version: ${{ env.mod_version }}+${{ env.loader_name }}
+          version: ${{ env.mod_version }}+${{ matrix.loader }}
           version-type: release
           changelog-file: CHANGELOG.*
           
@@ -78,9 +78,9 @@ jobs:
           java: Java 17
           name: >
             [
-            ${{ matrix.loader }} ${{ env.mc_version }}
+            ${{ env.loader_name }} ${{ env.mc_version }}
             ]
             v${{ env.mod_version }}           
-          version: ${{ env.mod_version }}+${{ env.loader_name }}
+          version: ${{ env.mod_version }}+${{ matrix.loader }}
           version-type: release
           changelog-file: CHANGELOG.*

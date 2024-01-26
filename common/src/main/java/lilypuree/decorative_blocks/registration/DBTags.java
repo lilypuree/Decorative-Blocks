@@ -1,7 +1,6 @@
-package lilypuree.decorative_blocks.core;
+package lilypuree.decorative_blocks.registration;
 
 import lilypuree.decorative_blocks.Constants;
-import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;

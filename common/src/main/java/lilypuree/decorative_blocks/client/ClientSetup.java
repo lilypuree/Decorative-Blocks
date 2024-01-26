@@ -1,27 +1,16 @@
 package lilypuree.decorative_blocks.client;
 
-import com.ibm.icu.impl.StaticUnicodeSets;
 import com.mojang.blaze3d.platform.InputConstants;
-import com.sun.jna.platform.unix.X11;
 import lilypuree.decorative_blocks.blocks.SeatBlock;
 import lilypuree.decorative_blocks.blocks.SupportBlock;
-import lilypuree.decorative_blocks.core.DBBlocks;
 import lilypuree.decorative_blocks.items.SeatItem;
 import lilypuree.decorative_blocks.items.SupportItem;
-import lilypuree.decorative_blocks.items.SwitchableBlockItem;
 import lilypuree.decorative_blocks.platform.Services;
+import lilypuree.decorative_blocks.registration.DBBlocks;
+import lilypuree.decorative_blocks.registration.Registration;
 import net.minecraft.client.KeyMapping;
-import net.minecraft.client.player.KeyboardInput;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.GameRules;
-import org.lwjgl.glfw.GLFW;
-
-import java.awt.event.KeyEvent;
 
 public class ClientSetup {
 
@@ -37,7 +26,7 @@ public class ClientSetup {
         Services.PLATFORM.setRenderLayer(DBBlocks.SOUL_BRAZIER.get(), RenderType.cutout());
         Services.PLATFORM.setRenderLayer(DBBlocks.CHANDELIER.get(), RenderType.cutoutMipped());
         Services.PLATFORM.setRenderLayer(DBBlocks.SOUL_CHANDELIER.get(), RenderType.cutoutMipped());
-        Services.PLATFORM.setRenderLayer(DBBlocks.THATCH.get(), RenderType.solid());
+        Services.PLATFORM.setRenderLayer(Registration.THATCH_BLOCK.get(), RenderType.solid());
         
     }
 

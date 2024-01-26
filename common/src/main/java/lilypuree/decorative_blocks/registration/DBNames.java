@@ -1,9 +1,9 @@
-package lilypuree.decorative_blocks.core;
+package lilypuree.decorative_blocks.registration;
 
 import lilypuree.decorative_blocks.Constants;
-import lilypuree.decorative_blocks.blocks.types.IWoodType;
 import lilypuree.decorative_blocks.blocks.types.WoodDecorativeBlockTypes;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.state.properties.WoodType;
 
 public class DBNames {
 
@@ -14,7 +14,7 @@ public class DBNames {
         return new ResourceLocation(Constants.MOD_ID, name);
     }
 
-    public static String name(IWoodType wood, WoodDecorativeBlockTypes type) {
-        return wood + "_" + type;
+    public static String name(WoodType wood, WoodDecorativeBlockTypes type) {
+        return wood.name() + "_" + type;
     }
 }

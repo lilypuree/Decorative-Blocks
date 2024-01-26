@@ -1,17 +1,15 @@
 package lilypuree.decorative_blocks;
 
-import lilypuree.decorative_blocks.blocks.*;
-import lilypuree.decorative_blocks.core.DBBlocks;
-import lilypuree.decorative_blocks.core.DBItems;
-import lilypuree.decorative_blocks.core.Registration;
+import lilypuree.decorative_blocks.blocks.IWoodenBlock;
+import lilypuree.decorative_blocks.blocks.PalisadeBlock;
+import lilypuree.decorative_blocks.blocks.SeatBlock;
+import lilypuree.decorative_blocks.blocks.SupportBlock;
+import lilypuree.decorative_blocks.blocks.types.VanillaWoodTypes;
 import lilypuree.decorative_blocks.items.BlockstateCopyItem;
 import lilypuree.decorative_blocks.mixin.FireBlockInvoker;
-import lilypuree.decorative_blocks.platform.Services;
-import lilypuree.decorative_blocks.registration.RegistryObject;
-import net.minecraft.core.Registry;
+import lilypuree.decorative_blocks.registration.DBBlocks;
+import lilypuree.decorative_blocks.registration.Registration;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.block.Blocks;
 
 public class DecorativeBlocksCommon {
@@ -35,13 +33,13 @@ public class DecorativeBlocksCommon {
         FireBlockInvoker invoker = ((FireBlockInvoker) ((Object) Blocks.FIRE));
         BuiltInRegistries.BLOCK.forEach(block -> {
             if (block instanceof IWoodenBlock woodenBlock) {
-                if (woodenBlock.getWoodType().isFlammable()) {
+                if (!VanillaWoodTypes.isNetherWood(woodenBlock.getWoodType())) {
                     invoker.invokeSetFlammable(block, 5, 20);
                 }
             }
         });
 
         invoker.invokeSetFlammable(DBBlocks.LATTICE.get(), 5, 20);
-        invoker.invokeSetFlammable(DBBlocks.THATCH.get(), 60, 80);
+        invoker.invokeSetFlammable(Registration.THATCH_BLOCK.get(), 60, 80);
     }
 }

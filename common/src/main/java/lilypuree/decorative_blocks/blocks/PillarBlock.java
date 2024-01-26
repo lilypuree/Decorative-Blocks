@@ -1,5 +1,6 @@
 package lilypuree.decorative_blocks.blocks;
 
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -17,9 +18,19 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class PillarBlock extends Block implements SimpleWaterloggedBlock {
+    public static MapCodec<PillarBlock> CODEC = simpleCodec(PillarBlock::new);
+
+    @Override
+    protected MapCodec<? extends Block> codec() {
+        return CODEC;
+    }
+    
     protected final VoxelShape PILLAR_SHAPE = Block.box(2D, 0.0D, 2D, 14D, 16.0D, 14D);
 
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+
+
+
 
     public PillarBlock(Properties properties) {
         super(properties);
