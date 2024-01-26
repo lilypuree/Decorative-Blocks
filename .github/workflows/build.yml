@@ -36,6 +36,6 @@ jobs:
           name: ${{ env.MOD_NAME }}
           if-no-files-found: error
           path: |
-            Fabric/build/libs
-            Forge/build/libs
-            Common/build/libs
+            fabric/build/libs
+            forge/build/libs
+            common/build/libs
