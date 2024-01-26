@@ -2,10 +2,10 @@ plugins {
     id 'java'
     id 'idea'
     id 'maven-publish'
-    id 'fabric-loom' version '1.2-SNAPSHOT'
+    id 'fabric-loom' version '1.4-SNAPSHOT'
 }
 base {
-    archivesName = "${mod_id}-fabric-${minecraft_version}"
+    archivesName = "${mod_name}-Fabric-${minecraft_version}"
 }
 repositories {
     maven { url "https://maven.shedaniel.me/" }
@@ -21,8 +21,8 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
     
-    modCompileOnly "curse.maven:soulfired-662413:4971071"
     implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
+    modCompileOnly "curse.maven:soulfired-662413:5029260"
 
     
 //    modCompileOnlyApi("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
@@ -32,14 +32,12 @@ dependencies {
 //    modCompileOnly "me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:${rei_version}"
 //    modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:${rei_version}"
 //    modRuntimeOnly "dev.architectury:architectury-fabric:${architectury}"
-
-
-    implementation project(":Common")
-
+    
+    implementation project(":common")
 }
 
 loom {
-    if (project(":Common").file("src/main/resources/${mod_id}.accesswidener").exists()) {
+    if (project(":common").file("src/main/resources/${mod_id}.accesswidener").exists()) {
         accessWidenerPath.set(project(":common").file("src/main/resources/${mod_id}.accesswidener"))
     }
     mixin {
@@ -62,17 +60,17 @@ loom {
 }
 
 tasks.withType(JavaCompile).configureEach {
-    source(project(":Common").sourceSets.main.allSource)
+    source(project(":common").sourceSets.main.allSource)
 }
 tasks.withType(Javadoc).configureEach {
-    source(project(":Common").sourceSets.main.allJava)
+    source(project(":common").sourceSets.main.allJava)
 }
 tasks.named("sourcesJar", Jar) {
-    from(project(":Common").sourceSets.main.allSource)
+    from(project(":common").sourceSets.main.allSource)
 }
 
 processResources {
-    from project(":Common").sourceSets.main.resources
+    from project(":common").sourceSets.main.resources
 }
 
 publishing {

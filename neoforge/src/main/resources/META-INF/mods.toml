@@ -1,5 +1,5 @@
 modLoader = "javafml"
-loaderVersion = "${forge_loader_version_range}"
+loaderVersion = "${neoforge_loader_version_range}" #mandatory
 license = "${mod_license}"
 
 # A URL to refer people to when problems occur with this mod
@@ -19,29 +19,34 @@ credits = "Thanks for stohun for the amazing models" #optional
 authors = "${mod_author}" #optional
 description = '''${mod_description}'''
 
-[[dependencies.${ mod_id }]] #optional
-modId = "forge" #mandatory
-mandatory = true #mandatory
-versionRange = "${forge_version_range}" #mandatory
+[[mixins]]
+config = "${mod_id}.mixins.json"
+[[mixins]]
+config = "${mod_id}.neoforge.mixins.json"
+
+[[dependencies.${mod_id}]] #optional
+modId = "neoforge" #mandatory
+type="required" #mandatory
+versionRange = "${neoforge_loader_version_range}" #mandatory
 ordering = "NONE"
 side = "BOTH"
 
-[[dependencies.${ mod_id }]]
+[[dependencies.${mod_id}]]
 modId = "minecraft"
-mandatory = true
+type="required"
 versionRange = "${minecraft_version_range}"
 ordering = "NONE"
 side = "BOTH"
 
-[[dependencies.${ mod_id }]]
+[[dependencies.${mod_id}]]
 modId = "soulfired"
-mandatory = false
+type="optional"
 versionRange = "[3.2.1.0,)"
 ordering = "NONE"
 side = "BOTH"
 
 [mc-publish]
-loaders = ['forge', 'neoforge']
+loaders = ['neoforge']
 dependencies = [
     "soulfired@3.2.1.0(optional){modrinth:d6MhxwRo}{curseforge:662413}"
 ]

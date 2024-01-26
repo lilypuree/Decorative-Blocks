@@ -1,6 +1,5 @@
 plugins {
-//    id 'fabric-loom' version '0.12-SNAPSHOT' apply false
-//    id "com.matthewprenger.cursegradle" version "$cursegradle_version" apply false
+    id "org.jetbrains.gradle.plugin.idea-ext" version "1.1.7"
     id 'com.matyrobbrt.mc.registrationutils' version "$regVersion"
 }
 
@@ -24,7 +23,7 @@ subprojects {
                     'Implementation-Version'  : project.jar.archiveVersion,
                     'Implementation-Vendor'   : mod_author,
                     'Implementation-Timestamp': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
-                    'Timestamp'              : System.currentTimeMillis(),
+                    'Timestamp'               : System.currentTimeMillis(),
                     'Built-On-Java'           : "${System.getProperty('java.vm.version')} (${System.getProperty('java.vm.vendor')})",
                     'Build-On-Minecraft'      : minecraft_version
             ])
@@ -67,22 +66,19 @@ subprojects {
 
     processResources {
         def expandProps = [
-                "version"                   : version,
-                "group"                     : project.group, //Else we target the task's group.
-                "minecraft_version"         : minecraft_version,
-                "forge_version"             : forge_version,
-                "forge_loader_version_range": forge_loader_version_range,
-                "forge_version_range"       : forge_version_range,
-                "neoforge_version": neoforge_version,
+                "version"                      : version,
+                "group"                        : project.group, //Else we target the task's group.
+                "minecraft_version"            : minecraft_version,
+                "neoforge_version"             : neoforge_version,
                 "neoforge_loader_version_range": neoforge_loader_version_range,
-                "minecraft_version_range"   : minecraft_version_range,
-                "fabric_version"            : fabric_version,
-                "fabric_loader_version"     : fabric_loader_version,
-                "mod_name"                  : mod_name,
-                "mod_author"                : mod_author,
-                "mod_id"                    : mod_id,
-                "mod_license"               : mod_license,
-                "mod_description"           : project.mod_description,
+                "minecraft_version_range"      : minecraft_version_range,
+                "fabric_version"               : fabric_version,
+                "fabric_loader_version"        : fabric_loader_version,
+                "mod_name"                     : mod_name,
+                "mod_author"                   : mod_author,
+                "mod_id"                       : mod_id,
+                "mod_license"                  : mod_license,
+                "mod_description"              : project.mod_description,
         ]
 
         filesMatching(['pack.mcmeta', 'fabric.mod.json', 'META-INF/mods.toml', '*.mixins.json']) {
@@ -97,40 +93,14 @@ subprojects {
     tasks.withType(GenerateModuleMetadata).configureEach {
         enabled = false
     }
-
-//    def isForge = project.name == 'Forge'
-//    def key =  System.getenv('CURSEFORGEKEY')
-//    println key
-//    if (project.name != 'Common') {
-//        apply plugin: 'com.matthewprenger.cursegradle'
-//        if (!isForge) apply plugin: 'fabric-loom'
-//        def changelogFile = rootProject.file('CHANGELOG.md').text
-//
-//        curseforge {
-//            apiKey = key
-//            project {
-//                id = project.projectId
-//                releaseType = project.releaseType
-//                changelogType = 'markdown'
-//                changelog = changelogFile
-//                addGameVersion project.minecraft_version
-//                addGameVersion project.name
-//                mainArtifact(isForge ? jar : remapJar)
-//            }
-//            options {
-//                debug = false
-//                forgeGradleIntegration = isForge
-//            }
-//        }
-//    }
 }
 
 registrationUtils {
     group 'lilypuree.decorative_blocks.registration'
     projects {
-        Fabric { type 'fabric' } // The fabric project
-        Forge { type 'forge' } // The forge project
-        Common { type 'common' } // The common project
+        fabric { type 'fabric' } // The fabric project
+        neoforge { type 'neoforge' } // The forge project
+        common { type 'common' } // The common project
     }
 }
 

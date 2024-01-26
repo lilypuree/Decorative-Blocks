@@ -1,3 +1,8 @@
+## Minecraft 1.20.4 Changelog
+
+### 5.0.0
+- Update to 1.20.4 fabric & neoforge (forge support dropped.)
+
 ## Minecraft 1.20.1 Changelog
 
 ### 4.1.1
