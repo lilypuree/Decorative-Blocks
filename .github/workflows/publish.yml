@@ -20,7 +20,7 @@ jobs:
     strategy:
       matrix:
         website: [ modrinth, curseforge ]
-        loader: [ forge, fabric ]
+        loader: [ neoforge, fabric ]
     name: ${{ matrix.website }} (${{ matrix.loader }})
     
     steps:

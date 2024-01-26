@@ -37,5 +37,5 @@ jobs:
           if-no-files-found: error
           path: |
             fabric/build/libs
-            forge/build/libs
+            neoforge/build/libs
             common/build/libs
