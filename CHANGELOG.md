@@ -1,5 +1,8 @@
 ## Minecraft 1.20.4 Changelog
 
+### 5.0.1
+- Add chain recipe back
+
 ### 5.0.0
 - Update to 1.20.4 fabric & neoforge
 
