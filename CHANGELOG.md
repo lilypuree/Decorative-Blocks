@@ -1,5 +1,8 @@
 ## Minecraft 1.20.1 Changelog
 
+### 4.1.2
+- Added chain recipe back
+
 ### 4.1.1
 - Cherry blocks properly tagged
 - Bonfires causes soul fire to entities when soul fire'd mod is installed
