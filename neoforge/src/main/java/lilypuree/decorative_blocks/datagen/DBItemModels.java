@@ -2,10 +2,10 @@ package lilypuree.decorative_blocks.datagen;
 
 import lilypuree.decorative_blocks.Constants;
 import lilypuree.decorative_blocks.blocks.types.VanillaWoodTypes;
-import lilypuree.decorative_blocks.items.SeatItem;
-import lilypuree.decorative_blocks.items.SupportItem;
 import lilypuree.decorative_blocks.registration.DBBlocks;
 import lilypuree.decorative_blocks.registration.DBItems;
+import lilypuree.decorative_blocks.items.SeatItem;
+import lilypuree.decorative_blocks.items.SupportItem;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;

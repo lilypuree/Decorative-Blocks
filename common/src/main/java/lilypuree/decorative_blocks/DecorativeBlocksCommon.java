@@ -5,10 +5,10 @@ import lilypuree.decorative_blocks.blocks.PalisadeBlock;
 import lilypuree.decorative_blocks.blocks.SeatBlock;
 import lilypuree.decorative_blocks.blocks.SupportBlock;
 import lilypuree.decorative_blocks.blocks.types.VanillaWoodTypes;
-import lilypuree.decorative_blocks.items.BlockstateCopyItem;
-import lilypuree.decorative_blocks.mixin.FireBlockInvoker;
 import lilypuree.decorative_blocks.registration.DBBlocks;
 import lilypuree.decorative_blocks.registration.Registration;
+import lilypuree.decorative_blocks.items.BlockstateCopyItem;
+import lilypuree.decorative_blocks.mixin.FireBlockInvoker;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.Blocks;
 

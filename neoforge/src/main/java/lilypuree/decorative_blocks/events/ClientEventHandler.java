@@ -2,8 +2,8 @@ package lilypuree.decorative_blocks.events;
 
 import lilypuree.decorative_blocks.Constants;
 import lilypuree.decorative_blocks.client.ClientSetup;
-import lilypuree.decorative_blocks.entity.EmptyRenderer;
 import lilypuree.decorative_blocks.registration.Registration;
+import lilypuree.decorative_blocks.entity.EmptyRenderer;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;

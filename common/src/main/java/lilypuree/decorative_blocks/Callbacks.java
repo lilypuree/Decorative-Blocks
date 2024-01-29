@@ -1,5 +1,6 @@
 package lilypuree.decorative_blocks;
 
+import lilypuree.decorative_blocks.CommonAPI;
 import lilypuree.decorative_blocks.blocks.BonfireBlock;
 import lilypuree.decorative_blocks.blocks.SupportBlock;
 import lilypuree.decorative_blocks.fluid.ThatchBlock;

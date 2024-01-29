@@ -1,8 +1,8 @@
 package lilypuree.decorative_blocks.events;
 
-import lilypuree.decorative_blocks.Callbacks;
 import lilypuree.decorative_blocks.Constants;
 import lilypuree.decorative_blocks.blocks.BrazierBlock;
+import lilypuree.decorative_blocks.Callbacks;
 import lilypuree.decorative_blocks.registration.Registration;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;

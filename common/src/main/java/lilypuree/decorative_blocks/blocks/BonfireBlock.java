@@ -1,7 +1,7 @@
 package lilypuree.decorative_blocks.blocks;
 
-import lilypuree.decorative_blocks.platform.Services;
 import lilypuree.decorative_blocks.registration.DBBlocks;
+import lilypuree.decorative_blocks.platform.Services;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
