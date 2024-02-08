@@ -1,5 +1,9 @@
 ## Minecraft 1.20.4 Changelog
 
+### 5.0.2
+- Add dirt from rocky dirt recipe back
+- Fix seat, palisade, support tags
+
 ### 5.0.1
 - Add chain recipe back
 
