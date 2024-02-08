@@ -1,5 +1,9 @@
 ## Minecraft 1.20.1 Changelog
 
+### 4.1.3
+- Added rocky dirt to dirt recipe back
+- Fixed seat, support, palisade tags
+
 ### 4.1.2
 - Added chain recipe back
 

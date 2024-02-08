@@ -1,0 +1,16 @@
+{
+  "group": "decorative_blocks",
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#"
+  ],
+  "key": {
+    "#": {
+      "item": "decorative_blocks:rocky_dirt"
+    }
+  },
+  "result": {
+    "item": "minecraft:dirt",
+    "count": 4
+  }
+}
