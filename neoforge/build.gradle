@@ -44,7 +44,7 @@ dependencies {
     compileOnly "mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}"
     // at runtime, use the full JEI jar
     runtimeOnly "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
-    compileOnly "curse.maven:soulfired-662413:5029266"
+    implementation "it.crystalnest:soul-fire-d-neoforge:$minecraft_version-$soul_fire_d_version"
 }
 
 // NeoGradle compiles the game, but we don't want to add our common code to the game's code

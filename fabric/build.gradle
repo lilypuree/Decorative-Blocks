@@ -2,7 +2,7 @@ plugins {
     id 'java'
     id 'idea'
     id 'maven-publish'
-    id 'fabric-loom' version '1.4-SNAPSHOT'
+    id 'fabric-loom' version '1.5-SNAPSHOT'
 }
 base {
     archivesName = "${mod_name}-Fabric-${minecraft_version}"
@@ -22,7 +22,7 @@ dependencies {
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
     
     implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
-    modCompileOnly "curse.maven:soulfired-662413:5029260"
+    modImplementation "it.crystalnest:soul-fire-d-fabric:$minecraft_version-$soul_fire_d_version"
 
     
 //    modCompileOnlyApi("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")

@@ -2,13 +2,11 @@ package lilypuree.decorative_blocks.platform;
 
 import lilypuree.decorative_blocks.Constants;
 import lilypuree.decorative_blocks.platform.services.IPlatformHelper;
-import lilypuree.decorative_blocks.platform.services.SoulFiredHelper;
 
 import java.util.ServiceLoader;
 
 public class Services {
     public static final IPlatformHelper PLATFORM = load(IPlatformHelper.class);
-    public static final SoulFiredHelper SOULFIRED = load(SoulFiredHelper.class);
 
     public static <T> T load(Class<T> clazz) {
 

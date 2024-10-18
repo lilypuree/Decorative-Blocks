@@ -18,7 +18,7 @@ dependencies {
     compileOnly group: 'org.spongepowered', name: 'mixin', version: '0.8.5'
     implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
 
-
+    implementation "it.crystalnest:soul-fire-d-common:$minecraft_version-$soul_fire_d_version"
 }
 
 publishing {
