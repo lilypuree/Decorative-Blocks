@@ -1,7 +1,7 @@
 package lilypuree.decorative_blocks.blocks;
 
-import lilypuree.decorative_blocks.core.DBBlocks;
-import lilypuree.decorative_blocks.core.Registration;
+import lilypuree.decorative_blocks.compat.SoulFired;
+import lilypuree.decorative_blocks.registration.DBBlocks;
 import lilypuree.decorative_blocks.platform.Services;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -9,7 +9,6 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
@@ -52,10 +51,10 @@ public class BonfireBlock extends Block implements SimpleWaterloggedBlock {
 
     @Override
     public void entityInside(BlockState state, Level worldIn, BlockPos pos, Entity entityIn) {
-        if (!entityIn.fireImmune() && entityIn instanceof LivingEntity && !EnchantmentHelper.hasFrostWalker((LivingEntity) entityIn)) {
-            entityIn.hurt(entityIn.damageSources().inFire(), 1.0F);
-            if (Services.PLATFORM.isModLoaded("soulfired")) {
-                Services.SOULFIRED.setSecondsOnFire(entityIn, 3, state.is(DBBlocks.SOUL_BONFIRE.get()));
+        if (!entityIn.fireImmune() && ((!(entityIn instanceof LivingEntity) || !EnchantmentHelper.hasFrostWalker((LivingEntity) entityIn)))) {
+            entityIn.hurt(entityIn.damageSources().inFire(), state.is(DBBlocks.SOUL_BONFIRE.get()) ? 2.0f : 1.0f);
+            if (Services.PLATFORM.isModLoaded("soul_fire_d")) {
+                SoulFired.setSecondsOnFire(entityIn, 3, state.is(DBBlocks.SOUL_BONFIRE.get()));
             } else
                 entityIn.setSecondsOnFire(3);
         }

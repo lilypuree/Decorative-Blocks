@@ -1,7 +1,3 @@
-plugins {
-    id 'com.matyrobbrt.mc.registrationutils' version "$regVersion"
-}
-
 subprojects {
     apply plugin: 'java'
 
@@ -50,12 +46,20 @@ subprojects {
             name = "ModMaven"
             url = "https://modmaven.dev"
         }
+        // Crystal Nest repository where Soul Fire'd is hosted.
         maven {
-            url "https://cursemaven.com"
-            content {
-                includeGroup "curse.maven"
-            }
+            name = "Crystal Nest"
+            url = "https://maven.crystalnest.it"
         }
+        // Fuzs repository where Soul Fire'd required dependency FCAP is hosted. Not needed since 1.21
+        maven {
+            name = "Fuzs Mod Resources"
+            url = "https://raw.githubusercontent.com/Fuzss/modresources/main/maven/"
+        }
+    }
+
+    dependencies {
+        implementation "it.crystalnest:soul-fire-d-common:$minecraft_version-$soul_fire_d_version"
     }
 
     tasks.withType(JavaCompile).configureEach {
@@ -79,6 +83,7 @@ subprojects {
                 "mod_id"                    : mod_id,
                 "mod_license"               : mod_license,
                 "mod_description"           : project.mod_description,
+                "soul_fire_d_version"       : soul_fire_d_version,
         ]
 
         filesMatching(['pack.mcmeta', 'fabric.mod.json', 'META-INF/mods.toml', '*.mixins.json']) {
@@ -120,13 +125,3 @@ subprojects {
 //        }
 //    }
 }
-
-registrationUtils {
-    group 'lilypuree.decorative_blocks.registration'
-    projects {
-        Fabric { type 'fabric' } // The fabric project
-        Forge { type 'forge' } // The forge project
-        Common { type 'common' } // The common project
-    }
-}
-

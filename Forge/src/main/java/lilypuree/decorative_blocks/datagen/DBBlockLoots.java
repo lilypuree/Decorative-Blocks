@@ -1,7 +1,7 @@
 package lilypuree.decorative_blocks.datagen;
 
-import lilypuree.decorative_blocks.core.DBBlocks;
-import lilypuree.decorative_blocks.registration.RegistryObject;
+import lilypuree.decorative_blocks.registration.BlockWrapper;
+import lilypuree.decorative_blocks.registration.DBBlocks;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.flag.FeatureFlags;
@@ -32,10 +32,10 @@ public class DBBlockLoots extends BlockLootSubProvider {
         dropSelf(DBBlocks.ROCKY_DIRT.get());
         dropSelf(DBBlocks.SOUL_BRAZIER.get());
         dropSelf(DBBlocks.SOUL_CHANDELIER.get());
-        DBBlocks.BEAMS.values().stream().map(RegistryObject::get).forEach(this::dropSelf);
-        DBBlocks.PALISADES.values().stream().map(RegistryObject::get).forEach(this::dropSelf);
-        DBBlocks.SEATS.values().stream().map(RegistryObject::get).forEach(this::dropSelf);
-        DBBlocks.SUPPORTS.values().stream().map(RegistryObject::get).forEach(this::dropSelf);
+        DBBlocks.BEAMS.values().stream().map(BlockWrapper::get).forEach(this::dropSelf);
+        DBBlocks.PALISADES.values().stream().map(BlockWrapper::get).forEach(this::dropSelf);
+        DBBlocks.SEATS.values().stream().map(BlockWrapper::get).forEach(this::dropSelf);
+        DBBlocks.SUPPORTS.values().stream().map(BlockWrapper::get).forEach(this::dropSelf);
 
         map.forEach(pOutput);
     }

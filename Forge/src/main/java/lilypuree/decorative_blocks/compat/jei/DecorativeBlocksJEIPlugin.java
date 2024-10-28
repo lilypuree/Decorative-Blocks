@@ -1,7 +1,7 @@
 package lilypuree.decorative_blocks.compat.jei;
 
 import lilypuree.decorative_blocks.Constants;
-import lilypuree.decorative_blocks.core.Registration;
+import lilypuree.decorative_blocks.registration.Registration;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.forge.ForgeTypes;

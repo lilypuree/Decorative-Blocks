@@ -1,7 +1,7 @@
 package lilypuree.decorative_blocks.mixin;
 
-import lilypuree.decorative_blocks.core.DBBlocks;
-import lilypuree.decorative_blocks.core.DBTags;
+import lilypuree.decorative_blocks.registration.DBBlocks;
+import lilypuree.decorative_blocks.registration.DBTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;

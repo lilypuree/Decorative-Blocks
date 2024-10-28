@@ -1,14 +1,13 @@
 package lilypuree.decorative_blocks;
 
-import lilypuree.decorative_blocks.core.*;
-import lilypuree.decorative_blocks.events.ClientEventHandler;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
+import lilypuree.decorative_blocks.registration.DBBlocks;
+import lilypuree.decorative_blocks.registration.DBItems;
+import lilypuree.decorative_blocks.registration.DBNames;
+import lilypuree.decorative_blocks.registration.DBTags;
+import lilypuree.decorative_blocks.registration.Registration;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fluids.FluidType;
-import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.ForgeRegistries;

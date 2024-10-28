@@ -2,7 +2,7 @@ package lilypuree.decorative_blocks.events;
 
 import lilypuree.decorative_blocks.Constants;
 import lilypuree.decorative_blocks.client.ClientSetup;
-import lilypuree.decorative_blocks.core.Registration;
+import lilypuree.decorative_blocks.registration.Registration;
 import lilypuree.decorative_blocks.entity.EmptyRenderer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;

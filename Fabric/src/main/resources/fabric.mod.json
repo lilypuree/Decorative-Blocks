@@ -32,13 +32,13 @@
     "java": ">=17"
   },
   "suggests": {
-    "soulfired": "^3.2.1.0"
+    "soul_fire_d": "^${soul_fire_d_version}"
   },
   "custom": {
     "mc-publish": {
       "loaders": ["fabric"],
       "dependencies": [
-        "soulfired@3.2.1.0(optional){modrinth:d6MhxwRo}{curseforge:662413}"
+        "soul-fire-d@${soul_fire_d_version}(optional){modrinth:d6MhxwRo}{curseforge:662413}"
       ]
     }
   }

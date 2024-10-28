@@ -2,7 +2,7 @@ package lilypuree.decorative_blocks.blocks;
 
 import lilypuree.decorative_blocks.blocks.state.ModBlockProperties;
 import lilypuree.decorative_blocks.blocks.types.IWoodType;
-import lilypuree.decorative_blocks.core.Registration;
+import lilypuree.decorative_blocks.registration.Registration;
 import lilypuree.decorative_blocks.entity.DummyEntityForSitting;
 import lilypuree.decorative_blocks.items.SwitchableBlockItem;
 import net.minecraft.core.BlockPos;

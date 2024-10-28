@@ -1,12 +1,9 @@
 package lilypuree.decorative_blocks.events;
 
-import crystalspider.soulfired.api.Fire;
-import crystalspider.soulfired.api.FireManager;
 import lilypuree.decorative_blocks.Constants;
 import lilypuree.decorative_blocks.blocks.BrazierBlock;
-import lilypuree.decorative_blocks.core.Callbacks;
-import lilypuree.decorative_blocks.core.Registration;
-import lilypuree.decorative_blocks.DecorativeBlocksCommon;
+import lilypuree.decorative_blocks.Callbacks;
+import lilypuree.decorative_blocks.registration.Registration;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -22,11 +19,8 @@ import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
-import net.minecraftforge.event.entity.item.ItemEvent;
-import net.minecraftforge.event.entity.item.ItemTossEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.event.furnace.FurnaceFuelBurnTimeEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;

@@ -1,4 +1,4 @@
-package lilypuree.decorative_blocks.core;
+package lilypuree.decorative_blocks.registration;
 
 import lilypuree.decorative_blocks.Constants;
 import lilypuree.decorative_blocks.blocks.types.IWoodType;

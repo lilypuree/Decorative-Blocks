@@ -93,7 +93,8 @@ dependencies {
     compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge-api:${jei_version}")
     // at runtime, use the full JEI jar
     runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
-    implementation fg.deobf("curse.maven:soulfired-662413:4971074")
+    implementation fg.deobf("it.crystalnest:cobweb-forge:$minecraft_version-$cobweb_version")
+    implementation fg.deobf("it.crystalnest:soul-fire-d-forge:$minecraft_version-$soul_fire_d_version")
 }
 
 tasks.withType(JavaCompile).configureEach {

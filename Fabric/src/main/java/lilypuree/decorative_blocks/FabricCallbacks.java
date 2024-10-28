@@ -1,6 +1,5 @@
 package lilypuree.decorative_blocks;
 
-import lilypuree.decorative_blocks.core.Callbacks;
 import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.event.player.UseItemCallback;

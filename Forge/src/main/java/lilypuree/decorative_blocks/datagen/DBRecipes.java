@@ -1,9 +1,8 @@
 package lilypuree.decorative_blocks.datagen;
 
 import lilypuree.decorative_blocks.Constants;
-import lilypuree.decorative_blocks.DecorativeBlocks;
 import lilypuree.decorative_blocks.blocks.*;
-import lilypuree.decorative_blocks.core.DBBlocks;
+import lilypuree.decorative_blocks.registration.DBBlocks;
 import lilypuree.decorative_blocks.blocks.types.IWoodType;
 import lilypuree.decorative_blocks.blocks.types.VanillaWoodTypes;
 import lilypuree.decorative_blocks.blocks.types.WoodDecorativeBlockTypes;

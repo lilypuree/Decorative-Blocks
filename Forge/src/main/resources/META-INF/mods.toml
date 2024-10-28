@@ -34,14 +34,14 @@ ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.${ mod_id }]]
-modId = "soulfired"
+modId = "soul_fire_d"
 mandatory = false
-versionRange = "[3.2.1.0,)"
+versionRange = "[${soul_fire_d_version},)"
 ordering = "NONE"
 side = "BOTH"
 
 [mc-publish]
 loaders = ['forge', 'neoforge']
 dependencies = [
-    "soulfired@3.2.1.0(optional){modrinth:d6MhxwRo}{curseforge:662413}"
+    "soul-fire-d${soul_fire_d_version}(optional){modrinth:d6MhxwRo}{curseforge:662413}"
 ]

@@ -2,8 +2,8 @@
 //
 //import com.google.common.collect.Lists;
 //import dev.architectury.fluid.FluidStack;
-//import lilypuree.decorative_blocks.core.DBNames;
-//import lilypuree.decorative_blocks.core.Registration;
+//import lilypuree.decorative_blocks.registration.DBNames;
+//import lilypuree.decorative_blocks.registration.Registration;
 //import me.shedaniel.rei.api.client.plugins.REIClientPlugin;
 //import me.shedaniel.rei.api.client.registry.display.DisplayRegistry;
 //import me.shedaniel.rei.api.client.registry.entry.EntryRegistry;
