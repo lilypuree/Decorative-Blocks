@@ -1,7 +1,7 @@
 {
   "values": [
-    "decorative_blocks:crimson_seat",
     "decorative_blocks:warped_seat",
+    "decorative_blocks:crimson_seat",
     "#decorative_blocks:seats_that_burn"
   ]
 }

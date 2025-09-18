@@ -42,6 +42,11 @@ public class DecorativeBlocksCommon {
         });
 
         invoker.invokeSetFlammable(DBBlocks.LATTICE.get(), 5, 20);
+<<<<<<< Updated upstream
         invoker.invokeSetFlammable(DBBlocks.THATCH.get(), 60, 80);
+=======
+        invoker.invokeSetFlammable(DBBlocks.ROPE_COIL.get(), 5, 20);
+        invoker.invokeSetFlammable(Registration.THATCH_BLOCK.get(), 60, 80);
+>>>>>>> Stashed changes
     }
 }

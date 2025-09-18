@@ -1,0 +1,35 @@
+{
+  "variants": {
+    "facing=west,narrow=false": {
+      "model": "decorative_blocks:block/step_ladder",
+      "y": 90
+    },
+    "facing=south,narrow=false": {
+      "model": "decorative_blocks:block/step_ladder"
+    },
+    "facing=north,narrow=false": {
+      "model": "decorative_blocks:block/step_ladder",
+      "y": 180
+    },
+    "facing=east,narrow=false": {
+      "model": "decorative_blocks:block/step_ladder",
+      "y": 270
+    },
+    "facing=west,narrow=true": {
+      "model": "decorative_blocks:block/step_ladder_narrow",
+      "y": 90
+    },
+    "facing=south,narrow=true": {
+      "model": "decorative_blocks:block/step_ladder_narrow"
+    },
+    "facing=north,narrow=true": {
+      "model": "decorative_blocks:block/step_ladder_narrow",
+      "y": 180
+    },
+    "facing=east,narrow=true": {
+      "model": "decorative_blocks:block/step_ladder_narrow",
+      "y": 270
+    }
+    
+  }
+}

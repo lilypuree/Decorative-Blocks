@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "decorative_blocks:block/rope_coil_horizontal",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "decorative_blocks:block/rope_coil"
+    },
+    "axis=z": {
+      "model": "decorative_blocks:block/rope_coil_horizontal",
+      "x": 90
+    }
+  }
+}

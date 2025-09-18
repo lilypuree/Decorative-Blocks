@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "decorative_blocks:rope_coil"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "item": "minecraft:string"
+  }
+}

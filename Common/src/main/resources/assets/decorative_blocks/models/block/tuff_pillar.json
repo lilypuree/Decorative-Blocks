@@ -1,0 +1,8 @@
+{
+  "parent": "decorative_blocks:custom/pillar",
+  "textures": {
+    "end": "decorative_blocks:block/tuff_pillar_end",
+    "particle": "decorative_blocks:block/tuff_pillar_side",
+    "side": "decorative_blocks:block/tuff_pillar_side"
+  }
+}

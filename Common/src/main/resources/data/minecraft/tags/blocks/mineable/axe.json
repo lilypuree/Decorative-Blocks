@@ -5,6 +5,9 @@
     "#decorative_blocks:palisades",
     "#decorative_blocks:seats",
     "#decorative_blocks:supports",
-    "decorative_blocks:lattice"
+    "decorative_blocks:lattice",
+    "decorative_blocks:table_pot",
+    "decorative_blocks:rope_coil",
+    "decorative_blocks:step_ladder"
   ]
 }

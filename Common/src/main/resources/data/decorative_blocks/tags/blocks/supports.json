@@ -1,7 +1,7 @@
 {
   "values": [
-    "decorative_blocks:crimson_support",
     "decorative_blocks:warped_support",
+    "decorative_blocks:crimson_support",
     "#decorative_blocks:supports_that_burn"
   ]
 }

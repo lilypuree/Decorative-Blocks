@@ -5,11 +5,21 @@ import com.mojang.blaze3d.platform.InputConstants;
 import com.sun.jna.platform.unix.X11;
 import lilypuree.decorative_blocks.blocks.SeatBlock;
 import lilypuree.decorative_blocks.blocks.SupportBlock;
+<<<<<<< Updated upstream
 import lilypuree.decorative_blocks.core.DBBlocks;
+=======
+import lilypuree.decorative_blocks.items.StepLadderItem;
+import lilypuree.decorative_blocks.registration.DBBlocks;
+>>>>>>> Stashed changes
 import lilypuree.decorative_blocks.items.SeatItem;
 import lilypuree.decorative_blocks.items.SupportItem;
 import lilypuree.decorative_blocks.items.SwitchableBlockItem;
 import lilypuree.decorative_blocks.platform.Services;
+<<<<<<< Updated upstream
+=======
+import lilypuree.decorative_blocks.registration.DBItems;
+import lilypuree.decorative_blocks.registration.Registration;
+>>>>>>> Stashed changes
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.player.KeyboardInput;
 import net.minecraft.client.player.LocalPlayer;
@@ -27,7 +37,7 @@ public class ClientSetup {
 
     public static final KeyMapping switchItemState = new KeyMapping("key.decorative_blocks.switch_item_state", InputConstants.Type.KEYSYM, -1, "key.categories.inventory");
 
-    
+
     public static void initRenderLayers() {
         Services.PLATFORM.setRenderLayer(DBBlocks.BAR_PANEL.get(), RenderType.cutoutMipped());
         Services.PLATFORM.setRenderLayer(DBBlocks.LATTICE.get(), RenderType.cutoutMipped());
@@ -37,8 +47,13 @@ public class ClientSetup {
         Services.PLATFORM.setRenderLayer(DBBlocks.SOUL_BRAZIER.get(), RenderType.cutout());
         Services.PLATFORM.setRenderLayer(DBBlocks.CHANDELIER.get(), RenderType.cutoutMipped());
         Services.PLATFORM.setRenderLayer(DBBlocks.SOUL_CHANDELIER.get(), RenderType.cutoutMipped());
+<<<<<<< Updated upstream
         Services.PLATFORM.setRenderLayer(DBBlocks.THATCH.get(), RenderType.solid());
         
+=======
+        Services.PLATFORM.setRenderLayer(Registration.THATCH_BLOCK.get(), RenderType.solid());
+
+>>>>>>> Stashed changes
     }
 
     public static void initItemPropertyFunctions() {
@@ -52,6 +67,9 @@ public class ClientSetup {
                     return stack.hasTag() ? stack.getTag().getInt(SeatItem.OVERRIDE_TAG.getPath()) : 0.0f;
                 });
             }
+        });
+        Services.PLATFORM.registerItemFunc(DBItems.STEP_LADDER.get(), StepLadderItem.OVERRIDE_TAG, (stack, level, entity, i) -> {
+            return stack.hasTag() ? stack.getTag().getInt(StepLadderItem.OVERRIDE_TAG.getPath()) : 0.0F;
         });
     }
 

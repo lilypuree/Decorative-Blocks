@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "group": "decorative_pillars",
+  "ingredient": {
+    "item": "minecraft:smooth_stone"
+  },
+  "result": "decorative_blocks:smooth_stone_pillar"
+}

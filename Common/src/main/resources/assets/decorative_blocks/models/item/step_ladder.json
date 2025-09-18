@@ -1,0 +1,11 @@
+{
+  "parent": "decorative_blocks:block/step_ladder",
+  "overrides": [
+    {
+      "model": "decorative_blocks:block/step_ladder_narrow",
+      "predicate": {
+        "decorative_blocks:narrow": 1.0
+      }
+    }
+  ]
+}

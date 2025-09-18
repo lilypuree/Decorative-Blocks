@@ -1,7 +1,7 @@
 {
   "values": [
-    "decorative_blocks:crimson_palisade",
     "decorative_blocks:warped_palisade",
+    "decorative_blocks:crimson_palisade",
     "#decorative_blocks:palisades_that_burn"
   ]
 }

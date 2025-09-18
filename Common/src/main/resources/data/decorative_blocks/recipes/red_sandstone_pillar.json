@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "group": "decorative_pillars",
+  "ingredient": {
+    "item": "minecraft:red_sandstone"
+  },
+  "result": "decorative_blocks:red_sandstone_pillar"
+}

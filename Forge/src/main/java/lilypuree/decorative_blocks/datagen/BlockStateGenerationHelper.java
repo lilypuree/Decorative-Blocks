@@ -5,13 +5,20 @@ import lilypuree.decorative_blocks.blocks.IWoodenBlock;
 import lilypuree.decorative_blocks.blocks.PalisadeBlock;
 import lilypuree.decorative_blocks.blocks.state.ModBlockProperties;
 import lilypuree.decorative_blocks.blocks.state.SupportFaceShape;
+<<<<<<< Updated upstream
 import lilypuree.decorative_blocks.blocks.types.IWoodType;
+=======
+>>>>>>> Stashed changes
 import lilypuree.decorative_blocks.blocks.types.WoodDecorativeBlockTypes;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.Property;
+<<<<<<< Updated upstream
+=======
+import net.minecraft.world.level.block.state.properties.WoodType;
+>>>>>>> Stashed changes
 import net.minecraftforge.client.model.generators.*;
 
 import java.util.ArrayList;
@@ -32,8 +39,13 @@ public class BlockStateGenerationHelper {
     }
 
     public void supportBlock(IWoodenBlock block) {
+<<<<<<< Updated upstream
         IWoodType woodType = block.getWoodType();
         String texture = woodType + "_support";
+=======
+        WoodType woodType = block.getWoodType();
+        String texture = woodType.name() + "_support";
+>>>>>>> Stashed changes
 
         MultiPartBlockStateBuilder builder = getMultipartBuilder((Block) block);
         BlockStateProperties.UP.getAllValues().forEach(up -> {
@@ -95,8 +107,13 @@ public class BlockStateGenerationHelper {
     }
 
     public void seatBlock(IWoodenBlock block) {
+<<<<<<< Updated upstream
         IWoodType woodType = block.getWoodType();
         String texture = woodType + "_seat";
+=======
+        WoodType woodType = block.getWoodType();
+        String texture = woodType.name() + "_seat";
+>>>>>>> Stashed changes
         MultiPartBlockStateBuilder builder = getMultipartBuilder((Block) block);
         addFourDirections(builder, simpleModel(woodType, SEAT, "", texture));
         builder.part().modelFile(simpleModel(woodType, SEAT, "_post", texture)).addModel().condition(BlockStateProperties.ATTACHED, true);
@@ -114,7 +131,11 @@ public class BlockStateGenerationHelper {
     }
 
     public void beamBlock(IWoodenBlock block) {
+<<<<<<< Updated upstream
         IWoodType woodType = block.getWoodType();
+=======
+        WoodType woodType = block.getWoodType();
+>>>>>>> Stashed changes
         ModelFile beamXModel = beamModel(woodType, Direction.Axis.X);
         ModelFile beamYModel = beamModel(woodType, Direction.Axis.Y);
         ModelFile beamZModel = beamModel(woodType, Direction.Axis.Z);
@@ -124,6 +145,7 @@ public class BlockStateGenerationHelper {
                 .partialState().with(BlockStateProperties.AXIS, Direction.Axis.Z).modelForState().modelFile(beamZModel).addModel();
     }
 
+<<<<<<< Updated upstream
     public ModelFile beamModel(IWoodType wood, Direction.Axis axis) {
         ModelBuilder<?> builder = createModel(wood, BEAM, "_" + axis.getName());
         return withSideEndTextures(builder, wood + "_beam");
@@ -132,6 +154,16 @@ public class BlockStateGenerationHelper {
     public void palisadeBlock(IWoodenBlock block) {
         IWoodType woodType = block.getWoodType();
         String texture = woodType + "_palisade";
+=======
+    public ModelFile beamModel(WoodType wood, Direction.Axis axis) {
+        ModelBuilder<?> builder = createModel(wood, BEAM, "_" + axis.getName());
+        return withSideEndTextures(builder, wood.name() + "_beam");
+    }
+
+    public void palisadeBlock(IWoodenBlock block) {
+        WoodType woodType = block.getWoodType();
+        String texture = woodType.name() + "_palisade";
+>>>>>>> Stashed changes
 
         ModelFile postModel = sideEndModel(woodType, PALISADE, "_post", texture);
         ModelFile sideModel = sideEndModel(woodType, PALISADE, "_side", texture);
@@ -144,6 +176,7 @@ public class BlockStateGenerationHelper {
                 .part().modelFile(sideModel).uvLock(true).rotationY(270).addModel().condition(BlockStateProperties.WEST, Boolean.TRUE).end();
     }
 
+<<<<<<< Updated upstream
     private ModelFile sideEndModel(IWoodType wood, WoodDecorativeBlockTypes blockType, String modelSuffix, String texture) {
         return withSideEndTextures(createModel(wood, blockType, modelSuffix), texture);
     }
@@ -153,10 +186,32 @@ public class BlockStateGenerationHelper {
     }
 
     private ModelFile simpleModel(IWoodType wood, WoodDecorativeBlockTypes blockType, String modelSuffix, String texture) {
+=======
+    public ModelFile pillarBlock(String name) {
+        String path = name + "_pillar";
+        return withSideEndTextures(createChildModel(path, "pillar"), path);
+    }
+
+    public ModelFile pillarRotateBlock(String name) {
+        String path = name + "_pillar";
+        return withParticleTexture(createChildModel(path, "pillar_rotate"), path);
+    }
+
+    private ModelFile sideEndModel(WoodType wood, WoodDecorativeBlockTypes blockType, String modelSuffix, String texture) {
+        return withSideEndTextures(createModel(wood, blockType, modelSuffix), texture);
+    }
+
+    private ModelFile sideEndModel(WoodType wood, WoodDecorativeBlockTypes blockType, String modelPrefix, String modelSuffix, String texture) {
+        return withSideEndTextures(createModel(wood, blockType, modelPrefix, modelSuffix), texture);
+    }
+
+    private ModelFile simpleModel(WoodType wood, WoodDecorativeBlockTypes blockType, String modelSuffix, String texture) {
+>>>>>>> Stashed changes
         return withParticleTexture(createModel(wood, blockType, modelSuffix), texture);
     }
 
 
+<<<<<<< Updated upstream
     private ModelBuilder<?> createModel(IWoodType wood, WoodDecorativeBlockTypes type) {
         return createModel(wood, type, "");
     }
@@ -168,6 +223,19 @@ public class BlockStateGenerationHelper {
     private ModelBuilder<?> createModel(IWoodType wood, WoodDecorativeBlockTypes type, String prefix, String suffix) {
         String name = prefix + type + suffix;
         return models().getBuilder(wood + "_" + name)
+=======
+    private ModelBuilder<?> createModel(WoodType wood, WoodDecorativeBlockTypes type) {
+        return createModel(wood, type, "");
+    }
+
+    private ModelBuilder<?> createModel(WoodType wood, WoodDecorativeBlockTypes type, String suffix) {
+        return createModel(wood, type, "", suffix);
+    }
+
+    private ModelBuilder<?> createModel(WoodType wood, WoodDecorativeBlockTypes type, String prefix, String suffix) {
+        String name = prefix + type + suffix;
+        return models().getBuilder(wood.name() + "_" + name)
+>>>>>>> Stashed changes
                 .parent(modelFile(new ResourceLocation(Constants.MOD_ID, "custom/" + name)));
     }
 

@@ -20,7 +20,11 @@ public class DataGenerators {
         PackOutput packOutput = generator.getPackOutput();
         CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
         ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
+<<<<<<< Updated upstream
         
+=======
+
+>>>>>>> Stashed changes
         generator.addProvider(event.includeServer(), new DBRecipes(packOutput));
         generator.addProvider(event.includeServer(), new DBLootTables(packOutput));
         BlockTagsProvider blockTagsProvider = new DBBlockTagsProvider(packOutput, lookupProvider, existingFileHelper);

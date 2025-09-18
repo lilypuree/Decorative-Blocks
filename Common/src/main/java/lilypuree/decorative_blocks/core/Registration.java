@@ -53,15 +53,26 @@ public class Registration {
     private static CreativeModeTab getTab() {
         CreativeModeTab.Builder builder = Services.PLATFORM.createModTab();
         builder.icon(() -> DBItems.BRAZIER.get().getDefaultInstance()).title(Component.translatable(String.format("itemGroup.%s.general", Constants.MOD_ID)));
+        
         builder.displayItems((itemDisplayParameters, output) -> {
-            output.accept(DBItems.CHANDELIER::get);
-            output.accept(DBItems.SOUL_CHANDELIER::get);
             output.accept(DBItems.BRAZIER::get);
             output.accept(DBItems.SOUL_BRAZIER::get);
+            output.accept(DBItems.CHANDELIER::get);
+            output.accept(DBItems.SOUL_CHANDELIER::get);
+            output.accept(DBItems.CHAIN::get);
             output.accept(DBItems.BAR_PANEL::get);
             output.accept(DBItems.LATTICE::get);
-            output.accept(DBItems.CHAIN::get);
+            output.accept(DBItems.STEP_LADDER::get);
+            output.accept(DBItems.ROPE_COIL::get);
+            output.accept(DBItems.TABLE_POT::get);
             output.accept(DBItems.STONE_PILLAR::get);
+            output.accept(DBItems.SMOOTH_STONE_PILLAR::get);
+            output.accept(DBItems.SANDSTONE_PILLAR::get);
+            output.accept(DBItems.RED_SANDSTONE_PILLAR::get);
+            output.accept(DBItems.BLACKSTONE_PILLAR::get);
+            output.accept(DBItems.BASALT_PILLAR::get);
+            output.accept(DBItems.TUFF_PILLAR::get);
+            output.accept(DBItems.MUD_PILLAR::get);
             output.accept(DBItems.ROCKY_DIRT::get);
             DBItems.BEAM_ITEMBLOCKS.values().forEach(regObject -> output.accept(regObject::get));
             DBItems.SEAT_ITEMBLOCKS.values().forEach(regObject -> output.accept(regObject::get));

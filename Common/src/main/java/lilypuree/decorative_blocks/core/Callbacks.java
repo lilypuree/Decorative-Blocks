@@ -2,6 +2,7 @@ package lilypuree.decorative_blocks.core;
 
 import lilypuree.decorative_blocks.CommonAPI;
 import lilypuree.decorative_blocks.blocks.BonfireBlock;
+import lilypuree.decorative_blocks.blocks.StepLadderBlock;
 import lilypuree.decorative_blocks.blocks.SupportBlock;
 import lilypuree.decorative_blocks.fluid.ThatchBlock;
 import lilypuree.decorative_blocks.fluid.ThatchFluid;
@@ -61,13 +62,17 @@ public class Callbacks {
 
         if (item.is(Services.PLATFORM.getShearTag()) && CommonAPI.shearMap.containsKey(block)) {
             return shearThatch(player, level, item, pos, block);
-        } else if (item.is(ItemTags.AXES) && block instanceof SupportBlock) {
-            SupportBlock.onSupportActivation(state, level, pos, player, hitResult.getLocation());
-            return InteractionResult.sidedSuccess(level.isClientSide);
+        } else if (item.is(ItemTags.AXES)) {
+            if (block instanceof SupportBlock) {
+                SupportBlock.onSupportActivation(state, level, pos, player, hitResult.getLocation());
+                return InteractionResult.sidedSuccess(level.isClientSide);
+            } else if (block instanceof StepLadderBlock) {
+                StepLadderBlock.onStepLadderActivation(state, level, pos);
+                return InteractionResult.sidedSuccess(level.isClientSide);
+            }
         }
         return InteractionResult.PASS;
     }
-
 
     private static InteractionResult shearThatch(Player player, Level level, ItemStack itemStack, BlockPos pos, Block block) {
         if (!level.getGameRules().getBoolean(CommonAPI.RULE_DISABLE_THATCH)) {

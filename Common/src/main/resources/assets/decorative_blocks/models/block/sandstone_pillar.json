@@ -1,0 +1,7 @@
+{
+  "parent": "decorative_blocks:custom/pillar_rotate",
+  "textures": {
+    "particle": "decorative_blocks:block/sandstone_pillar",
+    "texture": "decorative_blocks:block/sandstone_pillar"
+  }
+}

@@ -1,6 +1,7 @@
 {
   "type": "minecraft:stonecutting",
   "count": 1,
+  "group": "decorative_pillars",
   "ingredient": {
     "item": "minecraft:stone"
   },

@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "decorative_blocks:block/red_sandstone_pillar"
+      },
+      {
+        "model": "decorative_blocks:block/red_sandstone_pillar",
+        "y": 90
+      },
+      {
+        "model": "decorative_blocks:block/red_sandstone_pillar",
+        "y": 180
+      },
+      {
+        "model": "decorative_blocks:block/red_sandstone_pillar",
+        "y": 270
+      }
+    ]
+  }
+}
