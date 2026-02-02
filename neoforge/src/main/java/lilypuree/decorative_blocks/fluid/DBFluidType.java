@@ -63,8 +63,6 @@ public class DBFluidType extends FluidType {
             public void modifyFogRender(Camera camera, FogRenderer.FogMode mode, float renderDistance, float partialTick, float nearDistance, float farDistance, FogShape shape) {
                 FogHelper.onFogSetup(camera.getEntity(), farDistance);
             }
-
-
         });
     }
 }

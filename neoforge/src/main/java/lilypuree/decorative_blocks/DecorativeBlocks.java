@@ -1,7 +1,7 @@
 package lilypuree.decorative_blocks;
 
-import lilypuree.decorative_blocks.registration.*;
 import lilypuree.decorative_blocks.platform.NeoForgePlatformHelper;
+import lilypuree.decorative_blocks.registration.*;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "decorative_palisades",
+  "key": {
+    "x": {
+      "item": "minecraft:oak_log"
+    }
+  },
+  "pattern": [
+    "xx "
+  ],
+  "result": {
+    "count": 6,
+    "id": "decorative_blocks:oak_palisade"
+  },
+  "show_notification": true
+}

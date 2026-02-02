@@ -1,8 +1,9 @@
 package lilypuree.decorative_blocks.datagen;
 
 import lilypuree.decorative_blocks.registration.DBBlocks;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.loot.BlockLootSubProvider;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.level.storage.loot.LootTable;
 
@@ -11,8 +12,8 @@ import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 
 public class DBBlockLoots extends BlockLootSubProvider {
-    protected DBBlockLoots() {
-        super(Set.of(), FeatureFlags.REGISTRY.allFlags());
+    protected DBBlockLoots(HolderLookup.Provider registries) {
+        super(Set.of(), FeatureFlags.REGISTRY.allFlags(), registries);
     }
 
     @Override
@@ -21,7 +22,7 @@ public class DBBlockLoots extends BlockLootSubProvider {
     }
 
     @Override
-    public void generate(BiConsumer<ResourceLocation, LootTable.Builder> pOutput) {
+    public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output) {
 
         dropSelf(DBBlocks.BAR_PANEL.get());
         dropSelf(DBBlocks.CHANDELIER.get());
@@ -37,7 +38,7 @@ public class DBBlockLoots extends BlockLootSubProvider {
         DBBlocks.SEATS.values().stream().map(Supplier::get).forEach(this::dropSelf);
         DBBlocks.SUPPORTS.values().stream().map(Supplier::get).forEach(this::dropSelf);
 
-        map.forEach(pOutput);
+        map.forEach(output);
     }
 
 }

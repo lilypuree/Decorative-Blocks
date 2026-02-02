@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "decorative_supports",
+  "key": {
+    "x": {
+      "item": "minecraft:mangrove_planks"
+    }
+  },
+  "pattern": [
+    "xx ",
+    "x  "
+  ],
+  "result": {
+    "count": 6,
+    "id": "decorative_blocks:mangrove_support"
+  },
+  "show_notification": true
+}

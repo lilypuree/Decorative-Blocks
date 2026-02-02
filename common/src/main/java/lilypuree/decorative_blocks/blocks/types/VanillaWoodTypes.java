@@ -27,7 +27,7 @@ public class VanillaWoodTypes {
             WoodType.BAMBOO);
 
     private static ResourceLocation mcLoc(String name) {
-        return new ResourceLocation("minecraft", name);
+        return ResourceLocation.withDefaultNamespace(name);
     }
 
     public static Block getLog(WoodType woodType) {

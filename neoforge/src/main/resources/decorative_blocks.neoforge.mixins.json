@@ -3,7 +3,7 @@
   "minVersion": "0.8",
   "package": "lilypuree.decorative_blocks.mixin",
   "refmap": "${mod_id}.refmap.json",
-  "compatibilityLevel": "JAVA_17",
+  "compatibilityLevel": "JAVA_21",
   "mixins": [
     "AbstractFurnaceTileEntityMixin"
   ],

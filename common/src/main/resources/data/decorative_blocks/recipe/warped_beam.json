@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "decorative_beams",
+  "key": {
+    "x": {
+      "item": "minecraft:stripped_warped_stem"
+    }
+  },
+  "pattern": [
+    " x ",
+    " x "
+  ],
+  "result": {
+    "count": 2,
+    "id": "decorative_blocks:warped_beam"
+  },
+  "show_notification": true
+}

@@ -11,9 +11,6 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.client.renderer.item.ItemPropertyFunction;
 import net.minecraft.core.Registry;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
-import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
@@ -56,18 +53,12 @@ public class NeoForgePlatformHelper implements IPlatformHelper {
 
     @Override
     public DummyEntityForSitting createDummyEntity(EntityType<DummyEntityForSitting> type, Level level) {
-        return new DummyEntityForSitting(type, level) {
-
-            @Override
-            public Packet<ClientGamePacketListener> getAddEntityPacket() {
-                return new ClientboundAddEntityPacket(this);
-            }
-        };
+        return new DummyEntityForSitting(type, level);
     }
 
     @Override
     public LiquidBlock createThatchFluidBlock(Supplier<ThatchFluid.Source> fluid, BlockBehaviour.Properties properties) {
-        return new ForgeThatchFluidBlock(fluid::get, properties);
+        return new ForgeThatchFluidBlock(fluid.get(), properties);
     }
 
     @Override
@@ -97,7 +88,7 @@ public class NeoForgePlatformHelper implements IPlatformHelper {
 
     @Override
     public TagKey<Item> getShearTag() {
-        return Tags.Items.SHEARS;
+        return Tags.Items.TOOLS_SHEAR;
     }
 
 

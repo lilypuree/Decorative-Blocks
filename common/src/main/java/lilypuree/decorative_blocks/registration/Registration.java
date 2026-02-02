@@ -20,8 +20,8 @@ import net.minecraft.world.level.material.PushReaction;
 import java.util.function.Supplier;
 
 public class Registration {
-    private static final ResourceLocation thatchStillTexture = new ResourceLocation(Constants.MOD_ID, "block/thatch_still");
-    private static final ResourceLocation thatchFlowingTexture = new ResourceLocation(Constants.MOD_ID, "block/thatch_flowing");
+    private static final ResourceLocation thatchStillTexture = ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "block/thatch_still");
+    private static final ResourceLocation thatchFlowingTexture = ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "block/thatch_flowing");
 
     public static final ThatchFluid.FluidReferenceHolder referenceHolder;
     public static final Supplier<ThatchFluid.Flowing> FLOWING_THATCH;

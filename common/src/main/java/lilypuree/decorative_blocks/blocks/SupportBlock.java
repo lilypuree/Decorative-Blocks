@@ -87,7 +87,7 @@ public class SupportBlock extends HorizontalDirectionalBlock implements SimpleWa
         BlockState blockstate = this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite()).setValue(WATERLOGGED, flag);
         ItemStack stack = context.getItemInHand();
         if (stack.getItem() instanceof SwitchableBlockItem) {
-            blockstate = ((SwitchableBlockItem<?, ?>) stack.getItem()).getSwitchedState(blockstate, stack);
+            blockstate = ((SwitchableBlockItem) stack.getItem()).getSwitchedState(blockstate, stack);
         }
         if (!blockstate.getValue(UP)) {
             blockstate = blockstate.setValue(HORIZONTAL_SHAPE, SupportFaceShape.SMALL);
@@ -147,7 +147,7 @@ public class SupportBlock extends HorizontalDirectionalBlock implements SimpleWa
     }
 
     @Override
-    public boolean isPathfindable(BlockState p_196266_1_, BlockGetter p_196266_2_, BlockPos p_196266_3_, PathComputationType p_196266_4_) {
+    public boolean isPathfindable(BlockState state, PathComputationType pathComputationType) {
         return false;
     }
 

@@ -1,8 +1,8 @@
 package lilypuree.decorative_blocks.client;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import lilypuree.decorative_blocks.registration.DBTags;
 import lilypuree.decorative_blocks.fluid.ThatchFluid;
+import lilypuree.decorative_blocks.registration.DBTags;
 import net.minecraft.client.Camera;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;

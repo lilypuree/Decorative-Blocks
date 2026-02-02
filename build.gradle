@@ -1,11 +1,11 @@
 plugins {
-    id "org.jetbrains.gradle.plugin.idea-ext" version "1.1.7"
+    id "org.jetbrains.gradle.plugin.idea-ext" version "1.4"
 }
 
 subprojects {
     apply plugin: 'java'
 
-    java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+    java.toolchain.languageVersion = JavaLanguageVersion.of(21)
     java.withSourcesJar()
     java.withJavadocJar()
 
@@ -60,27 +60,27 @@ subprojects {
 
     tasks.withType(JavaCompile).configureEach {
         it.options.encoding = 'UTF-8'
-        it.options.getRelease().set(17)
+        it.options.getRelease().set(21)
     }
 
     processResources {
         def expandProps = [
-                "version"                      : version,
-                "group"                        : project.group, //Else we target the task's group.
-                "minecraft_version"            : minecraft_version,
-                "neoforge_version"             : neoforge_version,
-                "neoforge_loader_version_range": neoforge_loader_version_range,
-                "minecraft_version_range"      : minecraft_version_range,
-                "fabric_version"               : fabric_version,
-                "fabric_loader_version"        : fabric_loader_version,
-                "mod_name"                     : mod_name,
-                "mod_author"                   : mod_author,
-                "mod_id"                       : mod_id,
-                "mod_license"                  : mod_license,
-                "mod_description"              : project.mod_description,
+                "version"                           : version,
+                "group"                             : project.group, //Else we target the task's group.
+                "minecraft_version"                 : minecraft_version,
+                "neoforge_version"                  : neoforge_version,
+                "minecraft_neoforge_version_range"  : minecraft_neoforge_version_range,
+                "fabric_version"                    : fabric_version,
+                "fabric_loader_version"             : fabric_loader_version,
+                "minecraft_fabric_version_range"    : minecraft_fabric_version_range,
+                "mod_name"                          : mod_name,
+                "mod_author"                        : mod_author,
+                "mod_id"                            : mod_id,
+                "mod_license"                       : mod_license,
+                "mod_description"                   : project.mod_description,
         ]
 
-        filesMatching(['pack.mcmeta', 'fabric.mod.json', 'META-INF/mods.toml', '*.mixins.json']) {
+        filesMatching(['pack.mcmeta', 'fabric.mod.json', 'META-INF/neoforge.mods.toml', '*.mixins.json']) {
             expand expandProps
         }
         inputs.properties(expandProps)

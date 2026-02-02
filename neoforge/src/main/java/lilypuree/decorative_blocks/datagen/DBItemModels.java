@@ -2,10 +2,10 @@ package lilypuree.decorative_blocks.datagen;
 
 import lilypuree.decorative_blocks.Constants;
 import lilypuree.decorative_blocks.blocks.types.VanillaWoodTypes;
-import lilypuree.decorative_blocks.registration.DBBlocks;
-import lilypuree.decorative_blocks.registration.DBItems;
 import lilypuree.decorative_blocks.items.SeatItem;
 import lilypuree.decorative_blocks.items.SupportItem;
+import lilypuree.decorative_blocks.registration.DBBlocks;
+import lilypuree.decorative_blocks.registration.DBItems;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -28,8 +28,8 @@ public class DBItemModels extends ItemModelProvider {
         ItemGenerationHelper helper = new ItemGenerationHelper(Constants.MOD_ID, this);
         for (WoodType wood : VanillaWoodTypes.VANILLA) {
             if (wood != WoodType.BAMBOO)
-                getBuilder(wood + "_beam").parent(new ModelFile.UncheckedModelFile(modLoc("block/" + wood + "_beam_y")));
-            getBuilder(wood + "_palisade").parent(new ModelFile.UncheckedModelFile(modLoc("block/" + wood + "_palisade_inventory")));
+                getBuilder(wood.name() + "_beam").parent(new ModelFile.UncheckedModelFile(modLoc("block/" + wood.name() + "_beam_y")));
+            getBuilder(wood.name() + "_palisade").parent(new ModelFile.UncheckedModelFile(modLoc("block/" + wood.name() + "_palisade_inventory")));
             helper.seatModel(wood);
             helper.supportModel(wood);
         }
@@ -99,7 +99,7 @@ public class DBItemModels extends ItemModelProvider {
         }
 
         public ResourceLocation modBlockLoc(String name) {
-            return new ResourceLocation(modid, "block/" + name);
+            return ResourceLocation.fromNamespaceAndPath(modid, "block/" + name);
         }
     }
 }

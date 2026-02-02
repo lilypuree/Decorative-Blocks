@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "decorative_seats",
+  "key": {
+    "x": {
+      "item": "minecraft:dark_oak_slab"
+    },
+    "y": {
+      "item": "minecraft:dark_oak_fence"
+    }
+  },
+  "pattern": [
+    "x  ",
+    "y  "
+  ],
+  "result": {
+    "count": 6,
+    "id": "decorative_blocks:dark_oak_seat"
+  },
+  "show_notification": true
+}

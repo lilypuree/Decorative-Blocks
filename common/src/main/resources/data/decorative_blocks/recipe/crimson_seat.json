@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "decorative_seats",
+  "key": {
+    "x": {
+      "item": "minecraft:crimson_slab"
+    },
+    "y": {
+      "item": "minecraft:crimson_fence"
+    }
+  },
+  "pattern": [
+    "x  ",
+    "y  "
+  ],
+  "result": {
+    "count": 6,
+    "id": "decorative_blocks:crimson_seat"
+  },
+  "show_notification": true
+}

@@ -3,14 +3,15 @@ package lilypuree.decorative_blocks.blocks;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import lilypuree.decorative_blocks.blocks.state.ModBlockProperties;
-import lilypuree.decorative_blocks.registration.Registration;
 import lilypuree.decorative_blocks.entity.DummyEntityForSitting;
 import lilypuree.decorative_blocks.items.SwitchableBlockItem;
+import lilypuree.decorative_blocks.registration.Registration;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
@@ -105,7 +106,7 @@ public class SeatBlock extends HorizontalDirectionalBlock implements SimpleWater
 
         BlockState blockstate = this.defaultBlockState().setValue(FACING, placementDir).setValue(WATERLOGGED, waterloggedFlag).setValue(OCCUPIED, false).setValue(ATTACHED, attachedFlag);
         if (stack.getItem() instanceof SwitchableBlockItem) {
-            blockstate = ((SwitchableBlockItem<?, ?>) stack.getItem()).getSwitchedState(blockstate, stack);
+            blockstate = ((SwitchableBlockItem) stack.getItem()).getSwitchedState(blockstate, stack);
         }
         return blockstate;
     }
@@ -145,35 +146,36 @@ public class SeatBlock extends HorizontalDirectionalBlock implements SimpleWater
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
-        ItemStack heldItem = player.getItemInHand(handIn);
-        BlockState upperBlock = worldIn.getBlockState(pos.above());
-        boolean canSit = hit.getDirection() == Direction.UP && !state.getValue(OCCUPIED) && !state.getValue(POST) && heldItem.isEmpty() && upperBlock.isAir() && isPlayerInRange(player, pos);
-        Item item = heldItem.getItem();
-        boolean isSeatAttachableItem = item instanceof BlockItem && ((BlockItem) item).getBlock() instanceof LanternBlock;
-        boolean canAttachLantern = hit.getDirection() == Direction.DOWN && isSeatAttachableItem && worldIn.getBlockState(pos.below()).isAir();
-        if (!worldIn.isClientSide()) {
-            if (canSit) {
-                DummyEntityForSitting seat = Registration.DUMMY_ENTITY_TYPE.get().create(worldIn);
-                seat.setSeatPos(pos);
-                worldIn.addFreshEntity(seat);
-                player.startRiding(seat);
-                return InteractionResult.SUCCESS;
-            } else if (canAttachLantern) {
-                BlockState newState = state.setValue(ATTACHED, Boolean.TRUE);
-                worldIn.setBlockAndUpdate(pos, newState);
-                worldIn.sendBlockUpdated(pos, state, newState, 3);
-                worldIn.setBlock(pos.below(), (((BlockItem) item).getBlock()).defaultBlockState().setValue(BlockStateProperties.HANGING, Boolean.TRUE), 16);
-                if (!player.isCreative()) {
-                    heldItem.shrink(1);
-                }
-                return InteractionResult.SUCCESS;
-            }
-        }
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        Item item = stack.getItem();
 
-        return super.use(state, worldIn, pos, player, handIn, hit);
+        if (!level.isClientSide && item instanceof BlockItem && ((BlockItem) item).getBlock() instanceof LanternBlock) {
+            if (hit.getDirection() != Direction.DOWN || !level.getBlockState(pos.below()).isAir()) {
+                return ItemInteractionResult.FAIL;
+            }
+
+            BlockState newState = state.setValue(ATTACHED, Boolean.TRUE);
+            level.setBlockAndUpdate(pos, newState);
+            level.sendBlockUpdated(pos, state, newState, 3);
+            level.setBlock(pos.below(), (((BlockItem) item).getBlock()).defaultBlockState().setValue(BlockStateProperties.HANGING, Boolean.TRUE), Block.UPDATE_ALL | Block.UPDATE_KNOWN_SHAPE);
+            stack.consume(1, player);
+            return ItemInteractionResult.SUCCESS;
+        }
+        return super.useItemOn(stack, state, level, pos, player, hand, hit);
     }
 
+    @Override
+    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
+        if (!level.isClientSide && hit.getDirection() == Direction.UP && !state.getValue(OCCUPIED)
+                && !state.getValue(POST) && level.getBlockState(pos.above()).isAir() && isPlayerInRange(player, pos)) {
+            DummyEntityForSitting seat = Registration.DUMMY_ENTITY_TYPE.get().create(level);
+            seat.setSeatPos(pos);
+            level.addFreshEntity(seat);
+            player.startRiding(seat);
+            return InteractionResult.SUCCESS;
+        }
+        return super.useWithoutItem(state, level, pos, player, hit);
+    }
 
     private static boolean isPlayerInRange(Player player, BlockPos pos) {
         Vec3 position = pos.getCenter();
@@ -196,7 +198,7 @@ public class SeatBlock extends HorizontalDirectionalBlock implements SimpleWater
     }
 
     @Override
-    public boolean isPathfindable(BlockState p_196266_1_, BlockGetter p_196266_2_, BlockPos p_196266_3_, PathComputationType p_196266_4_) {
+    public boolean isPathfindable(BlockState state, PathComputationType pathComputationType) {
         return false;
     }
 

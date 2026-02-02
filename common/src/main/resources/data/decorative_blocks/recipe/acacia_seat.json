@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "decorative_seats",
+  "key": {
+    "x": {
+      "item": "minecraft:acacia_slab"
+    },
+    "y": {
+      "item": "minecraft:acacia_fence"
+    }
+  },
+  "pattern": [
+    "x  ",
+    "y  "
+  ],
+  "result": {
+    "count": 6,
+    "id": "decorative_blocks:acacia_seat"
+  },
+  "show_notification": true
+}

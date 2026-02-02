@@ -13,10 +13,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FlowingFluid;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.function.Supplier;
-
 public class ForgeThatchFluidBlock extends LiquidBlock implements ThatchBlock {
-    public ForgeThatchFluidBlock(Supplier<FlowingFluid> fluid, Properties properties) {
+    public ForgeThatchFluidBlock(FlowingFluid fluid, Properties properties) {
         super(fluid, properties);
     }
 

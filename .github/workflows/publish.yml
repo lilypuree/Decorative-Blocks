@@ -56,7 +56,7 @@ jobs:
           files: |
             ${{ matrix.loader }}/build/libs/!(*-@(dev|sources|javadoc)).jar
             ${{ matrix.loader }}/build/libs/*-@(dev|sources|javadocs).jar
-          java: Java 17
+          java: Java 21
           name: >
             [
             ${{ env.loader_name  }} ${{ env.mc_version }}
@@ -75,7 +75,7 @@ jobs:
           files: |
             ${{ matrix.loader }}/build/libs/!(*-@(dev|sources|javadoc)).jar
             ${{ matrix.loader }}/build/libs/*-@(dev|sources|javadocs).jar
-          java: Java 17
+          java: Java 21
           name: >
             [
             ${{ env.loader_name }} ${{ env.mc_version }}

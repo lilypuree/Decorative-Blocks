@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "torches_from_chandeliers",
+  "ingredients": [
+    {
+      "item": "decorative_blocks:soul_chandelier"
+    }
+  ],
+  "result": {
+    "count": 4,
+    "id": "minecraft:soul_torch"
+  }
+}

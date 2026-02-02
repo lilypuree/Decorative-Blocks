@@ -145,7 +145,7 @@ public class DBRecipes extends RecipeProvider {
                 "has_torch", torch);
         String chandelierId = BuiltInRegistries.ITEM.getKey(chandelier.asItem()).getPath();
         String torchId = BuiltInRegistries.ITEM.getKey(torch).getPath();
-        addRecipe(recipeOutput, new ResourceLocation(Constants.MOD_ID, torchId + "_from_" + chandelierId), shapelessRecipe(RecipeCategory.DECORATIONS, torch, 4)
+        addRecipe(recipeOutput, ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, torchId + "_from_" + chandelierId), shapelessRecipe(RecipeCategory.DECORATIONS, torch, 4)
                         .group("torches_from_chandeliers")
                         .requires(chandelier),
                 "has_torch", torch);

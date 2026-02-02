@@ -1,27 +1,26 @@
 package lilypuree.decorative_blocks.items;
 
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.BlockItemStateProperties;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.Property;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 
-public class SwitchableBlockItem<T extends Property<U>, U extends Comparable<U>> extends BlockItem {
-    private T switching;
-    private int max;
-    private String tagName;
+public class SwitchableBlockItem extends BlockItem {
+    private final BooleanProperty switching;
+    private final boolean defaultState;
 
-    public SwitchableBlockItem(Block blockIn, Properties builder, T switching, String tag) {
+    public SwitchableBlockItem(Block blockIn, Properties builder, BooleanProperty switching, boolean defaultState) {
         super(blockIn, builder);
         this.switching = switching;
-        this.max = switching.getPossibleValues().size() - 1;
-        this.tagName = tag;
+        this.defaultState = defaultState;
     }
 
     @Override
@@ -39,45 +38,34 @@ public class SwitchableBlockItem<T extends Property<U>, U extends Comparable<U>>
     public BlockState getSwitchedState(BlockState state, ItemStack stack) {
         if (state != null && state.hasProperty(switching)) {
             state = state.setValue(switching, state.getBlock().defaultBlockState().getValue(switching));
-            for (int i = 0; i < getValueTag(stack); i++) {
-                state = state.cycle(switching);
-            }
+            state.setValue(switching, getValue(stack));
         }
         return state;
     }
 
-    private int getValueTag(ItemStack stack) {
-        if (stack.hasTag()) {
-            return stack.getTag().getInt(tagName);
+    private boolean getValue(ItemStack stack) {
+        BlockItemStateProperties properties = stack.get(DataComponents.BLOCK_STATE);
+        if (properties == null) {
+            return defaultState;
         }
-        return 0;
+
+        Boolean val = properties.get(switching);
+        return val != null ? val : defaultState;
     }
 
-    public ItemStack cycleValueTag(ItemStack stack) {
-        CompoundTag tag = stack.getOrCreateTag();
-        int currentValue = tag.contains(tagName, 3) ? tag.getInt(tagName) : 0;
-        if (currentValue == max) {
-            tag.remove(tagName);
-            if (tag.isEmpty()) {
-                stack.setTag(null);
-            } else {
-                stack.setTag(tag);
-            }
-            return stack;
+    public void cycleValueTag(ItemStack stack) {
+        BlockItemStateProperties component = stack.get(DataComponents.BLOCK_STATE);
+        if (component == null) {
+            component = BlockItemStateProperties.EMPTY;
         }
-        tag.putInt(tagName, currentValue + 1);
-        stack.setTag(tag);
-        return stack;
+
+        Boolean val = component.get(switching);
+        stack.set(DataComponents.BLOCK_STATE, component.with(switching, val != null ? !val : !defaultState));
     }
 
-    public static void switchHeldItem(Player player) {
-        ItemStack stack = player.getMainHandItem();
-        if (stack.getItem() instanceof SwitchableBlockItem<?, ?> switchableBlockItem) {
-            player.setItemSlot(EquipmentSlot.MAINHAND, switchableBlockItem.cycleValueTag(stack));
-        }
-    }
-
-    public String getTagName() {
-        return tagName;
+    public static boolean getValueForStack(ItemStack stack)
+    {
+        Item item = stack.getItem();
+        return item instanceof SwitchableBlockItem && ((SwitchableBlockItem) item).getValue(stack);
     }
 }

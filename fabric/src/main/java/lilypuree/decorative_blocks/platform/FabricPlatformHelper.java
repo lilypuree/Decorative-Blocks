@@ -15,9 +15,6 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.client.renderer.item.ItemPropertyFunction;
 import net.minecraft.core.Registry;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
-import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
@@ -40,7 +37,7 @@ public class FabricPlatformHelper implements IPlatformHelper {
 
     @Override
     public <I, T extends I> Supplier<T> register(Registry<I> registry, String name, Supplier<T> sup) {
-        T object = Registry.register(registry, new ResourceLocation(Constants.MOD_ID, name), sup.get());
+        T object = Registry.register(registry, ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, name), sup.get());
         return () -> object;
     }
 
@@ -51,12 +48,7 @@ public class FabricPlatformHelper implements IPlatformHelper {
 
     @Override
     public DummyEntityForSitting createDummyEntity(EntityType<DummyEntityForSitting> type, Level level) {
-        return new DummyEntityForSitting(type, level) {
-            @Override
-            public Packet<ClientGamePacketListener> getAddEntityPacket() {
-                return new ClientboundAddEntityPacket(this);
-            }
-        };
+        return new DummyEntityForSitting(type, level);
     }
 
     @Override

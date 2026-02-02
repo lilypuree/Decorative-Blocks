@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "decorative_beams",
+  "key": {
+    "x": {
+      "item": "minecraft:stripped_dark_oak_log"
+    }
+  },
+  "pattern": [
+    " x ",
+    " x "
+  ],
+  "result": {
+    "count": 2,
+    "id": "decorative_blocks:dark_oak_beam"
+  },
+  "show_notification": true
+}

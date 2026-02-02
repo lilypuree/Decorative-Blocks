@@ -1,6 +1,5 @@
 package lilypuree.decorative_blocks;
 
-import lilypuree.decorative_blocks.CommonAPI;
 import lilypuree.decorative_blocks.blocks.BonfireBlock;
 import lilypuree.decorative_blocks.blocks.SupportBlock;
 import lilypuree.decorative_blocks.fluid.ThatchBlock;
@@ -66,9 +65,7 @@ public class Callbacks {
             level.setBlockAndUpdate(pos, CommonAPI.shearMap.get(block).getLiquidBlock().defaultBlockState());
             level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
             player.playSound(SoundEvents.CROP_BREAK, 1.2F, 1.0F);
-            itemStack.hurtAndBreak(1, player, (entity) -> {
-                entity.broadcastBreakEvent(EquipmentSlot.MAINHAND);
-            });
+            itemStack.hurtAndBreak(1, player, EquipmentSlot.MAINHAND);
             return InteractionResult.sidedSuccess(level.isClientSide);
         }
         return InteractionResult.PASS;

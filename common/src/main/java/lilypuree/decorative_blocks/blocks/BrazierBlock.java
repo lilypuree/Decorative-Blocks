@@ -9,7 +9,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -18,7 +18,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ShovelItem;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -50,9 +49,9 @@ public class BrazierBlock extends Block implements SimpleWaterloggedBlock {
 
     @Override
     public void entityInside(BlockState state, Level worldIn, BlockPos pos, Entity entityIn) {
-        if (!entityIn.fireImmune() && state.getValue(LIT) && entityIn instanceof LivingEntity && !EnchantmentHelper.hasFrostWalker((LivingEntity) entityIn)) {
+        if (!entityIn.fireImmune() && state.getValue(LIT) && entityIn instanceof LivingEntity) {
             if (entityIn.getY() >= state.getCollisionShape(worldIn, pos).max(Direction.Axis.Y) + pos.getY() - 0.1f) {
-                entityIn.hurt(entityIn.damageSources().inFire(), 1.0F);
+                entityIn.hurt(entityIn.damageSources().campfire(), 1.0F);
             }
         }
         super.entityInside(state, worldIn, pos, entityIn);
@@ -76,27 +75,26 @@ public class BrazierBlock extends Block implements SimpleWaterloggedBlock {
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
-        ItemStack heldItem = player.getItemInHand(handIn);
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         if (state.getValue(LIT)) {
-            if (heldItem.getItem() instanceof ShovelItem) {
-                worldIn.playSound(null, pos, SoundEvents.GENERIC_EXTINGUISH_FIRE, SoundSource.BLOCKS, 0.8F, 1.0F);
+            if (stack.getItem() instanceof ShovelItem) {
+                level.playSound(null, pos, SoundEvents.GENERIC_EXTINGUISH_FIRE, SoundSource.BLOCKS, 0.8F, 1.0F);
 
-                worldIn.setBlockAndUpdate(pos, state.setValue(LIT, Boolean.FALSE));
-                return InteractionResult.SUCCESS;
+                level.setBlockAndUpdate(pos, state.setValue(LIT, Boolean.FALSE));
+                return ItemInteractionResult.SUCCESS;
             }
         } else if (!state.getValue(WATERLOGGED)) {
-            if (hit.getDirection() == Direction.UP && heldItem.getItem() == Items.FLINT_AND_STEEL || heldItem.getItem() == Items.FIRE_CHARGE) {
+            if (hit.getDirection() == Direction.UP && stack.getItem() == Items.FLINT_AND_STEEL || stack.getItem() == Items.FIRE_CHARGE) {
 
-                SoundEvent sound = (heldItem.getItem() == Items.FIRE_CHARGE) ? SoundEvents.FIRECHARGE_USE : SoundEvents.FLINTANDSTEEL_USE;
-                worldIn.playSound(null, pos, sound, SoundSource.BLOCKS, 1.0F, worldIn.random.nextFloat() * 0.4F + 0.8F);
+                SoundEvent sound = (stack.getItem() == Items.FIRE_CHARGE) ? SoundEvents.FIRECHARGE_USE : SoundEvents.FLINTANDSTEEL_USE;
+                level.playSound(null, pos, sound, SoundSource.BLOCKS, 1.0F, level.random.nextFloat() * 0.4F + 0.8F);
 
-                worldIn.setBlockAndUpdate(pos, state.setValue(LIT, true));
-                return InteractionResult.CONSUME;
+                level.setBlockAndUpdate(pos, state.setValue(LIT, true));
+                return ItemInteractionResult.SUCCESS;
 
             }
         }
-        return super.use(state, worldIn, pos, player, handIn, hit);
+        return super.useItemOn(stack, state, level, pos, player, hand, hit);
     }
 
     @Override
@@ -166,7 +164,7 @@ public class BrazierBlock extends Block implements SimpleWaterloggedBlock {
     }
 
     @Override
-    public boolean isPathfindable(BlockState state, BlockGetter worldIn, BlockPos pos, PathComputationType type) {
+    public boolean isPathfindable(BlockState state, PathComputationType pathComputationType) {
         return false;
     }
 

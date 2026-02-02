@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "decorative_seats",
+  "key": {
+    "x": {
+      "item": "minecraft:bamboo_slab"
+    },
+    "y": {
+      "item": "minecraft:bamboo_fence"
+    }
+  },
+  "pattern": [
+    "x  ",
+    "y  "
+  ],
+  "result": {
+    "count": 6,
+    "id": "decorative_blocks:bamboo_seat"
+  },
+  "show_notification": true
+}

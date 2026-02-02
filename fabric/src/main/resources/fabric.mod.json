@@ -8,7 +8,8 @@
     "${mod_author}"
   ],
   "contact": {
-    "sources": "https://github.com/lilypuree/Decorative-Blocks"
+    "sources": "https://github.com/lilypuree/Decorative-Blocks",
+    "issues": "https://github.com/lilypuree/Decorative-Blocks/issues"
   },
   "license": "${mod_license}",
   "icon" : "logo.png",
@@ -28,8 +29,8 @@
   "depends": {
     "fabricloader": ">=${fabric_loader_version}",
     "fabric-api": "*",
-    "minecraft": "${minecraft_version}",
-    "java": ">=17"
+    "minecraft": "${minecraft_fabric_version_range}",
+    "java": ">=21"
   },
   "suggests": {
     "soulfired": "^3.2.1.0"

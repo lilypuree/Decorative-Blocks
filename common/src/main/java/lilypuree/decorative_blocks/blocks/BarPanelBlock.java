@@ -2,7 +2,6 @@ package lilypuree.decorative_blocks.blocks;
 
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
@@ -58,15 +57,13 @@ public class BarPanelBlock extends TrapDoorBlock {
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
         state = state.cycle(OPEN);
-        worldIn.setBlock(pos, state, 2);
+        level.setBlock(pos, state, 2);
         if (state.getValue(WATERLOGGED)) {
-            worldIn.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(worldIn));
+            level.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
         }
-        this.playSound(player, worldIn, pos, state.getValue(OPEN));
-        return InteractionResult.sidedSuccess(worldIn.isClientSide);
+        this.playSound(player, level, pos, state.getValue(OPEN));
+        return InteractionResult.sidedSuccess(level.isClientSide);
     }
-
-
 }

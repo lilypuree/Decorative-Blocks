@@ -11,7 +11,7 @@ public class DBNames {
     public static ResourceLocation STILL_THATCH = create("thatch");
 
     protected static ResourceLocation create(String name) {
-        return new ResourceLocation(Constants.MOD_ID, name);
+        return ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, name);
     }
 
     public static String name(WoodType wood, WoodDecorativeBlockTypes type) {

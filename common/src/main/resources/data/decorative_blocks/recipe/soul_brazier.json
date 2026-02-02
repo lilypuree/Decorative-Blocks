@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "decorative_braziers",
+  "key": {
+    "0": {
+      "item": "minecraft:iron_bars"
+    },
+    "1": {
+      "tag": "minecraft:coals"
+    },
+    "2": {
+      "tag": "minecraft:soul_fire_base_blocks"
+    }
+  },
+  "pattern": [
+    " 1 ",
+    "020",
+    " 0 "
+  ],
+  "result": {
+    "id": "decorative_blocks:soul_brazier"
+  },
+  "show_notification": true
+}

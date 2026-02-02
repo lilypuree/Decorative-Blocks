@@ -40,7 +40,7 @@ public class PalisadeBlock extends CrossCollisionBlock implements IWoodenBlock {
     }
 
     @Override
-    public boolean isPathfindable(BlockState state, BlockGetter worldIn, BlockPos pos, PathComputationType type) {
+    public boolean isPathfindable(BlockState state, PathComputationType pathComputationType) {
         return false;
     }
 

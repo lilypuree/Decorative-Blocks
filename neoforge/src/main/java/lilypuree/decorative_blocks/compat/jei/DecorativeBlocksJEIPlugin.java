@@ -15,7 +15,7 @@ public class DecorativeBlocksJEIPlugin implements IModPlugin {
 
     @Override
     public ResourceLocation getPluginUid() {
-        return new ResourceLocation(Constants.MOD_ID, "main");
+        return ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "main");
     }
 
     @Override

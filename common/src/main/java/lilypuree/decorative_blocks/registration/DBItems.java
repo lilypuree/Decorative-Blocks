@@ -2,7 +2,6 @@ package lilypuree.decorative_blocks.registration;
 
 import com.google.common.collect.ImmutableMap;
 import lilypuree.decorative_blocks.blocks.types.VanillaWoodTypes;
-import lilypuree.decorative_blocks.items.BlockstateCopyItem;
 import lilypuree.decorative_blocks.items.SeatItem;
 import lilypuree.decorative_blocks.items.SupportItem;
 import lilypuree.decorative_blocks.platform.Services;
@@ -25,7 +24,6 @@ public class DBItems {
     public static final ItemWrapper<BlockItem> CHAIN;
     public static final ItemWrapper<BlockItem> STONE_PILLAR;
     public static final ItemWrapper<BlockItem> ROCKY_DIRT;
-    public static final ItemWrapper<Item> BLOCKSTATE_COPY_ITEM;
 
     public static final ImmutableMap<WoodType, ItemWrapper<BlockItem>> BEAM_ITEMBLOCKS;
     public static final ImmutableMap<WoodType, ItemWrapper<SeatItem>> SEAT_ITEMBLOCKS;
@@ -43,7 +41,6 @@ public class DBItems {
         CHAIN = registerBlockItem("chain", DBBlocks.CHAIN);
         STONE_PILLAR = registerBlockItem("stone_pillar", DBBlocks.STONE_PILLAR);
         ROCKY_DIRT = registerBlockItem("rocky_dirt", DBBlocks.ROCKY_DIRT);
-        BLOCKSTATE_COPY_ITEM = registerItem("blockstate_copy_item", () -> new BlockstateCopyItem(new Item.Properties().stacksTo(1)));
 
         ImmutableMap.Builder<WoodType, ItemWrapper<BlockItem>> beams = new ImmutableMap.Builder<>();
         ImmutableMap.Builder<WoodType, ItemWrapper<BlockItem>> palisades = new ImmutableMap.Builder<>();

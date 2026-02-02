@@ -33,7 +33,7 @@ public class BlockStateGenerationHelper {
 
     public void supportBlock(IWoodenBlock block) {
         WoodType woodType = block.getWoodType();
-        String texture = woodType + "_support";
+        String texture = woodType.name() + "_support";
 
         MultiPartBlockStateBuilder builder = getMultipartBuilder((Block) block);
         BlockStateProperties.UP.getAllValues().forEach(up -> {
@@ -96,7 +96,7 @@ public class BlockStateGenerationHelper {
 
     public void seatBlock(IWoodenBlock block) {
         WoodType woodType = block.getWoodType();
-        String texture = woodType + "_seat";
+        String texture = woodType.name() + "_seat";
         MultiPartBlockStateBuilder builder = getMultipartBuilder((Block) block);
         addFourDirections(builder, simpleModel(woodType, SEAT, "", texture));
         builder.part().modelFile(simpleModel(woodType, SEAT, "_post", texture)).addModel().condition(BlockStateProperties.ATTACHED, true);
@@ -126,12 +126,12 @@ public class BlockStateGenerationHelper {
 
     public ModelFile beamModel(WoodType wood, Direction.Axis axis) {
         ModelBuilder<?> builder = createModel(wood, BEAM, "_" + axis.getName());
-        return withSideEndTextures(builder, wood + "_beam");
+        return withSideEndTextures(builder, wood.name() + "_beam");
     }
 
     public void palisadeBlock(IWoodenBlock block) {
         WoodType woodType = block.getWoodType();
-        String texture = woodType + "_palisade";
+        String texture = woodType.name() + "_palisade";
 
         ModelFile postModel = sideEndModel(woodType, PALISADE, "_post", texture);
         ModelFile sideModel = sideEndModel(woodType, PALISADE, "_side", texture);
@@ -168,12 +168,12 @@ public class BlockStateGenerationHelper {
     private ModelBuilder<?> createModel(WoodType wood, WoodDecorativeBlockTypes type, String prefix, String suffix) {
         String name = prefix + type + suffix;
         return models().getBuilder(wood.name() + "_" + name)
-                .parent(modelFile(new ResourceLocation(Constants.MOD_ID, "custom/" + name)));
+                .parent(modelFile(ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "custom/" + name)));
     }
 
     public ModelBuilder<?> createChildModel(String path, String parent) {
         return models().getBuilder(path)
-                .parent(modelFile(new ResourceLocation(Constants.MOD_ID, "custom/" + parent)));
+                .parent(modelFile(ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "custom/" + parent)));
     }
 
     public ModelBuilder<?> withParticleTexture(ModelBuilder<?> model, String name) {
@@ -208,6 +208,6 @@ public class BlockStateGenerationHelper {
     }
 
     public ResourceLocation modLoc(String name) {
-        return new ResourceLocation(modid, name);
+        return ResourceLocation.fromNamespaceAndPath(modid, name);
     }
 }
